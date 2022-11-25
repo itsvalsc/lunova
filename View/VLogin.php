@@ -20,7 +20,7 @@ class VLogin{
      * @param $template
      */
     public function setTemplate($template){
-        $this->smarty->assign($template);
+        $this->smarty->display($template);
     }
 
     public function Login($l){

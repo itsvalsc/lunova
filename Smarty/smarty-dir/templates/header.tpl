@@ -19,7 +19,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="http://localhost/lunova/templates/?page=homepage">Lunova</a>
+        <a class="navbar-brand" href="http://localhost/lunova/RicercaDisco/index">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,25 +33,30 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                     <a class="nav-link" href="http://localhost/lunova/Login/login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/templates/?page=about">About</a>
+                    <a class="nav-link" href="http://localhost/lunova/AboutUs/us">About</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost/lunova/Sondaggi/show">Sondaggi</a>
+                </li>
+                <!--
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="http://localhost/lunova/Sondaggi/show" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="http://localhost/lunova/templates/?page=sondaggi">Sondaggi</a>
+                        <a class="dropdown-item" href="http://localhost/lunova/Sondaggi/show">Sondaggi</a>
                         <a class="dropdown-item" href="#">Another action</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Separated link</a>
                     </div>
                 </li>
+                -->
             </ul>
 
 
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/templates/?page=cart">
+                    <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">1</span>
                     </a>

@@ -1,0 +1,8 @@
+.cart-buttons span {
+  width: 50px; 
+  text-align: center;
+  border: 2px solid;
+}
+.cart-total{
+  font-size: 20px;
+}

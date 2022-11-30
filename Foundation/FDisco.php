@@ -20,16 +20,16 @@ class FDisco {
 
     public static function store(EDisco $disco): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO dischi VALUES(:Iddisco,:titolo,:descrizione,:prezzo,:categoria,:artista,:quantita)";
+        $query = "INSERT INTO dischi VALUES(:ID,:name,:description,:price,:category_id,:artist_id,:Qta)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
-            ':Iddisco' => $disco->getID(),
-            ':titolo' => $disco->getTitolo(),
-            ':descrizione'  =>$disco->getDescrizione(),
-            ':prezzo' =>$disco->getPrezzo(),
-            ':categoria' =>$disco->getGenere(),
-            ':artista' =>$disco->getAutore(),
-            ':quantita' =>$disco->getQta()
+            ':ID' => $disco->getID(),
+            ':name' => $disco->getTitolo(),
+            ':description' =>$disco->getDescrizione(),
+            ':price' =>$disco->getPrezzo(),
+            ':category_id' =>$disco->getGenere(),
+            ':artist_id' =>$disco->getAutore(),
+            ':Qta' =>$disco->getQta()
         ));
     }
 

@@ -75,7 +75,8 @@ print_r($o);}
 var_dump($elenco);
 */
 
-$a = new EDisco('Cinquanta','2022',12,'1) Easy 2) BEER 3) girl','1',null,1500);
+$a = new EDisco('Cinq','2022',12,'1) Easy 2) BEER 3) girl','1',null,1500);
+FDisco::store($a);
 
 
 

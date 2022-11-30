@@ -12,11 +12,11 @@ class EDisco{
 	private string $descrizione;
 	private string $genere;
     private int $quantita;
-	private $copertina;    //reinserire Eimmagine come tipo
+	private ?EImmagine $copertina;    //reinserire Eimmagine come tipo
 
 	private $_commento = array();
 
-	public function __construct(string $titol, string $aut, float $price, string $descriz, string $gen, $img, int $q){
+	public function __construct(string $titol, string $aut, float $price, string $descriz, string $gen, EImmagine $img, int $q){
 
         $this->ID_disco = "D"  . random_int(0,1000);
 		$this->titolo = $titol ;

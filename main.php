@@ -24,6 +24,8 @@ require_once "./Foundation/FPersistentManager.php";
 require_once "./Foundation/FArtista.php";
 require_once "./Entity/EArtista.php";
 require_once "./inc/init.php";
+require_once "./Foundation/FImmagine.php";
+require_once "./Entity/EImmagine.php";
 
 
 /*
@@ -71,6 +73,8 @@ $elenco = $pers->prelevaDischi();
 foreach ($elenco as $p ){$o = $p->getTitolo();
 print_r($o);}
 var_dump($elenco);
+
+
 
 
 

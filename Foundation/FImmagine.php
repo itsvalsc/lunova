@@ -19,7 +19,7 @@ class FImmagine
      * @param $statement
      * @param EImmagine $immagine
      * @param $foreignkey
-     */
+
     public static function bind($statement, EImmagine $immagine, $foreignkey){
         $statement->bindValue(':Id',$immagine->getId(), PDO::PARAM_STR);
         $statement->bindValue(':Nome',$immagine->getNome(), PDO::PARAM_STR);
@@ -36,42 +36,58 @@ class FImmagine
             //$statement->bindValue(':RIdCategoria',null,PDO::PARAM_STR);
         //}
 
-    }
+    }*/
 
     /**
      * @param $immagine
      * @param $foreignkey
-     */
-    public static function storeImmagine($immagine,$foreignkey){
-        $pers = FPersistentManager::getInstance();
-        $query = "INSERT INTO " . FImmagine::getTable() . " VALUES " . FImmagine::getValues();
-        $pers->connection->db->quote($query);
-        $queryready = $pers->connection->db->prepare($query);
-        FImmagine::bind($queryready, $immagine, $foreignkey);
-        $queryready->execute();
-    }
+
+    public static function store(EImmagine $imm): void {
+        $pdo = FConnectionDB::connect();
+        $query = "INSERT INTO immagine VALUES(:id,:nome,:formato,:immagine,:idAppartenenza)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ':id' => $imm->getId(),
+            ':nome' => $imm->getNome(),
+            ':formato'  =>$imm->getFormato(),
+            ':immagine' => base64_encode($imm->getImmagine()),
+            ':idAppartenenza' =>$imm->getIdAppartenenza(),
+
+        ));
+    }*/
 
     /**
      * @param $etichetta
      * @param $nome
      * @return mixed
      */
-    public static function existImmagine ($etichetta,$nome){
-        $connection = FPersistentManager::getInstance();
-        $ris = $connection->exist(static::getClass(),$etichetta,$nome);
-        return $ris;
+
+    public static function exist($id) : bool {
+
+        $pdo = FConnectionDB::connect();
+
+        $query = "SELECT * FROM immagine WHERE IdAppartenenza = :id";
+        $stmt= $pdo->prepare($query);
+        $stmt->execute([":id" => $id]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($rows)==0){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     /**
      * @param $etichetta
      * @param $nome
      * @return bool
-     */
+
     public static function deleteImmagine ($etichetta,$nome){
         $connection = FPersistentManager::getInstance();
         $ris = $connection->delete(static::getClass(),$etichetta,$nome);
         return $ris;
-    }
+    }*/
 
     /**
      * @param $etichetta
@@ -79,16 +95,25 @@ class FImmagine
      * @return EImmagine
      * @throws Exception
      */
-    public static function prelevaImmagine($etichetta,$id){
-        $pers = FPersistentManager::getInstance();
-        $query = "SELECT * FROM " . FImmagine::getTable() . " WHERE " . $etichetta . "='" . $id . "';";
-        $pers->connection->db->quote($query);
-        $queryready = $pers->connection->db->prepare($query);
-        $queryready->execute();
-        $result = $queryready->fetch(PDO::FETCH_ASSOC);
-        $immagine = new EImmagine($result["Nome"],$result["Byte"],$result["Formato"]);
+    public static function load(string $idappartenenza):EImmagine {
+        $pdo=FConnectionDB::connect();
+        $query = "SELECT * FROM immagine WHERE IdAppartenenza= :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute( [":id" => $idappartenenza] );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $Id = $rows[0]['Id'];
+        $nome = $rows[0]['Nome'];
+        $formato = $rows[0]['Formato'];
+        $immagine = $rows[0]['Immagine'];
+
+
+
+        $immagine = new EImmagine($nome,$formato,$immagine,$idappartenenza);
+        $immagine->setId($Id);
         return $immagine;
-    }
+
+        }
 
     /**
      * @return string

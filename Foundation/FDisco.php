@@ -34,6 +34,7 @@ class FDisco {
     }
 
     public static function load(string $id) {
+        $immagine = FImmagine::load($id);
         $pdo=FConnectionDB::connect();
 
         try {
@@ -53,7 +54,7 @@ class FDisco {
                 $qta = $rows[0]['Qta'];
 
 
-                $disco = new EDisco($titolo,$art,$prez,$desc,$gen,null,$qta);
+                $disco = new EDisco($titolo,$art,$prez,$desc,$gen,$immagine,$qta);
                 $disco->setID($IdDisco);
                 return $disco;
             }
@@ -75,15 +76,18 @@ class FDisco {
             $dischi = array();
             $i= 0 ;
             foreach ($rows as $row) {
+                $id = $row['ID'];
+                $immagine = FImmagine::load($id);
                 $disc=new EDisco($row['name'],
                     $row['artist_id'],
                     $row['price'],
                     $row['description'],
                     $row['category_id'],
-                    null,
+                    $immagine,
                     $row['Qta']
                     );
-                $disc->setID($row['ID']);
+                $disc->setID($id);
+
                 $dischi[$i]=$disc;
                 ++$i;
             }

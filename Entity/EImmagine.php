@@ -8,73 +8,27 @@ class EImmagine {
 
     private string $Id;
 
-    private string $Nome;
+    private string $nome;
 
-    private string $Formato;
+    private string $formato;
 
-    private string $Byte;
+    private string $Immagine;
+
+    private string $IdAppartenenza;
 
     /**
-     * EImmagine constructor.
      * @param string $nome
-     * @param string $byte
      * @param string $formato
-     * @throws Exception
+     * @param string $Immagine
+     * @param string $IdAppartenenza
      */
-
-    public function __construct(string $nome, string $byte, string $formato){
-        $this->setId("I".random_int(0,1000));
-        $this->setNome($nome);
-        $this->setFormato($formato);
-        $this->setByte($byte);
-    }
-
-    /**
-     * @return string
-     */
-    public function getNome(): string
+    public function __construct(string $nome, string $formato, string $Immagine, string $IdAppartenenza)
     {
-        return $this->Nome;
-    }
-
-    /**
-     * @param string $Nome
-     */
-    public function setNome(string $Nome): void
-    {
-        $this->Nome = $Nome;
-    }
-
-    /**
-     * @return string
-     */
-    public function getByte(): string
-    {
-        return $this->Byte;
-    }
-
-    /**
-     * @param string $Byte
-     */
-    public function setByte(string $Byte): void
-    {
-        $this->Byte = $Byte;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFormato(): string
-    {
-        return $this->Formato;
-    }
-
-    /**
-     * @param string $Formato
-     */
-    public function setFormato(string $Formato): void
-    {
-        $this->Formato = $Formato;
+        $this->Id = ("I".random_int(0,1000));
+        $this->nome = $nome;
+        $this->formato = $formato;
+        $this->Immagine = $Immagine;
+        $this->IdAppartenenza = $IdAppartenenza;
     }
 
     /**
@@ -86,6 +40,38 @@ class EImmagine {
     }
 
     /**
+     * @return string
+     */
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormato(): string
+    {
+        return $this->formato;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImmagine(): string
+    {
+        return $this->Immagine;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdAppartenenza(): string
+    {
+        return $this->IdAppartenenza;
+    }
+
+    /**
      * @param string $Id
      */
     public function setId(string $Id): void
@@ -93,9 +79,37 @@ class EImmagine {
         $this->Id = $Id;
     }
 
+    /**
+     * @param string $nome
+     */
+    public function setNome(string $nome): void
+    {
+        $this->nome = $nome;
+    }
 
+    /**
+     * @param string $formato
+     */
+    public function setFormato(string $formato): void
+    {
+        $this->formato = $formato;
+    }
 
+    /**
+     * @param string $Immagine
+     */
+    public function setImmagine(string $Immagine): void
+    {
+        $this->Immagine = $Immagine;
+    }
 
+    /**
+     * @param string $IdAppartenenza
+     */
+    public function setIdAppartenenza(string $IdAppartenenza): void
+    {
+        $this->IdAppartenenza = $IdAppartenenza;
+    }
 
 
 }

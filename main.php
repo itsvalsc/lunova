@@ -66,13 +66,16 @@ FArtista::store($art3);
 //$b = $a->prelevaOrdini('ut1');
 //print_r($b);
 
-
+/*
 $pers = FPersistentManager::getInstance();
 
 $elenco = $pers->prelevaDischi();
 foreach ($elenco as $p ){$o = $p->getTitolo();
 print_r($o);}
 var_dump($elenco);
+*/
+
+$a = new EDisco('Cinquanta','2022',12,'1) Easy 2) BEER 3) girl','1',null,1500);
 
 
 

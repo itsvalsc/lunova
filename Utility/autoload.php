@@ -2,7 +2,7 @@
 /**
  * @param $class_name
  */
-function myautoload($class_name) {
+function my_autoloader($class_name) {
     switch ($class_name[0]) {
         case 'F':
             require ('Foundation/'.$class_name.'.php');
@@ -16,8 +16,12 @@ function myautoload($class_name) {
         case 'C':
             require ('Control/'.$class_name.'.php');
             break;
+        default :
+            if (file_exists( './Utility/'. $class_name . '.php'))include_once ('/Utility/'. $class_name . '.php');
+            elseif (file_exists( './'. $class_name . '.php'))include_once ('/'. $class_name . '.php');
+            break;
     }
 
 }
 
-spl_autoload_register("myautoload");
+spl_autoload_register("my_autoloader");

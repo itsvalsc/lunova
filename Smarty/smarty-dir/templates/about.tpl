@@ -72,3 +72,4 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
 <h2>About us</h2>
 <p>Siamo una compagnia...</p>
+{$prova}

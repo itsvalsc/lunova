@@ -20,7 +20,8 @@ class VAbout{
         $this->smarty->display($template);
     }
 
-    public function about_us(){
+    public function about_us($prova){
+        $this->setData('prova', $prova);
         $this->setTemplate('about.tpl');
     }
 }

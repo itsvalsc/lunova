@@ -1,7 +1,32 @@
-<!-- header -->
 <?php
+/* Smarty version 4.2.1, created on 2022-12-02 15:22:37
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\sondaggi.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.2.1',
+  'unifunc' => 'content_638a0a2d121269_69453830',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '722ff06a1f9b635cda7de3be14e6ea85b4924929' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\sondaggi.tpl',
+      1 => 1669990881,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_638a0a2d121269_69453830 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- header -->
+<?php echo '<?php'; ?>
+
 require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
+<?php echo '?>'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,3 +140,5 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>
 
 </div>
+<?php }
+}

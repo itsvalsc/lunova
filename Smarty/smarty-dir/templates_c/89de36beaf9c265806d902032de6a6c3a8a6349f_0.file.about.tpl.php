@@ -1,7 +1,32 @@
-<!-- header -->
 <?php
+/* Smarty version 4.2.1, created on 2022-12-02 15:22:28
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\about.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.2.1',
+  'unifunc' => 'content_638a0a24f0a9c0_41157394',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '89de36beaf9c265806d902032de6a6c3a8a6349f' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\about.tpl',
+      1 => 1669990881,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_638a0a24f0a9c0_41157394 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- header -->
+<?php echo '<?php'; ?>
+
 require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
+<?php echo '?>'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,4 +96,5 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <!-- end header -->
 
 <h2>About us</h2>
-<p>Siamo una compagnia...</p>
+<p>Siamo una compagnia...</p><?php }
+}

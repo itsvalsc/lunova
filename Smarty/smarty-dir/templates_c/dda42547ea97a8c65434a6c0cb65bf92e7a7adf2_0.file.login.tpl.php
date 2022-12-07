@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-02 16:01:54
+/* Smarty version 4.2.1, created on 2022-12-02 17:43:00
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_638a1362d62927_64430594',
+  'unifunc' => 'content_638a2b14c3d1d9_36077357',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dda42547ea97a8c65434a6c0cb65bf92e7a7adf2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\login.tpl',
-      1 => 1669990880,
+      1 => 1669998259,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_638a1362d62927_64430594 (Smarty_Internal_Template $_smarty_tpl) {
+function content_638a2b14c3d1d9_36077357 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -96,7 +96,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <!-- end header -->
 
 <?php if ($_smarty_tpl->tpl_vars['log']->value) {?>
-    <form action="http://localhost/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/AboutUs/us/" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
             <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email">

@@ -73,11 +73,14 @@ $elenco = $pers->prelevaDischi();
 foreach ($elenco as $p ){$o = $p->getTitolo();
 print_r($o);}
 var_dump($elenco);
-*/
+
 
 $a = new EDisco('Cinq','2022',12,'1) Easy 2) BEER 3) girl','1',null,1500);
 FDisco::store($a);
+*/
 
+$s = FImmagine::load('65499');
+print_r($s);
 
 
 

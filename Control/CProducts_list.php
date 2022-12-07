@@ -17,9 +17,10 @@ class CProducts_list{
         $immagine = @file_get_contents($_FILES['file1']['tmp_name']);
         $image = new EImmagine($nome,$type,$immagine,$id);
         $pers = FPersistentManager::getInstance();
+        $a = $pers->store($image);
         $prova = 'immagine caricata';
+
         $view->about_us($prova);
     }
-
 
 }

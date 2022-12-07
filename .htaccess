@@ -2,7 +2,7 @@
 
 RewriteEngine On
 RewriteBase /
-RewriteCond %{HTTPS} off
+RewriteCond %{HTTPS} On
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 

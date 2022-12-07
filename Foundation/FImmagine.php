@@ -41,8 +41,8 @@ class FImmagine
     /**
      * @param $immagine
      * @param $foreignkey
-
-    public static function store(EImmagine $imm): void {
+     */
+    public static function store(EImmagine $imm): bool {
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO immagine VALUES(:id,:nome,:formato,:immagine,:idAppartenenza)";
         $stmt = $pdo->prepare($query);
@@ -54,7 +54,8 @@ class FImmagine
             ':idAppartenenza' =>$imm->getIdAppartenenza(),
 
         ));
-    }*/
+        return $stmt;
+    }
 
     /**
      * @param $etichetta
@@ -109,9 +110,9 @@ class FImmagine
 
 
 
-        $immagine = new EImmagine($nome,$formato,$immagine,$idappartenenza);
-        $immagine->setId($Id);
-        return $immagine;
+        $image = new EImmagine($nome,$formato,$immagine,$idappartenenza);
+        $image->setId($Id);
+        return $image;
 
         }
 

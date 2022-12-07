@@ -87,4 +87,6 @@ class FPersistentManager{
         $dischi = array($load_disco1,$load_disco2,$load_disco3);
         return $dischi;
     }
+
+
 }

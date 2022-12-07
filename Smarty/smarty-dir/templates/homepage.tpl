@@ -75,6 +75,20 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
 <a href="#" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
 
+<form action="http://localhost/lunova/Products_list/salva_foto" method="post" enctype="multipart/form-data">
+    <div class="form-group" >
+    FILE
+    <input type="file" class="form-control" name="file1" placeholder="file">
+    </div>
+    <div class="form-group" >
+        id appartenenza
+        <input type="text" class="form-control" name="idAppartenenza" placeholder="id appartenenza">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

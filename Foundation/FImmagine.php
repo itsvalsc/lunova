@@ -109,9 +109,10 @@ class FImmagine
 
 
 
-        $immagine = new EImmagine($nome,$formato,$immagine,$idappartenenza);
-        $immagine->setId($Id);
-        return $immagine;
+
+        $image = new EImmagine($nome,$formato,$immagine,$idappartenenza);
+        $image->setId($Id);
+        return $image;
 
         }
 

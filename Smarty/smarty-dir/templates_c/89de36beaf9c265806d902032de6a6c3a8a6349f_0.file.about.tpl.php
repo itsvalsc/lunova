@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-02 16:02:03
+/* Smarty version 4.2.1, created on 2022-12-02 16:25:10
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\about.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_638a136bb642f1_44005007',
+  'unifunc' => 'content_638a18d6ccfcc1_50026257',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89de36beaf9c265806d902032de6a6c3a8a6349f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\about.tpl',
-      1 => 1669993307,
+      1 => 1669994707,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_638a136bb642f1_44005007 (Smarty_Internal_Template $_smarty_tpl) {
+function content_638a18d6ccfcc1_50026257 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -97,6 +97,6 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
 <h2>About us</h2>
 <p>Siamo una compagnia...</p>
-<?php echo $_smarty_tpl->tpl_vars['prova']->value;
-}
+<p><?php echo $_smarty_tpl->tpl_vars['prova']->value;?>
+</p><?php }
 }

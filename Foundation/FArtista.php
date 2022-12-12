@@ -83,7 +83,7 @@ class FArtista{
                 $Password = $rows[0]['Password'];
                 $NomeArte = $rows[0]['NomeArte'];
 
-                $artista = new EArtista($IdArtista,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,$NomeArte);
+                $artista = new EArtista($Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Email, $Password, $NomeArte, $IdArtista );
                 return $artista;
                 //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
             }
@@ -113,6 +113,41 @@ class FArtista{
             ":NomeArte" => $art->getNomeArte()));
 
         return $ris;
+    }
+
+    public static function loadArtisti() : array {
+        try {
+            $pdo = FConnectionDB::connect();
+            $query = "SELECT * FROM artista";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $artisti = array();
+            $i = 0;
+            foreach ($rows as $row) {
+                $IdArtista = $row['IdArtista'];
+                $Email = $row['Email'];
+                $Nome = $row['Nome'];
+                $Cognome = $row['Cognome'];
+                $Via = $row['Via'];
+                $NumeroCivico = $row['NCivico'];
+                $Provincia = $row['Provincia'];
+                $Citta = $row['Citta'];
+                $CAP = $row['CAP'];
+                $Telefono = $row['NTelefono'];
+                $Password = $row['Password'];
+                $NomeArte = $row['NomeArte'];
+
+                $artista = new EArtista($Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Email, $Password, $NomeArte, $IdArtista );
+                $artisti[$i] = $artista;
+                ++$i;
+            }
+            return $artisti;
+        }
+        catch (PDOException $exception) {
+            print ("Errore".$exception->getMessage());
+            $pdo->rollBack();
+            return array();}
     }
 
 

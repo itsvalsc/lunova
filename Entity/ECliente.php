@@ -5,7 +5,7 @@
  * @package Entity
  */
 require "EUtente.php";
-class EClient extends EUtente{
+class ECliente extends EUtente{
 
     private String $IdClient;
 

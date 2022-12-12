@@ -136,7 +136,7 @@ class FCliente
                 $Password = $rows[0]['Password'];
                //$Livello = $rows[0]['Livello'];
 
-                $utente = new EClient($Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
+                $utente = new ECliente($Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
                 return $utente;
             }
             else {return "Non ci sono clienti";}
@@ -165,6 +165,42 @@ class FCliente
 
         return $ris;
 
+    }
+
+    public static function loadClienti() : array {
+        try {
+            $pdo = FConnectionDB::connect();
+            $query = "SELECT * FROM cliente";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $clienti = array();
+            $i = 0;
+            foreach ($rows as $row) {
+                $Idcliente = $row['IdCliente'];
+                $Email = $row['Email'];
+                $Nome = $row['Nome'];
+                $Cognome = $row['Cognome'];
+                $Via = $row['Via'];
+                $NumeroCivico = $row['NCivico'];
+                $Provincia = $row['Provincia'];
+                $Citta = $row['Citta'];
+                $CAP = $row['CAP'];
+                $Telefono = $row['NTelefono'];
+                $Password = $row['Password'];
+                //$Livello = $rows[0]['Livello'];
+
+                $utente = new ECliente($Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
+
+                $clienti[$i] = $utente;
+                ++$i;
+            }
+            return $clienti;
+        }
+        catch (PDOException $exception) {
+            print ("Errore".$exception->getMessage());
+            $pdo->rollBack();
+            return array();}
     }
 }
 

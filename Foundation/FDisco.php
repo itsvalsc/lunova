@@ -77,7 +77,7 @@ class FDisco {
             $i= 0 ;
             foreach ($rows as $row) {
                 $id = $row['ID'];
-                $immagine = FImmagine::load($id);
+                $immagine = FImmagine::load('55555');
                 $disc=new EDisco($row['name'],
                     $row['artist_id'],
                     $row['price'],

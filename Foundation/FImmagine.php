@@ -42,7 +42,7 @@ class FImmagine
      * @param $immagine
      * @param $foreignkey
      */
-    public static function store(EImmagine $imm): bool {
+    public static function store(EImmagine $imm): void {
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO immagine VALUES(:id,:nome,:formato,:immagine,:idAppartenenza)";
         $stmt = $pdo->prepare($query);
@@ -54,7 +54,7 @@ class FImmagine
             ':idAppartenenza' =>$imm->getIdAppartenenza(),
 
         ));
-        return $stmt;
+
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+
+
 	class FAdmin{
 
         public static function exist($email) : bool {
@@ -86,5 +88,35 @@
             catch(PDOException $exception) {print("Errore".$exception->getMessage());}
 
         }
+
+
+        public static function loadgeneri() : array {
+            $pdo=FConnectionDB::connect();
+
+            try {
+                    $query = "SELECT * FROM categories";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute();
+                    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $gen = array();
+                    foreach ($rows as $row){
+                        $genere = $row['name'];
+                        array_push($gen,$genere);
+                    }
+                    return $gen;
+
+            }
+            catch (PDOException $exception) {
+                print ("Errore".$exception->getMessage());
+                $pdo->rollBack();
+                return array();}
+        }
+
+
+
+
+
     }
+
+
 ?>

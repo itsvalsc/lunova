@@ -88,5 +88,19 @@ class FPersistentManager{
         return $dischi;
     }
 
+    public function prelevaArtisti(){
+        $artisti = FArtista::loadArtisti();
+        return $artisti;
+    }
+
+    public function prelevaClienti(){
+        $clienti = FCliente::loadClienti();
+        return $clienti;
+    }
+
+    public function prelevaGeneri(){
+        $gen = FAdmin::loadgeneri();
+        return $gen;
+    }
 
 }

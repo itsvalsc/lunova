@@ -20,6 +20,7 @@ require_once "./Foundation/FSondaggio.php";
 require_once "./Foundation/FRichiesta.php";
 require_once "./Entity/EVotazione.php";
 require_once "./Foundation/FVotazione.php";
+require_once "./Foundation/FAdmin.php";
 require_once "./Foundation/FPersistentManager.php";
 require_once "./Foundation/FArtista.php";
 require_once "./Entity/EArtista.php";
@@ -79,8 +80,9 @@ $a = new EDisco('Cinq','2022',12,'1) Easy 2) BEER 3) girl','1',null,1500);
 FDisco::store($a);
 */
 
-$s = FImmagine::load('65499');
-print_r($s);
+$s = FCliente::load('valentina@scimia.com');
+//$b = $s[0]->getEmail();
+var_dump($s);
 
 
 

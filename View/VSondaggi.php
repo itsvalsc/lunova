@@ -28,6 +28,6 @@ class VSondaggi{
     public function show($l)
     {
         $this->setData("logged", $l);
-        $this->setTemplate('sondaggi.tpl');
+        $this->setTemplate('profile.tpl');
     }
 }

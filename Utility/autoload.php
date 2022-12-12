@@ -17,8 +17,9 @@ function my_autoloader($class_name) {
             require ('Control/'.$class_name.'.php');
             break;
         default :
-            if (file_exists( './Utility/'. $class_name . '.php'))include_once ('/Utility/'. $class_name . '.php');
+            if (file_exists( './inc/'. $class_name . '.php'))include_once ('/inc/'. $class_name . '.php');
             elseif (file_exists( './'. $class_name . '.php'))include_once ('/'. $class_name . '.php');
+            elseif (file_exists( '../inc/css/'. $class_name . '.php'))include_once ('../inc/css/'. $class_name . '.php');
             break;
     }
 

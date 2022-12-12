@@ -71,16 +71,17 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <!-- end header -->
 
 {if $log}
+<div id="main" class="container" style="margin-top:80px; height: fit-content">
     <form action="/lunova/AboutUs/us/" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-            <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password">
+            <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
         </div>
         <hr>
         <div class="form-check">
@@ -103,5 +104,21 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <hr>
         <button type="button" class="btn btn-secondary">Inscriviti</button>
     </form>
-
+</div>
 {/if}
+
+<div id="main" class="container" style="margin-top:100px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
+    <hr>
+    <p class="container text-light">Copyright &copy; 2022 </p>
+</footer>
+
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
+
+<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
+</body>
+</html>

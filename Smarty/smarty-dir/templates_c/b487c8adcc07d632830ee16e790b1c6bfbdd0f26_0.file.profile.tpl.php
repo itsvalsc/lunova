@@ -1,7 +1,32 @@
-<!-- header -->
 <?php
+/* Smarty version 4.2.1, created on 2022-12-12 20:29:30
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\profile.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.2.1',
+  'unifunc' => 'content_6397811ae19cd5_46426657',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'b487c8adcc07d632830ee16e790b1c6bfbdd0f26' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\profile.tpl',
+      1 => 1670873368,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_6397811ae19cd5_46426657 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- header -->
+<?php echo '<?php'; ?>
+
 require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
+<?php echo '?>'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +96,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <!-- end header -->
 
 
-{if $logged}
+<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
 <div class="container">
     <div class="row g-4">
@@ -183,7 +208,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 </div>
 </div>
 
-{/if}
+<?php }?>
 
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
 </div>
@@ -193,10 +218,21 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>
 
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
 
-<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
 </body>
-</html>
+</html><?php }
+}

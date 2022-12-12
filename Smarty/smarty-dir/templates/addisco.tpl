@@ -1,7 +1,3 @@
-<!-- header -->
-<?php
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,15 +65,55 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>
 </nav>
 <!-- end header -->
-<div id="main" class="container" style="margin-top:80px; height: 700px">
-    <div class="col-9">
-        <h2>About us</h2>
-        <p>Siamo una compagnia...</p>
-        <p>{$prova}</p>
-       
-    </div>
+
+
+
+<div id="main" class="container" style="margin-top:80px; height: fit-content">
+    <form action="/lunova/AboutUs/us/" method="post">
+        <div class="form-group">
+            <fieldset>
+                <label class="form-label mt-4" for="readOnlyInput">Nome disco</label>
+                <input class="form-control" id="ndisco" type="text" placeholder="Nome" readonly="">
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
+            <textarea class="form-control" id="descrizione" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Genere</label>
+            <select class="form-select" id="genere">
+                {section name = gn loop= $gen}
+                    <option>{$gen[gn]}</option>
+                {/section}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Scegli una copertina</label>
+            <input class="form-control" type="file" id="copertina">
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label mt-4">Prezzo</label>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" aria-label="Prezzo">
+                    <span class="input-group-text"></span>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Aggiungi</button>
+    </form>
 </div>
 
+
+<div id="main" class="container" style="margin-top:100px; height: fit-content">
+</div>
 
 <!-- footer -->
 <footer class="bg-dark" style ="margin-bottom: 0px;">

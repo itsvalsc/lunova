@@ -1,7 +1,32 @@
-<!-- header -->
 <?php
+/* Smarty version 4.2.1, created on 2022-12-08 13:09:46
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\cart.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.2.1',
+  'unifunc' => 'content_6391d40ac2b133_30795974',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'bc918b062fc5f506c7ae1da3512d5668763b09a1' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\cart.tpl',
+      1 => 1669990879,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_6391d40ac2b133_30795974 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- header -->
+<?php echo '<?php'; ?>
+
 require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
+<?php echo '?>'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,8 +95,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 </nav>
 <!-- end header -->
 
-{if $logged}
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
+<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
 		<div class="col-12 order-md-last mt-4">
 				<h4 class="d-flex justify-content-between align-items-center mb-3">
 				  <span >Carrello</span>
@@ -160,24 +184,10 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 				  <button class="btn btn-lg btn-secondary" type="button">Checkout</button>
 				</div>
 
-		</div>
+
 
 		</div>
 
-{/if}
-
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
-</div>
-
-<footer class="bg-dark">
-	<hr>
-	<p class="container text-light">Copyright &copy; 2022 </p>
-</footer>
-
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
-
-<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
-</body>
-</html>
+<?php }
+}
+}

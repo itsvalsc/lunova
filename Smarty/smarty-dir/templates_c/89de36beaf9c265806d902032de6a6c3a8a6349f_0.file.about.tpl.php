@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-02 16:25:10
+/* Smarty version 4.2.1, created on 2022-12-08 21:46:12
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\about.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_638a18d6ccfcc1_50026257',
+  'unifunc' => 'content_63924d144bc749_43446862',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89de36beaf9c265806d902032de6a6c3a8a6349f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\about.tpl',
-      1 => 1669994707,
+      1 => 1670532370,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_638a18d6ccfcc1_50026257 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63924d144bc749_43446862 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -94,9 +94,38 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>
 </nav>
 <!-- end header -->
+<div id="main" class="container" style="margin-top:80px; height: 700px">
+    <div class="col-9">
+        <h2>About us</h2>
+        <p>Siamo una compagnia...</p>
+        <p><?php echo $_smarty_tpl->tpl_vars['prova']->value;?>
+</p>
+       
+    </div>
+</div>
 
-<h2>About us</h2>
-<p>Siamo una compagnia...</p>
-<p><?php echo $_smarty_tpl->tpl_vars['prova']->value;?>
-</p><?php }
+
+<!-- footer -->
+<footer class="bg-dark" style ="margin-bottom: 0px;">
+    <hr>
+    <p class="container text-light">Copyright &copy; 2022 </p>
+</footer>
+
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
+
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
+</body>
+</html><?php }
 }

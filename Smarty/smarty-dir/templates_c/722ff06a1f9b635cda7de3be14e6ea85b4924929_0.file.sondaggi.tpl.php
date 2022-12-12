@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-02 15:22:37
+/* Smarty version 4.2.1, created on 2022-12-08 22:50:40
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\sondaggi.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_638a0a2d121269_69453830',
+  'unifunc' => 'content_63925c3002a703_12338435',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '722ff06a1f9b635cda7de3be14e6ea85b4924929' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\sondaggi.tpl',
-      1 => 1669990881,
+      1 => 1670536222,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_638a0a2d121269_69453830 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63925c3002a703_12338435 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -36,6 +36,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/vapor/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
+    <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/icons.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
@@ -94,7 +95,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>
 </nav>
 <!-- end header -->
-
+<div id="main" class="container" style="margin-top:80px; height: fit-content">
 <h3 class="text-secondary">Vota il tuo artista preferito</h3>
 
 <div class="row">
@@ -140,5 +141,32 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>
 
 </div>
+</div>
+
+<div id="main" class="container" style="margin-top:500px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
+    <hr>
+    <p class="container text-light">Copyright &copy; 2022 </p>
+</footer>
+
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
+
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
+</body>
+</html>
 <?php }
 }

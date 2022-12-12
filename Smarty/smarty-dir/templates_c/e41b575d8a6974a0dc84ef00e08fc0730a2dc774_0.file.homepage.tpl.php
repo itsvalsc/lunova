@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-02 15:21:22
+/* Smarty version 4.2.1, created on 2022-12-09 23:07:39
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\homepage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_638a09e2d255d0_55059435',
+  'unifunc' => 'content_6393b1ab723773_48228902',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e41b575d8a6974a0dc84ef00e08fc0730a2dc774' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\homepage.tpl',
-      1 => 1669990882,
+      1 => 1670623651,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_638a09e2d255d0_55059435 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6393b1ab723773_48228902 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -85,7 +85,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
             <ul>
                 <li>
-                    <a href="http://localhost/lunova/templates/?page=profile" class="nav-link py-3 border-bottom rounded-0" style="margin-right: 8px; height: 10px; margin-block-start: 0px;" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
+                    <a href="http://localhost/lunova/Admin/users" class="nav-link py-3 border-bottom rounded-0" style="margin-right: 8px; height: 10px; margin-block-start: 0px;" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
                         <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
                     </a>
                 </li>
@@ -95,47 +95,92 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 </nav>
 <!-- end header -->
 
-<h1>Benvenuti</h1>
-<!--<p class="lead">Benvenuti nel sito!</p>-->
-<p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
-<a href="#" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
+<div id="main" class="container" style="margin-top:80px; height: fit-content">
+    <h1>Benvenuti</h1>
+    <!--<p class="lead">Benvenuti nel sito!</p>-->
+    <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
+    <a href="#" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
 
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <hr>
+    <form action="http://localhost/lunova/Products_list/salva_foto" method="post" enctype="multipart/form-data">
+        <div class="form-group" >
+        FILE
+        <input type="file" class="form-control" name="file1" placeholder="file">
+        </div>
+        <div class="form-group" >
+            id appartenenza
+            <input type="text" class="form-control" name="idAppartenenza" placeholder="id appartenenza">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <hr>
+
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.rockambula.com/wp-content/uploads/2020/02/dischi-in-uscita-rockambula-808x450.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Acquista da noi tutte le ultime uscite</h5>
+                    <p>Tutte le ultime novità in campo musicale </p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://i.pinimg.com/originals/ec/f3/d2/ecf3d26dcce257844a3f2d07da5c3670.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Sei un'artista e vuoi metterti in gioco? Partecipa ai nostri sondaggi</h5>
+                    <p>ogni settimana scegliamo tre brani da mettere a confronto, ti aspettiamo!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.businessintelligencegroup.it/wp-content/uploads/2021/02/social-community.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Entra a far oarte della nostra comunity</h5>
+                    <p>lascia un commento e confrontati con gli altri utenti</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://www.rockambula.com/wp-content/uploads/2020/02/dischi-in-uscita-rockambula-808x450.png" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Acquista da noi tutte le ultime uscite</h5>
-                <p>Tutte le ultime novità in campo musicale </p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="https://i.pinimg.com/originals/ec/f3/d2/ecf3d26dcce257844a3f2d07da5c3670.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Sei un'artista e vuoi metterti in gioco? Partecipa ai nostri sondaggi</h5>
-                <p>ogni settimana scegliamo tre brani da mettere a confronto, ti aspettiamo!</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="https://www.businessintelligencegroup.it/wp-content/uploads/2021/02/social-community.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Entra a far oarte della nostra comunity</h5>
-                <p>lascia un commento e confrontati con gli altri utenti</p>
-            </div>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div><?php }
+</div>
+
+
+<div id="main" class="container" style="margin-top:100px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
+    <hr>
+    <p class="container text-light">Copyright &copy; 2022 </p>
+</footer>
+
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
+
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
+</body>
+</html><?php }
 }

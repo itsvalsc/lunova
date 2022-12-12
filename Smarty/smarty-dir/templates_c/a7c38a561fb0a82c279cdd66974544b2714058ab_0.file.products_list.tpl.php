@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-07 18:45:36
+/* Smarty version 4.2.1, created on 2022-12-08 22:59:55
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\products_list.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6390d140714ec5_46510231',
+  'unifunc' => 'content_63925e5b714619_21070467',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7c38a561fb0a82c279cdd66974544b2714058ab' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\products_list.tpl',
-      1 => 1670435129,
+      1 => 1670536793,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6390d140714ec5_46510231 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63925e5b714619_21070467 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -94,7 +94,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>
 </nav>
 <!-- end header -->
-
+<div id="main" class="container" style="margin-top:80px; height: fit-content">
 <div class ='row'>
     <?php
 $__section_nr_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['product']->value) ? count($_loop) : max(0, (int) $_loop));
@@ -105,14 +105,14 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 ?>
 
 
-            <div class="card" style="width: 18rem;">
+            <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
                 <img src="data:<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCopertina()->getFormato();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCopertina()->getImmagine();?>
 " alt="prova">
                 <div class="card-body">
                     <h5 class="card-title"> <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getTitolo();?>
  </h5>
-                    <h6 class = "card-subtitle mb-2 text-muted"><?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
+                    <h6 class = "card-subtitle mb-2 text-muted">$ <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
 </h6>
                     <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrizione();?>
 </p>
@@ -124,7 +124,7 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                         <!--<input type="hidden" name="id" value="<?php echo '<?php'; ?>
 // echo esc_html($product->getID()); <?php echo '?>'; ?>
 ">-->
-                        <input type="hidden" name="id" value="#"
+                        <!--<input type="hidden" name="id" value="#"-->
                         <input name="add_to_cart" type="submit" class="btn btn-primary btn-sm btn-block rounded-0" value="Aggiungi al carrello">
                     </form>
                 </div>
@@ -134,7 +134,34 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 }
 ?>
 
-
 </div>
+</div>
+
+
+<div id="main" class="container" style="margin-top:100px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
+    <hr>
+    <p class="container text-light">Copyright &copy; 2022 </p>
+</footer>
+
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
+
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
+</body>
+</html>
 <?php }
 }

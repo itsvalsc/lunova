@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-08 22:50:28
-  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\login.tpl' */
+/* Smarty version 4.2.1, created on 2022-12-10 02:29:59
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\addisco.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63925c249997a3_18314507',
+  'unifunc' => 'content_6393e1172c9820_69919759',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'dda42547ea97a8c65434a6c0cb65bf92e7a7adf2' => 
+    '60066c2c891b6640edafb91485464804a328437e' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\login.tpl',
-      1 => 1670536221,
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\addisco.tpl',
+      1 => 1670635797,
       2 => 'file',
     ),
   ),
@@ -20,14 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63925c249997a3_18314507 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- header -->
-<?php echo '<?php'; ?>
-
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-<?php echo '?>'; ?>
-
-<!DOCTYPE html>
+function content_6393e1172c9820_69919759 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -95,47 +89,67 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 </nav>
 <!-- end header -->
 
-<?php if ($_smarty_tpl->tpl_vars['log']->value) {?>
+
+
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
     <form action="/lunova/AboutUs/us/" method="post">
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="form-group">
+            <fieldset>
+                <label class="form-label mt-4" for="readOnlyInput">Nome disco</label>
+                <input class="form-control" id="ndisco" type="text" placeholder="Nome" readonly="">
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
+            <textarea class="form-control" id="descrizione" rows="3"></textarea>
         </div>
 
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-            <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
+        <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Genere</label>
+            <select class="form-select" id="genere">
+                <?php
+$__section_gn_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['gen']->value) ? count($_loop) : max(0, (int) $_loop));
+$__section_gn_0_total = $__section_gn_0_loop;
+$_smarty_tpl->tpl_vars['__smarty_section_gn'] = new Smarty_Variable(array());
+if ($__section_gn_0_total !== 0) {
+for ($__section_gn_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index'] = 0; $__section_gn_0_iteration <= $__section_gn_0_total; $__section_gn_0_iteration++, $_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index']++){
+?>
+                    <option><?php echo $_smarty_tpl->tpl_vars['gen']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index'] : null)];?>
+</option>
+                <?php
+}
+}
+?>
+            </select>
         </div>
-        <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Artista
-            </label>
 
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Scegli una copertina</label>
+            <input class="form-control" type="file" id="copertina">
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Utente
-            </label>
-        </div>
-        <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
 
-        <button type="button" class="btn btn-primary">Accedi</button>
-        <hr>
-        <button type="button" class="btn btn-secondary">Inscriviti</button>
+
+        <div class="form-group">
+            <label class="form-label mt-4">Prezzo</label>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" aria-label="Prezzo">
+                    <span class="input-group-text"></span>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-secondary">Aggiungi</button>
     </form>
 </div>
-<?php }?>
+
 
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
 </div>
 
-<footer class="bg-dark">
+<!-- footer -->
+<footer class="bg-dark" style ="margin-bottom: 0px;">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>

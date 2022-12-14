@@ -75,7 +75,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
-                <img src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
+                <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
                 <div class="card-body">
                     <h5 class="card-title"> {$product[nr]->getTitolo()} </h5>
                     <h6 class = "card-subtitle mb-2 text-muted">$ {$product[nr]->getPrezzo()}</h6>

@@ -8,7 +8,7 @@ class CProducts_list{
         $elenco = $pers->prelevaDischi();
         $view->lista_prodotti($elenco);
     }
-
+    /*
     public static function salva_foto(){
         $view = new VAbout();
         $id = $_POST['idAppartenenza'];
@@ -22,5 +22,39 @@ class CProducts_list{
 
         $view->about_us($prova);
     }
+    */
+    public static function aggiungi_disco(){
+        $view = new VNewDisc() ;
+        $viewmex = new VAbout();
+        $pers = FPersistentManager::getInstance();
+        $nome = $view->getNome();
+        $descrizione = $view->getDescrizione();
+        $genere = $view->getGenere();
+        $prezzo = $view->getPrezzo();
+        $quantita = $view->getQuantita();
+        $imgName = $view->getImgName();
+        $imgType = $view->getImgType();
+        $imgData = $view->getImgData();
+        $autore = 'A1'; //aggiungere l'artista tramite le sessioni
+
+        $disco = new EDisco($nome,$autore,$prezzo,$descrizione,$genere,null,$quantita);
+        $image = new EImmagine($imgName,$imgType,$imgData,$disco->getID());
+        $disco->setCopertina($image);
+
+        $pers->store($disco);
+
+
+
+        $messaggio='tutt appost fra';
+        $viewmex->about_us($messaggio);
+    }
+
+    public static function recuperaAggiungiProdotto(){
+        //$artista = sessione->recupera artista(); da implementare con le sessioni
+        $v = new VGestioneProdotto();
+        $v->mostraAggiuntaProdotto(/*$artista*/);
+
+    }
+
 
 }

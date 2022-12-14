@@ -56,9 +56,9 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
+                    <a class="nav-link" href="/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">1</span>
+                        <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>

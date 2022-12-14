@@ -4,6 +4,7 @@ class VNewDisc
 {
 
     private $smarty;
+    private static array $generi= ['Rock'=>'1','Rap'=>'2'];
 
     /**
      * VLogin constructor.
@@ -12,6 +13,7 @@ class VNewDisc
     {
         $this->smarty = StartSmarty::configuration();
     }
+
 
     /**
      * @param $name
@@ -40,26 +42,69 @@ class VNewDisc
     /**
      * @return mixed|string
      */
-    public function getSearch()
+    public function getNome()
     {
-        if (isset($_POST['ask']))
-            return $_POST['ask'];
-        else {
-            return "";
-        }
+
+            return $_POST['ndisco'];
+
+
     }
 
     /**
      * @return mixed|string
      */
-    public function getPwd()
+    public function getDescrizione()
     {
-        if (isset($_POST['Password']))
-            return $_POST['Password'];
-        else {
-            return "";
-        }
+
+            return $_POST['descrizione'];
+
+    }/**
+     * @return mixed|string
+     */
+    public function getGenere()
+    {
+
+            $gen = $_POST['genere'];
+            return self::$generi[$gen];
+
     }
+
+    /**
+     * @return mixed|string
+     */
+    public function getPrezzo()
+    {
+
+            return $_POST['prezzo'];
+
+    }
+    public function getQuantita()
+    {
+
+            return $_POST['quantita'];
+
+    }
+    public function getImgName()
+    {
+
+            return $_FILES['copertina']['name'];
+
+    }
+    public function getImgType()
+    {
+
+            return $_FILES['copertina']['type'];
+
+    }
+    public function getImgData()
+    {
+
+            return  @file_get_contents($_FILES['copertina']['tmp_name']);
+
+    }
+
+
+
 
 
 }

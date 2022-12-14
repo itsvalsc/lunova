@@ -31,6 +31,7 @@ class FDisco {
             ':artist_id' =>$disco->getAutore(),
             ':Qta' =>$disco->getQta()
         ));
+        FImmagine::store($disco->getCopertina());
     }
 
     public static function load(string $id) {
@@ -77,7 +78,7 @@ class FDisco {
             $i= 0 ;
             foreach ($rows as $row) {
                 $id = $row['ID'];
-                $immagine = FImmagine::load('55555');
+                $immagine = FImmagine::load($id);
                 $disc=new EDisco($row['name'],
                     $row['artist_id'],
                     $row['price'],

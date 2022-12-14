@@ -69,21 +69,21 @@
 
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/Products_list/aggiungi_disco" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <fieldset>
                 <label class="form-label mt-4" for="readOnlyInput">Nome disco</label>
-                <input class="form-control" id="ndisco" type="text" placeholder="Nome" readonly="">
+                <input class="form-control" name="ndisco" id="ndisco" type="text" placeholder="Nome">
             </fieldset>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
-            <textarea class="form-control" id="descrizione" rows="3"></textarea>
+            <textarea class="form-control" name="descrizione" id="descrizione" rows="3"></textarea>
         </div>
 
         <div class="form-group">
             <label for="exampleSelect1" class="form-label mt-4">Genere</label>
-            <select class="form-select" id="genere">
+            <select class="form-select" name="genere" id="genere">
                 {section name = gn loop= $gen}
                     <option>{$gen[gn]}</option>
                 {/section}
@@ -92,7 +92,7 @@
 
         <div class="form-group">
             <label for="formFile" class="form-label mt-4">Scegli una copertina</label>
-            <input class="form-control" type="file" id="copertina">
+            <input class="form-control" name="copertina" type="file" id="copertina">
         </div>
 
 
@@ -101,7 +101,18 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Prezzo">
+                    <input type="text" class="form-control" name="prezzo" aria-label="Prezzo">
+                    <span class="input-group-text"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label mt-4">Quantita</label>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="quantita" aria-label="Quantita">
                     <span class="input-group-text"></span>
                 </div>
             </div>

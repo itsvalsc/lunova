@@ -9,7 +9,7 @@ class ECliente extends EUtente{
 
     private String $IdClient;
 
-    private $Wallet = null;
+    private ?EWallet $Wallet;
     /**
     public function __construct(string $n, string $c, string $v, string $nc, string $citta, string $prov, string $cap, string $telefono, string $email, string $pw, $wallet){
 

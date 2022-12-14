@@ -21,11 +21,11 @@ class FPersistentManager{
     }
 
 
-    public function store(object $obj,$mailutente=null) : bool {
+    public function store(object $obj,$mailutente=null)  {
         $Eclass = get_class($obj);
         $Fclass = str_replace("E", "F", $Eclass);
         $ris = $Fclass::store($obj,$mailutente);
-        return $ris;
+
     }
 
 

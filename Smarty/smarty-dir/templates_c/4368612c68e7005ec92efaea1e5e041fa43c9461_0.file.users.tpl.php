@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-10 02:29:19
+/* Smarty version 4.2.1, created on 2022-12-21 03:09:32
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\users.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6393e0ef9a7328_89180002',
+  'unifunc' => 'content_63a26adc931100_09727064',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4368612c68e7005ec92efaea1e5e041fa43c9461' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\users.tpl',
-      1 => 1670635755,
+      1 => 1671588549,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6393e0ef9a7328_89180002 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63a26adc931100_09727064 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!-- header -->
     <?php echo '<?php'; ?>
@@ -70,7 +70,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
                 <ul class="navbar-nav ml-4">
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" href="http://localhost/lunova/Admin/notifiche">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="badge rounded-pill bg-secondary">1</span>
                         </a>

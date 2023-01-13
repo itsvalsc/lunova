@@ -28,7 +28,7 @@ class VCarrello
 
     public function cart($l)
     {
-        $this->setData("logged", $l);
-        $this->setTemplate('admin.tpl');
+        //$this->setData("logged", $l);
+        $this->setTemplate('viewproduct.tpl');
     }
 }

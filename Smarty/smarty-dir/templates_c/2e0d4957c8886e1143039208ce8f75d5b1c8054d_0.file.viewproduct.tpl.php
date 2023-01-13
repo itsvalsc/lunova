@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-15 19:17:57
+/* Smarty version 4.2.1, created on 2022-12-23 13:42:05
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\viewproduct.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_639b64d5ca5cb5_41203474',
+  'unifunc' => 'content_63a5a21d66a6c8_47080822',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2e0d4957c8886e1143039208ce8f75d5b1c8054d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\viewproduct.tpl',
-      1 => 1671128277,
+      1 => 1671128432,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_639b64d5ca5cb5_41203474 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63a5a21d66a6c8_47080822 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -95,6 +95,30 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 </nav>
 <!-- end header -->
 
+<!-- singolo disco  -->
+
+<div id="main" class="container" style="margin-top:100px; height: fit-content">
+    <div class="row">
+        <div class="col-4">
+            <img style="width: 300px; height: 300px;" src="data:image/jpeg;base64,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" class="img-thumbnail" alt="...">
+        </div>
+        <div class="col-6">
+            <h1>
+                <?php echo $_smarty_tpl->tpl_vars['product']->value->getTitolo();?>
+
+                <small class="text-muted"> by <?php echo $_smarty_tpl->tpl_vars['product']->value->getAutore();?>
+</small>
+            </h1>
+
+            <p><?php echo $_smarty_tpl->tpl_vars['product']->value->getDescrizione();?>
+</p>
+            <hr>
+            <h3>$ <?php echo $_smarty_tpl->tpl_vars['product']->value->getPrezzo();?>
+</h3>
+
+        </div>
+    </div>
+</div>
 
 
 <!-- commenti -->

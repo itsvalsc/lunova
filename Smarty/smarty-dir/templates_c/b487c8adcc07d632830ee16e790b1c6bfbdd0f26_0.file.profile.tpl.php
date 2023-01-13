@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-12 20:29:30
+/* Smarty version 4.2.1, created on 2023-01-10 16:56:35
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6397811ae19cd5_46426657',
+  'unifunc' => 'content_63bd8ab3c0bdf7_47715954',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b487c8adcc07d632830ee16e790b1c6bfbdd0f26' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\profile.tpl',
-      1 => 1670873368,
+      1 => 1673366193,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6397811ae19cd5_46426657 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63bd8ab3c0bdf7_47715954 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
-<?php echo '<?php'; ?>
-
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-<?php echo '?>'; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,24 +166,71 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                                 <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                                     <li class="nav-item">
                                         <a class="nav-link" href="my-profile.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/home-outline-filled.svg" alt=""><span>Feed </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="my-profile-connections.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/person-outline-filled.svg" alt=""><span>Connections </span></a>
+                                        <div class ='row'>
+                                            <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src="" alt=""><span>Dischi </span></a>
+                                            <?php
+$__section_nr_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['product']->value) ? count($_loop) : max(0, (int) $_loop));
+$__section_nr_0_total = $__section_nr_0_loop;
+$_smarty_tpl->tpl_vars['__smarty_section_nr'] = new Smarty_Variable(array());
+if ($__section_nr_0_total !== 0) {
+for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] = 0; $__section_nr_0_iteration <= $__section_nr_0_total; $__section_nr_0_iteration++, $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']++){
+?>
+
+
+                                                <div class="card border-dark mb-3 bg-dark" style="width: 18rem;margin-left: 25px; margin-top: 10px;">
+                                                    <img style = "width: 250px; height: 250px;" src="data:<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCopertina()->getFormato();?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCopertina()->getImmagine();?>
+" alt="prova">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"> <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getTitolo();?>
+ </h5>
+                                                        <h6 class = "card-subtitle mb-2 text-muted">$ <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
+</h6>
+                                                        <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrizione();?>
+</p>
+                                                        <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php echo '<?php'; ?>
+ //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); <?php echo '?>'; ?>
+'">Vedi</button>-->
+                                                        <button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="#">Vedi</button>
+                                                        <form method="post">
+                                                            <!--<input type="hidden" name="id" value="<?php echo '<?php'; ?>
+// echo esc_html($product->getID()); <?php echo '?>'; ?>
+">-->
+                                                            <!--<input type="hidden" name="id" value="#"-->
+                                                            <input name="add_to_cart" type="submit" class="btn btn-primary btn-sm btn-block rounded-0" value="Aggiungi al carrello">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            <?php
+}
+}
+?>
+
+                                        </div>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="blog.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>Latest News </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="events.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Events </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="groups.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/chat-outline-filled.svg" alt=""><span>Groups </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="notifications.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/notification-outlined-filled.svg" alt=""><span>Notifications </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="settings.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Settings </span></a>
+                                        <hr>
                                     </li>
                                 </ul>
                                 <!-- Side Nav END -->

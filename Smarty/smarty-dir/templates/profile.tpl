@@ -1,7 +1,4 @@
 <!-- header -->
-<?php
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,24 +143,53 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                                 <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                                     <li class="nav-item">
                                         <a class="nav-link" href="my-profile.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/home-outline-filled.svg" alt=""><span>Feed </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="my-profile-connections.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/person-outline-filled.svg" alt=""><span>Connections </span></a>
+                                        <div class ='row'>
+                                            <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src="" alt=""><span>Dischi </span></a>
+                                            {section name = nr loop= $product}
+
+
+                                                <div class="card border-dark mb-3 bg-dark" style="width: 18rem;margin-left: 25px; margin-top: 10px;">
+                                                    <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"> {$product[nr]->getTitolo()} </h5>
+                                                        <h6 class = "card-subtitle mb-2 text-muted">$ {$product[nr]->getPrezzo()}</h6>
+                                                        <p class="card-text">{$product[nr]->getDescrizione() }</p>
+                                                        <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
+                                                        <button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="#">Vedi</button>
+                                                        <form method="post">
+                                                            <!--<input type="hidden" name="id" value="<?php// echo esc_html($product->getID()); ?>">-->
+                                                            <!--<input type="hidden" name="id" value="#"-->
+                                                            <input name="add_to_cart" type="submit" class="btn btn-primary btn-sm btn-block rounded-0" value="Aggiungi al carrello">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            {/section}
+
+                                        </div>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="blog.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>Latest News </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="events.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Events </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="groups.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/chat-outline-filled.svg" alt=""><span>Groups </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="notifications.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/notification-outlined-filled.svg" alt=""><span>Notifications </span></a>
+                                        <hr>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="settings.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Settings </span></a>
+                                        <hr>
                                     </li>
                                 </ul>
                                 <!-- Side Nav END -->

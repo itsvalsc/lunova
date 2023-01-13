@@ -2,7 +2,7 @@
 //require_once "C:\\xampp\\htdocs\\lunova\\Foundation\\FDisco.php";
 //require_once "C:\\xampp\\htdocs\\lunova\\Foundation\\FConnectionDB.php";
 //require_once "C:\\xampp\\htdocs\\lunova\\inc\\configdb.php";
-
+/*
 require_once "./Foundation/FCliente.php";
 require_once "./Entity/ECliente.php";
 require_once "./Entity/EUtente.php";
@@ -27,6 +27,7 @@ require_once "./Entity/EArtista.php";
 require_once "./inc/init.php";
 require_once "./Foundation/FImmagine.php";
 require_once "./Entity/EImmagine.php";
+*/
 
 
 /*
@@ -84,10 +85,39 @@ FDisco::store($a);
 $s = FCliente::load('valentina@scimia.com');
 //$b = $s[0]->getEmail();
 var_dump($s);
-*/
+
 $a = FPersistentManager::getInstance();
 $b = $a->prelevaArtisti();
 print_r($b);
+*/
+require_once "./Foundation/FConnectionDB.php";
+require_once './Entity/ENotifiche.php';
+require_once './Entity/ECommento.php';
+require_once "./Foundation/FPersistentManager.php";
+require_once './Foundation/FNotifiche.php';
+require_once ("inc/crosswords.txt");
+
+function Sicurezza(string $t, string $idap)
+    {   $f = "inc/crosswords.txt";
+        $pers = FPersistentManager::getInstance();
+        //var_dump($f);
+        $apertura = file($f);
+        for ($i=0; $i < count($apertura) ; $i++) {
+            $words = explode(";", $apertura[$i]);
+        }
+
+        $text = explode(" ", $t);
+        $t1 = str_replace($words, "***",$t);
+        if ( $t!=$t1){
+            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "alta"," $idap");
+            $pers->store($n);
+        }
+        return $t1;
+    }
+
+print_r("\n-----------\n");
+$A = Sicurezza("ciao", "C231");
+print_r ($A);
 
 
 

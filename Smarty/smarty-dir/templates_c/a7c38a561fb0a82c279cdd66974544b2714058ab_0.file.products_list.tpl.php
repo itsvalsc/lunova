@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-14 17:44:54
+/* Smarty version 4.2.1, created on 2023-01-13 20:41:48
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\products_list.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6399fd86b6a3a4_68829072',
+  'unifunc' => 'content_63c1b3fc3d1068_19219762',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7c38a561fb0a82c279cdd66974544b2714058ab' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\products_list.tpl',
-      1 => 1671036292,
+      1 => 1673634418,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6399fd86b6a3a4_68829072 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63c1b3fc3d1068_19219762 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <?php echo '<?php'; ?>
 
@@ -109,7 +109,7 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                 <img style = "width: 250px; height: 250px;" src="data:<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCopertina()->getFormato();?>
 ;base64,<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCopertina()->getImmagine();?>
 " alt="prova">
-                <div class="card-body">
+                <div class="card-body" >
                     <h5 class="card-title"> <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getTitolo();?>
  </h5>
                     <h6 class = "card-subtitle mb-2 text-muted">$ <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
@@ -119,7 +119,10 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                     <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php echo '<?php'; ?>
  //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); <?php echo '?>'; ?>
 '">Vedi</button>-->
-                    <button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="#">Vedi</button>
+                    <a href="/lunova/Products_list/mostra_prodotto/<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getID();?>
+">
+                        <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vedi</button></a>
+
                     <form method="post">
                         <!--<input type="hidden" name="id" value="<?php echo '<?php'; ?>
 // echo esc_html($product->getID()); <?php echo '?>'; ?>

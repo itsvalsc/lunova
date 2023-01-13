@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-10 02:29:59
+/* Smarty version 4.2.1, created on 2022-12-21 16:41:08
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\addisco.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6393e1172c9820_69919759',
+  'unifunc' => 'content_63a329148c5583_47365992',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60066c2c891b6640edafb91485464804a328437e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\addisco.tpl',
-      1 => 1670635797,
+      1 => 1671038231,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6393e1172c9820_69919759 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63a329148c5583_47365992 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -92,21 +92,21 @@ function content_6393e1172c9820_69919759 (Smarty_Internal_Template $_smarty_tpl)
 
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/Products_list/aggiungi_disco" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <fieldset>
                 <label class="form-label mt-4" for="readOnlyInput">Nome disco</label>
-                <input class="form-control" id="ndisco" type="text" placeholder="Nome" readonly="">
+                <input class="form-control" name="ndisco" id="ndisco" type="text" placeholder="Nome">
             </fieldset>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
-            <textarea class="form-control" id="descrizione" rows="3"></textarea>
+            <textarea class="form-control" name="descrizione" id="descrizione" rows="3"></textarea>
         </div>
 
         <div class="form-group">
             <label for="exampleSelect1" class="form-label mt-4">Genere</label>
-            <select class="form-select" id="genere">
+            <select class="form-select" name="genere" id="genere">
                 <?php
 $__section_gn_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['gen']->value) ? count($_loop) : max(0, (int) $_loop));
 $__section_gn_0_total = $__section_gn_0_loop;
@@ -125,7 +125,7 @@ for ($__section_gn_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_gn'
 
         <div class="form-group">
             <label for="formFile" class="form-label mt-4">Scegli una copertina</label>
-            <input class="form-control" type="file" id="copertina">
+            <input class="form-control" name="copertina" type="file" id="copertina">
         </div>
 
 
@@ -134,7 +134,18 @@ for ($__section_gn_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_gn'
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Prezzo">
+                    <input type="text" class="form-control" name="prezzo" aria-label="Prezzo">
+                    <span class="input-group-text"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label mt-4">Quantita</label>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="quantita" aria-label="Quantita">
                     <span class="input-group-text"></span>
                 </div>
             </div>

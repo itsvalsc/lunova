@@ -3,11 +3,11 @@
 class ESondaggio
 {
     private string $id;
-    private string $disco_1;
+    private EDisco $disco_1;
     private int $voti_disco_1;
-    private string $disco_2;
+    private EDisco $disco_2;
     private int $voti_disco_2;
-    private string $disco_3;
+    private EDisco $disco_3;
     private int $voti_disco_3;
     private string $data;
     private bool $in_corso;
@@ -16,12 +16,12 @@ class ESondaggio
     /**
      *
      */
-    public function __construct(string $disco1,string $disco2,string $disco3,string $dat){
+    public function __construct(EDisco $disco1,EDisco $disco2,EDisco $disco3,string $date){
         $this->id = "S"  . random_int(0,100);
         $this->disco_1 = $disco1;
         $this->disco_2 = $disco2;
         $this->disco_3 = $disco3;
-        $this->data = $dat;
+        $this->data = $date;
         $this->in_corso = 0;
     }
 
@@ -106,7 +106,7 @@ class ESondaggio
     /**
      * @return EDisco
      */
-    public function getDisco1(): string
+    public function getDisco1(): EDisco
     {
         return $this->disco_1;
     }
@@ -114,7 +114,7 @@ class ESondaggio
     /**
      * @return EDisco
      */
-    public function getDisco2(): string
+    public function getDisco2(): EDisco
     {
         return $this->disco_2;
     }
@@ -122,7 +122,7 @@ class ESondaggio
     /**
      * @return EDisco
      */
-    public function getDisco3(): string
+    public function getDisco3(): EDisco
     {
         return $this->disco_3;
     }
@@ -146,7 +146,7 @@ class ESondaggio
     /**
      * @param EDisco $disco_1
      */
-    public function setDisco1(string $disco_1): void
+    public function setDisco1(EDisco $disco_1): void
     {
         $this->disco_1 = $disco_1;
     }
@@ -154,7 +154,7 @@ class ESondaggio
     /**
      * @param EDisco $disco_2
      */
-    public function setDisco2(string $disco_2): void
+    public function setDisco2(EDisco $disco_2): void
     {
         $this->disco_2 = $disco_2;
     }
@@ -162,7 +162,7 @@ class ESondaggio
     /**
      * @param EDisco $disco_3
      */
-    public function setDisco3(string $disco_3): void
+    public function setDisco3(EDisco $disco_3): void
     {
         $this->disco_3 = $disco_3;
     }
@@ -177,15 +177,15 @@ class ESondaggio
 
     public function aggiungi_voto(string $disco): bool {
 
-        if ($this->getDisco1()==$disco){
+        if ($this->getDisco1()->getID()==$disco){
             $this->voti_disco_1++;
             return true;
         }
-        elseif ($this->getDisco2()==$disco){
+        elseif ($this->getDisco2()->getID()==$disco){
             $this->voti_disco_2++;
             return true;
         }
-        elseif ($this->getDisco3()==$disco){
+        elseif ($this->getDisco3()->getID()==$disco){
             $this->voti_disco_3++;
             return true;
         }

@@ -28,4 +28,9 @@ class VProducts_list{
         $this->setData('product', $prod);
         $this->setTemplate('products_list.tpl');
     }
+
+    public function prodotto_singolo($product){
+        $this->setData('product', $product);
+        $this->setTemplate('viewproduct.tpl');
+    }
 }

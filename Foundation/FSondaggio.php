@@ -46,7 +46,10 @@ class FSondaggio
         $voti_disco_3 = $rows[0]['voti_disco3'];
         $data = $rows[0]['data'];
         $in_corso = $rows[0]['in_corso'];
-        $sondaggio = new ESondaggio($disco_1,$disco_2,$disco_3,$data);
+        $disco1 = FDisco::load($disco_1);
+        $disco2 = FDisco::load($disco_2);
+        $disco3 = FDisco::load($disco_3);
+        $sondaggio = new ESondaggio($disco1,$disco2,$disco3,$data);
         $sondaggio->setId($id);
         //$sondaggio->setDisco1($disco_1);
         $sondaggio->setVotiDisco1($voti_disco_1);
@@ -60,6 +63,7 @@ class FSondaggio
     }
 
     public static function load_incorso(): ESondaggio {
+
         $id = self::exist_incorso();
         if ($id == null){
             return $id;
@@ -78,7 +82,10 @@ class FSondaggio
             $voti_disco_3 = $rows[0]['voti_disco3'];
             $data = $rows[0]['data'];
             $in_corso = $rows[0]['in_corso'];
-            $sondaggio = new ESondaggio($disco_1,$disco_2,$disco_3,$data);
+            $disco1 = FDisco::load($disco_1);
+            $disco2 = FDisco::load($disco_2);
+            $disco3 = FDisco::load($disco_3);
+            $sondaggio = new ESondaggio($disco1,$disco2,$disco3,$data);
             $sondaggio->setId($id);
             //$sondaggio->setDisco1($disco_1);
             $sondaggio->setVotiDisco1($voti_disco_1);
@@ -104,10 +111,11 @@ class FSondaggio
 
         $ris = $stmt->execute(array(
             ':id' => $sondaggio->getId(),
-            ':disco1' => $sondaggio->getDisco1(),
-            ':disco2' =>$sondaggio->getDisco2(),
-            ':disco3' =>$sondaggio->getDisco3() ,
+            ':disco1' => $sondaggio->getDisco1()->getID(),
+            ':disco2' =>$sondaggio->getDisco2()->getID(),
+            ':disco3' =>$sondaggio->getDisco3()->getID(),
             ':dat' =>$sondaggio->getData()));
+
         return $ris;
     }
 
@@ -129,8 +137,9 @@ class FSondaggio
             ':votidisco3' =>$sondaggio->getVotiDisco3(),
             ':incorso' =>$sondaggio->getInCorso(),
             ':id'=>$sondaggio->getId()));
-        FSondaggio::store_votazione($sondaggio);//ricordarsi di costruire nelle view l oggetto sondaggio corretto con l utente e la votazione
+       //ricordarsi di costruire nelle view l oggetto sondaggio corretto con l utente e la votazione
     }
+
 
     public static function prelevaSondaggi(): array {
         $pdo = FConnectionDB::connect();
@@ -170,20 +179,17 @@ class FSondaggio
         else { return true; }
     }
 
+     */
+    public static function store_votazione($utente,$sondaggio,$disco): void {
 
-    public static function store_votazione(ESondaggio $sondaggio): void {
-
-        $array=$sondaggio->getVotazioneTemp();
-        $ut=key($array);
-        $dc=$array[$ut];
-    $pdo = FConnectionDB::connect();
+        $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("INSERT INTO votazioni VALUES(:utente, :sondaggio, :disco)");
         $ris = $stmt->execute(array(
-            ':utente' => $ut,
-            ':sondaggio' =>$sondaggio->getId(),
-            ':disco'=>$dc));
+            ':utente' => $utente,
+            ':sondaggio' =>$sondaggio,
+            ':disco'=>$disco));
     }
-    */
+
 
 
 }

@@ -70,6 +70,22 @@ class FPersistentManager{
         return $richieste;
     }
 
+    public function vota($disco,$utente){
+        $sondaggio = FSondaggio::load_incorso();
+        $id = $sondaggio->getId();
+        $sondaggio->aggiungi_voto($disco);
+        FSondaggio::update($sondaggio);
+        FSondaggio::store_votazione($utente,$id,$disco);
+    }
+
+    public function crea_sondaggio(ESondaggio $sondaggio){
+        FSondaggio::store($sondaggio);
+        FRichiesta::delete($sondaggio->getDisco1());
+        FRichiesta::delete($sondaggio->getDisco2());
+        FRichiesta::delete($sondaggio->getDisco3());
+
+    }
+
 
     public function prelevaOrdini($ut){
         $ordini = FOrdine::prelevaOrdini($ut);

@@ -55,9 +55,9 @@ class FRichiesta
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($rows as $row){
-            $richiesta=new ERichiesta();
-            $richiesta->setDisco($row['disco']);
-            $richiesta->setData($row['data']);
+
+            $richiesta=new ERichiesta($row['disco'],$row['data']);
+
             $array[]=$richiesta;
         }
         return $array;

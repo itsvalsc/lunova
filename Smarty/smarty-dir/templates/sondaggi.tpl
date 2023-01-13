@@ -71,19 +71,22 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 </nav>
 <!-- end header -->
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-<h3 class="text-secondary">Vota il tuo artista preferito</h3>
+<h3 class="text-secondary">Vota il tuo Disco preferito</h3>
 
 <div class="row">
     <div class = "container" style="width: 20rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
+        <a href="/lunova/Products_list/mostra_prodotto/{$sondaggio->getDisco1()->getID()}">
+            <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco1()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco1()->getCopertina()->getImmagine()}">
+            </img>
+        </a>
 
-        <button type="button" class="btn btn-secondary">Vota</button>
+        <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}">
+            <button type="button" class="btn btn-secondary">Vota</button>
+        </a>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {$voti[0]}%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
+        {$sondaggio->getVotiDisco1()}
     </div>
 
     <!--<div class="progress">
@@ -91,28 +94,32 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     </div>-->
 
     <div class = "container" style="width: 20rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
-
+        <a href="/lunova/Products_list/mostra_prodotto/{$sondaggio->getDisco2()->getID()}">
+        <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco2()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco2()->getCopertina()->getImmagine()}">
+        </img>
+        </a>
+        <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
         <button type="button" class="btn btn-secondary">Vota</button>
-
+        </a>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            <progress class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {$voti[1]}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></progress>
         </div>
+        {$sondaggio->getVotiDisco2()}
     </div>
-    <div class="container" style="width: 20rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-            <rect width="100%" height="100%" fill="#868e96"></rect>
-            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-        </svg>
 
-        <button type="button" class="btn btn-secondary">Vota</button>
+    <div class="container" style="width: 20rem;">
+        <a href="/lunova/Products_list/mostra_prodotto/{$sondaggio->getDisco3()->getID()}">
+        <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco3()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco3()->getCopertina()->getImmagine()}" >
+        </img>
+        </a>
+        <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
+            <button type="button" class="btn btn-secondary">Vota</button>
+        </a>
 
         <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {$voti[2]}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
+        {$sondaggio->getVotiDisco3()}
     </div>
 
 </div>

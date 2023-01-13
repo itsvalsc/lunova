@@ -56,5 +56,13 @@ class CProducts_list{
 
     }
 
+    public static function mostra_prodotto(string $id){
+        $view = new VProducts_list();
+        $pers = FPersistentManager::getInstance();
+        $prodotto = $pers->load('FDisco',$id);
+        $view->prodotto_singolo($prodotto);
+
+    }
+
 
 }

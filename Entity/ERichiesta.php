@@ -5,7 +5,9 @@ class ERichiesta
 private string $disco;
 private string $data;
 
-    public function __construct(){;
+    public function __construct($id_disco,$date){
+        $this->disco= $id_disco;
+        $this->data= $date;
     }
 
 

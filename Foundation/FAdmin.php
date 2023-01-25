@@ -35,7 +35,7 @@
                 ':Citta' =>$admin->getCitta(),
                 ':CAP' =>$admin->getCAP(),
                 ':NTelefono' =>$admin->getTelefono(),
-                ':Password' =>$admin->getPassword(),
+                ':Password' =>$admin->criptaPassword($admin->getPassword()),
                 ':Livello' =>$admin->getLivello()
             ));
         }
@@ -112,10 +112,33 @@
                 return array();}
         }
 
+    /**
+    * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
+     * @param $email
+     * @param $pass
+     */
+    public function VerificaAccesso(string $email, string $password)
+    {
+        $pdo=FConnectionDB::connect();
+        $pdo->beginTransaction();
+        try {
+            $email = addslashes($email);
+            $query = "SELECT * FROM admin WHERE Email = :email";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":email" => $email] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $pdo->commit();
 
-
-
-
+            // verificaPassword controlla se la password inserita corrisponde alla password hash recuperata da db
+            if ($rows && EAdmin::verificaPassword($password, $rows['Password'])) return true;
+            return false;
+        }
+        catch (PDOException $e) {
+            echo "\nAttenzione errore: " . $e->getMessage();
+            $pdo->rollBack();
+            return null;
+        }
+    }
     }
 
 

@@ -8,7 +8,7 @@ class EArtista extends EUtente{
 
 	private string $IdArtista;
 
-    private string $NomeArte;
+    protected string $Username;
 
 	private $Album = array();
 
@@ -28,10 +28,10 @@ class EArtista extends EUtente{
             $pw = func_get_arg(9);
             $nom_arte = func_get_arg(10);
 
-            parent::__construct($n, $c, $v, $nc,$citta,$prov,$cap,$telefono,$email,$pw);
+            parent::__construct($n, $c, $v, $nc, $citta, $prov, $cap, $telefono, $email, $pw);
             parent::setLivello("B");
             $this->IdArtista = "B"  . random_int(0,999);
-            $this->NomeArte=$nom_arte;
+            $this->Username=$nom_arte;
         }
         elseif (12 === func_num_args()){
             $n = func_get_arg(0);
@@ -48,16 +48,16 @@ class EArtista extends EUtente{
             $id_artista = func_get_arg(11);
             parent::__construct($n, $c, $v, $nc,$citta,$prov,$cap,$telefono,$email,$pw);
             parent::setLivello("B");
-            $this->NomeArte = $nom_arte;
+            $this->Username = $nom_arte;
             $this->IdArtista = $id_artista;
         }
     }
 
 	public function addAlbum(EDisco $d){
 		array_push($this->Album, $d);
-	}	
+	}
 
-    /**metodi get**/
+    /** METODI GET*/
 
 	public function getIdArtista(): string
 	{ return $this->IdArtista; }
@@ -65,10 +65,13 @@ class EArtista extends EUtente{
 	public function getIban(): string
 	{ return $this->IBAN; }
 
-    public function getNomeArte(): string {
-        return $this->NomeArte; }
+    public function getUsername(): string
+    { return $this->Username; }
 
-    /**metodi set**/
+    public function getAlbum(): array
+    { return $this->Album; }
+
+    /** METODI SET*/
 
 	public function setIdArtista(string $a): void
 	{ $this->IdArtista = $a; }
@@ -76,8 +79,31 @@ class EArtista extends EUtente{
 	public function setIban(string $i): void
 	{ $this->IBAN = $i; }
 
-    public function setNomeArte(string $n): void {
-        $this->NomeArte = $n; }
+    public function setUsername(string $n): void {
+        $this->Username = $n; }
+
+    /** ALTRI METODI*/
+
+    /**
+     * Metodo che cripta la password inserita da un utente con un hash
+     * da 60 caratteri
+     * @param string $password
+     * @return string
+     */
+    public static function criptaPassword(string $password): string {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    /**
+     * Metodo che verifica la password inserita corrisponda all'hash
+     * nel database
+     * @param string $password
+     * @return string
+     */
+    public static function verificaPassword(string $password, string $hash): bool {
+        return password_verify($password, $hash);
+    }
+
 }
 
 ?>

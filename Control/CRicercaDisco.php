@@ -3,7 +3,7 @@ class CRicercaDisco{
     public static function index(){
         $viewex = new VHome();
         FSessione::start();
-        $logged = true;
+        $logged = false;
         $viewex->ShowIndex($logged);
     }
 

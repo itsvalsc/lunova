@@ -51,4 +51,11 @@ class CLogin{
         $viewex->Login();
     }
 
+    public static function Signin(){
+        $viewex = new VLogin();
+        FSessione::start();
+        $l = true;
+        $viewex->Signin($l);
+    }
+
 }

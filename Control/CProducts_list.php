@@ -4,9 +4,10 @@ class CProducts_list{
     public static function elenco_dischi(){
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
+        $l = true;
         FSessione::start();
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco);
+        $view->lista_prodotti($elenco,$l);
     }
     /*
     public static function salva_foto(){
@@ -60,7 +61,8 @@ class CProducts_list{
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
         $prodotto = $pers->load('FDisco',$id);
-        $view->prodotto_singolo($prodotto);
+        $l = true;
+        $view->prodotto_singolo($prodotto,$l);
 
     }
 

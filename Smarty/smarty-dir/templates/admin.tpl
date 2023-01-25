@@ -1,8 +1,5 @@
 {if $logged}
     <!-- header -->
-    <?php
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
     <!DOCTYPE html>
     <html>
     <head>

@@ -24,7 +24,7 @@ class VLogin{
     }
 
     public function Login($l){
-        $this->setData('log', $l);
+        $this->setData('logged', $l);
         $this->setTemplate("login.tpl");
     }
 
@@ -51,6 +51,10 @@ class VLogin{
         }
     }
 
+    public function Signin($l){
+        $this->setData('logged', $l);
+        $this->setTemplate("signin.tpl");
+    }
 
 
 

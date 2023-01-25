@@ -1,8 +1,4 @@
-
-    <!-- header -->
-    <?php
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
+<!-- header -->
     <!DOCTYPE html>
     <html>
     <head>

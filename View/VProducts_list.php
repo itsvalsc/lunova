@@ -24,12 +24,14 @@ class VProducts_list{
         $this->smarty->assign($name,$dati);
     }
 
-    public function lista_prodotti($prod){
+    public function lista_prodotti($prod,$l){
+        $this->setData('logged', $l);
         $this->setData('product', $prod);
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product){
+    public function prodotto_singolo($product, $l){
+        $this->setData('logged', $l);
         $this->setData('product', $product);
         $this->setTemplate('viewproduct.tpl');
     }

@@ -98,7 +98,27 @@ require_once './Foundation/FNotifiche.php';
 require_once ("inc/crosswords.txt");
 
 
+function Sicurezza(string $t, string $idap)
+{   $f = "inc/crosswords.txt";
+    $pers = FPersistentManager::getInstance();
+    //var_dump($f);
+    $apertura = file($f);
+    for ($i=0; $i < count($apertura) ; $i++) {
+        $words = explode(";", $apertura[$i]);
+    }
 
+    $text = explode(" ", $t);
+    $t1 = str_replace($words, "***",$t);
+    if ( $t!=$t1){
+        $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "alta"," $idap");
+        $pers->store($n);
+    }
+    return $t1;
+}
+
+print_r("\n-----------\n");
+$A = Sicurezza("ciao", "C231");
+print_r ($A);
 
 
 

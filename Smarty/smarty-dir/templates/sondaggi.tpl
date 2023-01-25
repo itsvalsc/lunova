@@ -1,7 +1,4 @@
 <!-- header -->
-<?php
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +8,6 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/vapor/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
-    <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/icons.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
@@ -20,7 +16,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="http://localhost/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,16 +24,18 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Products_list/elenco_dischi">Prodotti</a>
+                    <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
+                </li>
+                {if $logged==false}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Login/login">Login</a>
+                    </li>
+                {/if}
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Login/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/AboutUs/us">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
                 </li>
             </ul>
 
@@ -45,9 +43,9 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
+                    <a class="nav-link" href="/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">1</span>
+                        <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
@@ -59,12 +57,30 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <ul>
-                <li>
-                    <a href="http://localhost/lunova/templates/?page=profile" class="nav-link py-3 border-bottom rounded-0" style="margin-right: 8px; height: 10px; margin-block-start: 0px;" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-                    </a>
-                </li>
+            <ul class="navbar-nav ml-4">
+                {if $logged}
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+
+                {/if}
+                {if $logged==false}
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+                {/if}
+            </ul>
+
             </ul>
         </div>
     </div>
@@ -79,10 +95,18 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
             <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco1()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco1()->getCopertina()->getImmagine()}">
             </img>
         </a>
-
+        {if $logged}
         <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}">
             <button type="button" class="btn btn-secondary">Vota</button>
         </a>
+        {/if}
+
+        {if $logged ==false}
+            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}">
+                <button type="button" class="btn btn-secondary disabled">Vota</button>
+            </a>
+        {/if}
+
         <div class="progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {$voti[0]}%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
@@ -98,9 +122,17 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco2()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco2()->getCopertina()->getImmagine()}">
         </img>
         </a>
-        <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
-        <button type="button" class="btn btn-secondary">Vota</button>
-        </a>
+        {if $logged}
+            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
+                <button type="button" class="btn btn-secondary">Vota</button>
+            </a>
+        {/if}
+
+        {if $logged==false}
+            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
+                <button type="button" class="btn btn-secondary disabled">Vota</button>
+            </a>
+        {/if}
         <div class="progress">
             <progress class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {$voti[1]}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></progress>
         </div>
@@ -112,9 +144,16 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco3()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco3()->getCopertina()->getImmagine()}" >
         </img>
         </a>
+        {if $logged}
+            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
+                <button type="button" class="btn btn-secondary">Vota</button>
+            </a>
+        {/if}
+        {if $logged==false}
         <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
-            <button type="button" class="btn btn-secondary">Vota</button>
+            <button type="button" class="btn btn-secondary disabled">Vota</button>
         </a>
+        {/if}
 
         <div class="progress">
             <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {$voti[2]}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>

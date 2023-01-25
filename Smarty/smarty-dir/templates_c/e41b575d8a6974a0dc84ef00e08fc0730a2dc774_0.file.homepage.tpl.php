@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2022-12-09 23:07:39
+/* Smarty version 4.2.1, created on 2023-01-20 16:28:41
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\homepage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6393b1ab723773_48228902',
+  'unifunc' => 'content_63cab3296adfa7_03193798',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e41b575d8a6974a0dc84ef00e08fc0730a2dc774' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\homepage.tpl',
-      1 => 1670623651,
+      1 => 1674228520,
       2 => 'file',
     ),
   ),
@@ -20,14 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6393b1ab723773_48228902 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- header -->
-<?php echo '<?php'; ?>
-
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-<?php echo '?>'; ?>
-
-<!DOCTYPE html>
+function content_63cab3296adfa7_03193798 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -44,7 +38,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="http://localhost/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,16 +46,18 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Products_list/elenco_dischi">Prodotti</a>
+                    <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
+                </li>
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/Login/login">Login</a>
+                </li>
+                <?php }?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Login/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/AboutUs/us">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
                 </li>
             </ul>
 
@@ -69,9 +65,9 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">1</span>
+                        <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
@@ -83,23 +79,44 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <ul>
-                <li>
-                    <a href="http://localhost/lunova/Admin/users" class="nav-link py-3 border-bottom rounded-0" style="margin-right: 8px; height: 10px; margin-block-start: 0px;" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-                    </a>
-                </li>
+            <ul class="navbar-nav ml-4">
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+
+                <?php }?>
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+                <?php }?>
+            </ul>
+
             </ul>
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
     <h1>Benvenuti</h1>
     <!--<p class="lead">Benvenuti nel sito!</p>-->
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
-    <a href="#" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
+    <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
 
     <hr>
     <form action="http://localhost/lunova/Products_list/salva_foto" method="post" enctype="multipart/form-data">
@@ -141,7 +158,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
             <div class="carousel-item">
                 <img src="https://www.businessintelligencegroup.it/wp-content/uploads/2021/02/social-community.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Entra a far oarte della nostra comunity</h5>
+                    <h5>Entra a far parte della nostra comunity</h5>
                     <p>lascia un commento e confrontati con gli altri utenti</p>
                 </div>
             </div>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-13 20:41:48
+/* Smarty version 4.2.1, created on 2023-01-20 15:41:36
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\products_list.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63c1b3fc3d1068_19219762',
+  'unifunc' => 'content_63caa820320cf2_98983287',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7c38a561fb0a82c279cdd66974544b2714058ab' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\products_list.tpl',
-      1 => 1673634418,
+      1 => 1674225685,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63c1b3fc3d1068_19219762 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63caa820320cf2_98983287 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
-<?php echo '<?php'; ?>
-
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-<?php echo '?>'; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +39,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="http://localhost/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,16 +47,18 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Products_list/elenco_dischi">Prodotti</a>
+                    <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
+                </li>
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Login/login">Login</a>
+                    </li>
+                <?php }?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Login/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/AboutUs/us">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
                 </li>
             </ul>
 
@@ -69,9 +66,9 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
+                    <a class="nav-link" href="/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">1</span>
+                        <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
@@ -83,12 +80,30 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <ul>
-                <li>
-                    <a href="http://localhost/lunova/templates/?page=profile" class="nav-link py-3 border-bottom rounded-0" style="margin-right: 8px; height: 10px; margin-block-start: 0px;" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-                    </a>
-                </li>
+            <ul class="navbar-nav ml-4">
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+
+                <?php }?>
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+                <?php }?>
+            </ul>
+
             </ul>
         </div>
     </div>
@@ -127,7 +142,8 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                         <!--<input type="hidden" name="id" value="<?php echo '<?php'; ?>
 // echo esc_html($product->getID()); <?php echo '?>'; ?>
 ">-->
-                        <!--<input type="hidden" name="id" value="#"-->
+                        <input type="hidden" name="idprod" value="<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getID();?>
+">
                         <input name="add_to_cart" type="submit" class="btn btn-primary btn-sm btn-block rounded-0" value="Aggiungi al carrello">
                     </form>
                 </div>

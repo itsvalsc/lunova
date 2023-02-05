@@ -1,8 +1,5 @@
-
 <!-- header -->
-<?php
-require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +17,7 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="http://localhost/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,16 +25,18 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Products_list/elenco_dischi">Prodotti</a>
+                    <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
+                </li>
+                {if $logged==false}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Login/login">Login</a>
+                    </li>
+                {/if}
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Login/login">Notifications</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Admin/users">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
                 </li>
             </ul>
 
@@ -45,9 +44,9 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/lunova/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">1</span>
+                        <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
@@ -59,17 +58,39 @@ require_once 'C:\xampp\htdocs\lunova\inc\css\icons.php';
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
 
-            <ul>
-                <li>
-                    <a href="http://localhost/lunova/RicercaDisco/newDisc" class="nav-link py-3 border-bottom rounded-0" style="margin-right: 8px; height: 10px; margin-block-start: 0px;" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
-                        <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
-                    </a>
-                </li>
+            <ul class="navbar-nav ml-4">
+                {if $logged}
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+
+                {/if}
+                {if $logged==false}
+                    <li class="nav-item">
+
+                        <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
+                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                            <span class="badge rounded-pill bg-secondary">2</span>
+                        </a>
+
+                    </li>
+                {/if}
+            </ul>
+
             </ul>
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
+
 <div id="main" class="container" style="margin-top:80px; height: 700px">
 
     <form class="d-flex" style="margin-block-end: 2px;">

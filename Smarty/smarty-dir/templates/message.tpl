@@ -90,45 +90,16 @@
 
 <!-- end header -->
 
-{if $logged==false}
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/Login/verificaLogin" method="post">
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-            <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
-        </div>
-        <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="type" id="type" value="artista">
-            <label class="form-check-label" for="type">
-                Seleziona se sei un Artista
-            </label>
-
-        </div>
-
-        <hr>
-        <button type="submit" class="btn btn-primary">Accedi</button>
-
-        <hr>
-        <h6>Se non sei ancora inscritto...</h6>
-        <a href="/lunova/Login/Signin">
-            <button type="button" class="btn btn-secondary">Inscriviti</button>
-        </a>
-
-    </form>
-</div>
-{/if}
-
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
+<div id="main" class="container" style="margin-top:80px; height: 700px">
+    <div class="col-9">
+        <h2>{$message}</h2>
+        <a href="/lunova/{$var_url}">Ritorna al {$var_titolo}</a>
+    </div>
 </div>
 
-<footer class="bg-dark">
+
+<!-- footer -->
+<footer class="bg-dark" style ="margin-bottom: 0px;">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>

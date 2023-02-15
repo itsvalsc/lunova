@@ -32,12 +32,21 @@ class VNewDisc
         $this->smarty->display($template);
     }
 
-    public function new($l)
+    public function new($logged,$generi)
     {
-        $this->setData('gen', $l);
+        $this->setData('logged', $logged);
+        $this->setData('gen', $generi);
         $this->setTemplate("addisco.tpl");
     }
 
+    public function message($logged,$messaggio,$var_titolo,$var_url){
+        $this->setData('message', $messaggio);
+        $this->setData('var_titolo', $var_titolo);
+        $this->setData('var_url', $var_url);
+
+        $this->setData('logged', $logged);
+        $this->setTemplate("message.tpl");
+    }
 
     /**
      * @return mixed|string
@@ -102,6 +111,8 @@ class VNewDisc
             return  @file_get_contents($_FILES['copertina']['tmp_name']);
 
     }
+
+
 
 
 

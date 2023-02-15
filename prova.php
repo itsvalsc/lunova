@@ -1,6 +1,7 @@
 <?php
-
+/*
 ////ABOUT.TPL//////////
+///
 ///
 ///
 <!-- header -->
@@ -132,7 +133,7 @@
         </div>
     </div>
 {/if}
-
+*/
 
 ///VLOGIN.PHP//////
 ///
@@ -147,7 +148,9 @@
  * @package View
  */
 
-class VLogin
+
+
+class VLogin1
 {
 
     private $smarty;
@@ -510,4 +513,4 @@ class CLogin
      */
 }
 
->
+

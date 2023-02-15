@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-20 16:28:41
+/* Smarty version 4.2.1, created on 2023-02-14 00:31:13
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\homepage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63cab3296adfa7_03193798',
+  'unifunc' => 'content_63eac841ab2281_91845340',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e41b575d8a6974a0dc84ef00e08fc0730a2dc774' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\homepage.tpl',
-      1 => 1674228520,
+      1 => 1676331028,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63cab3296adfa7_03193798 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63eac841ab2281_91845340 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -83,12 +83,15 @@ function content_63cab3296adfa7_03193798 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary">profilo</span>
                         </a>
 
                     </li>
+                    <a class="nav-link" style="align-items: center " href="/lunova/Login/logout">
+                    <button >Logout</button> </a>
+
 
                 <?php }?>
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
@@ -96,7 +99,7 @@ function content_63cab3296adfa7_03193798 (Smarty_Internal_Template $_smarty_tpl)
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -113,7 +116,13 @@ function content_63cab3296adfa7_03193798 (Smarty_Internal_Template $_smarty_tpl)
 <!-- end header -->
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <h1>Benvenuti</h1>
+    <h1>Benvenuto </h1>
+
+    <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+        <?php echo $_smarty_tpl->tpl_vars['var']->value;?>
+
+    <?php }?>
+
     <!--<p class="lead">Benvenuti nel sito!</p>-->
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
     <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>

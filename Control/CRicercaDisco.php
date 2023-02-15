@@ -2,16 +2,29 @@
 class CRicercaDisco{
     public static function index(){
         $viewex = new VHome();
-        FSessione::start();
-        $logged = false;
-        $viewex->ShowIndex($logged);
+        $var = '';
+        $logged= false;
+        $session = FSessione::getInstance();
+        if ($session->isLogged()){
+            $ut = $session->getUtente();
+            $logged = true;
+            $var = $ut->getUsername();
+        }
+
+        $viewex->ShowIndex($logged,$var);
     }
 
     public static function newDisc(){
         $view = new VNewDisc();
         $pers = FPersistentManager::getInstance();
-        FSessione::start();
-        $elenco = $pers->prelevaGeneri();
-        $view->new($elenco);
+        $session = FSessione::getInstance();
+
+        if ($session->isLogged() && $session->isArtista()){
+            $elenco = $pers->prelevaGeneri();
+            $view->new(true,$elenco);
+        }else{
+            $view->message($session->isLogged(),'impossibile accedere in questa sezione', 'homepage','RicercaDisco/index');
+        }
+
     }
 }

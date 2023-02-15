@@ -29,24 +29,22 @@ class CProfile
      * Funzione utilizzata per mostrare l'area personale di un Utente(Cliente o Artista)
      * @return void
      */
-    public function mostraProfilo(){
+    public static function mostraProfilo(){
         $sessione = new FSessione();
         $pm = FPersistentManager::getInstance();
 
-        if ($sessione->isLogged()){
-            $username = $sessione->leggi_valore("utente");
-            $tipo = $sessione->leggi_valore("tipo_utente");
-            if ($tipo == "ECliente") {
-                $cliente = $pm->load("FCliente", $username);
+        if ($sessione->isLogged() && $sessione->isCliente()){
+
+                $cliente = $pm->load("FCliente", $sessione->getUtente()->getEmail());
                 $view = new VProfile();
                 $view->mostraProfiloCliente($cliente);
-            } elseif ($tipo == "EArtista") {
-                $artista = $pm->load("FArtista", $username);
+        } elseif ($sessione->isLogged() && $sessione->isArtista()) {
+                $artista = $pm->load("FArtista", $sessione->getUtente()->getEmail());
                 $view = new VProfile();
                 $view->mostraProfiloArtista($artista);
             }
-        }else{
-            header("Location: /lunova/Ricerca/mostraHome");
+        else{
+            header("Location: /lunova/RicercaDisco/index");
         }
     }
 

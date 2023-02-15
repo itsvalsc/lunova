@@ -143,7 +143,7 @@ class VProfile
             $imm = "";
             $formato = "";
         }
-
+        $this->smarty->assign("logged",true);
         $this->smarty->assign("username",$username);
         $this->smarty->assign("nome",$nome);
         $this->smarty->assign("cognome",$cognome);
@@ -152,9 +152,9 @@ class VProfile
         $this->smarty->assign("type",$formato);
         $this->smarty->assign("dischi_preferiti",$dischi_preferiti);
 
-        $this->smarty->display('profile.tpl');
+        $this->smarty->display('users.tpl');
     }
-
+    //TODO:: utilizzare una sola funzione di mostra profile e vedere tramite la sessione se è un utente o un artista
     /**
      * Funzione utilizzata per visualizzare l'area personale di un artista.
      * @param EArtista $artista artista

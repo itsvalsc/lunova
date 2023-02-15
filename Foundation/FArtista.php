@@ -83,7 +83,7 @@ class FArtista{
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
 
-                $artista = new EArtista($Email, $Username,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
                 return $artista;
                 //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
             }

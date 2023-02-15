@@ -34,22 +34,21 @@ class EArtista extends EUtente{
             $this->Username=$nom_arte;
         }
         elseif (12 === func_num_args()){
-            $n = func_get_arg(0);
-            $c = func_get_arg(1);
-            $v = func_get_arg(2);
-            $nc = func_get_arg(3);
-            $citta = func_get_arg(4);
-            $prov = func_get_arg(5);
-            $cap = func_get_arg(6);
-            $telefono = func_get_arg(7);
-            $email = func_get_arg(8);
-            $pw = func_get_arg(9);
-            $nom_arte = func_get_arg(10);
+            $nom_arte = func_get_arg(0);
+            $email = func_get_arg(1);
+            $n = func_get_arg(2);
+            $c = func_get_arg(3);
+            $v = func_get_arg(4);
+            $nc = func_get_arg(5);
+            $citta = func_get_arg(6);
+            $prov = func_get_arg(7);
+            $cap = func_get_arg(8);
+            $telefono = func_get_arg(9);
+            $pw = func_get_arg(10);
             $id_artista = func_get_arg(11);
 
             parent::__construct($nom_arte,$n, $c, $v, $nc,$citta,$prov,$cap,$telefono,$email,$pw);
             parent::setLivello("B");
-            $this->Username = $nom_arte;
             $this->IdArtista = $id_artista;
         }
     }

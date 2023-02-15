@@ -139,7 +139,6 @@ class FCarrello{
 
 
         }
-        print($tot_sing);
         return $tot_sing;
     }
 

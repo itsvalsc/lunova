@@ -105,11 +105,17 @@ class FPersistentManager{
     }
 
     public function vota($disco,$utente){
-        $sondaggio = FSondaggio::load_incorso();
-        $id = $sondaggio->getId();
-        $sondaggio->aggiungi_voto($disco);
-        FSondaggio::update($sondaggio);
-        FSondaggio::store_votazione($utente,$id,$disco);
+        try {
+            $sondaggio = FSondaggio::load_incorso();
+            $id = $sondaggio->getId();
+            $sondaggio->aggiungi_voto($disco);
+            FSondaggio::update($sondaggio);
+            FSondaggio::store_votazione($utente,$id,$disco);
+            return true;
+        } catch (Exception $ex){
+            return false;
+        }
+
     }
 
     public function crea_sondaggio(ESondaggio $sondaggio){

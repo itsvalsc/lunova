@@ -90,7 +90,7 @@
 
 <!-- end header -->
 
-{if $logged}
+
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
         <form action="/lunova/AboutUs/us/" method="post">
             <div class="form-group" style="width: 50rem;">
@@ -181,7 +181,7 @@
             <button type="button" class="btn btn-secondary">Inscriviti</button>
         </form>
     </div>
-{/if}
+
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
 </div>

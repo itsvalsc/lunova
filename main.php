@@ -40,12 +40,12 @@ require_once "./Smarty/smarty-dir/templates/img/icona_profilo_utente.jpg";
 
 
 
-$utt1 = new ECliente("serafino","cicerone","cia","via vale","3","L'Aquila","AQ","67100","1029384756","ser@fino.com",'passwd3!');
+//$utt1 = new ECliente("serafino","cicerone","cia","via vale","3","L'Aquila","AQ","67100","1029384756","ser@fino.com",'passwd3!');
 /*
 $utt2 = new ECliente("Noemi","Barbaro","via noemi","2","L'Aquila","AQ","67100","0987654321","noemi@barbaro.com",'passwd2!');
 $utt3 = new ECliente("luigi","Bartolomeo","via marruvio","1","avezzano","AQ","67051","1234567890","l@l.com",'passwd1!');
 */
-$a=FCliente::store($utt1);
+//$a=FCliente::store($utt1);
 /*
 $a=FCliente::store($utt2);
 $a=FCliente::store($utt3);
@@ -103,9 +103,11 @@ $s = FCliente::load('valentina@scimia.com');
 //$b = $s[0]->getEmail();
 var_dump($s);
 
-$a = FPersistentManager::getInstance();
-$b = $a->prelevaArtisti();
-print_r($b);
+$pers = FPersistentManager::getInstance();
+$prodotto = $pers->prelevaRichieste();
+
+print_r($prodotto);
+
 */
 
 /*
@@ -131,6 +133,8 @@ print_r("\n-----------\n");
 $A = Sicurezza("ciao", "C231");
 print_r ($A);
 */
+$pm = FPersistentManager::getInstance();
+print_r($pm->load('FCliente','l@l.com'));
 
 
 

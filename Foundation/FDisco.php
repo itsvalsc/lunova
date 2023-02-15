@@ -111,6 +111,7 @@ class FDisco {
             $stmt = $pdo->prepare("SELECT * FROM dischi WHERE category_id = :categoria");
             $stmt->execute([":categoria"=>$cat]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($rows)!=0){
             $dischi = array();
             $i= 0 ;
             foreach ($rows as $row) {
@@ -125,11 +126,13 @@ class FDisco {
                     $row['Qta']
                 );
                 $disc->setID($id);
-
                 $dischi[$i]=$disc;
                 ++$i;
+                }
+            }else{
+                $dischi=array();
             }
-            //$pdo->commit();
+
             return $dischi;
         }
         catch (PDOException $e){
@@ -185,23 +188,27 @@ class FDisco {
             $stmt = $pdo->prepare("SELECT * FROM dischi WHERE name = :titolo");
             $stmt->execute([":titolo"=>$ttl]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $dischi = array();
-            $i= 0 ;
-            foreach ($rows as $row) {
-                $id = $row['ID'];
-                $immagine = FImmagine::load($id);
-                $disc=new EDisco($row['name'],
-                    $row['artist_id'],
-                    $row['price'],
-                    $row['description'],
-                    $row['category_id'],
-                    $immagine,
-                    $row['Qta']
-                );
-                $disc->setID($id);
+            if (count($rows)!=0){
+                $dischi = array();
+                $i= 0 ;
+                foreach ($rows as $row) {
+                    $id = $row['ID'];
+                    $immagine = FImmagine::load($id);
+                    $disc=new EDisco($row['name'],
+                        $row['artist_id'],
+                        $row['price'],
+                        $row['description'],
+                        $row['category_id'],
+                        $immagine,
+                        $row['Qta']
+                    );
+                    $disc->setID($id);
 
-                $dischi[$i]=$disc;
-                ++$i;
+                    $dischi[$i]=$disc;
+                    ++$i;
+                }
+            }else{
+                $dischi = array();
             }
             //$pdo->commit();
             return $dischi;

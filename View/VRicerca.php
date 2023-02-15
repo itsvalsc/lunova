@@ -11,6 +11,23 @@ class VRicerca
         $this->smarty = StartSmarty::configuration();
     }
 
+    /**
+     * @param $name
+     * @param $dati
+     */
+    public function setData($name, $dati)
+    {
+        $this->smarty->assign($name, $dati);
+    }
+
+    /**
+     * @param $template
+     */
+    public function setTemplate($template)
+    {
+        $this->smarty->display($template);
+    }
+
     /** Funzione che preleva il valore del pulsante "Aggiungi ai preferiti" */
     public function getPreferito(){
         $value = null;
@@ -24,7 +41,7 @@ class VRicerca
      * Inviato con metodo post
      * @return string contenente il valore inserito dall'utente
      */
-    public static function getNomeArtista(): ?string
+    public function getNomeArtista(): ?string
     {
         $value = null;
         if (isset($_POST['nomeArtista']))
@@ -44,13 +61,30 @@ class VRicerca
      * Inviato con metodo post
      * @return string contenente il valore inserito dall'utente
      */
-    public static function getNomeDisco(): ?string
+    public function getNomeDisco(): ?string
     {
         $value = null;
         if (isset($_POST['nomeDisco']))
             $value = $_POST['nomeDisco'];
         return $value;
     }
+
+    public  function getsearch(): ?string
+    {
+        $value = null;
+        if (isset($_POST['search']))
+            $value = $_POST['search'];
+        return $value;
+    }
+
+    public  function getfiltro(): ?string
+    {
+        $value = null;
+        if (isset($_POST['filtro']))
+            $value = $_POST['filtro'];
+        return $value;
+    }
+
 
     /**
      * Restituisce il valore del campo genere di un disco
@@ -105,6 +139,21 @@ class VRicerca
         $this->smarty->assign('valutazione',$valutazione);
 
         $this->smarty->display('homepage.tpl');
+    }
+
+    public function message($logged,$messaggio,$var_titolo,$var_url){
+        $this->setData('message', $messaggio);
+        $this->setData('var_titolo', $var_titolo);
+        $this->setData('var_url', $var_url);
+
+        $this->setData('logged', $logged);
+        $this->setTemplate("message.tpl");
+    }
+
+    public function lista_prodotti($prod,$l){
+        $this->setData('logged', $l);
+        $this->setData('product', $prod);
+        $this->setTemplate('products_list.tpl');
     }
 
 }

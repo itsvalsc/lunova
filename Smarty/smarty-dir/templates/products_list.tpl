@@ -98,9 +98,25 @@
 
 <!-- end header -->
 
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-<div class ='row'>
-    {section name = nr loop= $product}
+<div id="main" class="container" style="margin-top:40px; height: fit-content">
+
+
+    <form class="d-flex" style="margin-bottom:40px" action="/lunova/RicercaDisco/ricerca" method="post">
+        <label  class=" my-2 my-sm-0">FILTRA PER</label>
+        <select class="btn btn-secondary my-2 my-sm-0" name="filtro" id="filtro" style="margin-right:5px">
+            <option value="disco">Nome Disco</option>
+            <option value="genere">Genere</option>
+            <option value="artista">Artista</option>
+        </select>
+        <input class="form-control me-sm-2" type="text" name="search" placeholder="Search"></input>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+
+
+
+    <div class ='row'>
+        {section name = nr loop= $product}
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">

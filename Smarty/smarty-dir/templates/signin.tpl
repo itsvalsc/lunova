@@ -95,15 +95,15 @@
         <form action="/lunova/AboutUs/us/" method="post">
             <div class="form-group" style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Nome</label>
-                    <input class="form-control" id="nutente" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" ">Nome</label>
+                    <input class="form-control" id="nutente" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Cognome</label>
-                    <input class="form-control" id="cutente" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Cognome</label>
+                    <input class="form-control" id="cutente" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
@@ -120,43 +120,44 @@
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Telefono</label>
-                    <input class="form-control" id="telefono" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Telefono</label>
+                    <input class="form-control" id="telefono" type="text" placeholder="Nome" >
+                </fieldset>
+            </div>
+            <h4>Inserisci l'indirizzo in cui vuoi effettuare la spedizione</h4>
+            <div class="form-group"style="width: 50rem;">
+
+                <fieldset>
+                    <label class="form-label mt-4" >CAP</label>
+                    <input class="form-control" id="CAP" type="text" placeholder="Nome">
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">CAP</label>
-                    <input class="form-control" id="CAP" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4">Provincia</label>
+                    <input class="form-control" id="provincia" type="text" placeholder="Nome">
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Provincia</label>
-                    <input class="form-control" id="provincia" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Città</label>
+                    <input class="form-control" id="citta" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Città</label>
-                    <input class="form-control" id="citta" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >N. Civico</label>
+                    <input class="form-control" id="civico" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">N. Civico</label>
-                    <input class="form-control" id="civico" type="text" placeholder="Nome" readonly="">
-                </fieldset>
-            </div>
-
-            <div class="form-group"style="width: 50rem;">
-                <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Via</label>
-                    <input class="form-control" id="via" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4">Via</label>
+                    <input class="form-control" id="via" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
             <hr>

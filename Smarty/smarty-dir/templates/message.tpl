@@ -93,7 +93,7 @@
 <div id="main" class="container" style="margin-top:80px; height: 700px">
     <div class="col-9">
         <h2>{$message}</h2>
-        <a href="/lunova/{$var_url}">Ritorna al {$var_titolo}</a>
+        <a href="/lunova/{$var_url}">Ritorna {$var_titolo}</a>
     </div>
 </div>
 

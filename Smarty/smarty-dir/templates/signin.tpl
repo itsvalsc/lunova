@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,7 +43,7 @@
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
@@ -61,7 +61,7 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -85,22 +85,25 @@
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
 
-{if $logged}
+
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
         <form action="/lunova/AboutUs/us/" method="post">
             <div class="form-group" style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Nome</label>
-                    <input class="form-control" id="nutente" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" ">Nome</label>
+                    <input class="form-control" id="nutente" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Cognome</label>
-                    <input class="form-control" id="cutente" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Cognome</label>
+                    <input class="form-control" id="cutente" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
@@ -117,43 +120,44 @@
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Telefono</label>
-                    <input class="form-control" id="telefono" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Telefono</label>
+                    <input class="form-control" id="telefono" type="text" placeholder="Nome" >
+                </fieldset>
+            </div>
+            <h4>Inserisci l'indirizzo in cui vuoi effettuare la spedizione</h4>
+            <div class="form-group"style="width: 50rem;">
+
+                <fieldset>
+                    <label class="form-label mt-4" >CAP</label>
+                    <input class="form-control" id="CAP" type="text" placeholder="Nome">
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">CAP</label>
-                    <input class="form-control" id="CAP" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4">Provincia</label>
+                    <input class="form-control" id="provincia" type="text" placeholder="Nome">
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Provincia</label>
-                    <input class="form-control" id="provincia" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Città</label>
+                    <input class="form-control" id="citta" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Città</label>
-                    <input class="form-control" id="citta" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >N. Civico</label>
+                    <input class="form-control" id="civico" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">N. Civico</label>
-                    <input class="form-control" id="civico" type="text" placeholder="Nome" readonly="">
-                </fieldset>
-            </div>
-
-            <div class="form-group"style="width: 50rem;">
-                <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Via</label>
-                    <input class="form-control" id="via" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4">Via</label>
+                    <input class="form-control" id="via" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
             <hr>
@@ -178,7 +182,7 @@
             <button type="button" class="btn btn-secondary">Inscriviti</button>
         </form>
     </div>
-{/if}
+
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
 </div>

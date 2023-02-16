@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-20 16:17:41
+/* Smarty version 4.2.1, created on 2023-02-11 14:21:47
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63cab0951086e7_17979350',
+  'unifunc' => 'content_63e7966b472a85_41155507',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dda42547ea97a8c65434a6c0cb65bf92e7a7adf2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\login.tpl',
-      1 => 1674227064,
+      1 => 1676121705,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63cab0951086e7_17979350 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63e7966b472a85_41155507 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ function content_63cab0951086e7_17979350 (Smarty_Internal_Template $_smarty_tpl)
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -66,12 +66,13 @@ function content_63cab0951086e7_17979350 (Smarty_Internal_Template $_smarty_tpl)
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
+
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -83,7 +84,7 @@ function content_63cab0951086e7_17979350 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -107,12 +108,14 @@ function content_63cab0951086e7_17979350 (Smarty_Internal_Template $_smarty_tpl)
         </div>
     </div>
 </nav>
-</nav>
+
+
+
 <!-- end header -->
 
-<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+<?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/Login/verificaLogin" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
             <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -125,23 +128,18 @@ function content_63cab0951086e7_17979350 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <hr>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Artista
+            <input class="form-check-input" type="checkbox" name="type" id="type" value="artista">
+            <label class="form-check-label" for="type">
+                Seleziona se sei un Artista
             </label>
 
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Utente
-            </label>
-        </div>
-        <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
 
-        <button type="button" class="btn btn-primary">Accedi</button>
         <hr>
+        <button type="submit" class="btn btn-primary">Accedi</button>
+
+        <hr>
+        <h6>Se non sei ancora inscritto...</h6>
         <a href="/lunova/Login/Signin">
             <button type="button" class="btn btn-secondary">Inscriviti</button>
         </a>

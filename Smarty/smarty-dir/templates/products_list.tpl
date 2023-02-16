@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,7 +43,7 @@
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
@@ -61,7 +61,7 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -79,16 +79,44 @@
 
                     </li>
                 {/if}
+                <li class="nav-item">
+
+                    <a class="nav-link" style="align-items: center " href="/lunova/RicercaDisco/newDisc">
+                        <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                        <span class="badge rounded-pill bg-secondary">New Disc</span>
+                    </a>
+
+                </li>
             </ul>
 
             </ul>
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-<div class ='row'>
-    {section name = nr loop= $product}
+
+<div id="main" class="container" style="margin-top:40px; height: fit-content">
+
+
+    <form class="d-flex" style="margin-bottom:40px" action="/lunova/RicercaDisco/ricerca" method="post">
+        <label  class=" my-2 my-sm-0">FILTRA PER</label>
+        <select class="btn btn-secondary my-2 my-sm-0" name="filtro" id="filtro" style="margin-right:5px">
+            <option value="disco">Nome Disco</option>
+            <option value="genere">Genere</option>
+            <option value="artista">Artista</option>
+        </select>
+        <input class="form-control me-sm-2" type="text" name="search" placeholder="Search"></input>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+
+
+
+    <div class ='row'>
+        {section name = nr loop= $product}
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">

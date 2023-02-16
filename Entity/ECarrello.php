@@ -120,7 +120,7 @@ class ECarrello
         $a = "";
         $out = implode(";",array_map(function($a) {return implode("",$a);},$this->getDischi()));
         $out =$out .";";
-        //}
+
         return $out;
     }
 

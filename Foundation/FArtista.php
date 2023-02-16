@@ -23,11 +23,12 @@ class FArtista{
      */
     public static function store(EArtista $artista): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO artista VALUES(:IdArtista,:Email,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello,:NomeArte)";
+        $query = "INSERT INTO artista VALUES(:IdArtista,:Email,:Username,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':IdArtista' => $artista->getIdArtista(),
             ':Email' => $artista->getEmail(),
+            ':Username' =>$artista->getUsername(),
             ':Nome'  =>$artista->getNome(),
             ':Cognome' =>$artista->getCognome(),
             ':Via' =>$artista->getVia(),
@@ -36,9 +37,8 @@ class FArtista{
             ':Citta' =>$artista->getCitta(),
             ':CAP' =>$artista->getCAP(),
             ':NTelefono' =>$artista->getTelefono(),
-            ':Password' =>$artista->getPassword(),
-            ':Livello' =>$artista->getLivello(),
-            ':NomeArte' =>$artista->getNomeArte()
+            ':Password' =>$artista->criptaPassword($artista->getPassword()),
+            ':Livello' =>$artista->getLivello()
         ));
     }
 
@@ -72,6 +72,7 @@ class FArtista{
 
                 $IdArtista = $rows[0]['IdArtista'];
                 $Email = $rows[0]['Email'];
+                $Username = $rows[0]['Username'];
                 $Nome = $rows[0]['Nome'];
                 $Cognome = $rows[0]['Cognome'];
                 $Via = $rows[0]['Via'];
@@ -81,9 +82,8 @@ class FArtista{
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
-                $NomeArte = $rows[0]['NomeArte'];
 
-                $artista = new EArtista($Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Email, $Password, $NomeArte, $IdArtista );
+                $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
                 return $artista;
                 //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
             }
@@ -95,11 +95,12 @@ class FArtista{
     //TODO:finire update artista [da controllare]
     public static function update(EArtista $art) : bool{
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello , NomeArte = :NomeArte  WHERE Email = :email";
+        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello WHERE Email = :email";
         $stmt=$pdo->prepare($query);
         $ris = $stmt->execute(array(
             ":id" => $art->getIdClient(),
             ":email" => $art->getEmail(),
+            ":username" => $art->getUsername(),
             ":nome" => $art->getNome(),
             ":cognome" => $art->getCognome(),
             ":via" => $art->getVia(),
@@ -110,7 +111,8 @@ class FArtista{
             ":ntelefono" => $art->getTelefono(),
             ":password" => $art->getPassword(),
             ":livello" => $art->getLivello(),
-            ":NomeArte" => $art->getNomeArte()));
+            )
+        );
 
         return $ris;
     }
@@ -127,6 +129,7 @@ class FArtista{
             foreach ($rows as $row) {
                 $IdArtista = $row['IdArtista'];
                 $Email = $row['Email'];
+                $Username = $row['Username'];
                 $Nome = $row['Nome'];
                 $Cognome = $row['Cognome'];
                 $Via = $row['Via'];
@@ -136,9 +139,8 @@ class FArtista{
                 $CAP = $row['CAP'];
                 $Telefono = $row['NTelefono'];
                 $Password = $row['Password'];
-                $NomeArte = $row['NomeArte'];
 
-                $artista = new EArtista($Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Email, $Password, $NomeArte, $IdArtista );
+                $artista = new EArtista($Email, $Username, $Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
                 $artisti[$i] = $artista;
                 ++$i;
             }
@@ -150,7 +152,31 @@ class FArtista{
             return array();}
     }
 
+    /**
+     * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
+     * @param $email
+     * @param $pass
+     */
+    public function VerificaAccesso(string $email, string $password)
+    {
+        $pdo=FConnectionDB::connect();
+        $pdo->beginTransaction();
+        try {
+            //$email = addslashes($email);
+            $query = "SELECT * FROM admin WHERE Email = :email";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":email" => $email] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $pdo->commit();
 
-
-
+            // verificaPassword controlla se la password inserita corrisponde alla password hash recuperata da db
+            if ($rows && EArtista::verificaPassword($password, $rows['Password'])) return true;
+            return false;
+        }
+        catch (PDOException $e) {
+            echo "\nAttenzione errore: " . $e->getMessage();
+            $pdo->rollBack();
+            return null;
+        }
+    }
 }

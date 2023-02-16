@@ -2,27 +2,9 @@
 
 class FCliente
 {
-
     private static $class = "Cliente";
     private static $table = "cliente";
 
-    /**
-    public static function bind($statement, EClient $cliente)
-    {
-        $statement->bindValue(':IdCliente', $cliente->getIdCliente(), PDO::PARAM_STR);
-        $statement->bindValue(':Email', $cliente->getEmail(), PDO::PARAM_STR);
-        $statement->bindValue(':Nome', $cliente->getNome(), PDO::PARAM_STR);
-        $statement->bindValue(':Cognome', $cliente->getCognome(), PDO::PARAM_STR);
-        $statement->bindValue(':Via', $cliente->getVia(), PDO::PARAM_STR);
-        $statement->bindValue(':NCivico', $cliente->getNumeroCivico(), PDO::PARAM_STR);
-        $statement->bindValue(':Provincia', $cliente->getProvincia(), PDO::PARAM_STR);
-        $statement->bindValue(':Citta', $cliente->getCitta(), PDO::PARAM_STR);
-        $statement->bindValue(':CAP', $cliente->getCAP(), PDO::PARAM_STR);
-        $statement->bindValue(':NTelefono', $cliente->getTelefono(), PDO::PARAM_STR);
-        $statement->bindValue(':Password', password_hash($cliente->getPassword(), PASSWORD_DEFAULT), PDO::PARAM_STR);
-        $statement->bindValue(':Livello', $cliente->getLivello(), PDO::PARAM_STR);
-    }
-    */
     public static function exist($email) : bool {
 
 	    $pdo = FConnectionDB::connect();
@@ -40,15 +22,16 @@ class FCliente
     }
     /**
      * Memorizza un'istanza di EClient sul database
-     * @param EClient $cliente
+     * @param ECliente $cliente
      */
-    public static function store(EClient $cliente): void {
+    public static function store(ECliente $cliente): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO cliente VALUES(:IdCliente,:Email,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello)";
+        $query = "INSERT INTO cliente VALUES(:IdCliente,:Email,:Username,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':IdCliente' => $cliente->getIdClient(),
             ':Email' => $cliente->getEmail(),
+            ':Username' => $cliente->getUsername(),
             ':Nome'  =>$cliente->getNome(),
             ':Cognome' =>$cliente->getCognome(),
             ':Via' =>$cliente->getVia(),
@@ -57,43 +40,10 @@ class FCliente
             ':Citta' =>$cliente->getCitta(),
             ':CAP' =>$cliente->getCAP(),
             ':NTelefono' =>$cliente->getTelefono(),
-            ':Password' =>$cliente->getPassword(),
+            ':Password' =>$cliente->criptaPassword($cliente->getPassword()),
             ':Livello' =>$cliente->getLivello()
         ));
     }
-
-    /**
-     * Carica in RAM l'istanza di EClient che possiede l' email fornita
-     * @param EClient $cliente
-
-    public static function load(string $email) : EClient {
-        $pdo=FConnectionDB::connect();
-
-        $query = "SELECT * FROM cliente WHERE Email= :email";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute( [":email" => $email] );
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $Idcliente = $rows[0]['IdCliente'];
-        $Email = $rows[0]['Email'];
-        $Nome = $rows[0]['Nome'];
-        $Cognome = $rows[0]['Cognome'];
-        $Via = $rows[0]['Via'];
-        $NumeroCivico = $rows[0]['NCivico'];
-        $Provincia = $rows[0]['Provincia'];
-        $Citta = $rows[0]['Citta'];
-        $CAP = $rows[0]['CAP'];
-        $Telefono = $rows[0]['NTelefono'];
-        $Password = $rows[0]['Password'];
-        $Livello = $rows[0]['Livello'];
-
-        $utente = new EClient($Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
-
-
-        return $utente;
-    }
-    */
-
 
     public static function delete(string $email) {
         $pdo=FConnectionDB::connect();
@@ -125,6 +75,7 @@ class FCliente
 
                 $Idcliente = $rows[0]['IdCliente'];
                 $Email = $rows[0]['Email'];
+                $Username = $rows[0]['Username'];
                 $Nome = $rows[0]['Nome'];
                 $Cognome = $rows[0]['Cognome'];
                 $Via = $rows[0]['Via'];
@@ -136,7 +87,7 @@ class FCliente
                 $Password = $rows[0]['Password'];
                //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
                 return $utente;
             }
             else {return "Non ci sono clienti";}
@@ -147,11 +98,12 @@ class FCliente
 
     public static function update(EClient $cl) : bool{
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello   WHERE Email = :email";
+        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello   WHERE Email = :email";
         $stmt=$pdo->prepare($query);
         $ris = $stmt->execute(array(
             ":id" => $cl->getIdClient(),
             ":email" => $cl->getEmail(),
+            ":username" => $cl->getUsername(),
             ":nome" => $cl->getNome(),
             ":cognome" => $cl->getCognome(),
             ":via" => $cl->getVia(),
@@ -179,6 +131,7 @@ class FCliente
             foreach ($rows as $row) {
                 $Idcliente = $row['IdCliente'];
                 $Email = $row['Email'];
+                $Username = $row['Username'];
                 $Nome = $row['Nome'];
                 $Cognome = $row['Cognome'];
                 $Via = $row['Via'];
@@ -190,7 +143,7 @@ class FCliente
                 $Password = $row['Password'];
                 //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
+                $utente = new ECliente($Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
 
                 $clienti[$i] = $utente;
                 ++$i;
@@ -201,6 +154,34 @@ class FCliente
             print ("Errore".$exception->getMessage());
             $pdo->rollBack();
             return array();}
+    }
+
+    /**
+     * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
+     * @param $email
+     * @param $pass
+     */
+    public function VerificaAccesso(string $email, string $password)
+    {
+        $pdo=FConnectionDB::connect();
+        $pdo->beginTransaction();
+        try {
+            $email = addslashes($email);
+            $query = "SELECT * FROM admin WHERE Email = :email";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":email" => $email] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $pdo->commit();
+
+            // verificaPassword controlla se la password inserita corrisponde alla password hash recuperata da db
+            if ($rows && ECliente::verificaPassword($password, $rows['Password'])) return true;
+            return false;
+        }
+        catch (PDOException $e) {
+            echo "\nAttenzione errore: " . $e->getMessage();
+            $pdo->rollBack();
+            return null;
+        }
     }
 }
 

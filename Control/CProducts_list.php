@@ -4,10 +4,14 @@ class CProducts_list{
     public static function elenco_dischi(){
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
-        $l = true;
-        FSessione::start();
+        $session = FSessione::getInstance();
+        $logged = false;
+        if ($session->isLogged()){
+            $logged = true;
+        }
+
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco,$l);
+        $view->lista_prodotti($elenco,$logged);
     }
     /*
     public static function salva_foto(){
@@ -25,29 +29,30 @@ class CProducts_list{
     }
     */
     public static function aggiungi_disco(){
+        $session = FSessione::getInstance();
         $view = new VNewDisc() ;
-        $viewmex = new VAbout();
-        $pers = FPersistentManager::getInstance();
-        $nome = $view->getNome();
-        $descrizione = $view->getDescrizione();
-        $genere = $view->getGenere();
-        $prezzo = $view->getPrezzo();
-        $quantita = $view->getQuantita();
-        $imgName = $view->getImgName();
-        $imgType = $view->getImgType();
-        $imgData = $view->getImgData();
-        $autore = 'A1'; //aggiungere l'artista tramite le sessioni
+        if ($session->isLogged() && $session->isArtista()){
+            $artista_id = $session->getUtente()->getIdArtista();
+            $pers = FPersistentManager::getInstance();
+            $nome = $view->getNome();
+            $descrizione = $view->getDescrizione();
+            $genere = $view->getGenere();
+            $prezzo = $view->getPrezzo();
+            $quantita = $view->getQuantita();
+            $imgName = $view->getImgName();
+            $imgType = $view->getImgType();
+            $imgData = $view->getImgData();
+            $disco = new EDisco($nome,$artista_id,$prezzo,$descrizione,$genere,null,$quantita);
+            $image = new EImmagine($imgName,$imgType,$imgData,$disco->getID());
+            $disco->setCopertina($image);
+            $pers->store($disco);
 
-        $disco = new EDisco($nome,$autore,$prezzo,$descrizione,$genere,null,$quantita);
-        $image = new EImmagine($imgName,$imgType,$imgData,$disco->getID());
-        $disco->setCopertina($image);
+            $messaggio='Disco Creato Correttamente';
+            $view->message(true,$messaggio);
+        }else{
+            $view->message(false,'accedi come artista per aggiungere un disco');
+        }
 
-        $pers->store($disco);
-
-
-
-        $messaggio='tutt appost fra';
-        $viewmex->about_us($messaggio);
     }
 
     public static function recuperaAggiungiProdotto(){

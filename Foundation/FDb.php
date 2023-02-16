@@ -1,22 +1,17 @@
 <?php
 	if (file_exists('./inc/configdb.php'))
-	{
-    	require_once './inc/configdb.php';
-	}
+	{ require_once './inc/configdb.php'; }
 
-
-	class FDb{
+    class FDb{
 		/** Istanza della classe */
     	private static FDb $instance;
 
 	    /** Oggetto PDO che effettua la connessione al DB */
 	    private PDO $db;
 
-		//private $conn;
-	 	public $pdo;
+        public $pdo;
 	 	
-
-	 	public function __construct() {
+        public function __construct() {
 	    	
 	 		try {
             $this->db = new PDO('mysql:dbname='. DB_NAME .';host=' . DB_HOST, DB_USER, DB_PASS);
@@ -37,12 +32,6 @@
 	        }
 	        return FDb::$instance;
 	    }
-
-	    
-
-	  	
-
-
-		}
+    }
 
 ?>

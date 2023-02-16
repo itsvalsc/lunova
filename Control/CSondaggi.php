@@ -2,21 +2,42 @@
 class CSondaggi{
     public static function show(){
         $view = new VSondaggi();
-        $utente = 'ut1';
-        $pers = FPersistentManager::getInstance();
+        $logged = false;
 
+        $votazione = false;
+        $ut = null;
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
-        $votazione= $pers->exist('FVotazione',$utente,$sondaggio);
-        $view->show($sondaggio,$votazione);
+        if ($session->isLogged() && $session->isCliente()){
+            $ut = $session->getUtente();
+            $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
+            $view->show($sondaggio,$votazione,true);
+        }elseif($session->isLogged() && $session->isArtista()){
+            $view->show($sondaggio,true,true);
+        }
+        else{
+            header("Location: /lunova");
+
+        }
     }
 
     public static function vota(string $id){
         $view = new VSondaggi();
-        $utente = 'ut1'; //implementazione tramite sessioni
+        $utente = null;
+        $logged = false;
+        $votazione = false;
         $pers = FPersistentManager::getInstance();
-        $votazione = $pers->vota($id,$utente);
+        $session = FSessione::getInstance();
+
+        if ($session->isLogged()){
+            $ut = $session->getUtente();
+            $logged = true;
+            $votazione = $pers->vota($id,$ut->getIdClient());
+        }
         $sondaggio = $pers->prelevaSondaggioInCorso();
-        $view->show($sondaggio,1);
+        //poi gestione eccezioni
+        $view->show($sondaggio,$votazione,$logged);
     }
 
     public function nuovoSondaggio(){

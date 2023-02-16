@@ -60,12 +60,15 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary">profilo</span>
                         </a>
 
                     </li>
+                    <a class="nav-link" style="align-items: center " href="/lunova/Login/logout">
+                    <button >Logout</button> </a>
+
 
                 {/if}
                 {if $logged==false}
@@ -73,7 +76,7 @@
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -90,25 +93,15 @@
 <!-- end header -->
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <h1>Benvenuti</h1>
+    <h1>Benvenuto </h1>
+
+    {if $logged}
+        {$var}
+    {/if}
+
     <!--<p class="lead">Benvenuti nel sito!</p>-->
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
     <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
-
-    <hr>
-    <form action="http://localhost/lunova/Products_list/salva_foto" method="post" enctype="multipart/form-data">
-        <div class="form-group" >
-        FILE
-        <input type="file" class="form-control" name="file1" placeholder="file">
-        </div>
-        <div class="form-group" >
-            id appartenenza
-            <input type="text" class="form-control" name="idAppartenenza" placeholder="id appartenenza">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <hr>
 
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">

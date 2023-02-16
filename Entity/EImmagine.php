@@ -7,13 +7,9 @@
 class EImmagine {
 
     private string $Id;
-
     private string $nome;
-
     private string $formato;
-
     private string $Immagine;
-
     private string $IdAppartenenza;
 
     /**
@@ -31,85 +27,41 @@ class EImmagine {
         $this->IdAppartenenza = $IdAppartenenza;
     }
 
-    /**
-     * @return string
-     */
+    /** METODI GET */
+
     public function getId(): string
-    {
-        return $this->Id;
-    }
+    { return $this->Id; }
 
-    /**
-     * @return string
-     */
     public function getNome(): string
-    {
-        return $this->nome;
-    }
+    { return $this->nome; }
 
-    /**
-     * @return string
-     */
     public function getFormato(): string
-    {
-        return $this->formato;
-    }
+    { return $this->formato; }
 
-    /**
-     * @return string
-     */
     public function getImmagine(): string
-    {
-        return $this->Immagine;
-    }
+    { return $this->Immagine; }
 
-    /**
-     * @return string
-     */
     public function getIdAppartenenza(): string
-    {
-        return $this->IdAppartenenza;
-    }
+    { return $this->IdAppartenenza; }
 
-    /**
-     * @param string $Id
-     */
+   /** METODI SET */
+
     public function setId(string $Id): void
-    {
-        $this->Id = $Id;
-    }
+    { $this->Id = $Id; }
 
-    /**
-     * @param string $nome
-     */
     public function setNome(string $nome): void
-    {
-        $this->nome = $nome;
-    }
+    { $this->nome = $nome; }
 
-    /**
-     * @param string $formato
-     */
     public function setFormato(string $formato): void
-    {
-        $this->formato = $formato;
-    }
+    { $this->formato = $formato; }
 
-    /**
-     * @param string $Immagine
-     */
     public function setImmagine(string $Immagine): void
-    {
-        $this->Immagine = $Immagine;
-    }
+    { $this->Immagine = $Immagine; }
 
-    /**
-     * @param string $IdAppartenenza
-     */
     public function setIdAppartenenza(string $IdAppartenenza): void
-    {
-        $this->IdAppartenenza = $IdAppartenenza;
-    }
+    { $this->IdAppartenenza = $IdAppartenenza; }
+
+
 
 
 }

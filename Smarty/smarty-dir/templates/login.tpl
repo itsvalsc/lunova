@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,12 +43,13 @@
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
+
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -60,7 +61,7 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -84,12 +85,14 @@
         </div>
     </div>
 </nav>
-</nav>
+
+
+
 <!-- end header -->
 
-{if $logged}
+{if $logged==false}
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/Login/verificaLogin" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
             <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -102,23 +105,18 @@
         </div>
         <hr>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Artista
+            <input class="form-check-input" type="checkbox" name="type" id="type" value="artista">
+            <label class="form-check-label" for="type">
+                Seleziona se sei un Artista
             </label>
 
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Utente
-            </label>
-        </div>
-        <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
 
-        <button type="button" class="btn btn-primary">Accedi</button>
         <hr>
+        <button type="submit" class="btn btn-primary">Accedi</button>
+
+        <hr>
+        <h6>Se non sei ancora inscritto...</h6>
         <a href="/lunova/Login/Signin">
             <button type="button" class="btn btn-secondary">Inscriviti</button>
         </a>

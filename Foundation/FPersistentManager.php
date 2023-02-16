@@ -15,6 +15,10 @@ class FPersistentManager{
         return $ris;
     }
 
+    /**
+     * metodo che permette il caricamento di un elemento di una classe
+     * tramite la chiave primaria dell'oggetto
+     */
     public function load(string $Fclass, $key1) {
         $object = $Fclass::load($key1);
         return $object;
@@ -34,7 +38,6 @@ class FPersistentManager{
         return $ris;
     }
 
-
     public function update(object $obj) : bool {
         $Eclass = get_class($obj);
         $Fclass = str_replace("E", "F", $Eclass);
@@ -42,6 +45,35 @@ class FPersistentManager{
         return $ris;
     }
 
+    /**
+     * metodo che permette l'aggiornamento del valore di un campo passato per parametro
+     */
+    public function update_value(string $class, string $attributo, string $newvalue, string $attributo_pk, string $value_pk) {
+        return $class::update($attributo, $newvalue, $attributo_pk, $value_pk);
+    }
+
+    /**
+     * Metodo che permette il login di un utente, date le credenziali (username e password)
+     * @param $email
+     * @param $pass
+     * @return array|EAdmin|EArtista|ECliente|null
+     */
+    public function verificaLogin($email, $pass) {
+        $ris = FCliente::verificaAccesso($email, $pass);
+        if($ris == null){
+            $ris = FArtista::verificaAccesso($email, $pass);
+            if($ris == null){
+                $ris = FAdmin::verificaAccesso($email, $pass);
+            }
+        }
+        return $ris;
+    }
+
+    public static function criptaPassword($password): string {
+        return EUtente::criptaPassword($password);
+    }
+
+    /** METODI DI FDisco */
 
 	public function prelevaDischi() : array {
         return FDisco::prelevaDischi();
@@ -55,6 +87,8 @@ class FPersistentManager{
     public function prelevaDischiperTitolo($titolo):array{
         return FDisco::prelevaDischiperTitolo($titolo);
     }
+
+    /** METODI DI FSondaggio */
 
     public function prelevaSondaggioInCorso(){
         $sondaggio = FSondaggio::load_incorso();
@@ -71,11 +105,17 @@ class FPersistentManager{
     }
 
     public function vota($disco,$utente){
-        $sondaggio = FSondaggio::load_incorso();
-        $id = $sondaggio->getId();
-        $sondaggio->aggiungi_voto($disco);
-        FSondaggio::update($sondaggio);
-        FSondaggio::store_votazione($utente,$id,$disco);
+        try {
+            $sondaggio = FSondaggio::load_incorso();
+            $id = $sondaggio->getId();
+            $sondaggio->aggiungi_voto($disco);
+            FSondaggio::update($sondaggio);
+            FSondaggio::store_votazione($utente,$id,$disco);
+            return true;
+        } catch (Exception $ex){
+            return false;
+        }
+
     }
 
     public function crea_sondaggio(ESondaggio $sondaggio){
@@ -86,13 +126,6 @@ class FPersistentManager{
 
     }
 
-
-    public function prelevaOrdini($ut){
-        $ordini = FOrdine::prelevaOrdini($ut);
-        return $ordini;
-    }
-
-
     public function prelevaDischiSondaggio(ESondaggio $sondaggio): array {
         $disco1 = $sondaggio->getDisco1();
         $disco2 = $sondaggio->getDisco2();
@@ -102,6 +135,11 @@ class FPersistentManager{
         $load_disco3 = FDisco::load($disco3);
         $dischi = array($load_disco1,$load_disco2,$load_disco3);
         return $dischi;
+    }
+
+    public function prelevaOrdini($ut){
+        $ordini = FOrdine::prelevaOrdini($ut);
+        return $ordini;
     }
 
     public function prelevaArtisti(){

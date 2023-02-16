@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -43,7 +43,7 @@
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
@@ -61,7 +61,7 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -85,9 +85,20 @@
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
+
+
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
 <h3 class="text-secondary">Vota il tuo Disco preferito</h3>
+    {if $logged ==false}
+        <a >
+            ACCEDI PER VOTARE
+        </a>
+    {/if}
+
 
 <div class="row">
     <div class = "container" style="width: 20rem;">
@@ -96,14 +107,18 @@
             </img>
         </a>
         {if $logged}
-        <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}">
-            <button type="button" class="btn btn-secondary">Vota</button>
-        </a>
-        {/if}
+            {if $votazione == false}
+                <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}">
+                    <button type="button" class="btn btn-secondary">Vota</button>
+                </a>
+            {/if}
+            {if $votazione}
 
+            {/if}
+        {/if}
         {if $logged ==false}
-            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}">
-                <button type="button" class="btn btn-secondary disabled">Vota</button>
+            <a >
+                <button type="button" class="btn btn-secondary" disabled>Vota</button>
             </a>
         {/if}
 
@@ -123,18 +138,22 @@
         </img>
         </a>
         {if $logged}
-            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
-                <button type="button" class="btn btn-secondary">Vota</button>
-            </a>
-        {/if}
+            {if $votazione == false}
+                <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
+                    <button type="button" class="btn btn-secondary">Vota</button>
+                </a>
+            {/if}
+            {if $votazione}
 
-        {if $logged==false}
-            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
-                <button type="button" class="btn btn-secondary disabled">Vota</button>
+            {/if}
+        {/if}
+        {if $logged ==false}
+            <a >
+                <button type="button" class="btn btn-secondary" disabled>Vota</button>
             </a>
         {/if}
         <div class="progress">
-            <progress class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {$voti[1]}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></progress>
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {$voti[1]}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         {$sondaggio->getVotiDisco2()}
     </div>
@@ -145,14 +164,19 @@
         </img>
         </a>
         {if $logged}
-            <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
-                <button type="button" class="btn btn-secondary">Vota</button>
-            </a>
+            {if $votazione == false}
+                <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
+                    <button type="button" class="btn btn-secondary">Vota</button>
+                </a>
+            {/if}
+            {if $votazione}
+
+            {/if}
         {/if}
-        {if $logged==false}
-        <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
-            <button type="button" class="btn btn-secondary disabled">Vota</button>
-        </a>
+        {if $logged ==false}
+            <a >
+                <button type="button" class="btn btn-secondary" disabled>Vota</button>
+            </a>
         {/if}
 
         <div class="progress">

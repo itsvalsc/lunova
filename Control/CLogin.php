@@ -97,4 +97,25 @@ class CLogin{
         }
     }
 
+    public static function verificaLoginAdmin(){
+        $v = new VLogin(); //todo: inserire view giusta per restituire la homepage dell amministratore
+        $email = $v->getEmail();
+        $password = $v->getPwd();
+        $pm = FPersistentManager::getInstance();
+        $gs = FSessione::getInstance();
+        if ($pm->exist('FAdmin', $email)) {
+            $admin = $pm->load('FAdmin', $email);
+            if ($password == $admin->getPassword()) {
+                $gs->setUtente($admin);
+                $v->ShowIndex(true,$admin->getUsername());
+                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");
+            } else {
+                $v->message(false,'password errata','Login','Login/login');
+                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaLogin");
+            }
+        }
+
+
+    }
+
 }

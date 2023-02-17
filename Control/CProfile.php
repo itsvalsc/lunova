@@ -37,7 +37,7 @@ class CProfile
 
                 $cliente = $pm->load("FCliente", $sessione->getUtente()->getEmail());
                 $view = new VProfile();
-                $view->mostraProfiloCliente($cliente);
+                $view->mostraProfiloCliente($cliente,);
         } elseif ($sessione->isLogged() && $sessione->isArtista()) {
                 $artista = $pm->load("FArtista", $sessione->getUtente()->getEmail());
                 $view = new VProfile();

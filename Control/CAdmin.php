@@ -160,4 +160,11 @@ class CAdmin{
         $sond = $pers->prelNotifSond();
         $view->show($alte,$basse, $sond);
     }
+
+    public static function login(){
+        $view = new VLogin();
+        $view->AdminLogin(false);
+    }
+
+
 }

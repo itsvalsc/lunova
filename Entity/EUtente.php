@@ -34,18 +34,19 @@ class EUtente{
     public function __construct($ut)
     {
         if (6 === func_num_args()){
-            $this->Username = func_get_arg(0);
-            $this->Nome = func_get_arg(1);
-            $this->Cognome = func_get_arg(2);
-            $this->Email = func_get_arg(3);
-            $this->Password = func_get_arg(4);
+            $this->Username = '';
+            $this->Nome = func_get_arg(0);
+            $this->Cognome = func_get_arg(1);
+            $this->Email = func_get_arg(2);
+            $this->Password = func_get_arg(3);
+            $this->Telefono = func_get_arg(4);
             $this->Livello = func_get_arg(5);    //scelta multipla per il livello di iscrizione
             $this->Via = "";
             $this->NumeroCivico = "";
             $this->Citta = "";
             $this->Provincia = "";
             $this->CAP = "";
-            $this->Telefono = "";
+
             $this->Profilo = null;
         }
         elseif (11 === func_num_args()){

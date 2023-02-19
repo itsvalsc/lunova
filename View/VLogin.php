@@ -75,8 +75,9 @@ class VLogin{
         return $bool;
     }
 
-    public function Signin($l){
+    public function Signin($l,$message=null){
         $this->setData('logged', $l);
+        $this->setData('message', $message);
         $this->setTemplate("signin.tpl");
     }
 

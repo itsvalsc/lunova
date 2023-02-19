@@ -5,6 +5,7 @@ require_once "Foundation/FSessione.php";
 
 class CProfile
 {
+
     /**
      * @var CProfile|null Variabile di classe che mantiene l'istanza della classe.
      */
@@ -260,4 +261,44 @@ class CProfile
         $view->errore($tipo, $message, $user);
     }
 
+    public static function registrati(){
+        try {
+            $view = new VLogin();
+            $pers = FPersistentManager::getInstance();
+            $sessione = FSessione::getInstance();
+            if (!$sessione->isLogged()){
+                $p = $_POST;
+                $Etype = 'E'.$p['type'];
+                $Ftype = 'F'.$p['type'];
+
+                if (!$pers->exist($Ftype,$p['email']) || !$pers->exist_username($Ftype,$p['username']) ){
+                    $new = new $Etype($p['username'],$p['nome'],$p['cognome'],$p['via'],$p['civico'],$p['citta'],$p['provincia'],$p['cap'],$p['telefono'],$p['email'],$p['password']);
+                    $pers->store($new);
+                    $view->message(false,'Registrazione avvenuta con successo','al Login per accedere','Login/login');
+                }
+                elseif ($pers->exist($Ftype,$p['email'])){
+                    $view->Signin(false,'EMAIL GIA ESISTENTE');
+                }
+                elseif ($pers->exist_username($Ftype,$p['username'])){
+                    $view->Signin(false,'USERNAME GIA ESISTENTE');
+                }
+                else{
+                    $view->message(false,'Errore nella registrazione','alla Registrazione','Login/Signin');
+                }
+            }else{
+                header('Location: /lunova');
+            }
+        }catch (Exception $e){
+            $view->message(false,'Errore occorso durante la registrazione : '.$e->getMessage(),'alla Registrazione','Login/Signin');
+
+        }
+
+    }
+
+    public static function prelevadati(){
+        $post =$_POST;
+        $r = json_encode($post['type']);
+        $v = new VLogin();
+        $v->message(false,$r,'al preleva dati','Login/Signin');
+    }
 }

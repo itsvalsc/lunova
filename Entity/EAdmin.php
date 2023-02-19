@@ -44,8 +44,9 @@ class EAdmin extends EUtente{
      * @return string
      */
     public static function criptaPassword(string $password): string {
-        return password_hash($password, PASSWORD_BCRYPT);
+        return hash('sha256',$password);
     }
+
 
     /**
      * Metodo che verifica la password inserita corrisponda all'hash

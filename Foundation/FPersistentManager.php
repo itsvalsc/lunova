@@ -15,6 +15,12 @@ class FPersistentManager{
         return $ris;
     }
 
+    public function exist_username(string $Fclass, $key1) : bool {
+        $ris = $Fclass::exist_username($key1);
+        return $ris;
+    }
+
+
     /**
      * metodo che permette il caricamento di un elemento di una classe
      * tramite la chiave primaria dell'oggetto

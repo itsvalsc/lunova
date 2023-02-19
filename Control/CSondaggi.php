@@ -14,7 +14,7 @@ class CSondaggi{
             $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
             $view->show($sondaggio,$votazione,true);
         }else{
-            $view->show($sondaggio,true,true);
+            $view->show($sondaggio,true,$session->isLogged());
         }
 
     }

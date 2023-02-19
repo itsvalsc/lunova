@@ -17,6 +17,20 @@ class FArtista{
         }
     }
 
+    public static function exist_username($Username) : bool {
+        $pdo = FConnectionDB::connect();
+        $query = "SELECT * FROM artista WHERE Username = :username";
+        $stmt= $pdo->prepare($query);
+        $stmt->execute([":username" => $Username]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (count($rows)==0){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     /**
      * Memorizza un'istanza di EArtista sul database
      * @param EArtista $artista

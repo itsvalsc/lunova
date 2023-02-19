@@ -1,5 +1,147 @@
 <?php
+
+require_once "Utility/autoload.php";
+require_once "Foundation/FSessione.php";
+
+/**
+ * La classe CAdmin implementa funzionalità per l'admin della piattaforma, al quale è consentito:
+ * * bannare/attivare utenti;
+ * * eliminare/ripristinare commenti segnalati;
+ * * cercare commenti e utenti.
+ * @package Controller
+ */
+
 class CAdmin{
+
+    private static ?CAdmin $instance = null;
+
+    private function __construct() {}
+
+    /**
+     * Restituisce l'istanza della classe.
+     * @return CAdmin|null
+     */
+    public static function getInstance(): ?CAdmin
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new CAdmin();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Metodo che mostra la dashboard di controllo del admin.
+     * @throws SmartyException
+     */
+    public function dashboardAdmin()
+    {
+        $sessione = new FSessione();
+        $view = new VAdmin();
+        if ($sessione->isLogged() && ($sessione->leggi_valore("tipo_utente") == "EAdmin")) {
+            $pm = FPersistentManager::getInstance();
+
+            //loadUtenti --> Separo in Utenti attivi e Bannati
+            $utentiAttivi = $pm->load("FCliente", "stato");
+            $utentiA = array();
+            if(!is_array($utentiAttivi) && $utentiAttivi != null){
+                $utentiA[0] = $utentiAttivi;
+            }else if(!empty($utentiAttivi)){
+                $utentiA = $utentiAttivi;
+            }
+
+            $utentiBannati = $pm->load("FCliente", "stato");
+            $utentiB = array();
+            if(!is_array($utentiBannati) && $utentiBannati != null){
+                $utentiB[0] = $utentiBannati;
+            }else if(!empty($utentiBannati)){
+                $utentiB = $utentiBannati;
+            }
+
+            //loadCommenti segnalati
+            $comSegnalati = $pm->load("FCommento", "segnalato");
+
+            //loadArtisti
+            $artisti = $pm->prelevaArtisti();
+            $dischi = $pm->prelevaDischiperAutore("FDisco");
+
+            $view->HomeAdmin($utentiA, $utentiB, $artisti, $dischi,$comSegnalati);
+        } else {
+            header('Location: /FacceBeve/Accesso/login');
+        }
+    }
+
+    /**
+     * Funzione utile per cambiare lo stato di un utente (nel caso specifico porta la visibilità a false).
+     * @param $username string Username dell'utente da bannare sul sito, impedendogli di scrivere ulteriori commenti.
+     **/
+    public function sospendiUtente(string $username)
+    {
+        $sessione = new FSessione();
+        $tipo = $sessione->leggi_valore("tipo_utente");
+        $pm = FPersistentManager::getInstance();
+
+        if ($sessione->isLogged() && $tipo == "EAdmin") {
+            $pm->update_value("FUtente", "state", 0, "username", $username);
+            header("Location: /lunova/Admin/dashboardAdmin");
+        } else {
+            header("Location: /lunova/Ricerca/mostraHome");
+        }
+    }
+
+    /**
+     * Funzione utile per cancellare un utente già bannato.
+     * @param $username string username identificativo univoco dell'utente
+     **/
+    public function riattivaUtente(string $username)
+    {
+        $sessione = new FSessione();
+        $tipo = $sessione->leggi_valore("tipo_utente");
+        $pm = FPersistentManager::getInstance();
+
+        if ($sessione->isLogged() && $tipo == "EAdmin") {
+            $pm->update_value("FUtente", "state", 1, "username", $username);
+            header("Location: /lunova/Admin/dashboardAdmin");
+        } else {
+            header("Location: /lunova/Ricerca/mostraHome");
+        }
+    }
+
+    /**
+     * Funzione utile per eliminare un commento segnalato.
+     * @param $id_commento int identificativo del commento
+     */
+    public static function eliminaCommento(int $id_commento)
+    {
+        $sessione = new FSessione();
+        $tipo = $sessione->leggi_valore("tipo_utente");
+        $pm = FPersistentManager::getInstance();
+
+        if ($sessione->isLogged() && $tipo == "EAdmin") {
+            $pm->delete("FCommento", $id_commento, "id");
+            header("Location: /lunova/Admin/dashboardAdmin");
+        } else {
+            header("Location: /lunova/Ricerca/mostraHome");
+        }
+    }
+
+    /**
+     * Funzione utile per togliere il segnalato a un commento segnalato.
+     * @param $id_commento int identificativo del commento
+     */
+    public static function reinserisciCommento(int $id_recensione)
+    {
+        $sessione = new FSessione();
+        $tipo = $sessione->leggi_valore("tipo_utente");
+        $pm = FPersistentManager::getInstance();
+
+        if ($sessione->isLogged() && $tipo == "EAdmin") {
+            $pm->update_value("FRecensione", "segnalato", false, "id", $id_recensione);
+            header("Location: /lunova/Admin/dashboardAdmin");
+        } else {
+            header("Location: /lunova/Ricerca/mostraHome");
+        }
+    }
+
     public static function users(){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
@@ -18,4 +160,11 @@ class CAdmin{
         $sond = $pers->prelNotifSond();
         $view->show($alte,$basse, $sond);
     }
+
+    public static function login(){
+        $view = new VLogin();
+        $view->AdminLogin(false);
+    }
+
+
 }

@@ -6,12 +6,23 @@ class FCliente
     private static $table = "cliente";
 
     public static function exist($email) : bool {
-
 	    $pdo = FConnectionDB::connect();
-
 	    $query = "SELECT * FROM cliente WHERE Email = :email";
 	    $stmt= $pdo->prepare($query);
 	    $stmt->execute([":email" => $email]);
+	    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    if (count($rows)==0){
+		    return false;
+	    }
+	    else {
+		    return true;
+	    }
+    }
+    public static function exist_username($Username) : bool {
+	    $pdo = FConnectionDB::connect();
+	    $query = "SELECT * FROM cliente WHERE Username = :username";
+	    $stmt= $pdo->prepare($query);
+	    $stmt->execute([":username" => $Username]);
 	    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	    if (count($rows)==0){
 		    return false;

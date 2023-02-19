@@ -92,7 +92,7 @@
 
 {if $logged==false}
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/Login/verificaLogin" method="post">
+    <form action="/lunova/Login/verificaLoginAdmin" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
             <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -104,22 +104,10 @@
             <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
         </div>
         <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="type" id="type" value="artista">
-            <label class="form-check-label" for="type">
-                Seleziona se sei un Artista
-            </label>
-
-        </div>
 
         <hr>
         <button type="submit" class="btn btn-primary">Accedi</button>
-
         <hr>
-        <h6>Se non sei ancora inscritto...</h6>
-        <a href="/lunova/Login/Signin">
-            <button type="button" class="btn btn-secondary">Inscriviti</button>
-        </a>
 
     </form>
 </div>

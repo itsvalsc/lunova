@@ -21,9 +21,10 @@ class VHome{
         $this->smarty->assign($name,$dati);
     }
 
-    public function ShowIndex($logged){
+    public function ShowIndex($logged,$var){
         //$this->setTemplate('index.tpl');
         $this->setData('logged',$logged);
+        $this->setData('var',$var);
         $this->setTemplate('homepage.tpl');  //TODO: controllare
     }
 }

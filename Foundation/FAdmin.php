@@ -51,20 +51,15 @@
                     $stmt->execute( [":email" => $email] );
                     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                    $IdAmministratore = $rows[0]['IdAmministratore'];
+                    $IdAmministratore = $rows[0]['IDAmministratore'];
                     $Email = $rows[0]['Email'];
                     $Nome = $rows[0]['Nome'];
                     $Cognome = $rows[0]['Cognome'];
-                    $Via = $rows[0]['Via'];
-                    $NumeroCivico = $rows[0]['NCivico'];
-                    $Provincia = $rows[0]['Provincia'];
-                    $Citta = $rows[0]['Citta'];
-                    $CAP = $rows[0]['CAP'];
                     $Telefono = $rows[0]['NTelefono'];
                     $Password = $rows[0]['Password'];
-                    // $Livello = $rows[0]['Livello'];
+                    //$Livello = $rows[0]['Livello'];
 
-                    $utente = new EAdmin($IdAmministratore,$Email,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password);
+                    $utente = new EAdmin($Nome,$Cognome,$Email,$Password,$Telefono,$IdAmministratore);
                     return $utente;
                 }
                 else {return "Non ci sono amministratori";}

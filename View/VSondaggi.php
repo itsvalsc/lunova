@@ -25,7 +25,7 @@ class VSondaggi{
         $this->smarty->display($template);
     }
 
-    public function show(ESondaggio $s,$votazione)
+    public function show(ESondaggio $s,$votazione,$logged)
     {
         $totale = $s->getVotiDisco1()+$s->getVotiDisco2()+$s->getVotiDisco3();
         $perc1 = ($s->getVotiDisco1()*100)/$totale;
@@ -37,6 +37,7 @@ class VSondaggi{
         $this->setData("sondaggio", $s);
         $this->setData("voti", $array);
         $this->setData("votazione", $votazione);
+        $this->setData("logged", $logged);
 
         $this->setTemplate('sondaggi.tpl');
     }

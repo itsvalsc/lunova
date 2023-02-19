@@ -180,7 +180,7 @@ class FSondaggio
     }
 
      */
-    public static function store_votazione($utente,$sondaggio,$disco): void {
+    public static function store_votazione(string $utente,string $sondaggio,string $disco): void {
 
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("INSERT INTO votazioni VALUES(:utente, :sondaggio, :disco)");

@@ -1,11 +1,12 @@
 <?php
 
-class FCommento{
+class FCommento
+{
     public static function exist($id) : bool {
 
         $pdo = FConnectionDB::connect();
 
-        $query = "SELECT * FROM commenti WHERE idcom = :id";
+        $query = "SELECT * FROM commenti WHERE id = :id";
         $stmt= $pdo->prepare($query);
         $stmt->execute([":id" => $id]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -17,120 +18,111 @@ class FCommento{
         }
     }
 
-    public static function store(ECommento $comm): void {
+    /**
+     * Memorizza un'istanza di EClient sul database
+     * @param ECommento $commento
+     */
+    public static function store(ECommento $commento): void {
         $pdo = FConnectionDB::connect();
-        $com = self::Sicurezza($comm, $comm->getIdAP());
-        $comm->setTesto($com);
-        $query = "INSERT INTO commenti VALUES(:idcom,:testo,:idad,:idap)";
+        $query = "INSERT INTO commenti VALUES(:id,:descrizione,:voto,:data,:segnalato,:cliente,:disco)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
-            ':idcom' => $comm->getId(),
-            ':testo' => $comm->getTesto(),
-            ':idad' =>$comm->getIdAD(),
-            ':idap' =>$comm->getIdAP()
+            ':id' => $commento->getId(),
+            ':descrizione' => $commento->getDescrizione(),
+            ':voto' => $commento->getVoto(),
+            ':data'  =>$commento->getData(),
+            ':segnalato' =>$commento->isSegnalato(),
+            ':cliente' =>$commento->getUtente(),
+            ':disco' =>$commento->getDisco()
         ));
     }
 
-    public static function delete(string $ID_comm)
-    {
-        $pdo = FConnectionDB::connect();
+    public static function load(int $id) {
+        $pdo=FConnectionDB::connect();
 
         try {
-            $ifExist = self::exist($ID_comm);
-            if ($ifExist) {
-                $query = "DELETE FROM commenti WHERE idcomm= :id";
+            $ifExist = self::exist($id);
+            if($ifExist) {
+                $query = "SELECT * FROM commenti WHERE id= :id";
                 $stmt = $pdo->prepare($query);
-                $stmt->execute([":id" => $ID_comm]);
-                return true;
-            } else {
-                return print('File non trovato');
+                $stmt->execute( [":id" => $id] );
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                $descrizione = $rows[0]['descrizione'];
+                $voto = $rows[0]['voto'];
+                $data = $rows[0]['data'];
+                $cliente = $rows[0]['cliente'];
+                $disco = $rows[0]['disco'];
+
+                $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
+                return $commento;
             }
-        } catch (PDOException $exception) {
-            print("Errore" . $exception->getMessage());
+            else {return "Non ci sono commenti per questo disco";}
         }
+        catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
-
-    public static function prelevaCommentiperAutore(string $aut) : array
-    {
+    public static function loadCommenti() : array {
         try {
             $pdo = FConnectionDB::connect();
-            //$pdo->beginTransaction();
-
-            $stmt = $pdo->prepare("SELECT * FROM commenti WHERE idap = :autore");
-            $stmt->execute([":autore" => $aut]);
+            $query = "SELECT * FROM commenti";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $comments = array();
+            $commenti = array();
             $i = 0;
             foreach ($rows as $row) {
-                $id = $row['idcomm'];
+                $descrizione = $rows[0]['descrizione'];
+                $voto = $rows[0]['voto'];
+                $data = $rows[0]['data'];
+                $cliente = $rows[0]['cliente'];
+                $disco = $rows[0]['disco'];
 
-                $comment = new ECommento($row['testo'],
-                    $row['idad'],
-                    $row['idap']
-                );
-                $comment->setId($id);
+                $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
 
-                $comments[$i] = $comment;
+                $commenti[$i] = $commento;
                 ++$i;
             }
-            return $comments;
-        } catch (PDOException $e) {
-            print("ATTENTION ERROR: ") . $e->getMessage();
-            $pdo->rollBack();
-            return array();
+            return $commenti;
         }
+        catch (PDOException $exception) {
+            print ("Errore".$exception->getMessage());
+            $pdo->rollBack();
+            return array();}
     }
 
-    public static function prelevaCommentiperDisco(string $aut) : array {
-        try{
-            $pdo = FConnectionDB::connect();
-            //$pdo->beginTransaction();
+    public static function update(ECommento $commento) : bool
+    {
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE commenti SET :id,:descrizione,:voto,:data,:segnalato,:cliente,:disco WHERE id = :id";
+        $stmt = $pdo->prepare($query);
+        $ris = $stmt->execute(array(
+            ':id' => $commento->getId(),
+            ':descrizione' => $commento->getDescrizione(),
+            ':voto' => $commento->getVoto(),
+            ':data' => $commento->getData(),
+            ':segnalato' => $commento->isSegnalato(),
+            ':cliente' => $commento->getUtente(),
+            ':disco' => $commento->getDisco()
+        ));
+        return $ris;
+    }
 
-            $stmt = $pdo->prepare("SELECT * FROM commenti WHERE idad = :disco");
-            $stmt->execute([":disco"=>$aut]);
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $comments = array();
-            $i= 0 ;
-            foreach ($rows as $row) {
-                $id = $row['idcomm'];
+    public static function delete(int $id) {
+        $pdo=FConnectionDB::connect();
 
-                $comment=new ECommento($row['testo'],
-                    $row['idad'],
-                    $row['idap']
-                );
-                $comment->setId($id);
-
-                $comments[$i]=$comment;
-                ++$i;
+        try {
+            $ifExist = self::exist($id);
+            if($ifExist) {
+                $query = "DELETE FROM commenti WHERE id= :id";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([":id" => $id]);
+                return true;
             }
-            return $comments;
+            else{ return false;}
         }
-        catch (PDOException $e){
-            print("ATTENTION ERROR: ") . $e->getMessage();
-            $pdo->rollBack();
-            return array();
-        }
+        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
 
     }
 
-    public static function Sicurezza(string $t, string $idap)
-    {   $f = "../inc/crosswords.txt";
-        $pers = FPersistentManager::getInstance();
-        //var_dump($f);
-        $apertura = file($f);
-        for ($i=0; $i < count($apertura) ; $i++) {
-            $words = explode(";", $apertura[$i]);
-        }
-
-        $text = explode(" ", $t);
-        $t1 = str_replace($words, "***",$t);
-        if ( $t!=$t1){
-            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "alta", $idap);
-            $pers->store($n);
-        }
-        return $t1;
-    }
-
-
-    }
+}

@@ -4,25 +4,25 @@ require_once 'Smarty/smarty-lib/Smarty.class.php';
 
 class FSessione{
 
+    private static $instance;
+
     /**
      * Costruttore della classe FSession.
      */
     public function __construct()
     {
-        if(!isset($_SESSION))
-        {session_start();}
+        if(!isset($_SESSION)) {
+            session_start();
+        }
     }
 
     public static function getInstance(): ?FSessione {
-        if (!isset(self::$instance)){
+        if (self::$instance == null) {
             self::$instance = new FSessione();
         }
         return self::$instance;
     }
 
-    public static function start(){
-        session_start();
-    }
 
     /**
      * Metodo che verifica se un untente è loggato o meno
@@ -30,22 +30,119 @@ class FSessione{
      */
     public function isLogged(): bool {
         $identificato = false;
-        if (isset($_COOKIE['PHPSESSID']) && isset($_SESSION['user'])){
+        if (isset($_COOKIE['PHPSESSID']) && isset($_SESSION['utente'])){
             $identificato = true;
         }
         return $identificato;
     }
 
     /**
+     * Metodo per recuperare l'utente in sessione
      * @return mixed|null
      */
-    public static function getUtente(){
+    public function getUtente(){
         if(isset($_SESSION['utente'])){
-            return $_SESSION['utente'];
+            $utente = $_SESSION['utente'];
+            return unserialize($utente);
         }else{
             return null;
         }
     }
+
+    /**
+     * Metodo che permette ci eliminare i dati riguardanti la sessione di un utente
+     * @return bool
+     */
+    public function logout(){
+        if (isset($_COOKIE["PHPSESSID"])) {
+            session_unset();
+            session_destroy();
+            setcookie("PHPSESSID", "", time() - 3600, "/");
+            $bool = true;
+        }
+        return $bool;
+    }
+
+
+    /**
+     * Metodo che permette di salvare l'utente in sessione
+     * @param $utente
+     */
+    public function setUtente($utente){
+        $user_ser = serialize($utente);
+        $_SESSION['utente'] = $user_ser;
+    }
+
+    /**
+     * Imposta il valore di un elemento dell'array globale $_SESSION identificato dalla chiave
+     * @param $chiave mixed
+     * @param $valore mixed
+     * @return void
+     */
+    function imposta_valore($chiave, $valore) {
+        $val = serialize($valore);
+        $_SESSION[$chiave] = $val;
+    }
+
+    /**
+     * Metodo utilizzato per accedere all'elemento di $_SESSION identificato dalla propria chiave
+     * @param $chiave mixed identifica l'elemento del array
+     */
+    function leggi_valore($chiave) {
+        if (isset($_SESSION[$chiave])) {
+            $value = unserialize($_SESSION[$chiave]);
+        }else{
+            $value=false;
+        }
+        return $value;
+    }
+
+
+    public function isCliente(): bool {
+        $utente = unserialize($_SESSION['utente']);
+        if($utente->getLivello() == 'C'){
+            $bool = true;
+        }else{
+            $bool = false;
+        }
+        return $bool;
+    }
+    public function isArtista(): bool {
+        $utente = unserialize($_SESSION['utente']);
+        if($utente->getLivello() == 'B'){
+            $bool = true;
+        }else{
+            $bool = false;
+        }
+        return $bool;
+    }
+    public function isAdmin(): bool {
+        $utente = unserialize($_SESSION['utente']);
+        if($utente->getLivello() == 'A'){
+            $bool = true;
+        }else{
+            $bool = false;
+        }
+        return $bool;
+    }
+
+
+
+    public static function start(){
+        session_start();
+    }
+    /**
+     * Metodo che inizializza una sessione.
+     */
+    private function iniziaSessione(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+
+
+
 
     /**
      * Metodo che restituisce una stringa identificativa dell'utente
@@ -68,34 +165,7 @@ class FSessione{
         return $user;
     }
 
-    /**
-     * @param $utente
-     */
-    public static function setUtente($utente){
-        $_SESSION['utente'] = $utente;
-    }
 
-    /**
-     * Imposta il valore di un elemento dell'array globale $_SESSION identificato dalla chiave
-     * @param $chiave mixed
-     * @param $valore mixed
-     * @return void
-     */
-    function imposta_valore($chiave, $valore) {
-        $_SESSION[$chiave] = $valore;
-    }
-
-    /**
-     * Metodo utilizzato per accedere all'elemento di $_SESSION identificato dalla propria chiave
-     * @param $chiave mixed identifica l'elemento del array
-     */
-    function leggi_valore($chiave) {
-        $value = false;
-        if (isset($_SESSION[$chiave])) {
-            $value = $_SESSION[$chiave];
-        }
-        return $value;
-    }
 
     /**
      * Metodo che va a svuotare uno degli elementi del vettore $_SESSION, identificato dalla sua chiave
@@ -128,4 +198,5 @@ class FSessione{
     public static function status(){
         return session_status();
     }
+
 }

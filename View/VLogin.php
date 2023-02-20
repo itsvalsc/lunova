@@ -27,6 +27,10 @@ class VLogin{
         $this->setData('logged', $l);
         $this->setTemplate("login.tpl");
     }
+    public function AdminLogin($l){
+        $this->setData('logged', $l);
+        $this->setTemplate("loginAdmin.tpl");
+    }
 
     public function message($logged,$messaggio,$var_titolo,$var_url){
         $this->setData('message', $messaggio);
@@ -71,8 +75,9 @@ class VLogin{
         return $bool;
     }
 
-    public function Signin($l){
+    public function Signin($l,$message=null){
         $this->setData('logged', $l);
+        $this->setData('message', $message);
         $this->setTemplate("signin.tpl");
     }
 

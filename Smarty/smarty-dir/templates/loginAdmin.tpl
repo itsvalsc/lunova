@@ -1,27 +1,4 @@
-<?php
-/* Smarty version 4.2.1, created on 2023-01-31 07:12:09
-  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\login.tpl' */
-
-/* @var Smarty_Internal_Template $_smarty_tpl */
-if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '4.2.1',
-  'unifunc' => 'content_63d8b1397c8750_49775590',
-  'has_nocache_code' => false,
-  'file_dependency' => 
-  array (
-    'dda42547ea97a8c65434a6c0cb65bf92e7a7adf2' => 
-    array (
-      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\login.tpl',
-      1 => 1675016322,
-      2 => 'file',
-    ),
-  ),
-  'includes' => 
-  array (
-  ),
-),false)) {
-function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- header -->
+<!-- header -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,11 +26,11 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
                 </li>
-                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                {if $logged==false}
                     <li class="nav-item">
                         <a class="nav-link" href="/lunova/Login/login">Login</a>
                     </li>
-                <?php }?>
+                {/if}
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
@@ -81,7 +58,7 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
             </form>
 
             <ul class="navbar-nav ml-4">
-                <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+                {if $logged}
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
@@ -91,8 +68,8 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
 
                     </li>
 
-                <?php }?>
-                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                {/if}
+                {if $logged==false}
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
@@ -101,7 +78,7 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
                         </a>
 
                     </li>
-                <?php }?>
+                {/if}
             </ul>
 
             </ul>
@@ -113,9 +90,9 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
 
 <!-- end header -->
 
-<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+{if $logged==false}
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/Login/verificaLoginAdmin" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
             <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -127,31 +104,14 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
             <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
         </div>
         <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Artista
-            </label>
 
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Utente
-            </label>
-        </div>
         <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-        <button type="button" class="btn btn-primary">Accedi</button>
+        <button type="submit" class="btn btn-primary">Accedi</button>
         <hr>
-        <a href="/lunova/Login/Signin">
-            <button type="button" class="btn btn-secondary">Inscriviti</button>
-        </a>
 
     </form>
 </div>
-<?php }?>
+{/if}
 
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
 </div>
@@ -161,21 +121,10 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>
 
-<?php echo '<script'; ?>
- src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
->
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
 
-<!--<?php echo '<script'; ?>
- src="<?php echo '<?php'; ?>
- //echo ROOT_URL; <?php echo '?>'; ?>
-assets/js/main.js"><?php echo '</script'; ?>
->-->
+<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
 </body>
-</html><?php }
-}
+</html>

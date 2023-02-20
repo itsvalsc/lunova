@@ -15,6 +15,12 @@ class FPersistentManager{
         return $ris;
     }
 
+    public function exist_username(string $Fclass, $key1) : bool {
+        $ris = $Fclass::exist_username($key1);
+        return $ris;
+    }
+
+
     /**
      * metodo che permette il caricamento di un elemento di una classe
      * tramite la chiave primaria dell'oggetto
@@ -177,6 +183,24 @@ class FPersistentManager{
     public function prelNotifSond(){
         $not = FNotifiche::loadSond();
         return $not;
+    }
+
+    public function prelevaCartItems($cli){
+        return FCartItem::load($cli);
+
+    }
+
+    public function prelevaCartDischiItems($cli){
+        return FCartItem::loadD($cli);
+
+    }
+
+    public function AddItem($prodctId, $cartid,$cli_id){
+        return FCartItem::AddToCart($prodctId, $cartid,$cli_id);
+    }
+
+    public function MinusItem($prodctId, $cartid,$cli_id){
+        return FCartItem::MinusToCart($prodctId, $cartid,$cli_id);
     }
 
 

@@ -82,7 +82,7 @@ class CLogin{
         $class = self::$bindClass[$v->IsArtista()];
         if ($pm->exist($class, $email)) {
             $utente = $pm->load($class, $email);
-            if ($password == $utente->getPassword()) {
+            if ( hash('sha256',$password) == $utente->getPassword() ) { //todo:ho cambiato la funzione per criptare le password, verificare che su db le password abbiano almeno una lunghezza di 64, io avevo messo a 100
                 $gs->setUtente($utente);
                 $v->ShowIndex(true,$utente->getUsername());
                 //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");
@@ -95,6 +95,27 @@ class CLogin{
             $v->message(false,'utente non trovato','Login','Login/login');
             //header("Location: ".$GLOBALS['path']."GestioneSchermate/recuperaLogin");
         }
+    }
+
+    public static function verificaLoginAdmin(){
+        $v = new VLogin(); //todo: inserire view giusta per restituire la homepage dell amministratore
+        $email = $v->getEmail();
+        $password = $v->getPwd();
+        $pm = FPersistentManager::getInstance();
+        $gs = FSessione::getInstance();
+        if ($pm->exist('FAdmin', $email)) {
+            $admin = $pm->load('FAdmin', $email);
+            if ($password == $admin->getPassword()) {
+                $gs->setUtente($admin);
+                $v->ShowIndex(true,$admin->getUsername());
+                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");
+            } else {
+                $v->message(false,'password errata','Login','Login/login');
+                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaLogin");
+            }
+        }
+
+
     }
 
 }

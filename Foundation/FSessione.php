@@ -73,6 +73,30 @@ class FSessione{
         $_SESSION['utente'] = $user_ser;
     }
 
+    /**
+     * Imposta il valore di un elemento dell'array globale $_SESSION identificato dalla chiave
+     * @param $chiave mixed
+     * @param $valore mixed
+     * @return void
+     */
+    function imposta_valore($chiave, $valore) {
+        $val = serialize($valore);
+        $_SESSION[$chiave] = $val;
+    }
+
+    /**
+     * Metodo utilizzato per accedere all'elemento di $_SESSION identificato dalla propria chiave
+     * @param $chiave mixed identifica l'elemento del array
+     */
+    function leggi_valore($chiave) {
+        if (isset($_SESSION[$chiave])) {
+            $value = unserialize($_SESSION[$chiave]);
+        }else{
+            $value=false;
+        }
+        return $value;
+    }
+
 
     public function isCliente(): bool {
         $utente = unserialize($_SESSION['utente']);
@@ -101,10 +125,6 @@ class FSessione{
         }
         return $bool;
     }
-
-
-
-
 
 
 
@@ -146,28 +166,6 @@ class FSessione{
     }
 
 
-
-    /**
-     * Imposta il valore di un elemento dell'array globale $_SESSION identificato dalla chiave
-     * @param $chiave mixed
-     * @param $valore mixed
-     * @return void
-     */
-    function imposta_valore($chiave, $valore) {
-        $_SESSION[$chiave] = $valore;
-    }
-
-    /**
-     * Metodo utilizzato per accedere all'elemento di $_SESSION identificato dalla propria chiave
-     * @param $chiave mixed identifica l'elemento del array
-     */
-    function leggi_valore($chiave) {
-        $value = false;
-        if (isset($_SESSION[$chiave])) {
-            $value = $_SESSION[$chiave];
-        }
-        return $value;
-    }
 
     /**
      * Metodo che va a svuotare uno degli elementi del vettore $_SESSION, identificato dalla sua chiave

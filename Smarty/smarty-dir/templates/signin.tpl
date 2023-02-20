@@ -92,36 +92,44 @@
 
 
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
-        <form action="/lunova/AboutUs/us/" method="post">
+        <div>{$message}</div>
+        <form action="/lunova/Profile/registrati" method="post">
+            <div class="form-group" style="width: 50rem;">
+                <fieldset>
+                    <label class="form-label mt-4" ">Username</label>
+                    <input class="form-control" id="nutente" name='username' type="text" placeholder="Username" required>
+                </fieldset>
+            </div>
+
             <div class="form-group" style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" ">Nome</label>
-                    <input class="form-control" id="nutente" type="text" placeholder="Nome" >
+                    <input class="form-control" id="nutente" name='nome' type="text" placeholder="Nome" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Cognome</label>
-                    <input class="form-control" id="cutente" type="text" placeholder="Nome" >
+                    <input class="form-control" id="cutente" name='cognome' type="text" placeholder="Nome" required>
                 </fieldset>
             </div>
 
             <div class="form-group" style="width: 50rem;">
                 <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-                <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                <input type="email" class="form-control" id="Email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
 
             <div class="form-group" style="width: 50rem;">
                 <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-                <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
+                <input type="password" class="form-control" id="password"  name="password" placeholder="password" required>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Telefono</label>
-                    <input class="form-control" id="telefono" type="text" placeholder="Nome" >
+                    <input class="form-control" id="telefono" name='telefono' type="text" placeholder="Telefono" required>
                 </fieldset>
             </div>
             <h4>Inserisci l'indirizzo in cui vuoi effettuare la spedizione</h4>
@@ -129,47 +137,47 @@
 
                 <fieldset>
                     <label class="form-label mt-4" >CAP</label>
-                    <input class="form-control" id="CAP" type="text" placeholder="Nome">
+                    <input class="form-control" id="CAP"  name='cap' type="text" placeholder="CAP" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4">Provincia</label>
-                    <input class="form-control" id="provincia" type="text" placeholder="Nome">
+                    <input class="form-control" id="provincia" name='provincia' type="text" placeholder="Provincia" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Città</label>
-                    <input class="form-control" id="citta" type="text" placeholder="Nome" >
+                    <input class="form-control" id="citta" name='citta' type="text" placeholder="Città" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >N. Civico</label>
-                    <input class="form-control" id="civico" type="text" placeholder="Nome" >
+                    <input class="form-control" id="civico" name='civico' type="text" placeholder="Civico" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4">Via</label>
-                    <input class="form-control" id="via" type="text" placeholder="Nome" >
+                    <input class="form-control" id="via" type="text" name='via' placeholder="Via" required>
                 </fieldset>
             </div>
             <hr>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                <input class="form-check-input" type="radio" name="type" id="optionsRadios1" value="Artista" checked="">
                 <label class="form-check-label" for="optionsRadios1">
                     Artista
                 </label>
 
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
+                <input class="form-check-input" type="radio" name="type" id="optionsRadios1" value="Cliente" checked="">
                 <label class="form-check-label" for="optionsRadios1">
                     Utente
                 </label>

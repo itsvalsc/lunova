@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-19 22:38:39
+/* Smarty version 4.2.1, created on 2023-02-19 17:46:32
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\about.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63c9b85f4dac39_65734961',
+  'unifunc' => 'content_63f25268ad6201_57157245',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89de36beaf9c265806d902032de6a6c3a8a6349f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\about.tpl',
-      1 => 1674164317,
+      1 => 1675016321,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63c9b85f4dac39_65734961 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f25268ad6201_57157245 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ function content_63c9b85f4dac39_65734961 (Smarty_Internal_Template $_smarty_tpl)
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -66,7 +66,7 @@ function content_63c9b85f4dac39_65734961 (Smarty_Internal_Template $_smarty_tpl)
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
@@ -84,7 +84,7 @@ function content_63c9b85f4dac39_65734961 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -108,7 +108,11 @@ function content_63c9b85f4dac39_65734961 (Smarty_Internal_Template $_smarty_tpl)
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
+
 <div id="main" class="container" style="margin-top:80px; height: 700px">
     <div class="col-9">
         <h2>About us</h2>

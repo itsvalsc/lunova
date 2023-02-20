@@ -22,18 +22,13 @@
         public static function store(EAdmin $admin): void {
 
             $pdo = FConnectionDB::connect();
-            $query = "INSERT INTO admin VALUES(:IdAmministratore,:Email,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello)";
+            $query = "INSERT INTO admin VALUES(:IdAmministratore,:Email,:Nome,:Cognome,:NTelefono,:Password,:Livello)";
             $stmt = $pdo->prepare($query);
             $stmt->execute(array(
                 ':IdAmministratore' => $admin->getIdAmministratore(),
                 ':Email' => $admin->getEmail(),
                 ':Nome'  =>$admin->getNome(),
                 ':Cognome' =>$admin->getCognome(),
-                ':Via' =>$admin->getVia(),
-                ':NCivico' =>$admin->getNumeroCivico(),
-                ':Provincia' =>$admin->getProvincia(),
-                ':Citta' =>$admin->getCitta(),
-                ':CAP' =>$admin->getCAP(),
                 ':NTelefono' =>$admin->getTelefono(),
                 ':Password' =>$admin->criptaPassword($admin->getPassword()),
                 ':Livello' =>$admin->getLivello()
@@ -112,12 +107,12 @@
      * @param $email
      * @param $pass
      */
-    public function VerificaAccesso(string $email, string $password)
+    public static function VerificaAccesso(string $email, string $password)
     {
         $pdo=FConnectionDB::connect();
         $pdo->beginTransaction();
         try {
-            $email = addslashes($email);
+            //$email = addslashes($email);
             $query = "SELECT * FROM admin WHERE Email = :email";
             $stmt = $pdo->prepare($query);
             $stmt->execute( [":email" => $email] );

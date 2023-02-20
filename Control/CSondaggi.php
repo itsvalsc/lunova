@@ -26,16 +26,21 @@ class CSondaggi{
         $votazione = false;
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
+        $sondaggio = $pers->prelevaSondaggioInCorso();
 
         if ($session->isLogged()){
             $ut = $session->getUtente();
-            $logged = true;
-            $votazione = $pers->vota($id,$ut->getIdClient());
+            $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
+            if (!$votazione){
+                $votazione = $pers->vota($id,$ut->getIdClient());
+            }
         }
-        $sondaggio = $pers->prelevaSondaggioInCorso();
+        header("Location: /lunova/Sondaggi/show");
+
+        $view->show($sondaggio,$votazione,$session->isLogged());
         //poi gestione eccezioni
-        $view->show($sondaggio,$votazione,$logged);
     }
+
 
     public function nuovoSondaggio(){
         $session = FSessione::getInstance();

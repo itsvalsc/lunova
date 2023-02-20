@@ -19,7 +19,7 @@ class FCommento
     }
 
     /**
-     * Memorizza un'istanza di EClient sul database
+     * Memorizza un'istanza di ECommento sul database
      * @param ECommento $commento
      */
     public static function store(ECommento $commento): void {
@@ -32,8 +32,8 @@ class FCommento
             ':voto' => $commento->getVoto(),
             ':data'  =>$commento->getData(),
             ':segnalato' =>$commento->isSegnalato(),
-            ':cliente' =>$commento->getUtente(),
-            ':disco' =>$commento->getDisco()
+            ':cliente' =>$commento->getIdCliente(),
+            ':disco' =>$commento->getIdDisco()
         ));
     }
 
@@ -102,8 +102,8 @@ class FCommento
             ':voto' => $commento->getVoto(),
             ':data' => $commento->getData(),
             ':segnalato' => $commento->isSegnalato(),
-            ':cliente' => $commento->getUtente(),
-            ':disco' => $commento->getDisco()
+            ':cliente' => $commento->getIdCliente(),
+            ':disco' => $commento->getIdDisco()
         ));
         return $ris;
     }

@@ -3,8 +3,8 @@
 /** La classe ECommento caratterizza il commento di un cd attraverso:
  * Id: identificativo del commento
  * Descrizione: identifica il testo del commento
- * Utente: identifica l'autore del commento
- * Disco: identifica il disco su cui viene scritto il commento
+ * idCliente: identifica l'autore del commento
+ * idDisco: identifica il disco su cui viene scritto il commento
  * Voto: identifica il voto dato al disco dal singolo utente
  * Data: identifica il momento in cui è stato scritto il commento
  * Segnalata: indica se il commento è stato segnalato o meno
@@ -13,8 +13,8 @@ class ECommento implements JsonSerializable {
 
     /** attributi */
     private string $id;
-    private EUtente $utente;
-    private EDisco $disco;
+    private string $idCliente;
+    private string $idDisco;
     private string $descrizione;
     private float $voto;
     private string $data;
@@ -22,19 +22,19 @@ class ECommento implements JsonSerializable {
 
     /**
      * Costruttore della classe
-     * @param EUtente $utente
+     * @param string $idCliente
      * @param string $descrizione
      * @param float $voto
      * @param string $data
-     * @param EDisco $disco
+     * @param string $disco
      */
-    public function __construct(EUtente $utente, string $descrizione, float $voto, string $data,EDisco $disco){
+    public function __construct(string $idCliente, string $descrizione, float $voto, string $data, string $idDisco){
         $this->id = "Comm" . random_int(0,9999);
-        $this->utente = $utente;
+        $this->idCliente = $idCliente;
         $this->descrizione = $descrizione;
         $this->voto = $voto;
         $this->data = $data;
-        $this->disco=$disco;
+        $this->idDisco=$idDisco;
         $this->segnalata=false;
     }
 
@@ -42,8 +42,8 @@ class ECommento implements JsonSerializable {
     public function getId(): ?int
     { return $this->id; }
 
-    public function getUtente(): EUtente
-    { return $this->utente; }
+    public function getIdCliente(): string
+    { return $this->idCliente; }
 
     public function getDescrizione(): string
     { return $this->descrizione; }
@@ -54,16 +54,16 @@ class ECommento implements JsonSerializable {
     public function getData(): string
     { return $this->data; }
 
-    public function getDisco() : EDisco
-    { return $this->disco; }
+    public function getIdDisco() : string
+    { return $this->idDisco; }
 
     /** METODI SET */
 
     public function setId(?int $id): void
     { $this->id = $id; }
 
-    public function setUtente(EUtente $utente): void
-    { $this->utente = $utente; }
+    public function setIdCliente(string $idCliente): void
+    { $this->idCliente = $idCliente; }
 
     public function setDescrizione(string $descrizione): void
     { $this->descrizione = $descrizione; }
@@ -74,8 +74,8 @@ class ECommento implements JsonSerializable {
     public function setData(string $data): void
     { $this->data = $data; }
 
-    public function setDisco(EDisco $disco): void
-    { $this->disco = $disco; }
+    public function setIdDisco(string $idDisco): void
+    { $this->idDisco = $idDisco; }
 
     public function isSegnalato(): bool
     { return $this->segnalata; }

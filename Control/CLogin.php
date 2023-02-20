@@ -39,7 +39,7 @@ class CLogin{
         $view = new VHome();
         $session = FSessione::getInstance();
         $b = $session->logout();
-        $view->ShowIndex(false,'');
+        header('Location: /lunova');
 
     }
 

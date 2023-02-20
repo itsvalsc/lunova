@@ -37,8 +37,6 @@ class CSondaggi{
         }
         header("Location: /lunova/Sondaggi/show");
 
-        $view->show($sondaggio,$votazione,$session->isLogged());
-        //poi gestione eccezioni
     }
 
 

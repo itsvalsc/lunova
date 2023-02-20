@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-19 17:46:32
+/* Smarty version 4.2.1, created on 2023-02-20 16:48:06
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\about.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f25268ad6201_57157245',
+  'unifunc' => 'content_63f39636b36334_11982395',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '89de36beaf9c265806d902032de6a6c3a8a6349f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\about.tpl',
-      1 => 1675016321,
+      1 => 1676908084,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f25268ad6201_57157245 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f39636b36334_11982395 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -68,7 +68,8 @@ function content_63f25268ad6201_57157245 (Smarty_Internal_Template $_smarty_tpl)
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
                     </a>
                 </li>
             </ul>

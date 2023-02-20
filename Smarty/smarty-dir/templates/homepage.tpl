@@ -44,7 +44,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary">{$num}</span>
                     </a>
                 </li>
             </ul>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-19 23:06:15
+/* Smarty version 4.2.1, created on 2023-02-20 16:48:45
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f29d57291fb5_54603544',
+  'unifunc' => 'content_63f3965d3ed838_58013951',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bc918b062fc5f506c7ae1da3512d5668763b09a1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\cart.tpl',
-      1 => 1676844371,
+      1 => 1676908123,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f29d57291fb5_54603544 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f3965d3ed838_58013951 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -68,7 +68,8 @@ function content_63f29d57291fb5_54603544 (Smarty_Internal_Template $_smarty_tpl)
 				<li class="nav-item">
 					<a class="nav-link" href="/lunova/Carrello/mio_carrello">
 						<i class="fas fa-shopping-cart"></i>
-						<span class="badge rounded-pill bg-secondary">2</span>
+						<span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
 					</a>
 				</li>
 			</ul>
@@ -151,9 +152,10 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 								<div class="col-lg-4 col-6">
 									<div class="cart-buttons btn-group" role="group" aria-label="Basic example">
 									<form method="post" action="/lunova/Carrello/mio_carrello">
-											<input type="hidden" name="idprod" value="<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getIdItem();?>
+										<a href="/lunova/Carrello/Minus/<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getIdItem();?>
 ">
-											<button type="submit" class="btn btn-sm btn-success text-primary"><strong>-</strong></button>
+											<button type="button" class="btn btn-sm btn-success text-primary"><strong>-</strong></button>
+										</a>
 
 									</form>
 
@@ -170,20 +172,23 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 								</div>
 
 								<div class="col-lg-2 col-6">
-									<strong class ="text-primary">$
+									<strong class ="text-primary">€
 										<?php echo '<script'; ?>
 >
 											var x;
 											var y;
 											var somma;
+											var provaa;
 
 											x = <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getQuantity();?>
 ;
 											y =<?php echo $_smarty_tpl->tpl_vars['disc']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
 ;
 											somma= x*y;
-											document.write(somma);
+											document.write(somma.toFixed(2));
 											prova = prova + somma;
+											provaa = prova.toFixed(2);
+
 
 										<?php echo '</script'; ?>
 ></strong>
@@ -215,8 +220,8 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 						</div>
 						<div class="col-lg-6 lg-screen"></div>
 						<div class="col-lg-2 col-6">
-							<strong>$<?php echo '<script'; ?>
->document.write(prova);<?php echo '</script'; ?>
+							<strong>€ <?php echo '<script'; ?>
+>document.write(provaa);<?php echo '</script'; ?>
 ></strong>
 						</div>
 					</div>

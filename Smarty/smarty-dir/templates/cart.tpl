@@ -45,7 +45,7 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/lunova/Carrello/mio_carrello">
 						<i class="fas fa-shopping-cart"></i>
-						<span class="badge rounded-pill bg-secondary">2</span>
+						<span class="badge rounded-pill bg-secondary">{$num}</span>
 					</a>
 				</li>
 			</ul>
@@ -116,8 +116,9 @@
 								<div class="col-lg-4 col-6">
 									<div class="cart-buttons btn-group" role="group" aria-label="Basic example">
 									<form method="post" action="/lunova/Carrello/mio_carrello">
-											<input type="hidden" name="idprod" value="{$product[nr]->getIdItem()}">
-											<button type="submit" class="btn btn-sm btn-success text-primary"><strong>-</strong></button>
+										<a href="/lunova/Carrello/Minus/{$product[nr]->getIdItem()}">
+											<button type="button" class="btn btn-sm btn-success text-primary"><strong>-</strong></button>
+										</a>
 
 									</form>
 
@@ -132,17 +133,20 @@
 								</div>
 
 								<div class="col-lg-2 col-6">
-									<strong class ="text-primary">$
+									<strong class ="text-primary">€
 										<script>
 											var x;
 											var y;
 											var somma;
+											var provaa;
 
 											x = {$product[nr]->getQuantity()};
 											y ={$disc[nr]->getPrezzo()};
 											somma= x*y;
-											document.write(somma);
+											document.write(somma.toFixed(2));
 											prova = prova + somma;
+											provaa = prova.toFixed(2);
+
 
 										</script></strong>
 								</div>
@@ -170,7 +174,7 @@
 						</div>
 						<div class="col-lg-6 lg-screen"></div>
 						<div class="col-lg-2 col-6">
-							<strong>$<script>document.write(prova);</script></strong>
+							<strong>€ <script>document.write(provaa);</script></strong>
 						</div>
 					</div>
 				  </li>

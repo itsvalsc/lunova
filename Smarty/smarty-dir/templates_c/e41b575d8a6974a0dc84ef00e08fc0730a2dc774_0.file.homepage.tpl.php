@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-14 00:31:13
+/* Smarty version 4.2.1, created on 2023-02-20 16:51:41
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\homepage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63eac841ab2281_91845340',
+  'unifunc' => 'content_63f3970d07b9f5_24193537',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e41b575d8a6974a0dc84ef00e08fc0730a2dc774' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\homepage.tpl',
-      1 => 1676331028,
+      1 => 1676908273,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63eac841ab2281_91845340 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f3970d07b9f5_24193537 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +67,8 @@ function content_63eac841ab2281_91845340 (Smarty_Internal_Template $_smarty_tpl)
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
                     </a>
                 </li>
             </ul>
@@ -126,21 +127,6 @@ function content_63eac841ab2281_91845340 (Smarty_Internal_Template $_smarty_tpl)
     <!--<p class="lead">Benvenuti nel sito!</p>-->
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
     <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
-
-    <hr>
-    <form action="http://localhost/lunova/Products_list/salva_foto" method="post" enctype="multipart/form-data">
-        <div class="form-group" >
-        FILE
-        <input type="file" class="form-control" name="file1" placeholder="file">
-        </div>
-        <div class="form-group" >
-            id appartenenza
-            <input type="text" class="form-control" name="idAppartenenza" placeholder="id appartenenza">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <hr>
 
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">

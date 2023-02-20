@@ -24,26 +24,17 @@ class VProducts_list{
         $this->smarty->assign($name,$dati);
     }
 
-    public function lista_prodotti($prod,$l){
+    public function lista_prodotti($prod,$l, $num){
         $this->setData('logged', $l);
         $this->setData('product', $prod);
+        $this->setData('num', $num);
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product, $l, $identifier){
+    public function prodotto_singolo($product, $l, $num){
         $this->setData('logged', $l);
         $this->setData('product', $product);
-        $this->setData('artist', $identifier);
+        $this->setData('num', $num);
         $this->setTemplate('viewproduct.tpl');
-    }
-
-    public function getCommento(){
-        if (isset($_POST['commento'])){
-            return $_POST['commento'];
-        }
-        else {return false;}
-
-
-
     }
 }

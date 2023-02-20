@@ -3,19 +3,12 @@ class CCarrello{
     public static function mio_carrello(){
         $view = new VCarrello();
         $pers = FPersistentManager::getInstance();
-        $permesso = $view->getButton();
         $utente = 'C151'; //sessione
         $cartid = 'F94';
-        if ($permesso){
-            $id = $_POST['idprod'];
-            $aggiungo = $pers->MinusItem($id,$cartid,$utente);
-            unset($_POST["idprod"]);
-        }
-        unset($_POST["idprod"]);
         $l = true;
-        $elenco = $pers->prelevaCartItems('C151');
+        $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
-        $Disc = $pers->prelevaCartDischiItems('C151');
+        $Disc = $pers->prelevaCartDischiItems($utente);
         $view->cart($l, $elenco,$Disc, $num);
     }
 
@@ -31,7 +24,8 @@ class CCarrello{
         $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
         $Disc = $pers->prelevaCartDischiItems($utente);
-        $view->cart($l, $elenco,$Disc, $num);
+        header ("Location: /lunova/Carrello/mio_carrello");
+        //$view->cart($l, $elenco,$Disc, $num);
     }
 
     public static function Minus(string $id){
@@ -46,7 +40,8 @@ class CCarrello{
         $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
         $Disc = $pers->prelevaCartDischiItems($utente);
-        $view->cart($l, $elenco,$Disc, $num);
+        header ("Location: /lunova/Carrello/mio_carrello");
+        //$view->cart($l, $elenco,$Disc, $num);
     }
 
 

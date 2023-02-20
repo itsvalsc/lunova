@@ -9,12 +9,16 @@ class CSondaggi{
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
+
         if ($session->isLogged() && $session->isCliente()){
             $ut = $session->getUtente();
+            $elenco = $pers->prelevaCartItems($ut);
+            $num = count($elenco);
             $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
-            $view->show($sondaggio,$votazione,true);
+            $view->show($sondaggio,$votazione,true, $num);
         }else{
-            $view->show($sondaggio,true,$session->isLogged());
+            $num = [];
+            $view->show($sondaggio,true,$session->isLogged(), $num );
         }
 
     }

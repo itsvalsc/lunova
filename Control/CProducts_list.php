@@ -9,9 +9,12 @@ class CProducts_list{
         if ($session->isLogged()){
             $logged = true;
         }
+        $utente = 'C151'; //sessione
 
+        $elencoitems = $pers->prelevaCartItems($utente);
+        $num = count($elencoitems);
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco,$logged);
+        $view->lista_prodotti($elenco,$logged, $num);
     }
     /*
     public static function salva_foto(){
@@ -65,11 +68,12 @@ class CProducts_list{
     public static function mostra_prodotto(string $id){
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
+        $utente = 'C151'; //sessione
+        $elenco = $pers->prelevaCartItems($utente);
+        $num = count($elenco);
         $prodotto = $pers->load('FDisco',$id);
         $l = true;
-        $commento = $view->getCommento();
-        $identifier = $pers->FindArtistName($prodotto->getAutore());
-        $view->prodotto_singolo($prodotto,$l,$identifier);
+        $view->prodotto_singolo($prodotto,$l, $num);
 
     }
 

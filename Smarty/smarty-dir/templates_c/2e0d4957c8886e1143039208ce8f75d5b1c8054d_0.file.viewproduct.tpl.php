@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-31 07:03:39
+/* Smarty version 4.2.1, created on 2023-02-20 17:07:35
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\viewproduct.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63d8af3be22a82_19839022',
+  'unifunc' => 'content_63f39ac7e68473_77950240',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2e0d4957c8886e1143039208ce8f75d5b1c8054d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\viewproduct.tpl',
-      1 => 1675016322,
+      1 => 1676908946,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63d8af3be22a82_19839022 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -86,7 +86,8 @@ function content_63d8af3be22a82_19839022 (Smarty_Internal_Template $_smarty_tpl)
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
                         </a>
 
                     </li>
@@ -133,8 +134,8 @@ function content_63d8af3be22a82_19839022 (Smarty_Internal_Template $_smarty_tpl)
             <p><?php echo $_smarty_tpl->tpl_vars['product']->value->getDescrizione();?>
 </p>
             <hr>
-            <h3><?php echo $_smarty_tpl->tpl_vars['product']->value->getPrezzo();?>
- $</h3>
+            <h3>€ <?php echo $_smarty_tpl->tpl_vars['product']->value->getPrezzo();?>
+ </h3>
 
         </div>
     </div>

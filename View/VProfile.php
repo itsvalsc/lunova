@@ -75,6 +75,8 @@ class VProfile
             $this->smarty->assign('array',$dischi);
             $this->smarty->display('profile.tpl');
         }
+
+
     }
 
     /** METODI GET */

@@ -45,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary">{$num}</span>
                     </a>
                 </li>
             </ul>
@@ -82,8 +82,8 @@
                 <li class="nav-item">
 
                     <a class="nav-link" style="align-items: center " href="/lunova/RicercaDisco/newDisc">
-                        <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                        <span class="badge rounded-pill bg-secondary">New Disc</span>
+                        <i class="fa-solid fa-record-vinyl" style="font-size:24px;" ></i>
+                        <span class="badge rounded-pill bg-secondary">+</span>
                     </a>
 
                 </li>
@@ -123,17 +123,17 @@
                 <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
                 <div class="card-body" >
                     <h5 class="card-title"> {$product[nr]->getTitolo()} </h5>
-                    <h6 class = "card-subtitle mb-2 text-muted">$ {$product[nr]->getPrezzo()}</h6>
+                    <h6 class = "card-subtitle mb-2 text-muted">€ {$product[nr]->getPrezzo()}</h6>
                     <p class="card-text">{$product[nr]->getDescrizione() }</p>
                     <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
                     <a href="/lunova/Products_list/mostra_prodotto/{$product[nr]->getID()}">
                         <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vedi</button></a>
 
-                    <form method="post">
-                        <!--<input type="hidden" name="id" value="<?php// echo esc_html($product->getID()); ?>">-->
-                        <input type="hidden" name="idprod" value="{$product[nr]->getID()}">
-                        <input name="add_to_cart" type="submit" class="btn btn-primary btn-sm btn-block rounded-0" value="Aggiungi al carrello">
-                    </form>
+
+                    <a href="/lunova/Carrello/Add/{$product[nr]->getID()}">
+                        <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" >Aggiungi al carrello</button>
+                    </a>
+
                 </div>
             </div>
     {/section}

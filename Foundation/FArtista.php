@@ -193,4 +193,54 @@ class FArtista{
             return null;
         }
     }
+
+    public static function loadName(string $id) {
+        $pdo=FConnectionDB::connect();
+
+        try {
+                $query = "SELECT * FROM artista WHERE IdArtista= :id";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute( [":id" => $id] );
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                $Username = $rows[0]['Username'];
+                $Nome = $rows[0]['Nome'];
+                $Cognome = $rows[0]['Cognome'];
+
+
+                return $Username;
+                //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
+
+        }
+        catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -132,6 +132,7 @@
                     <input class="form-control" id="telefono" name='telefono' type="text" placeholder="Telefono" required>
                 </fieldset>
             </div>
+            <hr>
             <h4>Inserisci l'indirizzo in cui vuoi effettuare la spedizione</h4>
             <div class="form-group"style="width: 50rem;">
 

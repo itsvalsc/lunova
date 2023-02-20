@@ -67,7 +67,9 @@ class CProducts_list{
         $pers = FPersistentManager::getInstance();
         $prodotto = $pers->load('FDisco',$id);
         $l = true;
-        $view->prodotto_singolo($prodotto,$l);
+        $commento = $view->getCommento();
+        $identifier = $pers->FindArtistName($prodotto->getAutore());
+        $view->prodotto_singolo($prodotto,$l,$identifier);
 
     }
 

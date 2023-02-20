@@ -203,5 +203,8 @@ class FPersistentManager{
         return FCartItem::MinusToCart($prodctId, $cartid,$cli_id);
     }
 
+    public function FindArtistName($id){
+        return FArtista::loadName($id);
+    }
 
 }

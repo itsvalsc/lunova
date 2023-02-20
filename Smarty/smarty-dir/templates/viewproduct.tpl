@@ -100,7 +100,7 @@
         <div class="col-6">
             <h1>
                 {$product->getTitolo()}
-                <small class="text-muted"> by {$product->getAutore()}</small>
+                <small class="text-muted"> by {$artist}</small>
             </h1>
 
             <p>{$product->getDescrizione()}</p>
@@ -121,8 +121,9 @@
             <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
         </div>
         <!-- Comment box  -->
-        <form class="w-100">
-            <textarea data-autoresize class="form-control pe-4 bg-light bg-opacity-50" rows="1" placeholder="Add a comment..."></textarea>
+        <form class="w-100" method="post">
+            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" rows="1" placeholder="Add a comment..."></textarea>
+            <button type="submit" class="btn btn-primary">Invia</button>
         </form>
     </div>
     <!-- Comment wrap START -->

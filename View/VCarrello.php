@@ -45,4 +45,13 @@ class VCarrello
         }
         return $bool;
     }
+
+    public function message($logged,$messaggio,$var_titolo,$var_url){
+        $this->setData('message', $messaggio);
+        $this->setData('var_titolo', $var_titolo);
+        $this->setData('var_url', $var_url);
+
+        $this->setData('logged', $logged);
+        $this->setTemplate("message.tpl");
+    }
 }

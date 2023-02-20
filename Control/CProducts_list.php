@@ -6,15 +6,18 @@ class CProducts_list{
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $logged = false;
+        $num = null;
         if ($session->isLogged()){
-            $logged = true;
+            if ($session->isCliente()){
+                $utente = $session->getUtente()->getIdClient();
+                $cartid = $session->getCarrello()->getId();
+                $elencoitems = $pers->prelevaCartItems($cartid);
+                $num = count($elencoitems);
+            }
         }
-        $utente = 'C151'; //sessione
 
-        $elencoitems = $pers->prelevaCartItems($utente);
-        $num = count($elencoitems);
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco,$logged, $num);
+        $view->lista_prodotti($elenco,$session->isLogged(), $num);
     }
     /*
     public static function salva_foto(){

@@ -11,16 +11,16 @@ class CSondaggi{
         $sondaggio = $pers->prelevaSondaggioInCorso();
 
         if ($session->isLogged() && $session->isCliente()){
-            $ut = $session->getUtente();
-            $elenco = $pers->prelevaCartItems($ut);
+            $utente = $session->getUtente()->getIdClient();
+            $cartid = $session->getCarrello()->getId();
+            $elenco = $pers->prelevaCartItems($cartid);
             $num = count($elenco);
-            $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
+            $votazione= $pers->exist('FVotazione',$utente,$sondaggio->getId());
             $view->show($sondaggio,$votazione,true, $num);
         }else{
             $num = [];
             $view->show($sondaggio,true,$session->isLogged(), $num );
         }
-
     }
 
     public static function vota(string $id){

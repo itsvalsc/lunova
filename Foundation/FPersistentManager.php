@@ -185,14 +185,17 @@ class FPersistentManager{
         return $not;
     }
 
-    public function prelevaCartItems($cli){
-        return FCartItem::load($cli);
+    public function prelevaCartItems($car){
+        return FCartItem::load($car);
+    }
+
+    public function prelevaCartDischiItems($car){
+        return FCartItem::loadD($car);
 
     }
 
-    public function prelevaCartDischiItems($cli){
-        return FCartItem::loadD($cli);
-
+    public function prelevaCarrelloCorrente($id_cliente){
+        return FCarrello::getCurrentCartId($id_cliente);
     }
 
     public function AddItem($prodctId, $cartid,$cli_id){

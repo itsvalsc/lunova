@@ -4,16 +4,33 @@ class CRicercaDisco{
         $viewex = new VHome();
         $var = '';
         $logged= false;
+        $num = null;
         $session = FSessione::getInstance();
         if ($session->isLogged()){
             $ut = $session->getUtente();
             $logged = true;
             $var = $ut->getUsername();
+            $pers = FPersistentManager::getInstance();
+            $utente = $ut->getIdClient();
+            if ($session->carrelloIsSet()){   //se esiste il carrello in sessione
+                $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
+                $num = count($elenco);
+            }
+            else{   //se non esiste il carrello in sessione
+                $car = $pers->prelevaCarrelloCorrente($utente);
+                if ( $car !=null){   //se esiste il carrello sul db relativo all utente
+                    $session->setCarrello($car);
+                    $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
+                    $num = count($elenco);
+                }
+                else{   //se non esiste il carrello sul db relativo all utente
+                    $car = new ECarrello($utente);
+                    $pers->store($car);
+                    $session->setCarrello($car);
+                    $num = 0;
+                }
+            }
         }
-        $pers = FPersistentManager::getInstance();
-        $utente = 'C151'; //sessione
-        $elenco = $pers->prelevaCartItems($utente);
-        $num = count($elenco);
         $viewex->ShowIndex($logged,$var, $num);
     }
 

@@ -26,7 +26,7 @@ class CLogin{
         if ($session->isLogged()){
             header("Location: /lunova");
         }else{
-            $view->Login(false);
+            $view->Login($session->isLogged());
         }
 
 
@@ -84,7 +84,7 @@ class CLogin{
             $utente = $pm->load($class, $email);
             if ( hash('sha256',$password) == $utente->getPassword() ) { //todo:ho cambiato la funzione per criptare le password, verificare che su db le password abbiano almeno una lunghezza di 64, io avevo messo a 100
                 $gs->setUtente($utente);
-                $v->ShowIndex(true,$utente->getUsername());
+                header('Location: /lunova');
                 //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");
             } else {
                 $v->message(false,'password errata','Login','Login/login');

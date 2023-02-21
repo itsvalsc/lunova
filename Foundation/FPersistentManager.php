@@ -209,5 +209,9 @@ class FPersistentManager{
     public function FindArtistName($id){
         return FArtista::loadName($id);
     }
+    public function FindArtistId($username){
+        return FArtista::loadId($username);
+    }
+
 
 }

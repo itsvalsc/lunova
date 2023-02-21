@@ -214,6 +214,21 @@ class FArtista{
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
+    public static function loadId($Username){
+        $pdo = FConnectionDB::connect();
+        $query = "SELECT * FROM artista WHERE Username = :username";
+        $stmt= $pdo->prepare($query);
+        $stmt->execute([":username" => $Username]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($rows>0){
+            return $rows[0]['IdArtista'];
+        }
+        else{
+            return null;
+        }
+
+    }
+
 
 
 

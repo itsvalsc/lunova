@@ -70,7 +70,12 @@ class CRicercaDisco{
             }
         }
         elseif ($filtro=='artista'){
-
+            $dischi = $pers->prelevaDischiperAutore($search);
+            if (count($dischi)!=0){
+                $view->lista_prodotti($dischi, $session->isLogged());
+            }else{
+                $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
+            }
         }
         else{
             header("Location: /lunova/RicercaDisco/ricerca");

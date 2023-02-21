@@ -166,12 +166,59 @@ class FArtista{
             return array();}
     }
 
+    public static function loadArtistiperUsername(string $username) : array {
+        try{
+            $pdo = FConnectionDB::connect();
+            //$pdo->beginTransaction();
+
+            $stmt = $pdo->prepare("SELECT * FROM artista WHERE Username = :username");
+            $stmt->execute([":username"=>$username]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($rows)!=0){
+                $artisti = array();
+                $i= 0 ;
+                foreach ($rows as $row) {
+                    $id = $row['IdArtista'];
+                    $immagine = FImmagine::load($id);
+                    $art=new EArtista(
+                        $row['IdArtista'],
+                        $row['Email'],
+                        $row['Username'],
+                        $row['Nome'],
+                        $row['Cognome'],
+                        $row['Via'],
+                        $row['NCivico'],
+                        $row['Provincia'],
+                        $row['Citta'],
+                        $row['CAP'],
+                        $row['NTelefono'],
+                        $row['Password'],
+                        $immagine
+                    );
+                    $art->setIdArtista($id);
+                    $artisti[$i]=$art;
+                    ++$i;
+                }
+            }else{
+                $artisti=array();
+            }
+
+            return $artisti;
+        }
+        catch (PDOException $e){
+            print("ATTENTION ERROR: ") . $e->getMessage();
+            $pdo->rollBack();
+            return array();
+        }
+
+    }
+
     /**
      * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
      * @param $email
      * @param $pass
      */
-    public function VerificaAccesso(string $email, string $password)
+    public static function VerificaAccesso(string $email, string $password)
     {
         $pdo=FConnectionDB::connect();
         $pdo->beginTransaction();

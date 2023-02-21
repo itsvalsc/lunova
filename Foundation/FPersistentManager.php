@@ -1,7 +1,8 @@
 <?php
 
 class FPersistentManager{
-	private static $instance;
+
+    private static $instance;
 
 	public static function getInstance() {
 		if(!isset(self::$instance)){
@@ -59,17 +60,16 @@ class FPersistentManager{
     }
 
     /**
-     * Metodo che permette il login di un utente, date le credenziali (username e password)
+     * Metodo che permette il login di un utente, date le credenziali (email e password)
      * @param $email
-     * @param $pass
-     * @return array|EAdmin|EArtista|ECliente|null
+     * @param $password
      */
-    public function verificaLogin($email, $pass) {
-        $ris = FCliente::verificaAccesso($email, $pass);
+    public function verificaLogin($email, $password) {
+        $ris = FCliente::verificaAccesso($email, $password);
         if($ris == null){
-            $ris = FArtista::verificaAccesso($email, $pass);
+            $ris = FArtista::verificaAccesso($email, $password);
             if($ris == null){
-                $ris = FAdmin::verificaAccesso($email, $pass);
+                $ris = FAdmin::verificaAccesso($email, $password);
             }
         }
         return $ris;
@@ -87,9 +87,13 @@ class FPersistentManager{
     public function prelevaDischiperGen($genere):array {
         return FDisco::prelevaDischiperGenere($genere);
     }
-    public function prelevaDischiperAutore($aut):array{
-        return FDisco::prelevaDischiperAutore($aut);
+    public function prelevaDischiperAutore($aut){
+        $disco = $this->FindArtistId($aut);
+        return FDisco::prelevaDischiperAutore($disco);
     }
+
+    //TODO: vedere il caso in cui non trova i dischi
+
     public function prelevaDischiperTitolo($titolo):array{
         return FDisco::prelevaDischiperTitolo($titolo);
     }
@@ -150,6 +154,11 @@ class FPersistentManager{
 
     public function prelevaArtisti(){
         $artisti = FArtista::loadArtisti();
+        return $artisti;
+    }
+
+    public function prelevaArtistiperUsername($username):array{
+        $artisti = FArtista::loadArtistiperUsername($username);
         return $artisti;
     }
 

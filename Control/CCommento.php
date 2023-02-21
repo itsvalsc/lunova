@@ -32,28 +32,21 @@ class CCommento
      * @param $id int id del Disco
      * @throws SmartyException
      */
-    public static function scriviCommento($id)
+    public static function scriviCommento()
     {
-        $sessione = new FSessione();
+        $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
-        $cliente = $pm->load("FCliente", $sessione->leggi_valore('utente'));
-        $disco = $pm->load("FDisco", $id);
-        if (($sessione->leggi_valore('tipo_utente') == "ECliente")) {
-
-            $view = new VCommento();
-            $value = $view->getFormCommento();
-
-            $valutazione = $value[0];
-            $descrizione = $value[1];
-            $data = (string)date("d/m/Y");
-
-            $commento = new ECommento($cliente, $descrizione, $valutazione, $data, $disco[0]);
-
-            $idC = $pm->store($commento);
-
-            header('Location: /lunova/Product_list/mostra_prodotto/' . $id);
-        } else {
-            header('Location: /lunova/Ricerca/mostraHome');
+        if ($sessione->isLogged() || $sessione->isCliente()){
+            $cliente = $sessione->getUtente();
+            $data = (string)date("Y/m/d");
+            $descrizione=$_POST['commento'];
+            $id_disco=$_POST['disco'];
+            $valutazione=0;
+            $commento = new ECommento($cliente->getIdClient(), $descrizione, $valutazione, $data, $id_disco);
+            $pm->store($commento);
+            header('Location: /lunova/Products_list/mostra_prodotto/'.$id_disco);
+        }else{
+            header('Location: /lunova/Errore/unathorized');
         }
     }
 

@@ -39,7 +39,7 @@ class ECommento implements JsonSerializable {
     }
 
     /** METODI GET */
-    public function getId(): ?int
+    public function getId(): ?string
     { return $this->id; }
 
     public function getIdCliente(): string

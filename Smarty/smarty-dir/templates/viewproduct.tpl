@@ -121,8 +121,9 @@
             <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
         </div>
         <!-- Comment box  -->
-        <form class="w-100" method="post">
-            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" rows="1" placeholder="Add a comment..."></textarea>
+        <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
+            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Add a comment..."></textarea>
+            <input hidden name="disco" value="{$product->getID()}">
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
     </div>

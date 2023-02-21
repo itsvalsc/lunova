@@ -39,7 +39,7 @@
             </ul>
 
 
-
+            {if $logged}
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
@@ -48,7 +48,7 @@
                     </a>
                 </li>
             </ul>
-
+            {/if}
 
 
             <form class="d-flex" style="margin-block-end: 2px;">

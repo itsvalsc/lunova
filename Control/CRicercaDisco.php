@@ -11,23 +11,25 @@ class CRicercaDisco{
             $logged = true;
             $var = $ut->getUsername();
             $pers = FPersistentManager::getInstance();
-            $utente = $ut->getIdClient();
-            if ($session->carrelloIsSet()){   //se esiste il carrello in sessione
-                $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
-                $num = count($elenco);
-            }
-            else{   //se non esiste il carrello in sessione
-                $car = $pers->prelevaCarrelloCorrente($utente);
-                if ( $car !=null){   //se esiste il carrello sul db relativo all utente
-                    $session->setCarrello($car);
+            if ($session->isCliente()){
+                $utente = $ut->getIdClient();
+                if ($session->carrelloIsSet()){   //se esiste il carrello in sessione
                     $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
                     $num = count($elenco);
                 }
-                else{   //se non esiste il carrello sul db relativo all utente
-                    $car = new ECarrello($utente);
-                    $pers->store($car);
-                    $session->setCarrello($car);
-                    $num = 0;
+                else{   //se non esiste il carrello in sessione
+                    $car = $pers->prelevaCarrelloCorrente($utente);
+                    if ( $car !=null){   //se esiste il carrello sul db relativo all utente
+                        $session->setCarrello($car);
+                        $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
+                        $num = count($elenco);
+                    }
+                    else{   //se non esiste il carrello sul db relativo all utente
+                        $car = new ECarrello($utente);
+                        $pers->store($car);
+                        $session->setCarrello($car);
+                        $num = 0;
+                    }
                 }
             }
         }
@@ -43,7 +45,8 @@ class CRicercaDisco{
             $elenco = $pers->prelevaGeneri();
             $view->new(true,$elenco);
         }else{
-            $view->message($session->isLogged(),'impossibile accedere in questa sezione', 'homepage','RicercaDisco/index');
+            //$view->message($session->isLogged(),'impossibile accedere in questa sezione', 'homepage','RicercaDisco/index');
+            header('Location: /lunova/Errore/unathorized');
         }
     }
 
@@ -53,10 +56,18 @@ class CRicercaDisco{
         $session = FSessione::getInstance();
         $filtro = $view->getfiltro();
         $search = $view->getsearch();
+        if($session->isCliente()){
+            $cartid = $session->getCarrello()->getId();
+            $elencoitems = $pers->prelevaCartItems($cartid);
+            $num = count($elencoitems);
+        }
+        else{
+            $num=null;
+        }
         if ($filtro=='disco'){
             $dischi = $pers->prelevaDischiperTitolo($search);
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi,$session->isLogged());
+                $view->lista_prodotti($dischi,$session->isLogged(),$num);
             }else{
                 $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
             }

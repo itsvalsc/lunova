@@ -12,6 +12,8 @@ class CCarrello{
             $num = count($elenco);
             $Disc = $pers->prelevaCartDischiItems($cartid);
             $view->cart($session->isLogged(),$elenco,$Disc, $num);
+        }else{
+            header('Location: /lunova/Errore/unathorized');
         }
     }
 

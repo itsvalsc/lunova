@@ -57,7 +57,10 @@ class FCommento
                 $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
                 return $commento;
             }
-            else {return "Non ci sono commenti per questo disco";}
+            else {
+                return "Non ci sono commenti per questo disco";
+                //return null;
+            }
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }

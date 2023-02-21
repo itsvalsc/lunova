@@ -136,6 +136,7 @@ print_r("\n-----------\n");
 $A = Sicurezza("ciao", "C231");
 print_r ($A);
 */
+/*
 function exist($id): bool
 {
 
@@ -356,4 +357,5 @@ $B = load('C151');
 //MinusToCart('12345','F94','C151');
 AddToCart('12345','F94','C151');
 //print_r($B);
-//delete('5584','F94');
+//delete('5584','F94'); */
+

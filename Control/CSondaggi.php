@@ -3,7 +3,7 @@ class CSondaggi{
     public static function show(){
         $view = new VSondaggi();
         $logged = false;
-
+        $num = null;
         $votazione = false;
         $ut = null;
         $session = FSessione::getInstance();
@@ -18,7 +18,7 @@ class CSondaggi{
             $votazione= $pers->exist('FVotazione',$utente,$sondaggio->getId());
             $view->show($sondaggio,$votazione,true, $num);
         }else{
-            $num = [];
+
             $view->show($sondaggio,true,$session->isLogged(), $num );
         }
     }

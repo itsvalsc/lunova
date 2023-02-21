@@ -71,12 +71,19 @@ class CProducts_list{
     public static function mostra_prodotto(string $id){
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
-        $utente = 'C151'; //sessione
-        $elenco = $pers->prelevaCartItems($utente);
-        $num = count($elenco);
+        $session = FSessione::getInstance();
+        if ($session->isLogged()){
+            if ($session->isCliente()){
+                $utente = $session->getUtente()->getIdClient();
+                $cartid = $session->getCarrello()->getId();
+                $elencoitems = $pers->prelevaCartItems($cartid);
+                $num = count($elencoitems);
+            }
+        }
+
         $prodotto = $pers->load('FDisco',$id);
-        $l = true;
-        $view->prodotto_singolo($prodotto,$l, $num);
+        $art = $pers->FindArtistName($prodotto->getAutore());
+        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art);
 
     }
 

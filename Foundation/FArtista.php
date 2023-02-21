@@ -207,7 +207,6 @@ class FArtista{
                 $Nome = $rows[0]['Nome'];
                 $Cognome = $rows[0]['Cognome'];
 
-
                 return $Username;
                 //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
 

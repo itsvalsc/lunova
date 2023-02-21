@@ -31,10 +31,11 @@ class VProducts_list{
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product, $l, $num){
+    public function prodotto_singolo($product, $l, $num, $artista){
         $this->setData('logged', $l);
         $this->setData('product', $product);
         $this->setData('num', $num);
+        $this->setData('artist',$artista);
         $this->setTemplate('viewproduct.tpl');
     }
 }

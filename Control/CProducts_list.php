@@ -72,6 +72,7 @@ class CProducts_list{
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
+        $n = null;
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();

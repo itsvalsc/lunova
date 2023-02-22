@@ -87,7 +87,7 @@ class CCommento
         $sessione = new FSessione();
         $view = new VCommento();
         $pm = FPersistentManager::getInstance();
-        if ($sessione->isLogged() || ($sessione->isCliente() || $sessione->isArtista())){
+        if ($sessione->isLogged() || ($sessione->isArtista())){
             $pm->update_value("FCommento", "segnalato", 1, "id", $id);
             header('Location: /lunova/Product_list/mostra_prodotto/' . $view->getIdDisco());
         } else {

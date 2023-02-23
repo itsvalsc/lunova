@@ -32,10 +32,10 @@ class EAdmin extends EUtente{
     }
 
     public function getIdAmministratore(): string
-    { return $this->IdAmministratore; }
+    { return $this->IdAdmin; }
 
 	public function setIdAmministratore(string $IdAmministratore): void
-    { $this->IdAmministratore = $IdAmministratore; }
+    { $this->IdAdmin = $IdAmministratore; }
 
     /**
      * Metodo che cripta la password inserita da un utente con un hash

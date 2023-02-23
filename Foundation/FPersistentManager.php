@@ -222,5 +222,9 @@ class FPersistentManager{
         return FArtista::loadId($username);
     }
 
+    public function loadCommenti($disco){
+        return FCommento::loadCommenti($disco);
+    }
+
 
 }

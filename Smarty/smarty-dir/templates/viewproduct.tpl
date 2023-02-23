@@ -114,6 +114,7 @@
 
 <!-- commenti -->
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
+
     <!-- Add comment -->
     <div class="d-flex mb-3">
         <!-- Avatar -->
@@ -127,6 +128,8 @@
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
     </div>
+
+    {section name = nr loop= $commenti}
     <!-- Comment wrap START -->
     <ul class="comment-wrap list-unstyled">
         <!-- Comment item START -->
@@ -140,10 +143,10 @@
                     <!-- Comment by -->
                     <div class="bg-light rounded-start-top-0 p-3 rounded bg-opacity-75">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-1"> <a href="#!"> Frances Guerrero </a></h6>
+                            <h6 class="mb-1"> <a href="#!"> {$commenti[nr]->getIdCliente()} </a></h6>
                             <small class="ms-2">5hr</small>
                         </div>
-                        <p class="small mb-0">Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection.</p>
+                        <p class="small mb-0">{$commenti[nr]->getDescrizione()}</p>
                     </div>
                     <!-- Comment react -->
                     <ul class="nav nav-divider py-2 small">
@@ -165,29 +168,12 @@
                         <div class="avatar avatar-story avatar-xs">
                             <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg" alt=""></a>
                         </div>
-                        <!-- Comment by -->
-                        <div class="ms-2">
-                            <div class="bg-light p-3 rounded bg-opacity-75">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="mb-1"> <a href="#!"> Billy Vasquez </a> </h6>
-                                    <small class="ms-2">15min</small>
-                                </div>
-                                <p class="small mb-0">Wishing calling is warrant settled was lucky.</p>
-                            </div>
-                            <!-- Comment react -->
-                            <ul class="nav nav-divider py-2 small">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!"> Like</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!"> Reply</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                 </li>
                 <!-- Comment item END -->
             </ul>
+            {/section}
             <!-- Load more replies -->
             <a href="#!" role="button" class="btn btn-link btn-link-loader btn-sm text-secondary d-flex align-items-center mb-3 ms-5" data-bs-toggle="button" aria-pressed="true">
                 <div class="spinner-dots me-2">
@@ -197,6 +183,7 @@
                 </div>
                 Load more replies
             </a>
+
     </div>
 </div>
 

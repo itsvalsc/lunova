@@ -139,7 +139,6 @@
     {/section}
 
 </div>
-</div>
 
 
 <div id="main" class="container" style="margin-top:100px; height: fit-content">

@@ -9,14 +9,14 @@
  * Data: identifica il momento in cui è stato scritto il commento
  * Segnalata: indica se il commento è stato segnalato o meno
  */
-class ECommento implements JsonSerializable {
+class ECommento {
 
     /** attributi */
     private string $id;
     private string $idCliente;
     private string $idDisco;
     private string $descrizione;
-    private float $voto;
+    private int $voto;
     private string $data;
     private bool $segnalata;
 
@@ -24,11 +24,11 @@ class ECommento implements JsonSerializable {
      * Costruttore della classe
      * @param string $idCliente
      * @param string $descrizione
-     * @param float $voto
+     * @param int $voto
      * @param string $data
      * @param string $disco
      */
-    public function __construct(string $idCliente, string $descrizione, float $voto, string $data, string $idDisco){
+    public function __construct(string $idCliente, string $descrizione, int $voto, string $data, string $idDisco){
         $this->id = "Comm" . random_int(0,9999);
         $this->idCliente = $idCliente;
         $this->descrizione = $descrizione;
@@ -48,7 +48,7 @@ class ECommento implements JsonSerializable {
     public function getDescrizione(): string
     { return $this->descrizione; }
 
-    public function getVoto(): float
+    public function getVoto(): int
     { return $this->voto; }
 
     public function getData(): string
@@ -59,7 +59,7 @@ class ECommento implements JsonSerializable {
 
     /** METODI SET */
 
-    public function setId(?int $id): void
+    public function setId(?string $id): void
     { $this->id = $id; }
 
     public function setIdCliente(string $idCliente): void
@@ -68,7 +68,7 @@ class ECommento implements JsonSerializable {
     public function setDescrizione(string $descrizione): void
     { $this->descrizione = $descrizione; }
 
-    public function setVoto(float $voto): void
+    public function setVoto(int $voto): void
     { $this->voto = $voto; }
 
     public function setData(string $data): void
@@ -83,6 +83,7 @@ class ECommento implements JsonSerializable {
     public function setSegnala(bool $segnalata): void
     { $this->segnalata = $segnalata; }
 
+    /*
     public function jsonSerialize()
     {
         return
@@ -96,13 +97,14 @@ class ECommento implements JsonSerializable {
                 'segnalato'   => $this->isSegnalato()
             ];
     }
-
+*/
     /**
      * @return String Stampa le informazioni relative al commento
      */
+    /*
     public function __toString() {
         return "TESTO: ".$this->getDescrizione(). " | VALUTAZIONE: ".$this->getVoto()." | SCRITTA DA : ".$this->getUtente(). " | IL: ".$this->getData()." | DATA A: ".$this->getDisco(). "\n";
-    }
+    }*/
 
 }
 ?>

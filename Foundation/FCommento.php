@@ -65,23 +65,25 @@ class FCommento
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
-    public static function loadCommenti() : array {
+    public static function loadCommenti($disco) : array {
         try {
             $pdo = FConnectionDB::connect();
-            $query = "SELECT * FROM commenti";
+            $query = "SELECT * FROM commenti WHERE disco= :id_disco";
             $stmt = $pdo->prepare($query);
-            $stmt->execute();
+            $stmt->execute( [":id_disco" => $disco]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $commenti = array();
             $i = 0;
             foreach ($rows as $row) {
-                $descrizione = $rows[0]['descrizione'];
-                $voto = $rows[0]['voto'];
-                $data = $rows[0]['data'];
-                $cliente = $rows[0]['cliente'];
-                $disco = $rows[0]['disco'];
+                $id = $row['id'];
+                $descrizione = $row['descrizione'];
+                $voto = $row['voto'];
+                $data = $row['data'];
+                $cliente = $row['cliente'];
+                $disco = $row['disco'];
 
-                $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
+                $commento = new ECommento($cliente,$descrizione, $voto, $data, $disco);
+                $commento->setId($id);
 
                 $commenti[$i] = $commento;
                 ++$i;

@@ -117,16 +117,14 @@
 
     <!-- Add comment -->
     <div class="d-flex mb-3">
-        <!-- Avatar -->
-        <div class="avatar avatar-xs me-2">
-            <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
-        </div>
+        {if $logged}
         <!-- Comment box  -->
         <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
             <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Add a comment..."></textarea>
             <input hidden name="disco" value="{$product->getID()}">
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
+        {/if}
     </div>
 
     {section name = nr loop= $commenti}

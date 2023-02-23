@@ -42,7 +42,7 @@ class CCommento
             $descrizione=$_POST['commento'];
             $id_disco=$_POST['disco'];
             $valutazione=0;
-            $commento = new ECommento($cliente->getIdClient(), $descrizione, $valutazione, $data, $id_disco);
+            $commento = new ECommento($cliente, $descrizione, $valutazione, $data, $id_disco);
             $pm->store($commento);
             header('Location: /lunova/Products_list/mostra_prodotto/'.$id_disco);
         }else{

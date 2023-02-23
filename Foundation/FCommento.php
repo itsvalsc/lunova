@@ -32,7 +32,7 @@ class FCommento
             ':voto' => $commento->getVoto(),
             ':data'  =>$commento->getData(),
             ':segnalato' =>$commento->isSegnalato(),
-            ':cliente' =>$commento->getIdCliente(),
+            ':cliente' =>$commento->getCliente()->getIdClient(),
             ':disco' =>$commento->getIdDisco()
         ));
     }

@@ -105,7 +105,7 @@ class CLogin{
         $gs = FSessione::getInstance();
         if ($pm->exist('FAdmin', $email)) {
             $admin = $pm->load('FAdmin', $email);
-            if ($password == $admin->getPassword()) {
+            if (hash('sha256',$password) == $admin->getPassword()) {
                 $gs->setUtente($admin);
                 $v->ShowIndex(true,$admin->getUsername());
                 //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");

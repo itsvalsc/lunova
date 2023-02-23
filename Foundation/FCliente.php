@@ -104,7 +104,35 @@ class FCliente
             else {return "Non ci sono clienti";}
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
+    }
 
+    public static function loadId(string $id) {
+        $pdo=FConnectionDB::connect();
+
+        try {
+                $query = "SELECT * FROM cliente WHERE IdCliente= :id";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute( [":id" => $id] );
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                $Idcliente = $rows[0]['IdCliente'];
+                $Email = $rows[0]['Email'];
+                $Username = $rows[0]['Username'];
+                $Nome = $rows[0]['Nome'];
+                $Cognome = $rows[0]['Cognome'];
+                $Via = $rows[0]['Via'];
+                $NumeroCivico = $rows[0]['NCivico'];
+                $Provincia = $rows[0]['Provincia'];
+                $Citta = $rows[0]['Citta'];
+                $CAP = $rows[0]['CAP'];
+                $Telefono = $rows[0]['NTelefono'];
+                $Password = $rows[0]['Password'];
+               //$Livello = $rows[0]['Livello'];
+
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
+                return $utente;
+        }
+        catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
     public static function update(EClient $cl) : bool{

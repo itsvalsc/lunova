@@ -79,9 +79,10 @@ class FCommento
                 $descrizione = $row['descrizione'];
                 $voto = $row['voto'];
                 $data = $row['data'];
-                $cliente = $row['cliente'];
+                $idCliente = $row['cliente'];
                 $disco = $row['disco'];
 
+                $cliente = FCliente::loadId($idCliente);
                 $commento = new ECommento($cliente,$descrizione, $voto, $data, $disco);
                 $commento->setId($id);
 

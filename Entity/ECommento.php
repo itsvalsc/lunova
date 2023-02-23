@@ -13,7 +13,7 @@ class ECommento {
 
     /** attributi */
     private string $id;
-    private string $idCliente;
+    private ECliente $Cliente;
     private string $idDisco;
     private string $descrizione;
     private int $voto;
@@ -28,9 +28,9 @@ class ECommento {
      * @param string $data
      * @param string $disco
      */
-    public function __construct(string $idCliente, string $descrizione, int $voto, string $data, string $idDisco){
+    public function __construct(ECliente $Cliente, string $descrizione, int $voto, string $data, string $idDisco){
         $this->id = "Comm" . random_int(0,9999);
-        $this->idCliente = $idCliente;
+        $this->Cliente = $Cliente;
         $this->descrizione = $descrizione;
         $this->voto = $voto;
         $this->data = $data;
@@ -42,8 +42,8 @@ class ECommento {
     public function getId(): ?string
     { return $this->id; }
 
-    public function getIdCliente(): string
-    { return $this->idCliente; }
+    public function getCliente(): ?ECliente
+    { return $this->Cliente; }
 
     public function getDescrizione(): string
     { return $this->descrizione; }
@@ -62,8 +62,8 @@ class ECommento {
     public function setId(?string $id): void
     { $this->id = $id; }
 
-    public function setIdCliente(string $idCliente): void
-    { $this->idCliente = $idCliente; }
+    public function setCliente(ECliente $Cliente): void
+    { $this->Cliente = $Cliente; }
 
     public function setDescrizione(string $descrizione): void
     { $this->descrizione = $descrizione; }

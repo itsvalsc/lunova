@@ -44,5 +44,11 @@ class CCarrello{
         //$view->cart($l, $elenco,$Disc, $num);
     }
 
+    public static function Acquisto(){
+        $view = new VCarrello();
+        $l = true;
+        $view->getFeedback($l);
+    }
+
 
 }

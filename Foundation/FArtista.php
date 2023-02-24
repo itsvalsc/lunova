@@ -154,7 +154,7 @@ class FArtista{
                 $Telefono = $row['NTelefono'];
                 $Password = $row['Password'];
 
-                $artista = new EArtista($Email, $Username, $Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                $artista = new EArtista($Username, $Email, $Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
                 $artisti[$i] = $artista;
                 ++$i;
             }

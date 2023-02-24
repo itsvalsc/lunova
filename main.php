@@ -349,11 +349,108 @@ function AddToCart($productId, $cartid, $cli_id){
 
 }
 
-$A= getCurrentCartId('C151');
-$B = load('C151');
+function CheckQta($id){
+    $pdo=FConnectionDB::connect();
+
+
+    //controllo quantità
+
+    $query = "SELECT Qta FROM dischi WHERE ID= :id";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute( [":id" => $id] );
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $quantity = $rows[0]["Qta"];
+
+    $verify=false;
+    $solution = array();
+
+    if($quantity>0 && $quantity<10){
+        $verify=true;
+        $message = "disponibili pochi pezzi";
+        array_push($solution, $verify,$message);
+    }
+    if($quantity>0 ){
+        $verify=true;
+        $message = "disponibile";
+        array_push($solution, $verify,$message);
+    }
+    else{
+        $message = "non disponibile";
+        array_push($solution, $verify,$message);
+    }
+    return $solution;
+    print_r('done');
+}
+
+function AddToOrdine(array $productarray, $cartid, $cli_id)
+{
+    $pdo = FConnectionDB::connect();
+
+    $ordine = new EOrdine( $cli_id);
+    $ordine->setCarrello($productarray[0]);
+    FOrdine::store($ordine);
+    $T = load($cli_id);
+    foreach ($T as $row){
+        $row->getQuantity();
+    }
+
+    return $ordine;
+}
+
+$G = load('C151');
+$lista = [];
+$tot= 0;
+foreach ($G as $row){
+    //var_dump($row->getQuantity());
+    //var_dump($row->getIdItem()); //mi serve
+    $recupero = FDisco::load($row->getIdItem());
+    $autore = $recupero->getAutore();
+    $artista = FArtista::loadName($autore);
+    //var_dump($recupero->getTitolo());
+    //var_dump($recupero->getAutore());
+    //var_dump($recupero->getPrezzo());
+    $qta=$row->getQuantity();
+    $titolo =$recupero->getTitolo();
+    $prezzo = $recupero->getPrezzo();
+    $stringa = "$qta x $titolo by $artista $ $prezzo";
+    //print_r($stringa);
+    //print_r("\n");
+    array_push($lista, $stringa);
+    $tot = $tot + ($qta * $prezzo);
+
+
+}
+print_r("TOTALE = $tot \n");
+var_dump($lista);
+//$ordine = new EOrdine('C151');
+//$prova = [];
+//array_push($prova,$G);
+//$ordine->setCarrello($prova);
+
+//$A = AddToOrdine($prova,true,'C151');
+//var_dump($A->getCarrello());
+
+
+
+
+
+
+
+
+
+
+
+
+//$B= CheckQta("12345");
+//var_dump($B);
+
+
+
+//$A= getCurrentCartId('C151');
+//$B = load('C151');
 //var_dump($B[0]->getIdCartItem());
 //print_r($B);
 //MinusToCart('12345','F94','C151');
-AddToCart('12345','F94','C151');
+//AddToCart('12345','F94','C151');
 //print_r($B);
 //delete('5584','F94');

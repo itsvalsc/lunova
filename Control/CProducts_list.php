@@ -70,10 +70,12 @@ class CProducts_list{
         $pers = FPersistentManager::getInstance();
         $utente = 'C151'; //sessione
         $elenco = $pers->prelevaCartItems($utente);
+
         $num = count($elenco);
         $prodotto = $pers->load('FDisco',$id);
+        $identifier = $pers->FindArtistName($prodotto->getAutore());
         $l = true;
-        $view->prodotto_singolo($prodotto,$l, $num);
+        $view->prodotto_singolo($prodotto,$l, $num, $identifier);
 
     }
 

@@ -27,7 +27,7 @@ class FOrdine{
             ':CAPSped'  =>$ordine->getCapSped(),
             ':IndirizzoSped' =>$ordine->getIndirizzoSped(),
             ':ModPagamento' =>$ordine->getModPagamento(),
-            ':Dischi' =>$ordine->getDischi(),
+            ':Dischi' =>$ordine->getCarrello(),
             ':TotOrdine' =>$ordine->getTotOrdine(),
             ':IdCliente' =>$ordine->getIdCliente()
         ));
@@ -42,7 +42,7 @@ class FOrdine{
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $IdOrdine = $rows[0]['IdOrdine'];
-        $CittàSpe = $rows[0]['CittaSped'];
+        $CittaSpe = $rows[0]['CittaSped'];
         $CAPSped = $rows[0]['CAPSped'];
         $IndirizzoSped = $rows[0]['IndirizzoSped'];
         $ModPagamento = $rows[0]['ModPagamento'];
@@ -54,7 +54,7 @@ class FOrdine{
 
         $ordine = new EOrdine($IdCliente);
 
-        $ordine->Compile($IdOrdine, $CittàSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
+        $ordine->Compile($IdOrdine, $CittaSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
 
         return $ordine;
     }
@@ -88,7 +88,7 @@ class FOrdine{
         $ordini = array();
         foreach ($rows as $row) {
             $IdOrdine = $rows[0]['IdOrdine'];
-            $CittàSpe = $rows[0]['CittaSped'];
+            $CittaSpe = $rows[0]['CittaSped'];
             $CAPSped = $rows[0]['CAPSped'];
             $IndirizzoSped = $rows[0]['IndirizzoSped'];
             $ModPagamento = $rows[0]['ModPagamento'];
@@ -99,7 +99,7 @@ class FOrdine{
 
             $ordine = new EOrdine($IdCliente);
 
-            $ordine->Compile($IdOrdine, $CittàSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
+            $ordine->Compile($IdOrdine, $CittaSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
             $ordini[$IdOrdine]=$ordine;
         }
 
@@ -108,6 +108,60 @@ class FOrdine{
 
         return $ordine;
     }
+
+
+    public static function AddToOrdine($productId, $cartid, $cli_id){
+        $pdo=FConnectionDB::connect();
+
+
+        $G= FCartItem::load($productId);
+        $ordine = new EOrdine();
+        $ordine->setCarrello($G->get);
+        self::store($ordine);
+
+
+
+
+
+
+
+        $quantity = 0;
+
+        $query = "SELECT quantity FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ":idcart" => $cartid,
+            ':idprod' => $productId
+        ));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //var_dump($rows);
+
+        if (count($rows) > 0 ){
+            $quantity = $rows[0]["quantity"];
+            //print_r($quantity);
+        }
+        ++ $quantity ;
+
+        if (count($rows) > 0 ) {
+            $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
+            $stmt1 = $pdo->prepare($query1);
+            $stmt1->execute(array(
+                ":q" => $quantity,
+                ":idcart" => $cartid,
+                ':idprod' => $productId
+            ));
+        }
+        else{
+            $G= FDisco::load($productId);
+            $cart = new ECartItem(($G));
+            self::store($cart,$cartid);
+
+
+        }
+        return $quantity;
+
+    }
+
 
 
 

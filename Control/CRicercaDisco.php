@@ -10,11 +10,13 @@ class CRicercaDisco{
             $logged = true;
             $var = $ut->getUsername();
         }
+        /*
         $pers = FPersistentManager::getInstance();
         $utente = 'C151'; //sessione
         $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
-        $viewex->ShowIndex($logged,$var, $num);
+        */
+        $viewex->ShowIndex($logged,$var);
     }
 
     public static function newDisc(){

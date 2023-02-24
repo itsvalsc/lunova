@@ -123,6 +123,7 @@
         <!-- Comment box  -->
         <form class="w-100" method="post">
             <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" rows="1" placeholder="Add a comment..."></textarea>
+
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
     </div>

@@ -1,6 +1,5 @@
 <?php
-
-class VProducts_list{
+class VOrdini{
     private $smarty;
 
     public function __construct(){
@@ -24,18 +23,12 @@ class VProducts_list{
         $this->smarty->assign($name,$dati);
     }
 
-    public function lista_prodotti($prod,$l, $num){
+    public function lista_ordini($prod,$l, $num){
         $this->setData('logged', $l);
         $this->setData('product', $prod);
         $this->setData('num', $num);
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product, $l, $num, $identifier){
-        $this->setData('logged', $l);
-        $this->setData('product', $product);
-        $this->setData('artist', $identifier);
-        $this->setData('num', $num);
-        $this->setTemplate('viewproduct.tpl');
-    }
+
 }

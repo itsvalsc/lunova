@@ -45,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary">{$num}</span>
                     </a>
                 </li>
             </ul>
@@ -90,85 +90,28 @@
 
 <!-- end header -->
 
-    <div id="main" class="container" style="margin-top:80px; height: 700px">
 
-    <form class="d-flex" style="margin-block-end: 2px;">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-        <hr>
+<div class ='row'>
+    {section name = nr loop= $ordine}
 
 
-        <nav id="navbar-example2" class="navbar bg-primary px-3 mb-3">
-            <a class="navbar-brand" href="#">Users</a>
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading1">Artisti</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#scrollspyHeading2">Clienti</a>
-                </li>
-            </ul>
-        </nav>
-        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-dark p-3 rounded-2" tabindex="0">
-            <h4 id="scrollspyHeading1">Artisti</h4>
-            <table class="table table-primary">
-                <thead>
-                <tr>
-                    <th scope="col">Email</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cognome</th>
-                    <th scope="col" >Opzioni</th>
-                </tr>
-                </thead>
-                {section name = ps loop= $user}
-                    <tbody>
-                    <tr class="table-dark">
+        <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
+            <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
+            <div class="card-body" >
+                <h5 class="card-title"> {$ordine[nr]->getTitolo()} </h5>
+                <h6 class = "card-subtitle mb-2 text-muted">€ {$ordine[nr]->getPrezzo()}</h6>
+                <p class="card-text">{$ordine[nr]->getDescrizione() }</p>
+                <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
+                <a href="/lunova/Products_list/mostra_prodotto/{$ordine[nr]->getID()}">
+                    <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vedi</button></a>
 
-                        <td>{$user[ps]->getEmail()}</td>
-                        <td>{$user[ps]->getNome()}</td>
-                        <td>{$user[ps]->getCognome()}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-info">Modifica</button>
-                            <a href="/lunova/Admin/EliminaA/{$user[ps]->getEmail()}">
-                                <button type="button" class="btn btn-outline-danger">Elimina</button>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                {/section}
-            </table>
-            <h4 id="scrollspyHeading2">Clienti</h4>
-            <table class="table table-primary">
-                <thead>
-                <tr>
-                    <th scope="col">Email</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cognome</th>
-                    <th scope="col" >Opzioni</th>
-                </tr>
-                </thead>
-                {section name = pc loop= $cli}
-                    <tbody>
-                    <tr class="table-dark">
 
-                        <td>{$cli[pc]->getEmail()}</td>
-                        <td>{$cli[pc]->getNome()}</td>
-                        <td>{$cli[pc]->getCognome()}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-info">Modifica</button>
-                            <a href="/lunova/Admin/EliminaC/{$cli[pc]->getEmail()}">
-                                <button type="button" class="btn btn-outline-danger">Elimina</button>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                {/section}
-            </table>
+                <a href="/lunova/Carrello/Add/{$ordine[nr]->getID()}">
+                    <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" >Aggiungi al carrello</button>
+                </a>
+
+            </div>
         </div>
-    </div>
+    {/section}
 
-
-
-    </body>
-    </html>
+</div>

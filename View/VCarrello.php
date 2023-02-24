@@ -45,4 +45,10 @@ class VCarrello
         }
         return $bool;
     }
+
+
+    public function getFeedback($l){
+        $this->setData("logged", $l);
+        $this->setTemplate('successorder.tpl');
+    }
 }

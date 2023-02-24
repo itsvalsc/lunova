@@ -1,6 +1,6 @@
 <?php
 
-require_once "autoload.php";
+//require_once "autoload.php";
 require_once "Foundation/FSessione.php";
 
 /**
@@ -31,7 +31,7 @@ class CRicerca
      * Funzione utilizzata per mostrare all'utente la homepage del sito,
      * includendo o escludendo una serie d'informazioni in base se è connesso o meno
      */
-    public function mostraHome()
+    public static function mostraHome()
     {
         $sessione = new FSessione();
         $pm = FPersistentManager::getInstance();

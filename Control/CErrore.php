@@ -31,9 +31,15 @@ class CErrore
      * Mostra la pagina di errore
      * @throws SmartyException
      */
-    public function mostraPaginaErrore()
+    public static function mostraPaginaErrore()
     {
         $view = new VErrore();
         $view->error();
+    }
+    public static function unathorized(){
+        $v = new VErrore();
+        $session = FSessione::getInstance();
+        $logged = $session->isLogged();
+        $v->message($logged,"Impossibile accedere in questa sezione",'alla homepage','/');
     }
 }

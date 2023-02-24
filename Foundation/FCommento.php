@@ -19,7 +19,7 @@ class FCommento
     }
 
     /**
-     * Memorizza un'istanza di EClient sul database
+     * Memorizza un'istanza di ECommento sul database
      * @param ECommento $commento
      */
     public static function store(ECommento $commento): void {
@@ -32,8 +32,8 @@ class FCommento
             ':voto' => $commento->getVoto(),
             ':data'  =>$commento->getData(),
             ':segnalato' =>$commento->isSegnalato(),
-            ':cliente' =>$commento->getUtente(),
-            ':disco' =>$commento->getDisco()
+            ':cliente' =>$commento->getCliente()->getIdClient(),
+            ':disco' =>$commento->getIdDisco()
         ));
     }
 
@@ -57,28 +57,34 @@ class FCommento
                 $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
                 return $commento;
             }
-            else {return "Non ci sono commenti per questo disco";}
+            else {
+                return "Non ci sono commenti per questo disco";
+                //return null;
+            }
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
-    public static function loadCommenti() : array {
+    public static function loadCommenti($disco) : array {
         try {
             $pdo = FConnectionDB::connect();
-            $query = "SELECT * FROM commenti";
+            $query = "SELECT * FROM commenti WHERE disco= :id_disco";
             $stmt = $pdo->prepare($query);
-            $stmt->execute();
+            $stmt->execute( [":id_disco" => $disco]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $commenti = array();
             $i = 0;
             foreach ($rows as $row) {
-                $descrizione = $rows[0]['descrizione'];
-                $voto = $rows[0]['voto'];
-                $data = $rows[0]['data'];
-                $cliente = $rows[0]['cliente'];
-                $disco = $rows[0]['disco'];
+                $id = $row['id'];
+                $descrizione = $row['descrizione'];
+                $voto = $row['voto'];
+                $data = $row['data'];
+                $idCliente = $row['cliente'];
+                $disco = $row['disco'];
 
-                $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
+                $cliente = FCliente::loadId($idCliente);
+                $commento = new ECommento($cliente,$descrizione, $voto, $data, $disco);
+                $commento->setId($id);
 
                 $commenti[$i] = $commento;
                 ++$i;
@@ -102,8 +108,8 @@ class FCommento
             ':voto' => $commento->getVoto(),
             ':data' => $commento->getData(),
             ':segnalato' => $commento->isSegnalato(),
-            ':cliente' => $commento->getUtente(),
-            ':disco' => $commento->getDisco()
+            ':cliente' => $commento->getIdCliente(),
+            ':disco' => $commento->getIdDisco()
         ));
         return $ris;
     }

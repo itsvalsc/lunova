@@ -20,7 +20,6 @@ require_once "./Foundation/FSondaggio.php";
 require_once "./Foundation/FRichiesta.php";
 require_once "./Entity/EVotazione.php";
 require_once "./Foundation/FVotazione.php";
-require_once "./Foundation/FAdmin.php";
 require_once "./Foundation/FPersistentManager.php";
 require_once "./Foundation/FArtista.php";
 require_once "./Entity/EArtista.php";
@@ -30,29 +29,33 @@ require_once "./Entity/EImmagine.php";
 require_once "./Foundation/FConnectionDB.php";
 require_once './Entity/ENotifiche.php';
 require_once './Entity/ECommento.php';
+require_once './Foundation/FCommento.php';
 require_once "./Foundation/FPersistentManager.php";
 require_once './Foundation/FNotifiche.php';
 //require_once ("inc/crosswords.txt");
-//require_once "./Smarty/smarty-dir/templates/img/utente_default.jpg";
-//require_once "./Smarty/smarty-dir/templates/img/icona_profilo_utente.jpg";
 require_once "./Foundation/FCarrello.php";
 require_once './Entity/ECarrello.php';
 require_once "./Foundation/FCartItem.php";
 require_once './Entity/ECartItem.php';
+require_once "./Entity/EAdmin.php";
+require_once "./Foundation/FAdmin.php";
 
 
 
 /*
 $utt1 = new ECliente("serafino","cicerone","cia","via vale","3","L'Aquila","AQ","67100","1029384756","ser@fino.com",'passwd3!');
-
 $utt2 = new ECliente("Noemi","Barbaro","noemi","via noemi","2","L'Aquila","AQ","67100","0987654321","noemi@barbaro.com",'passwd2!');
 $utt3 = new ECliente("luigi","Bartolomeo","luigi","via marruvio","1","avezzano","AQ","67051","1234567890","l@l.com",'passwd1!');
 */
 //var_dump($utt1);
 //$a=FCliente::store($utt1);
-
 //$a=FCliente::store($utt2);
 //$a=FCliente::store($utt3);
+
+/*
+$utt1 = new EAdmin("nicola","rossi","3331122456",'nicolarossi@gmail.com',"123");
+$a=FAdmin::store($utt1);
+*/
 
 
 
@@ -67,6 +70,13 @@ $utt3 = new ECliente("luigi","Bartolomeo","luigi","via marruvio","1","avezzano",
 //$a=FCliente::load('l@l.com');*/
 
 //$a=FCliente::prelevaCliente('pluto@gmail.com');
+
+/*
+$comm=new ECommento('C142','bello',2,22/02/2023,'D6');
+FCommento::store($comm);
+$a=FCommento::loadCommenti();
+print $a;
+*/
 
 //TODO: run main per caricare le immagini, una volta per ogni disco che si ha sul proprio db
 /*
@@ -136,6 +146,7 @@ print_r("\n-----------\n");
 $A = Sicurezza("ciao", "C231");
 print_r ($A);
 */
+/*
 function exist($id): bool
 {
 
@@ -453,4 +464,5 @@ var_dump($lista);
 //MinusToCart('12345','F94','C151');
 //AddToCart('12345','F94','C151');
 //print_r($B);
-//delete('5584','F94');
+//delete('5584','F94'); */
+

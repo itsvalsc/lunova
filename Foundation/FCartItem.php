@@ -53,19 +53,19 @@ class FCartItem
 
     }
 
-    public static function load(string $id_cli){
+    public static function load(string $id){
         $pdo=FConnectionDB::connect();
         $dischi = array();
 
         //prendiamo id carrello
-
+        /* query ridondante perche gli possiamo passare gia l'id del carrello
         $query = "SELECT * FROM cart WHERE client_id= :idcli";
         $stmt = $pdo->prepare($query);
         $stmt->execute( [":idcli" => $id_cli] );
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $id = $rows[0]['id'];
-
+*/
         //prendiamo i prodotti che hanno lo stesso id carrello
 
         $query = "SELECT * FROM cart_item WHERE cart_id= :idcart";
@@ -83,7 +83,6 @@ class FCartItem
             $Disc->setIdCartItem($idd);
             $Disc->setIdCart($id);
 
-
             array_push($dischi, $Disc);
 
         }
@@ -91,19 +90,20 @@ class FCartItem
 
     }
 
-    public static function loadD(string $id_cli){
+    public static function loadD(string $id){
         $pdo=FConnectionDB::connect();
         $dischi = array();
 
         //prendiamo id carrello
 
+/*
         $query = "SELECT * FROM cart WHERE client_id= :idcli";
         $stmt = $pdo->prepare($query);
         $stmt->execute( [":idcli" => $id_cli] );
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $id = $rows[0]['id'];
-
+*/
         //prendiamo i prodotti che hanno lo stesso id carrello
 
         $query = "SELECT * FROM cart_item WHERE cart_id= :idcart";
@@ -118,7 +118,6 @@ class FCartItem
             //$immagine = FImmagine::load($id);
 
             $Disc = FDisco::load($product_id);
-
 
 
             array_push($dischi, $Disc);

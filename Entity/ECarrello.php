@@ -25,7 +25,7 @@ class ECarrello
     public function __construct($ut)
     {
         if (1 === func_num_args()){
-            $this->id = "F"  . random_int(0,100);
+            $this->id = "F"  . random_int(0,1000);
             $this->dischi = array();
             $this->totale = 0.0;
             $this->id_utente=$ut;

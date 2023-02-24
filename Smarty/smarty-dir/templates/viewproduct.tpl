@@ -40,16 +40,16 @@
             </ul>
 
 
-
+            {if $logged}
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary">{$num}</span>
                     </a>
                 </li>
             </ul>
-
+            {/if}
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -61,9 +61,9 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">{$num}</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -74,7 +74,7 @@
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -114,19 +114,20 @@
 
 <!-- commenti -->
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
+
     <!-- Add comment -->
     <div class="d-flex mb-3">
-        <!-- Avatar -->
-        <div class="avatar avatar-xs me-2">
-            <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
-        </div>
+        {if $logged}
         <!-- Comment box  -->
-        <form class="w-100" method="post">
-            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" rows="1" placeholder="Add a comment..."></textarea>
-
+        <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
+            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Add a comment..."></textarea>
+            <input hidden name="disco" value="{$product->getID()}">
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
+        {/if}
     </div>
+
+    {section name = nr loop= $commenti}
     <!-- Comment wrap START -->
     <ul class="comment-wrap list-unstyled">
         <!-- Comment item START -->
@@ -140,10 +141,10 @@
                     <!-- Comment by -->
                     <div class="bg-light rounded-start-top-0 p-3 rounded bg-opacity-75">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-1"> <a href="#!"> Frances Guerrero </a></h6>
+                            <h6 class="mb-1"> <a href="#!"> {$commenti[nr]->getCliente()->getUsername()}</a></h6>
                             <small class="ms-2">5hr</small>
                         </div>
-                        <p class="small mb-0">Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection.</p>
+                        <p class="small mb-0">{$commenti[nr]->getDescrizione()}</p>
                     </div>
                     <!-- Comment react -->
                     <ul class="nav nav-divider py-2 small">
@@ -165,29 +166,12 @@
                         <div class="avatar avatar-story avatar-xs">
                             <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg" alt=""></a>
                         </div>
-                        <!-- Comment by -->
-                        <div class="ms-2">
-                            <div class="bg-light p-3 rounded bg-opacity-75">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="mb-1"> <a href="#!"> Billy Vasquez </a> </h6>
-                                    <small class="ms-2">15min</small>
-                                </div>
-                                <p class="small mb-0">Wishing calling is warrant settled was lucky.</p>
-                            </div>
-                            <!-- Comment react -->
-                            <ul class="nav nav-divider py-2 small">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!"> Like</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!"> Reply</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                 </li>
                 <!-- Comment item END -->
             </ul>
+            {/section}
             <!-- Load more replies -->
             <a href="#!" role="button" class="btn btn-link btn-link-loader btn-sm text-secondary d-flex align-items-center mb-3 ms-5" data-bs-toggle="button" aria-pressed="true">
                 <div class="spinner-dots me-2">
@@ -197,6 +181,7 @@
                 </div>
                 Load more replies
             </a>
+
     </div>
 </div>
 

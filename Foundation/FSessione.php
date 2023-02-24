@@ -125,7 +125,28 @@ class FSessione{
         }
         return $bool;
     }
+    public function carrelloIsSet(): bool {
+        if (isset($_SESSION['carrello'])){
+            $bool = true;
+        }else{
+            $bool=false;
+        }
+        return $bool;
+    }
 
+    public function setCarrello($carrello){
+        $val = serialize($carrello);
+        $_SESSION['carrello'] = $val;
+    }
+
+    public function getCarrello(){
+        if(isset($_SESSION['carrello'])){
+            $carrello = $_SESSION['carrello'];
+            return unserialize($carrello);
+        }else{
+            return null;
+        }
+    }
 
 
     public static function start(){

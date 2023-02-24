@@ -22,7 +22,7 @@ class FCarrello{
     public static function getCurrentCartId($id_cli){
         $pdo=FConnectionDB::connect();
 
-        $cartid = "";
+        $carrello = null;
 
         $query = "SELECT * FROM cart WHERE client_id= :idcli";
         $stmt = $pdo->prepare($query);
@@ -31,10 +31,12 @@ class FCarrello{
 
         if (count($rows) > 0 ){
             $cartid = $rows[0]["id"];
+            $carrello = new ECarrello($id_cli);
+            $carrello->setId($cartid);
         }
+        return $carrello;
 
     }
-
 
 
     public static function store(ECarrello $car): void {
@@ -57,7 +59,6 @@ class FCarrello{
 
         $id = $rows[0]['id'];
         //$id_cliente = $rows[0]['client_id'];
-
         //$line = explode(";", $lista);
         $query = "SELECT * FROM cart_item WHERE cart_id= :idcart";
         $stmt = $pdo->prepare($query);
@@ -66,7 +67,7 @@ class FCarrello{
 
         foreach ($prods as $row) {
             $id = $row['ID'];
-            //$immagine = FImmagine::load($id);
+            $immagine = FImmagine::load($id);
             $disc=new EDisco($row['name'],
                 $row['artist_id'],
                 $row['price'],
@@ -80,7 +81,9 @@ class FCarrello{
             $dischi[$i]=$disc;
             ++$i;
         }
-
+        $line = '';
+        $id_cliente='';
+        $id_or=''; //levare
         for ($i=0; $i < count($line) -2; ++$i) {
 
             if ($i>0)++$i;

@@ -6,15 +6,18 @@ class CProducts_list{
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $logged = false;
+        $num = null;
         if ($session->isLogged()){
-            $logged = true;
+            if ($session->isCliente()){
+                $utente = $session->getUtente()->getIdClient();
+                $cartid = $session->getCarrello()->getId();
+                $elencoitems = $pers->prelevaCartItems($cartid);
+                $num = count($elencoitems);
+            }
         }
-        $utente = 'C151'; //sessione
 
-        $elencoitems = $pers->prelevaCartItems($utente);
-        $num = count($elencoitems);
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco,$logged, $num);
+        $view->lista_prodotti($elenco,$session->isLogged(), $num);
     }
     /*
     public static function salva_foto(){
@@ -68,14 +71,20 @@ class CProducts_list{
     public static function mostra_prodotto(string $id){
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
-        $utente = 'C151'; //sessione
-        $elenco = $pers->prelevaCartItems($utente);
-
-        $num = count($elenco);
+        $session = FSessione::getInstance();
+        $num = null;
+        if ($session->isLogged()){
+            if ($session->isCliente()){
+                $utente = $session->getUtente()->getIdClient();
+                $cartid = $session->getCarrello()->getId();
+                $elencoitems = $pers->prelevaCartItems($cartid);
+                $num = count($elencoitems);
+            }
+        }
+        $commenti = $pers->loadCommenti($id);
         $prodotto = $pers->load('FDisco',$id);
-        $identifier = $pers->FindArtistName($prodotto->getAutore());
-        $l = true;
-        $view->prodotto_singolo($prodotto,$l, $num, $identifier);
+        $art = $pers->FindArtistName($prodotto->getAutore());
+        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti);
 
     }
 

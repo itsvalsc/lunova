@@ -8,7 +8,7 @@
             Torna alla home</a>
 
     </div>
-        <a href="">
+        <a href="/lunova/Ordini/tutti">
             <button type="button" class="btn btn-primary">Vedi ordini</button>
         </a>
     </div>

@@ -146,7 +146,7 @@ print_r("\n-----------\n");
 $A = Sicurezza("ciao", "C231");
 print_r ($A);
 */
-/*
+
 function exist($id): bool
 {
 
@@ -395,23 +395,83 @@ function CheckQta($id){
 
 function AddToOrdine(array $productarray, $cartid, $cli_id)
 {
-    $pdo = FConnectionDB::connect();
+    //$pdo = FConnectionDB::connect();
+
+    $lista = [];
+    $tot= 0;
+    $stringa="";
+
+    foreach ($productarray as $row){
+        //var_dump($row->getQuantity());
+        //var_dump($row->getIdItem()); //mi serve
+        $recupero = FDisco::load($row->getIdItem());
+        $autore = $recupero->getAutore();
+        $artista = FArtista::loadName($autore);
+        //var_dump($recupero->getTitolo());
+        //var_dump($recupero->getAutore());
+        //var_dump($recupero->getPrezzo());
+        $qta=$row->getQuantity();
+        $titolo =$recupero->getTitolo();
+        $prezzo = $recupero->getPrezzo();
+        $stringa = $stringa . "$qta x $titolo by $artista $ $prezzo;";
+        //print_r($stringa);
+        //print_r("\n");
+        array_push($lista, $stringa);
+
+        $tot = $tot + ($qta * $prezzo);
+
+
+    }
 
     $ordine = new EOrdine( $cli_id);
-    $ordine->setCarrello($productarray[0]);
+    //$ordine->setCarrello($lista);
+    $ordine->setCarrello($stringa);
+    $ordine->setTotOrdine($tot);
     FOrdine::store($ordine);
-    $T = load($cli_id);
-    foreach ($T as $row){
-        $row->getQuantity();
-    }
+
 
     return $ordine;
 }
 
+function RecuperoOrdini($id_cli){
+    $pdo = FConnectionDB::connect();
+
+    $query = "SELECT * FROM ordine WHERE IdCliente= :idcl";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute( [":idcl" => $id_cli] );
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $recovery = [];
+
+    foreach ($rows as $row) {
+        $fff = $row['TotaleOrdine'];
+        $totalesoldi = $row['TotSpesa'];
+        $utile_array = explode(";", $fff);
+        $uscita = "";
+        foreach ($utile_array as $utile) {
+            $uscita = $uscita . $utile . "\n";
+        }
+        $uscita = $uscita. nl2br($uscita) ."TOTALE : €". "$totalesoldi";
+        array_push($recovery, $uscita);
+    }
+
+    return $recovery[0];
+}
+
 $G = load('C151');
+//$a = AddToOrdine($G,'F94','C151');
+//print_r($a);
+$r =RecuperoOrdini('C151');
+print_r($r);
+
+
+
+
+
+/*
 $lista = [];
 $tot= 0;
-foreach ($G as $row){
+foreach ($productarray as $row){
     //var_dump($row->getQuantity());
     //var_dump($row->getIdItem()); //mi serve
     $recupero = FDisco::load($row->getIdItem());
@@ -432,7 +492,9 @@ foreach ($G as $row){
 
 }
 print_r("TOTALE = $tot \n");
-var_dump($lista);
+var_dump($lista);*/
+
+
 //$ordine = new EOrdine('C151');
 //$prova = [];
 //array_push($prova,$G);
@@ -464,5 +526,5 @@ var_dump($lista);
 //MinusToCart('12345','F94','C151');
 //AddToCart('12345','F94','C151');
 //print_r($B);
-//delete('5584','F94'); */
+//delete('5584','F94');
 

@@ -19,7 +19,7 @@ class FOrdine{
 
     public static function store(EOrdine $ordine): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO ordine VALUES(:IdOrdine,:CittaSped,:CAPSped,:IndirizzoSped,:ModPagamento,:Dischi,:TotOrdine,:IdCliente)";
+        $query = "INSERT INTO ordine VALUES(:IdOrdine,:CittaSped,:CAPSped,:IndirizzoSped,:ModPagamento,:Dischi,:TotOrdine,:IdCliente, :TotSpesa)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':IdOrdine' => $ordine->getIdOrdine(),
@@ -29,7 +29,8 @@ class FOrdine{
             ':ModPagamento' =>$ordine->getModPagamento(),
             ':Dischi' =>$ordine->getCarrello(),
             ':TotOrdine' =>$ordine->getTotOrdine(),
-            ':IdCliente' =>$ordine->getIdCliente()
+            ':IdCliente' =>$ordine->getIdCliente(),
+            ':TotSpesa' =>$ordine->getTotOrdine()
         ));
     }
 
@@ -48,6 +49,7 @@ class FOrdine{
         $ModPagamento = $rows[0]['ModPagamento'];
         $TotOrdine = $rows[0]['TotOrdine'];
         $IdCliente = $rows[0]['IdCliente'];
+
 
         $carrello = new ECarrello($IdCliente) ; //TODO: da mettere ECarrello [da controllare]
         $carrello->setDischi(FCarrello::loadlista($IdOrdine));
@@ -110,59 +112,73 @@ class FOrdine{
     }
 
 
-    public static function AddToOrdine($productId, $cartid, $cli_id){
-        $pdo=FConnectionDB::connect();
-
-
-        $G= FCartItem::load($productId);
-        $ordine = new EOrdine();
-        $ordine->setCarrello($G->get);
-        self::store($ordine);
 
 
 
+    public static function AddToOrdine(array $productarray, $cartid, $cli_id)
+    {
+        //$pdo = FConnectionDB::connect();
 
+        $lista = [];
+        $tot= 0;
+        $stringa="";
 
+        foreach ($productarray as $row){
+            //var_dump($row->getQuantity());
+            //var_dump($row->getIdItem()); //mi serve
+            $recupero = FDisco::load($row->getIdItem());
+            $autore = $recupero->getAutore();
+            $artista = FArtista::loadName($autore);
+            //var_dump($recupero->getTitolo());
+            //var_dump($recupero->getAutore());
+            //var_dump($recupero->getPrezzo());
+            $qta=$row->getQuantity();
+            $titolo =$recupero->getTitolo();
+            $prezzo = $recupero->getPrezzo();
+            $stringa = $stringa . "$qta x $titolo by $artista $ $prezzo;";
+            //print_r($stringa);
+            //print_r("\n");
+            array_push($lista, $stringa);
 
-
-        $quantity = 0;
-
-        $query = "SELECT quantity FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(array(
-            ":idcart" => $cartid,
-            ':idprod' => $productId
-        ));
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($rows);
-
-        if (count($rows) > 0 ){
-            $quantity = $rows[0]["quantity"];
-            //print_r($quantity);
-        }
-        ++ $quantity ;
-
-        if (count($rows) > 0 ) {
-            $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
-            $stmt1 = $pdo->prepare($query1);
-            $stmt1->execute(array(
-                ":q" => $quantity,
-                ":idcart" => $cartid,
-                ':idprod' => $productId
-            ));
-        }
-        else{
-            $G= FDisco::load($productId);
-            $cart = new ECartItem(($G));
-            self::store($cart,$cartid);
+            $tot = $tot + ($qta * $prezzo);
 
 
         }
-        return $quantity;
 
+        $ordine = new EOrdine( $cli_id);
+        //$ordine->setCarrello($lista);
+        $ordine->setCarrello($stringa);
+        $ordine->setTotOrdine($tot);
+        FOrdine::store($ordine);
+
+
+        return $ordine;
     }
 
+    public static function RecuperoOrdini($id_cli){
+        $pdo = FConnectionDB::connect();
 
+        $query = "SELECT * FROM ordine WHERE IdCliente= :idcl";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute( [":idcl" => $id_cli] );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $recovery = [];
+
+        foreach ($rows as $row) {
+            $fff = $row['TotaleOrdine'];
+            $totalesoldi = $row['TotSpesa'];
+            $utile_array = explode(";", $fff);
+            $uscita = "";
+            foreach ($utile_array as $utile) {
+                $uscita = $uscita . $utile . "\n";
+            }
+            $uscita = $uscita.nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
+            array_push($recovery, $uscita);
+        }
+
+        return $recovery;
+    }
 
 
 

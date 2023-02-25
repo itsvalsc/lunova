@@ -94,6 +94,16 @@
     <div class="col-9">
         <h2>About us</h2>
         <p>Siamo una compagnia...</p>
+        <script>
+            var x;
+            var y;
+            var z;
+            x= 2;
+            y = 5;
+            z = x + y;
+            //window.alert("Somma = " + z);
+            window.prompt("digita:")
+        </script>
 
        
     </div>

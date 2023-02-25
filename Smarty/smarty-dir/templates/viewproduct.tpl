@@ -100,7 +100,10 @@
         <div class="col-6">
             <h1>
                 {$product->getTitolo()}
-                <small class="text-muted"> by {$artist}</small>
+                <small class="text-muted"> by </small>
+                <a href="/lunova/Admin/users/">
+                    <small class="text-muted"> {$artist}</small>
+                </a>
             </h1>
 
             <p>{$product->getDescrizione()}</p>

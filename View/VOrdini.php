@@ -25,9 +25,9 @@ class VOrdini{
 
     public function lista_ordini($prod,$l, $num){
         $this->setData('logged', $l);
-        $this->setData('product', $prod);
+        $this->setData('ordine', $prod);
         $this->setData('num', $num);
-        $this->setTemplate('products_list.tpl');
+        $this->setTemplate('ordini.tpl');
     }
 
 

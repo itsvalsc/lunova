@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-20 17:07:35
+/* Smarty version 4.2.1, created on 2023-02-25 10:48:15
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\viewproduct.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f39ac7e68473_77950240',
+  'unifunc' => 'content_63f9d95faf4ca1_40252494',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2e0d4957c8886e1143039208ce8f75d5b1c8054d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\viewproduct.tpl',
-      1 => 1676908946,
+      1 => 1677316617,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f9d95faf4ca1_40252494 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -63,16 +63,17 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
             </ul>
 
 
-
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
                     </a>
                 </li>
             </ul>
-
+            <?php }?>
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -84,10 +85,9 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
-</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -98,7 +98,7 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -127,8 +127,11 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
             <h1>
                 <?php echo $_smarty_tpl->tpl_vars['product']->value->getTitolo();?>
 
-                <small class="text-muted"> by <?php echo $_smarty_tpl->tpl_vars['product']->value->getAutore();?>
+                <small class="text-muted"> by </small>
+                <a href="/lunova/Admin/users/">
+                    <small class="text-muted"> <?php echo $_smarty_tpl->tpl_vars['artist']->value;?>
 </small>
+                </a>
             </h1>
 
             <p><?php echo $_smarty_tpl->tpl_vars['product']->value->getDescrizione();?>
@@ -144,17 +147,27 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
 
 <!-- commenti -->
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
+
     <!-- Add comment -->
     <div class="d-flex mb-3">
-        <!-- Avatar -->
-        <div class="avatar avatar-xs me-2">
-            <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
-        </div>
+        <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
         <!-- Comment box  -->
-        <form class="w-100">
-            <textarea data-autoresize class="form-control pe-4 bg-light bg-opacity-50" rows="1" placeholder="Add a comment..."></textarea>
+        <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
+            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Add a comment..."></textarea>
+            <input hidden name="disco" value="<?php echo $_smarty_tpl->tpl_vars['product']->value->getID();?>
+">
+            <button type="submit" class="btn btn-primary">Invia</button>
         </form>
+        <?php }?>
     </div>
+
+    <?php
+$__section_nr_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['commenti']->value) ? count($_loop) : max(0, (int) $_loop));
+$__section_nr_0_total = $__section_nr_0_loop;
+$_smarty_tpl->tpl_vars['__smarty_section_nr'] = new Smarty_Variable(array());
+if ($__section_nr_0_total !== 0) {
+for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] = 0; $__section_nr_0_iteration <= $__section_nr_0_total; $__section_nr_0_iteration++, $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']++){
+?>
     <!-- Comment wrap START -->
     <ul class="comment-wrap list-unstyled">
         <!-- Comment item START -->
@@ -168,10 +181,12 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
                     <!-- Comment by -->
                     <div class="bg-light rounded-start-top-0 p-3 rounded bg-opacity-75">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-1"> <a href="#!"> Frances Guerrero </a></h6>
+                            <h6 class="mb-1"> <a href="#!"> <?php echo $_smarty_tpl->tpl_vars['commenti']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getCliente()->getUsername();?>
+</a></h6>
                             <small class="ms-2">5hr</small>
                         </div>
-                        <p class="small mb-0">Removed demands expense account in outward tedious do. Particular way thoroughly unaffected projection.</p>
+                        <p class="small mb-0"><?php echo $_smarty_tpl->tpl_vars['commenti']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrizione();?>
+</p>
                     </div>
                     <!-- Comment react -->
                     <ul class="nav nav-divider py-2 small">
@@ -193,29 +208,15 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="avatar avatar-story avatar-xs">
                             <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg" alt=""></a>
                         </div>
-                        <!-- Comment by -->
-                        <div class="ms-2">
-                            <div class="bg-light p-3 rounded bg-opacity-75">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="mb-1"> <a href="#!"> Billy Vasquez </a> </h6>
-                                    <small class="ms-2">15min</small>
-                                </div>
-                                <p class="small mb-0">Wishing calling is warrant settled was lucky.</p>
-                            </div>
-                            <!-- Comment react -->
-                            <ul class="nav nav-divider py-2 small">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!"> Like</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#!"> Reply</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                 </li>
                 <!-- Comment item END -->
             </ul>
+            <?php
+}
+}
+?>
             <!-- Load more replies -->
             <a href="#!" role="button" class="btn btn-link btn-link-loader btn-sm text-secondary d-flex align-items-center mb-3 ms-5" data-bs-toggle="button" aria-pressed="true">
                 <div class="spinner-dots me-2">
@@ -225,6 +226,7 @@ function content_63f39ac7e68473_77950240 (Smarty_Internal_Template $_smarty_tpl)
                 </div>
                 Load more replies
             </a>
+
     </div>
 </div>
 

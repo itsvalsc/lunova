@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-20 15:48:39
+/* Smarty version 4.2.1, created on 2023-02-17 19:07:34
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\signin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63caa9c7a19f37_39033021',
+  'unifunc' => 'content_63efc26648a139_16408274',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fab368fcf22953c2fd4848bbfb91bf377610fc80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\signin.tpl',
-      1 => 1674163847,
+      1 => 1676657251,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63efc26648a139_16408274 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -39,7 +39,7 @@ function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl)
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/RicercaDisco/index">Lunova</a>
+        <a class="navbar-brand" href="/lunova/">Lunova</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -66,7 +66,7 @@ function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl)
 
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Carrello/mio_carrello">
+                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
@@ -84,7 +84,7 @@ function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
@@ -108,22 +108,25 @@ function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl)
         </div>
     </div>
 </nav>
+
+
+
 <!-- end header -->
 
-<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
         <form action="/lunova/AboutUs/us/" method="post">
             <div class="form-group" style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Nome</label>
-                    <input class="form-control" id="nutente" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" ">Nome</label>
+                    <input class="form-control" id="nutente" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Cognome</label>
-                    <input class="form-control" id="cutente" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Cognome</label>
+                    <input class="form-control" id="cutente" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
@@ -140,43 +143,45 @@ function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl)
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Telefono</label>
-                    <input class="form-control" id="telefono" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Telefono</label>
+                    <input class="form-control" id="telefono" type="text" placeholder="Nome" >
+                </fieldset>
+            </div>
+            <hr>
+            <h4>Inserisci l'indirizzo in cui vuoi effettuare la spedizione</h4>
+            <div class="form-group"style="width: 50rem;">
+
+                <fieldset>
+                    <label class="form-label mt-4" >CAP</label>
+                    <input class="form-control" id="CAP" type="text" placeholder="Nome">
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">CAP</label>
-                    <input class="form-control" id="CAP" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4">Provincia</label>
+                    <input class="form-control" id="provincia" type="text" placeholder="Nome">
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Provincia</label>
-                    <input class="form-control" id="provincia" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >Città</label>
+                    <input class="form-control" id="citta" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Città</label>
-                    <input class="form-control" id="citta" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4" >N. Civico</label>
+                    <input class="form-control" id="civico" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">N. Civico</label>
-                    <input class="form-control" id="civico" type="text" placeholder="Nome" readonly="">
-                </fieldset>
-            </div>
-
-            <div class="form-group"style="width: 50rem;">
-                <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput">Via</label>
-                    <input class="form-control" id="via" type="text" placeholder="Nome" readonly="">
+                    <label class="form-label mt-4">Via</label>
+                    <input class="form-control" id="via" type="text" placeholder="Nome" >
                 </fieldset>
             </div>
             <hr>
@@ -201,7 +206,7 @@ function content_63caa9c7a19f37_39033021 (Smarty_Internal_Template $_smarty_tpl)
             <button type="button" class="btn btn-secondary">Inscriviti</button>
         </form>
     </div>
-<?php }?>
+
 
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
 </div>

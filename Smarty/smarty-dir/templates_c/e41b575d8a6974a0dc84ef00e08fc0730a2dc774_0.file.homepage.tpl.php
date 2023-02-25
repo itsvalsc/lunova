@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-20 16:51:41
+/* Smarty version 4.2.1, created on 2023-02-25 10:46:02
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\homepage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f3970d07b9f5_24193537',
+  'unifunc' => 'content_63f9d8daa253d7_89554465',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e41b575d8a6974a0dc84ef00e08fc0730a2dc774' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\homepage.tpl',
-      1 => 1676908273,
+      1 => 1677316615,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f3970d07b9f5_24193537 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f9d8daa253d7_89554465 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +62,7 @@ function content_63f3970d07b9f5_24193537 (Smarty_Internal_Template $_smarty_tpl)
             </ul>
 
 
-
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
@@ -72,7 +72,7 @@ function content_63f3970d07b9f5_24193537 (Smarty_Internal_Template $_smarty_tpl)
                     </a>
                 </li>
             </ul>
-
+            <?php }?>
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -126,8 +126,8 @@ function content_63f3970d07b9f5_24193537 (Smarty_Internal_Template $_smarty_tpl)
 
     <!--<p class="lead">Benvenuti nel sito!</p>-->
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
-    <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
-
+    <!--<a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>-->
+    <a href="/lunova/Admin/users" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">

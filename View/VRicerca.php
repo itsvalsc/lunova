@@ -157,4 +157,6 @@ class VRicerca
         $this->setTemplate('products_list.tpl');
     }
 
+
+
 }

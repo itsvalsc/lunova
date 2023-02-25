@@ -7,6 +7,7 @@ class COrdini{
         $utente = 'C151'; //sessione
         $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
-        $view->about_us($elenco,$l, $num);
+        $ordini = $pers->LoadOrdini($utente);
+        $view->lista_ordini($ordini,$l, $num);
     }
 }

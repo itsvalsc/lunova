@@ -8,7 +8,7 @@ class EOrdine
 
     private string $IdOrdine;
 
-    private array $carrello;
+    private string $carrello;
 
     //----------------------------------------------------------
 
@@ -30,7 +30,7 @@ class EOrdine
         $this->IdOrdine = random_int(0, 1000);
         $this->TotOrdine = 0.0;
         $this->IdCliente = $Idcl;
-        $this->carrello = [];
+        $this->carrello = "";
         $this->IndirizzoSped = 'null';
         $this->ModPagamento = 'null';
         $this->CAPSped = 'null';
@@ -64,7 +64,7 @@ class EOrdine
         return $this->ModPagamento;
     }
 
-    public function getCarrello(): array
+    public function getCarrello(): string
     {
         return $this->carrello;
     }
@@ -116,7 +116,7 @@ class EOrdine
         $this->IdCliente = $IdCli;
     }
 
-    public function setCarrello(array $car): void
+    public function setCarrello(string $car): void
     {
         $this->carrello = $car;
     }

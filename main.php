@@ -407,6 +407,7 @@ function AddToOrdine(array $productarray, $cartid, $cli_id)
         $recupero = FDisco::load($row->getIdItem());
         $autore = $recupero->getAutore();
         $artista = FArtista::loadName($autore);
+        $id_nel_carrello = $row->getIdCartItem();
         //var_dump($recupero->getTitolo());
         //var_dump($recupero->getAutore());
         //var_dump($recupero->getPrezzo());
@@ -419,6 +420,8 @@ function AddToOrdine(array $productarray, $cartid, $cli_id)
         array_push($lista, $stringa);
 
         $tot = $tot + ($qta * $prezzo);
+
+        FCartItem::delete($id_nel_carrello,$cartid);
 
 
     }
@@ -451,7 +454,7 @@ function RecuperoOrdini($id_cli){
         foreach ($utile_array as $utile) {
             $uscita = $uscita . $utile . "\n";
         }
-        $uscita = $uscita. nl2br($uscita) ."TOTALE : €". "$totalesoldi";
+        $uscita =  nl2br($uscita) ."TOTALE : €". "$totalesoldi";
         array_push($recovery, $uscita);
     }
 

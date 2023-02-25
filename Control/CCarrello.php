@@ -84,7 +84,7 @@ class CCarrello{
         $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
         $Disc = $pers->prelevaCartDischiItems($utente);
-        $view->cart($l, $elenco,$Disc, $num);
+        header ("Location: /lunova/Carrello/mio_carrello");
     }
 
     public static function Minus(string $id){
@@ -99,7 +99,7 @@ class CCarrello{
         $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
         $Disc = $pers->prelevaCartDischiItems($utente);
-        $view->cart($l, $elenco,$Disc, $num);
+        header ("Location: /lunova/Carrello/mio_carrello");
     }
 
 

@@ -189,7 +189,7 @@
 
 				</div>
 				-->
-			<a href="/lunova/Carrello/Acquisto">
+			<a href="/lunova/Ordini/AddToOrdini">
 				<div class="row w-10" >
 					<button  class="btn btn-lg btn-secondary" type="button">Checkout</button>
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-25 10:57:30
+/* Smarty version 4.2.1, created on 2023-02-25 16:53:11
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f9db8adaa502_47790631',
+  'unifunc' => 'content_63fa2ee75e19f5_84307912',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bc918b062fc5f506c7ae1da3512d5668763b09a1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\cart.tpl',
-      1 => 1677316615,
+      1 => 1677340387,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f9db8adaa502_47790631 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63fa2ee75e19f5_84307912 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -239,7 +239,7 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 
 				</div>
 				-->
-			<a href="/lunova/Carrello/Acquisto">
+			<a href="/lunova/Ordini/AddToOrdini">
 				<div class="row w-10" >
 					<button  class="btn btn-lg btn-secondary" type="button">Checkout</button>
 

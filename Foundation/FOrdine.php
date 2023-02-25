@@ -129,6 +129,7 @@ class FOrdine{
             $recupero = FDisco::load($row->getIdItem());
             $autore = $recupero->getAutore();
             $artista = FArtista::loadName($autore);
+            $id_nel_carrello = $row->getIdCartItem();
             //var_dump($recupero->getTitolo());
             //var_dump($recupero->getAutore());
             //var_dump($recupero->getPrezzo());
@@ -142,7 +143,7 @@ class FOrdine{
 
             $tot = $tot + ($qta * $prezzo);
 
-
+            FCartItem::delete($id_nel_carrello,$cartid);
         }
 
         $ordine = new EOrdine( $cli_id);
@@ -173,7 +174,7 @@ class FOrdine{
             foreach ($utile_array as $utile) {
                 $uscita = $uscita . $utile . "\n";
             }
-            $uscita = $uscita.nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
+            $uscita = nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
             array_push($recovery, $uscita);
         }
 

@@ -1,4 +1,27 @@
-<!-- header -->
+<?php
+/* Smarty version 4.2.1, created on 2023-02-25 10:50:23
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\message.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.2.1',
+  'unifunc' => 'content_63f9d9df999675_23899848',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '655caadc4e293dff427d5cbaf7df67008a6413a0' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\message.tpl',
+      1 => 1677316615,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- header -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +49,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
                 </li>
-                {if $logged==false}
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
                     <li class="nav-item">
                         <a class="nav-link" href="/lunova/Login/login">Login</a>
                     </li>
-                {/if}
+                <?php }?>
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
@@ -45,7 +68,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">{$num}</span>
+                        <span class="badge rounded-pill bg-secondary">2</span>
                     </a>
                 </li>
             </ul>
@@ -58,27 +81,27 @@
             </form>
 
             <ul class="navbar-nav ml-4">
-                {if $logged}
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
 
-                {/if}
-                {if $logged==false}
+                <?php }?>
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
-                {/if}
+                <?php }?>
             </ul>
 
             </ul>
@@ -92,20 +115,11 @@
 
 <div id="main" class="container" style="margin-top:80px; height: 700px">
     <div class="col-9">
-        <h2>About us</h2>
-        <p>Siamo una compagnia...</p>
-        <script>
-            var x;
-            var y;
-            var z;
-            x= 2;
-            y = 5;
-            z = x + y;
-            //window.alert("Somma = " + z);
-            window.prompt("digita:")
-        </script>
-
-       
+        <h2><?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+</h2>
+        <a href="/lunova/<?php echo $_smarty_tpl->tpl_vars['var_url']->value;?>
+">Ritorna <?php echo $_smarty_tpl->tpl_vars['var_titolo']->value;?>
+</a>
     </div>
 </div>
 
@@ -116,10 +130,21 @@
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>
 
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
 
-<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
 </body>
-</html>
+</html><?php }
+}

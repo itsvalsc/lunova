@@ -90,28 +90,28 @@
 
 <!-- end header -->
 
-<div id="main" class="container" style="margin-top:80px; height: 700px">
-    <div class="col-9">
-        <h2>About us</h2>
-        <p>Siamo una compagnia...</p>
-        <script>
-            var x;
-            var y;
-            var z;
-            x= 2;
-            y = 5;
-            z = x + y;
-            //window.alert("Somma = " + z);
-            window.prompt("digita:")
-        </script>
+<div id="main" class="container" style="margin-top:40px; height: fit-content">
 
-       
+    <div class ='row'>
+        {section name = nr loop= $ordine}
+            <div class="card border-dark mb-3 bg-dark" style="width: 30rem;">
+                <h5 class="card-header">Ordine</h5>
+                <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text">{$ordine[nr]}</p>
+                    <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                </div>
+            </div>
+        {/section}
+
     </div>
 </div>
 
-
 <!-- footer -->
-<footer class="bg-dark" style ="margin-bottom: 0px;">
+<div id="main" class="container" style="margin-top:200px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>

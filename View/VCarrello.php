@@ -46,6 +46,12 @@ class VCarrello
         return $bool;
     }
 
+
+    public function getFeedback($l){
+        $this->setData("logged", $l);
+        $this->setTemplate('successorder.tpl');
+    }
+
     public function message($logged,$messaggio,$var_titolo,$var_url){
         $this->setData('message', $messaggio);
         $this->setData('var_titolo', $var_titolo);

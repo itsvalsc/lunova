@@ -96,9 +96,10 @@ class FCliente
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
-               //$Livello = $rows[0]['Livello'];
+                //$Livello = $rows[0]['Livello'];
 
                 $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
+
                 return $utente;
             }
             else {return "Non ci sono clienti";}
@@ -182,7 +183,7 @@ class FCliente
                 $Password = $row['Password'];
                 //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Email,$Password,null,$Idcliente);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
 
                 $clienti[$i] = $utente;
                 ++$i;

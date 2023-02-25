@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-01-31 07:12:09
+/* Smarty version 4.2.1, created on 2023-02-25 10:48:46
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63d8b1397c8750_49775590',
+  'unifunc' => 'content_63f9d97e98a108_41410390',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dda42547ea97a8c65434a6c0cb65bf92e7a7adf2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\login.tpl',
-      1 => 1675016322,
+      1 => 1677316615,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f9d97e98a108_41410390 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -63,7 +63,7 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
             </ul>
 
 
-
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
@@ -72,7 +72,7 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
                     </a>
                 </li>
             </ul>
-
+            <?php }?>
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -84,9 +84,9 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -97,7 +97,7 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -113,9 +113,9 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
 
 <!-- end header -->
 
-<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+<?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/AboutUs/us/" method="post">
+    <form action="/lunova/Login/verificaLogin" method="post">
         <div class="form-group" style="width: 30rem;">
             <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
             <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -128,23 +128,18 @@ function content_63d8b1397c8750_49775590 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <hr>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Artista
+            <input class="form-check-input" type="checkbox" name="type" id="type" value="artista">
+            <label class="form-check-label" for="type">
+                Seleziona se sei un Artista
             </label>
 
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
-            <label class="form-check-label" for="optionsRadios1">
-                Utente
-            </label>
-        </div>
-        <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
 
-        <button type="button" class="btn btn-primary">Accedi</button>
         <hr>
+        <button type="submit" class="btn btn-primary">Accedi</button>
+
+        <hr>
+        <h6>Se non sei ancora inscritto...</h6>
         <a href="/lunova/Login/Signin">
             <button type="button" class="btn btn-secondary">Inscriviti</button>
         </a>

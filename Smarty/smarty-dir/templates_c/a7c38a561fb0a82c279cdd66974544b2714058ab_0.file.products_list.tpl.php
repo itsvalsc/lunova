@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-20 17:06:20
+/* Smarty version 4.2.1, created on 2023-02-25 10:45:55
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\products_list.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f39a7cc18379_62738268',
+  'unifunc' => 'content_63f9d8d31cac99_13893072',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7c38a561fb0a82c279cdd66974544b2714058ab' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\products_list.tpl',
-      1 => 1676909178,
+      1 => 1677316615,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f39a7cc18379_62738268 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63f9d8d31cac99_13893072 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -63,7 +63,7 @@ function content_63f39a7cc18379_62738268 (Smarty_Internal_Template $_smarty_tpl)
             </ul>
 
 
-
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
@@ -73,7 +73,7 @@ function content_63f39a7cc18379_62738268 (Smarty_Internal_Template $_smarty_tpl)
                     </a>
                 </li>
             </ul>
-
+            <?php }?>
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -85,9 +85,9 @@ function content_63f39a7cc18379_62738268 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -98,7 +98,7 @@ function content_63f39a7cc18379_62738268 (Smarty_Internal_Template $_smarty_tpl)
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -180,7 +180,6 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 }
 ?>
 
-</div>
 </div>
 
 

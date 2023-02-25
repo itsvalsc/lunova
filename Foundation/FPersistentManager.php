@@ -226,5 +226,13 @@ class FPersistentManager{
         return FCommento::loadCommenti($disco);
     }
 
+    public function AddOrdine($productarray, $cartid, $cli_id){
+        return FOrdine::AddToOrdine($productarray, $cartid, $cli_id);
+    }
+
+    public function LoadOrdini($id_cli){
+        return FOrdine::RecuperoOrdini($id_cli);
+    }
+
 
 }

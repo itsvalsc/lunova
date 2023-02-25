@@ -1,11 +1,13 @@
 <?php
-class VHome{
+class VOrdini{
     private $smarty;
+
     public function __construct(){
 
         $this->smarty = StartSmarty::configuration();
 
     }
+
     /**
      * @param $template
      */
@@ -21,11 +23,12 @@ class VHome{
         $this->smarty->assign($name,$dati);
     }
 
-    public function ShowIndex($logged,$var){
-        //$this->setTemplate('index.tpl');
-        //$this->setData('num',$num);
-        $this->setData('logged',$logged);
-        $this->setData('var',$var);
-        $this->setTemplate('homepage.tpl');  //TODO: controllare
+    public function lista_ordini($prod,$l, $num){
+        $this->setData('logged', $l);
+        $this->setData('ordine', $prod);
+        $this->setData('num', $num);
+        $this->setTemplate('ordini.tpl');
     }
+
+
 }

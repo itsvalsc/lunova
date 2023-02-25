@@ -1,4 +1,27 @@
-<!-- header -->
+<?php
+/* Smarty version 4.2.1, created on 2023-02-25 16:35:10
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\ordini.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.2.1',
+  'unifunc' => 'content_63fa2aae14b864_58928024',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '4724b58a6d23f7327e7f51181e6af28422e1b0c2' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\ordini.tpl',
+      1 => 1677339308,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_63fa2aae14b864_58928024 (Smarty_Internal_Template $_smarty_tpl) {
+?><!-- header -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +49,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
                 </li>
-                {if $logged==false}
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
                     <li class="nav-item">
                         <a class="nav-link" href="/lunova/Login/login">Login</a>
                     </li>
-                {/if}
+                <?php }?>
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
@@ -45,7 +68,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">{$num}</span>
+                        <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
                     </a>
                 </li>
             </ul>
@@ -58,7 +82,7 @@
             </form>
 
             <ul class="navbar-nav ml-4">
-                {if $logged}
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
@@ -68,8 +92,8 @@
 
                     </li>
 
-                {/if}
-                {if $logged==false}
+                <?php }?>
+                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
@@ -78,7 +102,7 @@
                         </a>
 
                     </li>
-                {/if}
+                <?php }?>
             </ul>
 
             </ul>
@@ -90,36 +114,58 @@
 
 <!-- end header -->
 
-<div id="main" class="container" style="margin-top:80px; height: 700px">
-    <div class="col-9">
-        <h2>About us</h2>
-        <p>Siamo una compagnia...</p>
-        <script>
-            var x;
-            var y;
-            var z;
-            x= 2;
-            y = 5;
-            z = x + y;
-            //window.alert("Somma = " + z);
-            window.prompt("digita:")
-        </script>
+<div id="main" class="container" style="margin-top:40px; height: fit-content">
 
-       
+    <div class ='row'>
+        <?php
+$__section_nr_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['ordine']->value) ? count($_loop) : max(0, (int) $_loop));
+$__section_nr_0_total = $__section_nr_0_loop;
+$_smarty_tpl->tpl_vars['__smarty_section_nr'] = new Smarty_Variable(array());
+if ($__section_nr_0_total !== 0) {
+for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] = 0; $__section_nr_0_iteration <= $__section_nr_0_total; $__section_nr_0_iteration++, $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']++){
+?>
+            <div class="card border-dark mb-3 bg-dark" style="width: 30rem;">
+                <h5 class="card-header">Ordine</h5>
+                <div class="card-body">
+                    <!--<h5 class="card-title">Special title treatment</h5>-->
+                    <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['ordine']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)];?>
+</p>
+                    <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+                </div>
+            </div>
+        <?php
+}
+}
+?>
+
     </div>
 </div>
 
-
 <!-- footer -->
-<footer class="bg-dark" style ="margin-bottom: 0px;">
+<div id="main" class="container" style="margin-top:200px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>
 
-<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
+>
 
-<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
+<!--<?php echo '<script'; ?>
+ src="<?php echo '<?php'; ?>
+ //echo ROOT_URL; <?php echo '?>'; ?>
+assets/js/main.js"><?php echo '</script'; ?>
+>-->
 </body>
 </html>
+<?php }
+}

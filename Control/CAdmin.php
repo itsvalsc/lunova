@@ -166,5 +166,19 @@ class CAdmin{
         $view->AdminLogin(false);
     }
 
+    public static function EliminaC($email){
+        $view = new VAdmin();
+        $l = true;
+        $pers = FPersistentManager::getInstance();
+        $elimina = $pers->delete('FCliente',$email);
+        header ("Location: /lunova/Admin/users");
+    }
+    public static function EliminaA($email){
+        $view = new VAdmin();
+        $l = true;
+        $pers = FPersistentManager::getInstance();
+        $elimina = $pers->delete('FArtista',$email);
+        header ("Location: /lunova/Admin/users");
+    }
 
 }

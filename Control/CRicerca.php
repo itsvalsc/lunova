@@ -59,4 +59,6 @@ class CRicerca
     public function ricerca()
     { //TODO:ricerca}
     }
+
+
 }

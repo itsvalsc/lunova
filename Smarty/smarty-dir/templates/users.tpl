@@ -130,7 +130,9 @@
                         <td>{$user[ps]->getCognome()}</td>
                         <td>
                             <button type="button" class="btn btn-outline-info">Modifica</button>
-                            <button type="button" class="btn btn-outline-danger">Elimina</button>
+                            <a href="/lunova/Admin/EliminaA/{$user[ps]->getEmail()}">
+                                <button type="button" class="btn btn-outline-danger">Elimina</button>
+                            </a>
                         </td>
                     </tr>
                     </tbody>
@@ -155,7 +157,9 @@
                         <td>{$cli[pc]->getCognome()}</td>
                         <td>
                             <button type="button" class="btn btn-outline-info">Modifica</button>
-                            <button type="button" class="btn btn-outline-danger">Elimina</button>
+                            <a href="/lunova/Admin/EliminaC/{$cli[pc]->getEmail()}">
+                                <button type="button" class="btn btn-outline-danger">Elimina</button>
+                            </a>
                         </td>
                     </tr>
                     </tbody>

@@ -143,7 +143,7 @@ print_r("\n-----------\n");
 $A = Sicurezza("ciao", "C231");
 print_r ($A);
 */
-/*
+
 function exist($id): bool
 {
 
@@ -357,12 +357,174 @@ function AddToCart($productId, $cartid, $cli_id){
 
 }
 
-$A= getCurrentCartId('C151');
-$B = load('C151');
+function CheckQta($id){
+    $pdo=FConnectionDB::connect();
+
+
+    //controllo quantità
+
+    $query = "SELECT Qta FROM dischi WHERE ID= :id";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute( [":id" => $id] );
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $quantity = $rows[0]["Qta"];
+
+    $verify=false;
+    $solution = array();
+
+    if($quantity>0 && $quantity<10){
+        $verify=true;
+        $message = "disponibili pochi pezzi";
+        array_push($solution, $verify,$message);
+    }
+    if($quantity>0 ){
+        $verify=true;
+        $message = "disponibile";
+        array_push($solution, $verify,$message);
+    }
+    else{
+        $message = "non disponibile";
+        array_push($solution, $verify,$message);
+    }
+    return $solution;
+    print_r('done');
+}
+
+function AddToOrdine(array $productarray, $cartid, $cli_id)
+{
+    //$pdo = FConnectionDB::connect();
+
+    $lista = [];
+    $tot= 0;
+    $stringa="";
+
+    foreach ($productarray as $row){
+        //var_dump($row->getQuantity());
+        //var_dump($row->getIdItem()); //mi serve
+        $recupero = FDisco::load($row->getIdItem());
+        $autore = $recupero->getAutore();
+        $artista = FArtista::loadName($autore);
+        $id_nel_carrello = $row->getIdCartItem();
+        //var_dump($recupero->getTitolo());
+        //var_dump($recupero->getAutore());
+        //var_dump($recupero->getPrezzo());
+        $qta=$row->getQuantity();
+        $titolo =$recupero->getTitolo();
+        $prezzo = $recupero->getPrezzo();
+        $stringa = $stringa . "$qta x $titolo by $artista $ $prezzo;";
+        //print_r($stringa);
+        //print_r("\n");
+        array_push($lista, $stringa);
+
+        $tot = $tot + ($qta * $prezzo);
+
+        FCartItem::delete($id_nel_carrello,$cartid);
+
+
+    }
+
+    $ordine = new EOrdine( $cli_id);
+    //$ordine->setCarrello($lista);
+    $ordine->setCarrello($stringa);
+    $ordine->setTotOrdine($tot);
+    FOrdine::store($ordine);
+
+
+    return $ordine;
+}
+
+function RecuperoOrdini($id_cli){
+    $pdo = FConnectionDB::connect();
+
+    $query = "SELECT * FROM ordine WHERE IdCliente= :idcl";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute( [":idcl" => $id_cli] );
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $recovery = [];
+
+    foreach ($rows as $row) {
+        $fff = $row['TotaleOrdine'];
+        $totalesoldi = $row['TotSpesa'];
+        $utile_array = explode(";", $fff);
+        $uscita = "";
+        foreach ($utile_array as $utile) {
+            $uscita = $uscita . $utile . "\n";
+        }
+        $uscita =  nl2br($uscita) ."TOTALE : €". "$totalesoldi";
+        array_push($recovery, $uscita);
+    }
+
+    return $recovery[0];
+}
+
+$G = load('C151');
+//$a = AddToOrdine($G,'F94','C151');
+//print_r($a);
+$r =RecuperoOrdini('C151');
+print_r($r);
+
+
+
+
+
+/*
+$lista = [];
+$tot= 0;
+foreach ($productarray as $row){
+    //var_dump($row->getQuantity());
+    //var_dump($row->getIdItem()); //mi serve
+    $recupero = FDisco::load($row->getIdItem());
+    $autore = $recupero->getAutore();
+    $artista = FArtista::loadName($autore);
+    //var_dump($recupero->getTitolo());
+    //var_dump($recupero->getAutore());
+    //var_dump($recupero->getPrezzo());
+    $qta=$row->getQuantity();
+    $titolo =$recupero->getTitolo();
+    $prezzo = $recupero->getPrezzo();
+    $stringa = "$qta x $titolo by $artista $ $prezzo";
+    //print_r($stringa);
+    //print_r("\n");
+    array_push($lista, $stringa);
+    $tot = $tot + ($qta * $prezzo);
+
+
+}
+print_r("TOTALE = $tot \n");
+var_dump($lista);*/
+
+
+//$ordine = new EOrdine('C151');
+//$prova = [];
+//array_push($prova,$G);
+//$ordine->setCarrello($prova);
+
+//$A = AddToOrdine($prova,true,'C151');
+//var_dump($A->getCarrello());
+
+
+
+
+
+
+
+
+
+
+
+
+//$B= CheckQta("12345");
+//var_dump($B);
+
+
+
+//$A= getCurrentCartId('C151');
+//$B = load('C151');
 //var_dump($B[0]->getIdCartItem());
 //print_r($B);
 //MinusToCart('12345','F94','C151');
-AddToCart('12345','F94','C151');
+//AddToCart('12345','F94','C151');
 //print_r($B);
-//delete('5584','F94'); */
+//delete('5584','F94');
 

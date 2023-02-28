@@ -36,7 +36,7 @@ class FCommento
         ));
     }
 
-    public static function load(int $id) {
+    public static function load($id) {
         $pdo=FConnectionDB::connect();
 
         try {
@@ -47,12 +47,14 @@ class FCommento
                 $stmt->execute( [":id" => $id] );
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+                $cliente = $rows[0]['cliente'];
                 $descrizione = $rows[0]['descrizione'];
                 $data = $rows[0]['data'];
-                $cliente = $rows[0]['cliente'];
                 $disco = $rows[0]['disco'];
 
-                $commento = new ECommento($descrizione, $data, $cliente, $disco);
+                $cliente = FCliente::loadId($cliente);
+                $commento = new ECommento($cliente,$descrizione, $data,  $disco);
+                $commento->setId($id);
                 return $commento;
             }
             else {
@@ -110,7 +112,7 @@ class FCommento
         return $ris;
     }
 
-    public static function delete(int $id) {
+    public static function delete(string $id) {
         $pdo=FConnectionDB::connect();
 
         try {

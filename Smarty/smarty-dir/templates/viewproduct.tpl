@@ -145,18 +145,39 @@
                     <div class="bg-light rounded-start-top-0 p-3 rounded bg-opacity-75">
                         <div class="d-flex justify-content-between">
                             <h6 class="mb-1"> <a href="#!"> {$commenti[nr]->getCliente()->getUsername()}</a></h6>
-                            <small class="ms-2">5hr</small>
+                            <small class="ms-2">{$commenti[nr]->getData()}</small>
                         </div>
                         <p class="small mb-0">{$commenti[nr]->getDescrizione()}</p>
                     </div>
                     <!-- Comment react -->
                     <ul class="nav nav-divider py-2 small">
+                        {if $logged}
                         <li class="nav-item">
                             <a class="nav-link" href="#!"> Like (3)</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!"> Reply</a>
-                        </li>
+
+                            {if $proprieta == $commenti[nr]->getCliente()->getIdClient()}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/lunova/Commento/cancellaCommento/{$commenti[nr]->getId()}/{$product->getID()}"> Elimina</a>
+                                </li>
+                            {/if}
+
+                            {if $proprieta != $commenti[nr]->getCliente()->getIdClient()}
+                                <li class="nav-item" >
+                                    <a class="nav-link" href="/lunova" > Segnala</a>
+                                </li>
+                            {/if}
+                        {/if}
+                        {if $logged==false}
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#!"> Like (3)</a>
+                            </li>
+                            {if $proprieta != $commenti[nr]->getCliente()->getIdClient()}
+                                <li class="nav-item" >
+                                    <a class="nav-link disabled" href="/lunova" > Segnala</a>
+                                </li>
+                            {/if}
+                        {/if}
                     </ul>
                 </div>
             </div>

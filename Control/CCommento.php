@@ -11,38 +11,21 @@ require_once("Foundation/FSessione.php");
 
 class CCommento
 {
-    private static ?CCommento $instance = null;
-
-    private function __construct() {}
-
-    /**
-     * Restituisce l'istanza della classe.
-     * @return CCommento|null
-     */
-    public static function getInstance(): CCommento
-    {
-        if (!(self::$instance instanceof self)) {
-            self::$instance = new CCommento();
-        }
-        return self::$instance;
-    }
-
     /**
      * Funzione richiamata quando un cliente scrive un commento a un disco.
      * @param $id int id del Disco
      * @throws SmartyException
      */
     public static function scriviCommento()
-    {
+    { //todo:la data deve essere cambiata in datetime sul db e togliere la colonna voto nei commenti
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() || $sessione->isCliente()){
             $cliente = $sessione->getUtente();
-            $data = (string)date("Y/m/d");
+            $data = (string)date("c");
             $descrizione=$_POST['commento'];
             $id_disco=$_POST['disco'];
-            $valutazione=0;
-            $commento = new ECommento($cliente, $descrizione, $valutazione, $data, $id_disco);
+            $commento = new ECommento($cliente, $descrizione, $data, $id_disco);
             $pm->store($commento);
             header('Location: /lunova/Products_list/mostra_prodotto/'.$id_disco);
         }else{
@@ -58,23 +41,19 @@ class CCommento
      * @param $id string id del commento
      * @throws SmartyException
      */
-    static function cancellaCommento($id)
+    static function cancellaCommento($id,$disco)
     {
-        $sessione = new FSessione();
-        $view = new VCommento();
+        $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() || $sessione->isCliente()){
             $cliente = $sessione->getUtente();
             $commento = $pm->load("FCommento", $id);
-            $utente = $pm->load("FCliente", $cliente);
-            if ($utente->getUsername() == $commento[0]->getUtente()->getUsername()) {
-                $pm->delete("FCommento", $id, "id");
-                header('Location: /lunova/Product_list/mostra_prodotto/' . $view->getIdDisco());
-            } else {
-                $sessione->cancella_valore('disco');
-                header('Location: /lunova/Ricerca/mostraHome');
+            if ($cliente->getUsername() == $commento->getCliente()->getUsername()) {
+                $pm->delete("FCommento", $id);
+                header('Location: /lunova/Products_list/mostra_prodotto/'.$disco);
             }
         }
+        header('Location: /lunova/Products_list/mostra_prodotto/'.$disco);
     }
 
     /**

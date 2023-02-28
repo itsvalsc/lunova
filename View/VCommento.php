@@ -6,7 +6,7 @@
  */
 
 class VCommento
-{
+{//todo: non utilizzata
 
     private $smarty;
 
@@ -40,18 +40,6 @@ class VCommento
         return $value;
     }
 
-    /**
-     * Restituisce il form nel quale è stato scrito il commento
-     * Inviato con metodo post
-     * @return string
-     */
-    public function getFormCommento() :array{
-        $titolo = $_POST['titolo'];
-        $valutazione = $_POST['valutazione'];
-        $descrizione = $_POST['descrizione'];
 
-        $value = array($titolo, $valutazione, $descrizione);
-        return $value;
-    }
 
 }

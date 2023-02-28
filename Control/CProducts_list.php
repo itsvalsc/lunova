@@ -84,7 +84,7 @@ class CProducts_list{
         $commenti = $pers->loadCommenti($id);
         $prodotto = $pers->load('FDisco',$id);
         $art = $pers->FindArtistName($prodotto->getAutore());
-        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti);
+        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null);
 
     }
 

@@ -16,7 +16,7 @@ class ECommento {
     private ECliente $Cliente;
     private string $idDisco;
     private string $descrizione;
-    private int $voto;
+
     private string $data;
     private bool $segnalata;
 
@@ -28,11 +28,10 @@ class ECommento {
      * @param string $data
      * @param string $disco
      */
-    public function __construct(ECliente $Cliente, string $descrizione, int $voto, string $data, string $idDisco){
+    public function __construct(ECliente $Cliente, string $descrizione, string $data, string $idDisco){
         $this->id = "Comm" . random_int(0,9999);
         $this->Cliente = $Cliente;
         $this->descrizione = $descrizione;
-        $this->voto = $voto;
         $this->data = $data;
         $this->idDisco=$idDisco;
         $this->segnalata=false;
@@ -48,8 +47,7 @@ class ECommento {
     public function getDescrizione(): string
     { return $this->descrizione; }
 
-    public function getVoto(): int
-    { return $this->voto; }
+
 
     public function getData(): string
     { return $this->data; }
@@ -68,8 +66,7 @@ class ECommento {
     public function setDescrizione(string $descrizione): void
     { $this->descrizione = $descrizione; }
 
-    public function setVoto(int $voto): void
-    { $this->voto = $voto; }
+
 
     public function setData(string $data): void
     { $this->data = $data; }

@@ -24,12 +24,11 @@ class FCommento
      */
     public static function store(ECommento $commento): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO commenti VALUES(:id,:descrizione,:voto,:data,:segnalato,:cliente,:disco)";
+        $query = "INSERT INTO commenti VALUES(:id,:descrizione,:data,:segnalato,:cliente,:disco)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':id' => $commento->getId(),
             ':descrizione' => $commento->getDescrizione(),
-            ':voto' => $commento->getVoto(),
             ':data'  =>$commento->getData(),
             ':segnalato' =>$commento->isSegnalato(),
             ':cliente' =>$commento->getCliente()->getIdClient(),
@@ -49,12 +48,11 @@ class FCommento
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 $descrizione = $rows[0]['descrizione'];
-                $voto = $rows[0]['voto'];
                 $data = $rows[0]['data'];
                 $cliente = $rows[0]['cliente'];
                 $disco = $rows[0]['disco'];
 
-                $commento = new ECommento($descrizione, $voto, $data, $cliente, $disco);
+                $commento = new ECommento($descrizione, $data, $cliente, $disco);
                 return $commento;
             }
             else {
@@ -77,13 +75,12 @@ class FCommento
             foreach ($rows as $row) {
                 $id = $row['id'];
                 $descrizione = $row['descrizione'];
-                $voto = $row['voto'];
                 $data = $row['data'];
                 $idCliente = $row['cliente'];
                 $disco = $row['disco'];
 
                 $cliente = FCliente::loadId($idCliente);
-                $commento = new ECommento($cliente,$descrizione, $voto, $data, $disco);
+                $commento = new ECommento($cliente,$descrizione, $data, $disco);
                 $commento->setId($id);
 
                 $commenti[$i] = $commento;
@@ -100,12 +97,11 @@ class FCommento
     public static function update(ECommento $commento) : bool
     {
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE commenti SET :id,:descrizione,:voto,:data,:segnalato,:cliente,:disco WHERE id = :id";
+        $query = "UPDATE commenti SET :id,:descrizione,:data,:segnalato,:cliente,:disco WHERE id = :id";
         $stmt = $pdo->prepare($query);
         $ris = $stmt->execute(array(
             ':id' => $commento->getId(),
             ':descrizione' => $commento->getDescrizione(),
-            ':voto' => $commento->getVoto(),
             ':data' => $commento->getData(),
             ':segnalato' => $commento->isSegnalato(),
             ':cliente' => $commento->getIdCliente(),

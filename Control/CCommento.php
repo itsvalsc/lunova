@@ -61,14 +61,16 @@ class CCommento
      * (che potrà essere poi eliminato dal sito dall'admin)
      * @param $id string id del commento da segnalare
      */
-    public function segnalaCommento($id)
+    public static function segnalaCommento($id,$disco)
     {
-        $sessione = new FSessione();
-        $view = new VCommento();
+        $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
-        if ($sessione->isLogged() || ($sessione->isArtista())){
-            $pm->update_value("FCommento", "segnalato", 1, "id", $id);
-            header('Location: /lunova/Product_list/mostra_prodotto/' . $view->getIdDisco());
+        if ($sessione->isLogged()){
+            //$pm->update_value("FCommento", "segnalato", 1, "id", $id);
+            $commento = $pm->load('FCommento',$id);
+            $commento->setSegnala(true);
+            $pm->update($commento);
+            header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
         } else {
             header('Location: /lunova/Ricerca/mostraHome');
         }

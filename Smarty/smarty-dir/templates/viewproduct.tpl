@@ -164,7 +164,7 @@
 
                             {if $proprieta != $commenti[nr]->getCliente()->getIdClient()}
                                 <li class="nav-item" >
-                                    <a class="nav-link" href="/lunova" > Segnala</a>
+                                    <a class="nav-link" href="/lunova/Commento/segnalaCommento/{$commenti[nr]->getId()}/{$product->getID()}" > Segnala</a>
                                 </li>
                             {/if}
                         {/if}
@@ -174,7 +174,7 @@
                             </li>
                             {if $proprieta != $commenti[nr]->getCliente()->getIdClient()}
                                 <li class="nav-item" >
-                                    <a class="nav-link disabled" href="/lunova" > Segnala</a>
+                                    <a class="nav-link disabled" href="/lunova/Commento/segnalaCommento/{$commenti[nr]->getId()}/{$product->getID()}" > Segnala</a>
                                 </li>
                             {/if}
                         {/if}

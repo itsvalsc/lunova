@@ -23,12 +23,13 @@ class FCommento
      * @param ECommento $commento
      */
     public static function store(ECommento $commento): void {
+        $descrizione = self::Sicurezza($commento->getDescrizione(),$commento->getCliente()->getIdClient());
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO commenti VALUES(:id,:descrizione,:data,:segnalato,:cliente,:disco)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':id' => $commento->getId(),
-            ':descrizione' => $commento->getDescrizione(),
+            ':descrizione' => $descrizione,
             ':data'  =>$commento->getData(),
             ':segnalato' =>$commento->isSegnalato(),
             ':cliente' =>$commento->getCliente()->getIdClient(),
@@ -49,12 +50,14 @@ class FCommento
 
                 $cliente = $rows[0]['cliente'];
                 $descrizione = $rows[0]['descrizione'];
+                $segnalato = $rows[0]['segnalato'];
                 $data = $rows[0]['data'];
                 $disco = $rows[0]['disco'];
 
                 $cliente = FCliente::loadId($cliente);
                 $commento = new ECommento($cliente,$descrizione, $data,  $disco);
                 $commento->setId($id);
+                $commento->setSegnala($segnalato);
                 return $commento;
             }
             else {
@@ -99,14 +102,14 @@ class FCommento
     public static function update(ECommento $commento) : bool
     {
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE commenti SET :id,:descrizione,:data,:segnalato,:cliente,:disco WHERE id = :id";
+        $query = "UPDATE commenti SET id = :id,descrizione = :descrizione,data = :data,segnalato = :segnalato,cliente = :cliente,disco = :disco WHERE id = :id";
         $stmt = $pdo->prepare($query);
         $ris = $stmt->execute(array(
             ':id' => $commento->getId(),
             ':descrizione' => $commento->getDescrizione(),
             ':data' => $commento->getData(),
             ':segnalato' => $commento->isSegnalato(),
-            ':cliente' => $commento->getIdCliente(),
+            ':cliente' => $commento->getCliente()->getIdClient(),
             ':disco' => $commento->getIdDisco()
         ));
         return $ris;
@@ -127,6 +130,23 @@ class FCommento
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
 
+    }
+
+    private static function Sicurezza(string $t, string $idap)
+    {   $f = "inc/crosswords.txt";
+        $pers = FPersistentManager::getInstance();
+        $apertura = file($f);
+        for ($i=0; $i < count($apertura) ; $i++) {
+            $words = explode(";", $apertura[$i]);
+        }
+
+        $text = explode(" ", $t);
+        $t1 = str_replace($words, "***",$t);
+        if ( $t!=$t1){
+            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "alta"," $idap");//todo: inserire da qualche parte l'id del commento
+            $pers->store($n);
+        }
+        return $t1;
     }
 
 }

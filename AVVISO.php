@@ -8,7 +8,7 @@ rendere tutto dinamico sessioni
 
 admin attaccare bottoni...
 metodo di blocco utente
-commenti + funzione censura da mettere nel controllore
+commenti + funzione censura da mettere nel controllore OK
 
 
 modificare da eUtente e EDiso a semplicemente gli id    OK

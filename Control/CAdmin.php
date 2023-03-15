@@ -35,10 +35,10 @@ class CAdmin{
      */
     public function dashboardAdmin()
     {
-        $sessione = new FSessione();
+        $sessione = FSessione::getInstance();
+        $pm = FPersistentManager::getInstance();
         $view = new VAdmin();
-        if ($sessione->isLogged() && ($sessione->leggi_valore("tipo_utente") == "EAdmin")) {
-            $pm = FPersistentManager::getInstance();
+        if ($sessione->isLogged() && ($sessione->isAdmin())) {
 
             //loadUtenti --> Separo in Utenti attivi e Bannati
             $utentiAttivi = $pm->load("FCliente", "stato");
@@ -66,7 +66,7 @@ class CAdmin{
 
             $view->HomeAdmin($utentiA, $utentiB, $artisti, $dischi,$comSegnalati);
         } else {
-            header('Location: /FacceBeve/Accesso/login');
+            header('Location: /lunova/Ricerca/mostraHome');
         }
     }
 
@@ -76,7 +76,7 @@ class CAdmin{
      **/
     public function sospendiUtente(string $username)
     {
-        $sessione = new FSessione();
+        $sessione = FSessione::getInstance();
         $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
@@ -94,7 +94,7 @@ class CAdmin{
      **/
     public function riattivaUtente(string $username)
     {
-        $sessione = new FSessione();
+        $sessione = FSessione::getInstance();
         $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
@@ -112,7 +112,7 @@ class CAdmin{
      */
     public static function eliminaCommento(int $id_commento)
     {
-        $sessione = new FSessione();
+        $sessione = FSessione::getInstance();
         $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
@@ -130,7 +130,7 @@ class CAdmin{
      */
     public static function reinserisciCommento(int $id_recensione)
     {
-        $sessione = new FSessione();
+        $sessione = FSessione::getInstance();
         $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 

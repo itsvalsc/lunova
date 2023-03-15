@@ -234,5 +234,15 @@ class FPersistentManager{
         return FOrdine::RecuperoOrdini($id_cli);
     }
 
+    public function loadmpCommenti($cl,$dc){
+        return FVotazioneCommento::loadMP($cl,$dc);
+    }
+
+    public function loadNumeroMP($dc){
+        return FVotazioneCommento::loadNumeroMP($dc);
+    }
+
+
+
 
 }

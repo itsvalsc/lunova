@@ -73,19 +73,68 @@ class CProducts_list{
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $num = null;
+        $votazione=false;
+        $mpComm = []; //gli passo l array dei commenti relativi ad un disco a cui ha messo mi piace
+
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
                 $cartid = $session->getCarrello()->getId();
                 $elencoitems = $pers->prelevaCartItems($cartid);
                 $num = count($elencoitems);
+                $votazione = $pers->exist('FVotazioneDisco',$utente,$id);
+                $mpComm = $pers->loadmpCommenti($utente,$id);
             }
         }
         $commenti = $pers->loadCommenti($id);
         $prodotto = $pers->load('FDisco',$id);
         $art = $pers->FindArtistName($prodotto->getAutore());
-        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null);
+        $nmp = $pers->loadNumeroMP($id);
+        $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
+        $starRate= self::star_Rate($mediaVoti);
+        $starRating = [$starRate,$mediaVoti,$votazione];
+        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp);
 
+    }
+
+    private static function star_Rate($media){
+        if ($media <= 0.75){//0.5
+            $starRate = ['fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        } elseif ($media > 0.75 & $media <= 1.25){//1
+            $starRate = ['fa fa-star','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 1.25 & $media <= 1.75 ) {//1.5
+            $starRate = ['fa fa-star','fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 1.75 & $media < 2.25){//2
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 2.25 & $media <= 2.75){//2.5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star-half-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 2.75 & $media <= 3.25){//3
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 3.25 & $media <= 3.75){//3.5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star-half-o','fa fa-star-o'];
+        }elseif ($media > 3.75 & $media <= 4.25){//4
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star-o'];
+        }elseif ($media > 4.25 & $media <= 4.75){//4.5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star-half-o'];
+        }elseif ($media > 4.75 ){//5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star'];
+        }
+        return $starRate;
+    }
+
+    private static function media($array){
+        $sum = 0;
+        if (count($array)==0){
+            $result = 0;
+        }
+        else{
+            foreach ($array as $voti){
+                $sum += $voti;
+            }
+            $result = $sum/count($array);
+        }
+
+        return $result;
     }
 
 

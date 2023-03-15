@@ -31,13 +31,19 @@ class VProducts_list{
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product, $l, $num, $artista,$commenti,$utente){
+    public function prodotto_singolo($product, $l, $num, $artista,$commenti,$utente,$starRating,$a,$nmp){
         $this->setData('logged', $l);
         $this->setData('product', $product);
         $this->setData('num', $num);
         $this->setData('artist',$artista);
         $this->setData('commenti',$commenti);
         $this->setData('proprieta',$utente);
+        $this->setData('star',$starRating[0]);
+        $this->setData('media',$starRating[1]);
+        $this->setData('votazione',$starRating[2]);
+        $this->setData('arr',$a);
+        $this->setData('nmp',$nmp);
+
         $this->setTemplate('viewproduct.tpl');
     }
 }

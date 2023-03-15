@@ -71,7 +71,7 @@ class FCommento
     public static function loadCommenti($disco) : array {
         try {
             $pdo = FConnectionDB::connect();
-            $query = "SELECT * FROM commenti WHERE disco= :id_disco";
+            $query = "SELECT * FROM commenti WHERE disco= :id_disco ORDER BY data DESC";
             $stmt = $pdo->prepare($query);
             $stmt->execute( [":id_disco" => $disco]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

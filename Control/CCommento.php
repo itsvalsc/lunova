@@ -72,8 +72,50 @@ class CCommento
             $pm->update($commento);
             header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
         } else {
-            header('Location: /lunova/Ricerca/mostraHome');
+            header('Location: /lunova/Errore/unathorized');
+
         }
+    }
+
+    public static function votazioneDisco(){
+        $disco = $_POST['disco'];
+        $rating = $_POST['rate'];
+        $view = new VErrore();
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        if ($session->isLogged() || $session->isCliente()){
+            $utente = $session->getUtente()->getIdClient();
+            $vot = new EVotazioneDisco($utente,$disco,intval($rating));
+            $pers->store($vot);
+            //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');
+        }
+
+
+        header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+
+    }
+
+    public static function votazioneCommento($comm,$disco){
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        if ($session->isLogged() || $session->isCliente()){
+            $utente = $session->getUtente()->getIdClient();
+            $vot = new EVotazioneCommento($utente,$disco,$comm);
+            $pers->store($vot);
+            //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');
+        }
+        header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+    }
+
+    public static function eliminaMP($comm,$disco){
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        if ($session->isLogged() || $session->isCliente()){
+            $utente = $session->getUtente()->getIdClient();
+            $pers->delete('FVotazioneCommento',$utente,$comm);
+            //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');
+        }
+        header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
     }
 
 }

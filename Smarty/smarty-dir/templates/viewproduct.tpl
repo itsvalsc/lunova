@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/Star.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     <title>Lunova</title>
@@ -97,19 +99,68 @@
         <div class="col-4">
             <img style="width: 300px; height: 300px;" src="data:{$product->getCopertina()->getFormato()};base64,{$product->getCopertina()->getImmagine()}"  alt="prova">
         </div>
-        <div class="col-6">
+        <div class="col-8">
             <h1>
                 {$product->getTitolo()}
                 <small class="text-muted"> by </small>
                 <a href="/lunova/Admin/users/">
                     <small class="text-muted"> {$artist}</small>
                 </a>
+                <small style="margin-left: 50px">
+                    {section name = n loop= [0,1,2,3,4]}
+                        <span class="{$star[n]}"></span>
+                    {/section}
+                    {$media}</>
+
             </h1>
 
             <p>{$product->getDescrizione()}</p>
             <hr>
             <h3>€ {$product->getPrezzo()} </h3>
+            {if $logged}
+                {if $votazione==false}
+            <form  action="/lunova/Commento/votazioneDisco" method="post">
+                <div class="form-group">
+                    <div class="rate">
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label for="star5" title="5 stelle">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label for="star4" title="4 stelle">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label for="star3" title="3 stelle">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label for="star2" title="2 stelle">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label for="star1" title="1 stella">1 star</label>
+                    </div>
+                    <input type="hidden" name="disco" value="{$product->getID()}">
+                    <button type="submit" class="btn btn-warning">vota</button>
+                </div>
+            </form>
 
+                {/if}
+            {/if}
+            {if $logged==false}
+                <form  action="/lunova/Commento/votazioneDisco" method="post">
+                    <div class="form-group">
+                        <div class="rate">
+                            <input type="radio" id="star5" name="rate" value="5" />
+                            <label for="star5" title="5 stelle">5 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4" />
+                            <label for="star4" title="4 stelle">4 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3" />
+                            <label for="star3" title="3 stelle">3 stars</label>
+                            <input type="radio" id="star2" name="rate" value="2" />
+                            <label for="star2" title="2 stelle">2 stars</label>
+                            <input type="radio" id="star1" name="rate" value="1" />
+                            <label for="star1" title="1 stella">1 star</label>
+                        </div>
+                        <input type="hidden" name="disco" value="{$product->getID()}">
+                        <button type="submit" id="rate" title="Effettua il login per votare" class="btn btn-warning" disabled >vota</button>
+                    </div>
+                </form>
+
+            {/if}
         </div>
     </div>
 </div>
@@ -152,9 +203,16 @@
                     <!-- Comment react -->
                     <ul class="nav nav-divider py-2 small">
                         {if $logged}
+                            {if  !in_array($commenti[nr]->getId(),$arr)}
                         <li class="nav-item">
-                            <a class="nav-link" href="#!"> Like (3)</a>
+                            <a class="nav-link" onmouseover="this.style.color='red'" onmouseleave="this.style.color='#32fbe2'" href="/lunova/Commento/votazioneCommento/{$commenti[nr]->getId()}/{$product->getID()}">Like ({$nmp[$commenti[nr]->getId()]|default:0 })</a>
                         </li>
+                            {/if}
+                            {if  in_array($commenti[nr]->getId(),$arr)}
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: red" onmouseover="this.style.color='#32fbe2'" onmouseleave="this.style.color='red'" href="/lunova/Commento/eliminaMP/{$commenti[nr]->getId()}/{$product->getID()}">Like ({$nmp[$commenti[nr]->getId()]|default:0})</a>
+                        </li>
+                            {/if}
 
                             {if $proprieta == $commenti[nr]->getCliente()->getIdClient()}
                                 <li class="nav-item">
@@ -170,13 +228,13 @@
                         {/if}
                         {if $logged==false}
                             <li class="nav-item">
-                                <a class="nav-link disabled" href="#!"> Like (3)</a>
+                                <a class="nav-link disabled" href="#!"> Like ({$nmp[$commenti[nr]->getId()]|default:0 })</a>
                             </li>
-                            {if $proprieta != $commenti[nr]->getCliente()->getIdClient()}
+
                                 <li class="nav-item" >
-                                    <a class="nav-link disabled" href="/lunova/Commento/segnalaCommento/{$commenti[nr]->getId()}/{$product->getID()}" > Segnala</a>
+                                    <a class="nav-link disabled" href="#!" > Segnala</a>
                                 </li>
-                            {/if}
+
                         {/if}
                     </ul>
                 </div>

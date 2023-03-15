@@ -106,17 +106,53 @@
                 <a href="/lunova/Admin/users/">
                     <small class="text-muted"> {$artist}</small>
                 </a>
-                <small style="margin-left: 50px">
+                <small style="margin-left: 50px" class="text-warning">
                     {section name = n loop= [0,1,2,3,4]}
                         <span class="{$star[n]}"></span>
                     {/section}
-                    {$media}</>
+                    {$media}
+                </small>
 
             </h1>
 
             <p>{$product->getDescrizione()}</p>
+
+            {if $product->getQta() != 0 }
+            <a href="/lunova/Carrello/Add/{$product->getID()}">
+                <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" style="margin-top: 15px" >Aggiungi al carrello</button>
+            </a>
+            {/if}
+            {if $product->getQta() == 0 }
+                <button class="btn btn-primary btn-sm btn-block rounded-0 disabled" type="submit" style="margin-top: 15px" >Aggiungi al carrello</button>
+
+            {/if}
+
+
+            <h5 class="text-secondary" style="margin-top: 20px">
+                <script>
+                    var x ;
+                    var y;
+                    var result;
+
+                    x = {$product->getQta()};
+                    if (x > 10) {
+                        result = 'disponibile';
+                    }
+                    else if (( x != 0 ) && ( x <10 )) {
+                        result = 'pochi pezzi';
+                    }
+                    else {
+                        result = 'non disponibile';
+                    }
+                    document.write(result);
+
+                </script>
+            </h5>
             <hr>
             <h3>€ {$product->getPrezzo()} </h3>
+
+
+            
             {if $logged}
                 {if $votazione==false}
             <form  action="/lunova/Commento/votazioneDisco" method="post">

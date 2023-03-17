@@ -116,6 +116,9 @@
 
 
     <div class ='row'>
+        <script>
+            var p;
+        </script>
         {section name = nr loop= $product}
 
 
@@ -124,7 +127,12 @@
                 <div class="card-body" >
                     <h5 class="card-title"> {$product[nr]->getTitolo()} </h5>
                     <h6 class = "card-subtitle mb-2 text-muted">€ {$product[nr]->getPrezzo()}</h6>
-                    <p class="card-text">{$product[nr]->getDescrizione() }</p>
+                    <script>
+                        p = String({$product[nr]->getDescrizione()});
+                    </script>
+                    <p class="card-text">
+                        {$product[nr]->getDescrtaglio()}
+                    </p>
                     <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
                     <a href="/lunova/Products_list/mostra_prodotto/{$product[nr]->getID()}">
                         <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vedi</button></a>

@@ -61,6 +61,12 @@ class EDisco{
 	public function getDescrizione()
 	{ return($this->descrizione);}
 
+    public function getDescrtaglio()
+    { $x= $this->descrizione;
+        $p = substr($x,0,20);
+
+        return("$p...");}
+
 	public function getGenere()
 	{ return($this->genere);}
 

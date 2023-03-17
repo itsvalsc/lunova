@@ -134,7 +134,7 @@ class FCartItem
 
         $quantity = 0;
 
-        $query = "SELECT quantity FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
+        $query = "SELECT quantity, product_id FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ":idcart" => $cartid,
@@ -142,30 +142,47 @@ class FCartItem
         ));
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($rows);
+        $id_magazzino = $rows[0]["product_id"];
+        $verify = CheckQta($id_magazzino);
+        $quantity = 0;
 
-        if (count($rows) > 0 ){
-            $quantity = $rows[0]["quantity"];
-            //print_r($quantity);
+        if ($verify){
+            if (count($rows) > 0 ){
+                $quantity = $rows[0]["quantity"];
+
+            }
+            ++ $quantity ;
+
+            if (count($rows) > 0 ) {
+                $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
+                $stmt1 = $pdo->prepare($query1);
+                $stmt1->execute(array(
+                    ":q" => $quantity,
+                    ":idcart" => $cartid,
+                    ':idprod' => $productId
+                ));
+            }
+            else{
+                $G= FDisco::load($productId);
+                $cart = new ECartItem(($G));
+                self::store($cart,$cartid);
+
+
+            }
+            return $quantity;
         }
-        ++ $quantity ;
-
-        if (count($rows) > 0 ) {
-            $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
-            $stmt1 = $pdo->prepare($query1);
-            $stmt1->execute(array(
-                ":q" => $quantity,
-                ":idcart" => $cartid,
-                ':idprod' => $productId
-            ));
+        else {
+            if (count($rows) > 0 ){
+                $quantity = $rows[0]["quantity"];
+                return $quantity;
+            }
+            else {
+                $quantity = 0;
+                return $quantity;
+            }
         }
-        else{
-            $G= FDisco::load($productId);
-            $cart = new ECartItem(($G));
-            self::store($cart,$cartid);
 
 
-        }
-        return $quantity;
 
     }
 
@@ -215,7 +232,26 @@ class FCartItem
 
 
 
+    function CheckQta($id) : bool{
+        $pdo=FConnectionDB::connect();
 
+
+        //controllo quantità
+
+        $query = "SELECT Qta FROM dischi WHERE ID= :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute( [":id" => $id] );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $quantity = $rows[0]["Qta"];
+
+        $verify=false;
+
+
+        if($quantity>0){
+            $verify=true;
+        }
+        return $verify;
+    }
 
 
 

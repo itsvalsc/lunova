@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-25 10:45:55
+/* Smarty version 4.2.1, created on 2023-03-17 11:02:31
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\products_list.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f9d8d31cac99_13893072',
+  'unifunc' => 'content_64143ab7e4c923_60139562',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a7c38a561fb0a82c279cdd66974544b2714058ab' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\products_list.tpl',
-      1 => 1677316615,
+      1 => 1679047345,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f9d8d31cac99_13893072 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64143ab7e4c923_60139562 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -140,6 +140,11 @@ function content_63f9d8d31cac99_13893072 (Smarty_Internal_Template $_smarty_tpl)
 
 
     <div class ='row'>
+        <?php echo '<script'; ?>
+>
+            var p;
+        <?php echo '</script'; ?>
+>
         <?php
 $__section_nr_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['product']->value) ? count($_loop) : max(0, (int) $_loop));
 $__section_nr_0_total = $__section_nr_0_loop;
@@ -158,8 +163,16 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
  </h5>
                     <h6 class = "card-subtitle mb-2 text-muted">€ <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
 </h6>
-                    <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrizione();?>
-</p>
+                    <?php echo '<script'; ?>
+>
+                        p = String(<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrizione();?>
+);
+                    <?php echo '</script'; ?>
+>
+                    <p class="card-text">
+                        <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrtaglio();?>
+
+                    </p>
                     <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php echo '<?php'; ?>
  //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); <?php echo '?>'; ?>
 '">Vedi</button>-->

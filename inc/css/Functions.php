@@ -153,7 +153,7 @@ function load(string $id_cli){
 
 }
 
-function CheckQta($id){
+function CheckQta($id) : bool{
     $pdo=FConnectionDB::connect();
 
 
@@ -166,24 +166,12 @@ function CheckQta($id){
     $quantity = $rows[0]["Qta"];
 
     $verify=false;
-    $solution = array();
 
-    if($quantity>0 && $quantity<10){
+
+    if($quantity>0){
         $verify=true;
-        $message = "disponibili pochi pezzi";
-        array_push($solution, $verify,$message);
     }
-    if($quantity>0 ){
-        $verify=true;
-        $message = "disponibile";
-        array_push($solution, $verify,$message);
-    }
-    else{
-        $message = "non disponibile";
-        array_push($solution, $verify,$message);
-    }
-    return $solution;
-    print_r('done');
+    return $verify;
 }
 
 $B= CheckQta("12345");

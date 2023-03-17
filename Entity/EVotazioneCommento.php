@@ -1,6 +1,6 @@
 <?php
 
-class EVotazioneCommento extends EVoti
+class EVotazioneCommento
 {
     private string $utente;
     private string $disco;

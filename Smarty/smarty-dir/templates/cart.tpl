@@ -108,7 +108,7 @@
 
 								<div class="col-lg-4 col-6">
 									<h6 class="my-0">{$disc[nr]->getTitolo()}</h6>
-									<small class="text-muted">{$disc[nr]->getDescrizione()}</small>
+									<small class="text-muted">{$disc[nr]->getDescrtaglio()}</small>
 								</div>
 
 								<div class="col-lg-2 col-6">

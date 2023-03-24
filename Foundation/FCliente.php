@@ -37,7 +37,7 @@ class FCliente
      */
     public static function store(ECliente $cliente): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO cliente VALUES(:IdCliente,:Email,:Username,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello)";
+        $query = "INSERT INTO cliente VALUES(:IdCliente,:Email,:Username,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello,:Bannato)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':IdCliente' => $cliente->getIdClient(),
@@ -52,7 +52,8 @@ class FCliente
             ':CAP' =>$cliente->getCAP(),
             ':NTelefono' =>$cliente->getTelefono(),
             ':Password' =>$cliente->criptaPassword($cliente->getPassword()),
-            ':Livello' =>$cliente->getLivello()
+            ':Livello' =>$cliente->getLivello(),
+            ':Bannato' =>$cliente->getBannato()
         ));
     }
 
@@ -96,9 +97,10 @@ class FCliente
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
+                $Bannato = $rows[0]['Bannato'];
                 //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
 
                 return $utente;
             }
@@ -128,9 +130,10 @@ class FCliente
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
-               //$Livello = $rows[0]['Livello'];
+                $Bannato = $rows[0]['Bannato'];
+                //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
                 return $utente;
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
@@ -138,7 +141,7 @@ class FCliente
 
     public static function update(EClient $cl) : bool{
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello   WHERE Email = :email";
+        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello, Bannato = :bannato   WHERE Email = :email";
         $stmt=$pdo->prepare($query);
         $ris = $stmt->execute(array(
             ":id" => $cl->getIdClient(),
@@ -153,7 +156,8 @@ class FCliente
             ":cap" => $cl->getCAP(),
             ":ntelefono" => $cl->getTelefono(),
             ":password" => $cl->getPassword(),
-            ":livello" => $cl->getLivello()));
+            ":livello" => $cl->getLivello(),
+            ":bannato" => $cl->getBannato()));
 
         return $ris;
 
@@ -181,9 +185,10 @@ class FCliente
                 $CAP = $row['CAP'];
                 $Telefono = $row['NTelefono'];
                 $Password = $row['Password'];
+                $Bannato = $row['Bannato'];
                 //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
 
                 $clienti[$i] = $utente;
                 ++$i;

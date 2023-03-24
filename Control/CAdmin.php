@@ -74,17 +74,22 @@ class CAdmin{
      * Funzione utile per cambiare lo stato di un utente (nel caso specifico porta la visibilità a false).
      * @param $username string Username dell'utente da bannare sul sito, impedendogli di scrivere ulteriori commenti.
      **/
-    public function sospendiUtente(string $username)
+    public static function sospendiUtente(string $email)
     {
+        $v = new VErrore();
         $sessione = FSessione::getInstance();
-        $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
-        if ($sessione->isLogged() && $tipo == "EAdmin") {
-            $pm->update_value("FUtente", "state", 0, "username", $username);
-            header("Location: /lunova/Admin/dashboardAdmin");
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            $cliente = $pm->load('FCliente',$email);
+            //$cliente->setBannato(1);
+            //$pm->update($cliente);
+            //header("Location: /lunova/Admin/dashboardAdmin");
+            //header ("Location: /lunova/Admin/users");
+            $v->message(true,json_encode($cliente),'','');
         } else {
-            header("Location: /lunova/Ricerca/mostraHome");
+            //header("Location: /lunova/Ricerca/mostraHome");
+            header ("Location: /lunova/Admin/users");
         }
     }
 
@@ -92,14 +97,14 @@ class CAdmin{
      * Funzione utile per cancellare un utente già bannato.
      * @param $username string username identificativo univoco dell'utente
      **/
-    public function riattivaUtente(string $username)
+    public static function riattivaUtente(string $username)
     {
         $sessione = FSessione::getInstance();
         $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
         if ($sessione->isLogged() && $tipo == "EAdmin") {
-            $pm->update_value("FUtente", "state", 1, "username", $username);
+            $pm->update_value("FCliente", "state", 0, "username", $username);
             header("Location: /lunova/Admin/dashboardAdmin");
         } else {
             header("Location: /lunova/Ricerca/mostraHome");

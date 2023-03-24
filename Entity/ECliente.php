@@ -36,7 +36,7 @@ class ECliente extends EUtente{
             $this->IdClient = "C"  . random_int(0,9999);
             $this->Bannato = false;
         }
-        elseif (13 === func_num_args()){
+        elseif (14 === func_num_args()){
             $email = func_get_arg(0);
             $username = func_get_arg(1);
             $n = func_get_arg(2);
@@ -53,7 +53,7 @@ class ECliente extends EUtente{
             parent::setLivello("C");
             $this->Wallet = func_get_arg(11);
             $this->IdClient = func_get_arg(12);
-            $this->Bannato = false;
+            $this->Bannato = func_get_arg(13);
         }
     }
 

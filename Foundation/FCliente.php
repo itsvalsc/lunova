@@ -76,7 +76,6 @@ class FCliente
 
     public static function load(string $email) {
         $pdo=FConnectionDB::connect();
-
         try {
             $ifExist = self::exist($email);
             if($ifExist) {
@@ -139,12 +138,11 @@ class FCliente
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
-    public static function update(EClient $cl) : bool{
+    public static function update(ECliente $cl) : bool{
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello, Bannato = :bannato   WHERE Email = :email";
+        $query = "UPDATE cliente SET Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello, Bannato = :bannato   WHERE Email = :email";
         $stmt=$pdo->prepare($query);
         $ris = $stmt->execute(array(
-            ":id" => $cl->getIdClient(),
             ":email" => $cl->getEmail(),
             ":username" => $cl->getUsername(),
             ":nome" => $cl->getNome(),

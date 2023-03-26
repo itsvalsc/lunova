@@ -154,7 +154,8 @@ class CAdmin{
         $Cli = $pers->prelevaClienti();
         $Art = $pers->ArtistaFromID($id);
         $elenco = $pers->prelevaDischiperIDAutore($id);
-        $view->load($Cli,$Art, $elenco);
+        $numero = count($elenco);
+        $view->load($Cli,$Art, $elenco, $numero);
     }
 
     public static function usersadmin(){

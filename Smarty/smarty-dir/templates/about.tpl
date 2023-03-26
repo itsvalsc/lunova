@@ -102,7 +102,7 @@
             y = 5;
             z = x + y;
             //window.alert("Somma = " + z);
-            window.prompt("digita:")
+            //window.prompt("digita:")
         </script>
 
        

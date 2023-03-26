@@ -23,11 +23,12 @@ class VUsers{
         $this->smarty->display($template);
     }
 
-    public function load($l,$s, $elenco){
+    public function load($l,$s, $elenco, $num){
         //$this->setData('user', $l);
         $this->setData('product', $elenco);
         $this->setData('logged', $l);
         $this->setData('artista', $s);
+        $this->setData('numero', $num);
         $this->setTemplate("profile.tpl");
         //$this->setTemplate("user.tpl");
     }

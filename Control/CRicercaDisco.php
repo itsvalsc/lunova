@@ -56,10 +56,11 @@ class CRicercaDisco{
         $session = FSessione::getInstance();
         $filtro = $view->getfiltro();
         $search = $view->getsearch();
-        if($session->isCliente()){
-            $cartid = $session->getCarrello()->getId();
-            $elencoitems = $pers->prelevaCartItems($cartid);
-            $num = count($elencoitems);
+        if($session->isLogged() && $session->isCliente()){
+            //$cartid = $session->getCarrello()->getId();
+            //$elencoitems = $pers->prelevaCartItems($cartid);
+            //$num = count($elencoitems);
+            $num = null; //todo:aggiungere carrello
         }
         else{
             $num=null;

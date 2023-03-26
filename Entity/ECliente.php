@@ -7,6 +7,7 @@ class ECliente extends EUtente{
     private String $IdClient;
     private array $dischipreferiti;
     private $Wallet;
+    private bool $Bannato;
     /**
     public function __construct(string $n, string $c, string $v, string $nc, string $citta, string $prov, string $cap, string $telefono, string $email, string $pw, $wallet){
 
@@ -33,8 +34,9 @@ class ECliente extends EUtente{
             parent::__construct($username,$n, $c, $v, $nc,$citta,$prov,$cap,$telefono,$email,$pw);
             parent::setLivello("C");
             $this->IdClient = "C"  . random_int(0,9999);
+            $this->Bannato = false;
         }
-        elseif (13 === func_num_args()){
+        elseif (14 === func_num_args()){
             $email = func_get_arg(0);
             $username = func_get_arg(1);
             $n = func_get_arg(2);
@@ -51,6 +53,7 @@ class ECliente extends EUtente{
             parent::setLivello("C");
             $this->Wallet = func_get_arg(11);
             $this->IdClient = func_get_arg(12);
+            $this->Bannato = func_get_arg(13);
         }
     }
 
@@ -65,10 +68,16 @@ class ECliente extends EUtente{
     public function getDischiPref(): array
     { return $this->dischipreferiti; }
 
+    public function getBannato(): bool
+    { return $this->Bannato; }
+
     /** METODI SET */
 
     public function setIdClient(string $id)
     { return $this->IdClient = $id; }
+
+    public function setBannato(bool $ban)
+    { return $this->Bannato; }
 
     /** ALTRI METODI */
 

@@ -132,7 +132,7 @@ class FCartItem
     public static function AddToCart($productId, $cartid, $cli_id){
         $pdo=FConnectionDB::connect();
 
-        $quantity = 0;
+        //$quantity = 0;
 
         $query = "SELECT quantity, product_id FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
         $stmt = $pdo->prepare($query);

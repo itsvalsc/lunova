@@ -278,6 +278,35 @@ class FArtista{
 
 
 
+    public static function loadFromID(string $id) {
+        $pdo=FConnectionDB::connect();
+
+                $query = "SELECT * FROM artista WHERE IdArtista= :email";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute( [":email" => $id] );
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                $IdArtista = $rows[0]['IdArtista'];
+                $Email = $rows[0]['Email'];
+                $Username = $rows[0]['Username'];
+                $Nome = $rows[0]['Nome'];
+                $Cognome = $rows[0]['Cognome'];
+                $Via = $rows[0]['Via'];
+                $NumeroCivico = $rows[0]['NCivico'];
+                $Provincia = $rows[0]['Provincia'];
+                $Citta = $rows[0]['Citta'];
+                $CAP = $rows[0]['CAP'];
+                $Telefono = $rows[0]['NTelefono'];
+                $Password = $rows[0]['Password'];
+
+                $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                return $artista;
+                //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
+
+    }
+
+
+
 
 
 

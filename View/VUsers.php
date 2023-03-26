@@ -23,10 +23,22 @@ class VUsers{
         $this->smarty->display($template);
     }
 
-    public function load($l,$s){
-        $this->setData('user', $l);
+    public function load($l,$s, $elenco){
+        //$this->setData('user', $l);
+        $this->setData('product', $elenco);
+        $this->setData('logged', $l);
+        $this->setData('artista', $s);
+        $this->setTemplate("profile.tpl");
+        //$this->setTemplate("user.tpl");
+    }
+
+    public function loadadmin($l,$s, $elenco){
+        //$this->setData('user', $l);
+        $this->setData('product', $elenco);
+        $this->setData('logged', $l);
         $this->setData('cli', $s);
-        $this->setTemplate("users.tpl");
+        $this->setTemplate("profile.tpl");
+        //$this->setTemplate("user.tpl");
     }
 
 

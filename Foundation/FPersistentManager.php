@@ -92,6 +92,10 @@ class FPersistentManager{
         return FDisco::prelevaDischiperAutore($disco);
     }
 
+    public function prelevaDischiperIDAutore($aut){
+        return FDisco::prelevaDischiperAutore($aut);
+    }
+
     //TODO: vedere il caso in cui non trova i dischi
 
     public function prelevaDischiperTitolo($titolo):array{
@@ -241,6 +245,11 @@ class FPersistentManager{
     public function loadNumeroMP($dc){
         return FVotazioneCommento::loadNumeroMP($dc);
     }
+
+    public function ArtistaFromID($id){
+        return FArtista::loadFromID($id);
+    }
+
 
 
 

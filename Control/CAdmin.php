@@ -142,13 +142,28 @@ class CAdmin{
         }
     }
 
-    public static function users(){
+    /*
+     * questo metodo è per quando qualcuno clicca su un artista
+     * bisogna crearne uno diverso se si tratta del suo stesso profilo
+     * */
+
+    public static function users(string $id){
+        $view = new VUsers();
+        $pers = FPersistentManager::getInstance();
+        FSessione::start();
+        $Cli = $pers->prelevaClienti();
+        $Art = $pers->ArtistaFromID($id);
+        $elenco = $pers->prelevaDischiperIDAutore($id);
+        $view->load($Cli,$Art, $elenco);
+    }
+
+    public static function usersadmin(){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
         FSessione::start();
         $Cli = $pers->prelevaClienti();
         $Art = $pers->prelevaArtisti();
-        $view->load($Art,$Cli);
+        //$view->load($Art,$Cli, $elenco);
     }
 
     public static function notifiche(){

@@ -127,9 +127,6 @@
                 <div class="card-body" >
                     <h5 class="card-title"> {$product[nr]->getTitolo()} </h5>
                     <h6 class = "card-subtitle mb-2 text-muted">€ {$product[nr]->getPrezzo()}</h6>
-                    <script>
-                        p = String({$product[nr]->getDescrizione()});
-                    </script>
                     <p class="card-text">
                         {$product[nr]->getDescrtaglio()}
                     </p>
@@ -145,7 +142,7 @@
                         </a>
                     {/if}
                     {if $product[nr]->getQta() == 0 }
-                            <button class="btn btn-primary btn-sm btn-block rounded-0 disabled" type="submit" >Aggiungi al carrello</button>
+                            <button class="btn btn-primary btn-sm btn-block rounded-0 disabled">Aggiungi al carrello</button>
 
                     {/if}
 

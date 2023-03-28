@@ -156,11 +156,12 @@ class CAdmin{
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
         FSessione::start();
-        $Cli = $pers->prelevaClienti();
+        //$Cli = $pers->prelevaClienti();
+        $l = true;
         $Art = $pers->ArtistaFromID($id);
         $elenco = $pers->prelevaDischiperIDAutore($id);
         $numero = count($elenco);
-        $view->load($Cli,$Art, $elenco, $numero);
+        $view->load($l,$Art, $elenco, $numero);
     }
 
     public static function usersadmin(){

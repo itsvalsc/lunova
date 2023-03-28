@@ -138,7 +138,7 @@
                                     <div class="hstack gap-2 gap-xl-3 justify-content-center">
                                         <!-- User stat item -->
                                         <div>
-                                            <h6 class="mb-0">{$numero}</h6>
+                                            <h6 class="mb-0">6</h6>
                                             <small>N. Dischi</small>
                                         </div>
                                         <!-- Divider -->
@@ -164,95 +164,14 @@
 
                                 <!-- Side Nav START -->
                                 <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
-                                    <!--
                                     <li class="nav-item">
-                                        <a class="nav-link" href="my-profile.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/home-outline-filled.svg" alt=""><span>Feed </span></a>
-                                        <hr>
-                                    </li>
-                                    -->
-                                    <li class="nav-item">
-                                        <div class ='row'>
-                                            <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src="" alt=""><span>Dischi </span></a>
-                                            <script>
-                                                var p;
-                                            </script>
-                                            {section name = nr loop= $product}
-
-
-                                                <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
-                                                    <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
-                                                    <div class="card-body" >
-                                                        <h5 class="card-title"> {$product[nr]->getTitolo()} </h5>
-                                                        <h6 class = "card-subtitle mb-2 text-muted">€ {$product[nr]->getPrezzo()}</h6>
-                                                        <p class="card-text">
-                                                            {$product[nr]->getDescrtaglio()}
-                                                        </p>
-                                                        <div class="container">
-                                                        {if $product[nr]->getQta() != 0 }
-                                                            <div align="center">
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Products_list/mostra_prodotto/{$product[nr]->getID()}">
-                                                                        <i class="fa-solid fa-eye"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
-                                                                        <i class="fa-solid fa-square-plus" style="color: #ff00ea;"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
-                                                                        <i class="fa-solid fa-pen-to-square" style="color: #63ff0f;"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
-                                                                        <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
-                                                                    </a>
-                                                                </div>
-
-                                                            </div>
-                                                        {/if}
-                                                        {if $product[nr]->getQta() == 0 }
-                                                            <div align="center">
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " aria-label="Vedi" href="/lunova/Products_list/mostra_prodotto/{$product[nr]->getID()}">
-                                                                        <i class="fa-solid fa-eye"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
-                                                                        <i class="fa-solid fa-square-plus" style="color: #ff00ea;"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
-                                                                        <i class="fa-solid fa-pen-to-square" style="color: #63ff0f;"></i>
-                                                                    </a>
-                                                                </div>
-                                                                <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
-                                                                        <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <!--
-                                                                <button class="btn btn-primary btn-sm btn-block rounded-0 disabled">Aggiungi al carrello</button>
-                                                            -->
-                                                        {/if}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {/section}
-
-                                        </div>
+                                        <a class="nav-link" href="blog.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>I miei ordini</span></a>
                                         <hr>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="blog.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>Aggiungi disco</span></a>
+                                        <a class="nav-link" href="events.html"> <i class="fa-solid fa-album-circle-plus"></i> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Votazioni </span></a>
                                         <hr>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class="nav-link" href="settings.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Impostazioni</span></a>
                                         <hr>

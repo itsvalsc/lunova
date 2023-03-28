@@ -301,4 +301,28 @@ class CProfile
         $v = new VLogin();
         $v->message(false,$r,'al preleva dati','Login/Signin');
     }
+
+
+
+    public static function Impostazioni(){
+        $view = new VProfile();
+        $pers = FPersistentManager::getInstance();
+
+        $l = true;
+        $elenco = $pers->prelevaCartItems('C151');
+        $num = count($elenco);
+        $view->Settings($l, $num);
+    }
+
+    public static function AddDisco(){
+        $view = new VProfile();
+        $pers = FPersistentManager::getInstance();
+
+        $l = true;
+        $generi = $pers->prelevaGeneri();
+        $elenco = $pers->prelevaCartItems('C151');
+        $num = count($elenco);
+        $view->addDisco($l, $num, $generi);
+    }
+
 }

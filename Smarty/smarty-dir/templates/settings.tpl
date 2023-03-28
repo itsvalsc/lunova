@@ -91,28 +91,30 @@
 <!-- end header -->
 
 {if $logged}
-<ul class="nav nav-link-secondary flex-column fw-bold gap-2">
-    <li class="nav-item">
-        <a class="nav-link" href="blog.html"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>Cambio foto profilo</span></a>
-        <hr>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="events.html"> <i class="fa-solid fa-album-circle-plus"></i> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Cambio password </span></a>
-        <hr>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/lunova/AboutUs/us"><span>Assistenza</span></a>
-        <hr>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/lunova/Login/logout"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Logout</span></a>
-        <hr>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/lunova/AboutUs/us"><span>Elimina account</span></a>
-        <hr>
-    </li>
-</ul>
+<div id="main" class="container" style="margin-top:80px; height: fit-content">
+    <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
+        <li class="nav-item">
+            <a class="nav-link" href="blog.html"><span>Cambio foto profilo</span></a>
+            <hr>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="events.html"><span>Cambio password </span></a>
+            <hr>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/lunova/AboutUs/us"><span>Assistenza</span></a>
+            <hr>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/lunova/Login/logout"><i class="fa-solid fa-right-from-bracket"></i><span> Logout</span></a>
+            <hr>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/lunova/AboutUs/us"><span>Elimina account</span></a>
+            <hr>
+        </li>
+    </ul>
+</div>
 {/if}
 
 

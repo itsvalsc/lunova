@@ -1,0 +1,10 @@
+Questo è da mettere in categories:
+
+INSERT INTO `categories` (`id`, `name`) VALUES (1, 'Rock');
+INSERT INTO `categories` (`id`, `name`) VALUES (2, 'Classica');
+INSERT INTO `categories` (`id`, `name`) VALUES (3, 'Indie');
+INSERT INTO `categories` (`id`, `name`) VALUES (4, 'R&B');
+INSERT INTO `categories` (`id`, `name`) VALUES (5, 'Rap');
+INSERT INTO `categories` (`id`, `name`) VALUES (6, 'Pop');
+
+

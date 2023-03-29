@@ -229,4 +229,22 @@ class VProfile
             $this->smarty->display('profile.tpl');
         }*/
     }
+
+    public function Settings($l, $num) {
+        $this->smarty->assign('logged',$l);
+        $this->smarty->assign('num', $num);
+        $this->smarty->display('settings.tpl');
+    }
+
+    public function addDisco($l, $num, $generi) {
+        $this->smarty->assign('logged',$l);
+        $this->smarty->assign('num', $num);
+        $this->smarty->assign('gen', $generi);
+        $this->smarty->display('addisco.tpl');
+    }
+
+
+
+
+
 }

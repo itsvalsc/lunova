@@ -59,6 +59,10 @@ class FPersistentManager{
         return $class::update($attributo, $newvalue, $attributo_pk, $value_pk);
     }
 
+    public function update_bannato(string $email, $value) {
+        return FCliente::updateBannato($email, $value);
+    }
+
     /**
      * Metodo che permette il login di un utente, date le credenziali (email e password)
      * @param $email

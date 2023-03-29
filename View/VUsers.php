@@ -33,13 +33,12 @@ class VUsers{
         //$this->setTemplate("user.tpl");
     }
 
-    public function loadadmin($l,$s, $elenco){
-        //$this->setData('user', $l);
-        $this->setData('product', $elenco);
+    public function loadadmin($l,$clienti, $artisti){
+        $this->setData('user', $artisti);
         $this->setData('logged', $l);
-        $this->setData('cli', $s);
-        $this->setTemplate("profile.tpl");
-        //$this->setTemplate("user.tpl");
+        $this->setData('cli', $clienti);
+        //$this->setTemplate("profile.tpl");
+        $this->setTemplate("users.tpl");
     }
 
 

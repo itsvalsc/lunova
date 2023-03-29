@@ -157,9 +157,16 @@
                         <td>{$cli[pc]->getCognome()}</td>
                         <td>
                             <button type="button" class="btn btn-outline-info">Modifica</button>
+                            {if $cli[pc]->getBannato()==true}
+                            <a href="/lunova/Admin/riattivaUtente/{$cli[pc]->getEmail()}">
+                                <button type="button" class="btn btn-outline-danger">Sblocca</button>
+                            </a>
+                            {/if}
+                            {if $cli[pc]->getBannato() == false}
                             <a href="/lunova/Admin/sospendiUtente/{$cli[pc]->getEmail()}">
                                 <button type="button" class="btn btn-outline-danger">Blocca</button>
                             </a>
+                            {/if}
                         </td>
                     </tr>
                     </tbody>

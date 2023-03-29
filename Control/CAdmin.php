@@ -125,7 +125,7 @@ class CAdmin{
             $pm->delete("FCommento", $id_commento, "id");
             header("Location: /lunova/Admin/usersadmin");
         } else {
-            header("Location: /lunova/Ricerca/mostraHome");
+            header("Location: /lunova/");
         }
     }
 
@@ -142,7 +142,7 @@ class CAdmin{
             $pm->update_value("FRecensione", "segnalato", false, "id", $id_recensione);
             header("Location: /lunova/Admin/usersadmin");
         } else {
-            header("Location: /lunova/Ricerca/mostraHome");
+            header("Location: /lunova/");
         }
     }
 

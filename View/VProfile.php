@@ -243,6 +243,25 @@ class VProfile
         $this->smarty->display('addisco.tpl');
     }
 
+    public function Assistence($l, $num){
+        $this->smarty->assign('logged',$l);
+        $this->smarty->assign('num', $num);
+        $this->smarty->display('assistence.tpl');
+    }
+
+    public function Change($l, $num){
+        $this->smarty->assign('logged',$l);
+        $this->smarty->assign('num', $num);
+        $this->smarty->display('cambio.tpl');
+    }
+
+
+    public function getNotification(){
+
+        return $_POST['nreport'];
+
+    }
+
 
 
 

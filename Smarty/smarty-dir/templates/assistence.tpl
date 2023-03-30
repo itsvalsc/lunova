@@ -90,43 +90,24 @@
 
 <!-- end header -->
 
-{if $logged}
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
-        <li class="nav-item">
-            <a class="nav-link" href="/lunova/Profile/ModificheProfile"><span>Cambio dati profilo</span></a>
-            <hr>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/lunova/Profile/Assistence"><span>Assistenza</span></a>
-            <hr>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/lunova/Login/logout"><i class="fa-solid fa-right-from-bracket"></i><span> Logout</span></a>
-            <hr>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/lunova/AboutUs/us"><span>Elimina account</span></a>
-            <hr>
-        </li>
-    </ul>
-</div>
-{/if}
 
 
+<form action="/lunova/Profile/AssistenceSend" method="post">
+    <div id="main" class="container" style="margin-top:80px; height: 700px">
+        <button type="button" class="btn btn-secondary">To Lunova:</button>
+        <div class="form-group">
+            <label for="exampleTextarea" class="form-label mt-4">Messaggio</label>
+            <textarea class="form-control" name="nreport" id="nreport" rows="3" placeholder="Descrivi il tuo problema..."></textarea>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-info">Invia</button>
+
+    </div>
+</form>
 
 
-
-
-
-
-
-
-
-
-
-
-<footer class="bg-dark">
+<!-- footer -->
+<footer class="bg-dark" style ="margin-bottom: 0px;">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>

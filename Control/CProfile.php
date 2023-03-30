@@ -318,11 +318,47 @@ class CProfile
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
 
+        $utente = 'C151';
         $l = true;
         $generi = $pers->prelevaGeneri();
-        $elenco = $pers->prelevaCartItems('C151');
+        $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
         $view->addDisco($l, $num, $generi);
+    }
+
+
+    public static function Assistence(){
+        $view = new VProfile();
+        $pers = FPersistentManager::getInstance();
+
+        $utente = 'C151';
+        $l = true;
+        $elenco = $pers->prelevaCartItems($utente);
+        $num = count($elenco);
+        $view->Assistence($l, $num);
+    }
+
+    public static function ModificheProfile(){
+        $view = new VProfile();
+        $pers = FPersistentManager::getInstance();
+
+        $utente = 'C151';
+        $l = true;
+        $elenco = $pers->prelevaCartItems($utente);
+        $num = count($elenco);
+        $view->Change($l, $num);
+    }
+
+    public static function AssistenceSend(){
+        $view = new VProfile();
+        $pers = FPersistentManager::getInstance();
+
+
+        $testo = $view->getNotification();
+        $utente = 'C151';
+        $l = true;
+        $pers->AssistenzaMex($testo,$utente);
+        header('Location: /lunova/Profile/Impostazioni');
     }
 
 }

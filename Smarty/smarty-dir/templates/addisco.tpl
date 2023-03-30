@@ -1,3 +1,4 @@
+<!-- header -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +45,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary">{$num}</span>
                     </a>
                 </li>
             </ul>
@@ -91,6 +92,7 @@
 
 
 
+
 <div id="main" class="container" style="margin-top:80px; height: fit-content">
     <form action="/lunova/Products_list/aggiungi_disco" method="post" enctype="multipart/form-data">
         <div class="form-group">
@@ -101,7 +103,7 @@
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
-            <textarea class="form-control" name="descrizione" id="descrizione" rows="3"></textarea>
+            <textarea class="form-control" name="descrizione" id="descrizione" rows="3" placeholder="Scrivi qui la tua descrizione..."></textarea>
         </div>
 
         <div class="form-group">
@@ -123,7 +125,7 @@
             <label class="form-label mt-4">Prezzo</label>
             <div class="form-group">
                 <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
+                    <span class="input-group-text">€</span>
                     <input type="text" class="form-control" name="prezzo" aria-label="Prezzo">
                     <span class="input-group-text"></span>
                 </div>

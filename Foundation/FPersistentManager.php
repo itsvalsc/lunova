@@ -250,6 +250,10 @@ class FPersistentManager{
         return FArtista::loadFromID($id);
     }
 
+    public function AssistenzaMex($t,$id){
+        return FCliente::Assistenzaa($t,$id);
+    }
+
 
 
 

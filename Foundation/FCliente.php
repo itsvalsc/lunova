@@ -204,7 +204,7 @@ class FCliente
      * @param $email
      * @param $pass
      */
-    public function VerificaAccesso(string $email, string $password)
+    public static function VerificaAccesso(string $email, string $password)
     {
         $pdo=FConnectionDB::connect();
         $pdo->beginTransaction();
@@ -226,6 +226,17 @@ class FCliente
             return null;
         }
     }
+
+    public static function Assistenzaa($testo,$idmittente){
+        $pers = FPersistentManager::getInstance();
+        $n = new ENotifiche($testo, "alta"," $idmittente");
+        $pers->store($n);
+    }
+
+
+
+
+
 }
 
 

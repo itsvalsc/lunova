@@ -143,10 +143,12 @@ class FCommento
         $text = explode(" ", $t);
         $t1 = str_replace($words, "***",$t);
         if ( $t!=$t1){
-            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "alta"," $idap");//todo: inserire da qualche parte l'id del commento
+            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "bassa"," $idap");//todo: inserire da qualche parte l'id del commento
             $pers->store($n);
         }
         return $t1;
     }
+
+
 
 }

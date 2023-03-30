@@ -28,9 +28,19 @@ class CLogin{
         }else{
             $view->Login($session->isLogged());
         }
-
-
     }
+
+    public static function Admin(){
+        $view = new VLogin();
+        $session = FSessione::getInstance();
+        if ($session->isLogged()){
+            header("Location: /lunova");
+        }else{
+            $view->AdminLogin($session->isLogged());
+        }
+    }
+
+
 
     /**
      * Effettua il logout e chiude la sessione

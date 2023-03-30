@@ -33,7 +33,7 @@ class CAdmin{
      * Metodo che mostra la dashboard di controllo del admin.
      * @throws SmartyException
      */
-    public function dashboardAdmin()
+    public static function dashboardAdmin()
     {
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
@@ -76,17 +76,16 @@ class CAdmin{
      **/
     public static function sospendiUtente(string $email)
     {
-        $v = new VErrore();
+        //$v = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
 
         if ($sessione->isLogged() && $sessione->isAdmin()) {
-            $cliente = $pm->load('FCliente',$email);
-            //$cliente->setBannato(1);
-            //$pm->update($cliente);
-            //header("Location: /lunova/Admin/dashboardAdmin");
+            $ex = $pm->exist('FCliente',$email);
+            $ris = $pm->update_bannato($email,1);
+            header("Location: /lunova/Admin/usersadmin");
             //header ("Location: /lunova/Admin/users");
-            $v->message(true,json_encode($cliente),'','');
+            //$v->message(true,$ris,'','');
         } else {
             //header("Location: /lunova/Ricerca/mostraHome");
             header ("Location: /lunova/Admin/users");
@@ -97,17 +96,19 @@ class CAdmin{
      * Funzione utile per cancellare un utente già bannato.
      * @param $username string username identificativo univoco dell'utente
      **/
-    public static function riattivaUtente(string $username)
+    public static function riattivaUtente(string $email)
     {
+        //$v = new VErrore();
         $sessione = FSessione::getInstance();
-        $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
-        if ($sessione->isLogged() && $tipo == "EAdmin") {
-            $pm->update_value("FCliente", "state", 0, "username", $username);
-            header("Location: /lunova/Admin/dashboardAdmin");
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            $ex = $pm->exist('FCliente',$email);
+            $ris = $pm->update_bannato($email,0);
+            header("Location: /lunova/Admin/usersadmin");
+            //$v->message(true,$ris,'','');
         } else {
-            header("Location: /lunova/Ricerca/mostraHome");
+            header ("Location: /lunova/Admin/usersadmin");
         }
     }
 
@@ -118,14 +119,13 @@ class CAdmin{
     public static function eliminaCommento(int $id_commento)
     {
         $sessione = FSessione::getInstance();
-        $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
-        if ($sessione->isLogged() && $tipo == "EAdmin") {
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
             $pm->delete("FCommento", $id_commento, "id");
-            header("Location: /lunova/Admin/dashboardAdmin");
+            header("Location: /lunova/Admin/usersadmin");
         } else {
-            header("Location: /lunova/Ricerca/mostraHome");
+            header("Location: /lunova/");
         }
     }
 
@@ -136,14 +136,13 @@ class CAdmin{
     public static function reinserisciCommento(int $id_recensione)
     {
         $sessione = FSessione::getInstance();
-        $tipo = $sessione->leggi_valore("tipo_utente");
         $pm = FPersistentManager::getInstance();
 
-        if ($sessione->isLogged() && $tipo == "EAdmin") {
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
             $pm->update_value("FRecensione", "segnalato", false, "id", $id_recensione);
-            header("Location: /lunova/Admin/dashboardAdmin");
+            header("Location: /lunova/Admin/usersadmin");
         } else {
-            header("Location: /lunova/Ricerca/mostraHome");
+            header("Location: /lunova/");
         }
     }
 
@@ -155,22 +154,27 @@ class CAdmin{
     public static function users(string $id){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
-        FSessione::start();
-        //$Cli = $pers->prelevaClienti();
-        $l = true;
+        $session = FSessione::getInstance();
+        $Cli = $pers->prelevaClienti();
         $Art = $pers->ArtistaFromID($id);
         $elenco = $pers->prelevaDischiperIDAutore($id);
         $numero = count($elenco);
-        $view->load($l,$Art, $elenco, $numero);
+        $view->load($Cli,$Art, $elenco, $numero);
     }
 
     public static function usersadmin(){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
-        FSessione::start();
-        $Cli = $pers->prelevaClienti();
-        $Art = $pers->prelevaArtisti();
-        //$view->load($Art,$Cli, $elenco);
+        $session = FSessione::getInstance();
+        if ($session->isLogged() && $session->isAdmin()){
+            $Cli = $pers->prelevaClienti();
+            $Art = $pers->prelevaArtisti();
+            $view->loadadmin(true,$Cli,$Art);
+        }
+        else{
+            header('Location: /lunova');
+        }
+
     }
 
     public static function notifiche(){

@@ -61,9 +61,9 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Admin/usersadmin">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -105,7 +105,7 @@
             //window.prompt("digita:")
         </script>
 
-       
+
     </div>
 </div>
 

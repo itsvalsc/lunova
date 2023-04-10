@@ -361,4 +361,26 @@ class CProfile
         header('Location: /lunova/Profile/Impostazioni');
     }
 
+
+    public static function users(string $id){
+        $view = new VUsers();
+        $pers = FPersistentManager::getInstance();
+        $l = true;
+        $Art = $pers->ArtistaFromID($id);
+        $elenco = $pers->prelevaDischiperIDAutore($id);
+        $numero = count($elenco);
+        $view->load($l,$Art, $elenco, $numero);
+    }
+
+    public static function Delete(){
+        $pers = FPersistentManager::getInstance();
+        $l = true;
+        $id = ""; //recuperare l'id da sessione
+        //TODO: CONTROLLO DIFFERENZIATO PER CLIENTE E ARTISTA
+        $pers->EliminaAccontA($id);
+        header('Location: /lunova');
+    }
+
+
+
 }

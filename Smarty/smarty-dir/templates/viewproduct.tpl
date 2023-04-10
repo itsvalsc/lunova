@@ -103,7 +103,7 @@
             <h1>
                 {$product->getTitolo()}
                 <small class="text-muted"> by </small>
-                <a href="/lunova/Admin/users/{$product->getAutore()}">
+                <a href="/lunova/Profile/users/{$product->getAutore()}">
                     <small class="text-muted"> {$artist}</small>
                 </a>
                 <small style="margin-left: 50px" class="text-warning">

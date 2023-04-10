@@ -258,6 +258,12 @@ class FPersistentManager{
         return FCliente::Assistenzaa($t,$id);
     }
 
+    public function EliminaAccontA($id){
+        $artista = FArtista::loadFromID($id);
+        $mail = $artista->getEmail();
+        return FArtista::delete($mail);
+    }
+
 
 
 

@@ -264,6 +264,10 @@ class FPersistentManager{
         return FArtista::delete($mail);
     }
 
+    public function SetQta($id, $numero ): void {
+        $modifica = FDisco::updateQta($numero, $id);
+    }
+
 
 
 

@@ -366,10 +366,23 @@ class CProfile
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
         $l = true;
+        $controllo = false;
         $Art = $pers->ArtistaFromID($id);
         $elenco = $pers->prelevaDischiperIDAutore($id);
         $numero = count($elenco);
-        $view->load($l,$Art, $elenco, $numero);
+        $view->load($l,$Art, $elenco, $numero, $controllo);
+    }
+
+
+    public static function userset(string $id){
+        $view = new VUsers();
+        $pers = FPersistentManager::getInstance();
+        $l = true;
+        $controllo = true ;
+        $Art = $pers->ArtistaFromID($id);
+        $elenco = $pers->prelevaDischiperIDAutore($id);
+        $numero = count($elenco);
+        $view->load($l,$Art, $elenco, $numero, $controllo);
     }
 
     public static function Delete(){
@@ -381,6 +394,16 @@ class CProfile
         header('Location: /lunova');
     }
 
+
+    public static function SetQta($id_disco, $id_artista){
+        $view = new VUsers();
+        $pers = FPersistentManager::getInstance();
+        $l = true;
+        $id = ""; //recuperare l'id da sessione
+        $numero = $view->getQta();
+        $pers->SetQta($id_disco, $numero);
+        header("Location: /lunova/Profile/users/$id_artista");
+    }
 
 
 }

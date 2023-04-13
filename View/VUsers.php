@@ -23,12 +23,13 @@ class VUsers{
         $this->smarty->display($template);
     }
 
-    public function load($l,$s, $elenco, $num){
+    public function load($l,$s, $elenco, $num, $controllo){
         //$this->setData('user', $l);
         $this->setData('product', $elenco);
         $this->setData('logged', $l);
         $this->setData('artista', $s);
         $this->setData('numero', $num);
+        $this->setData('controllo', $controllo);
         $this->setTemplate("profile.tpl");
         //$this->setTemplate("user.tpl");
     }
@@ -62,6 +63,13 @@ class VUsers{
         else{
             return "";
         }
+    }
+
+
+    public function getQta(){
+
+        return $_POST['quantitaa'];
+
     }
 
 

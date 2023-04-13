@@ -196,7 +196,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/userset/{$artista->getIdArtista()}">
                                                                         <i class="fa-solid fa-square-plus" style="color: #ff00ea;"></i>
                                                                     </a>
                                                                 </div>
@@ -211,6 +211,15 @@
                                                                     </a>
                                                                 </div>
 
+                                                                {if $controllo == true}
+                                                                <form action="/lunova/Profile/SetQta/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                        <button type="submit" class="btn btn-info">Imposta</button>
+                                                                    </div>
+                                                                </form>
+                                                                {/if}
+
                                                             </div>
                                                         {/if}
                                                         {if $product[nr]->getQta() == 0 }
@@ -221,7 +230,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:20%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/userset/{$artista->getIdArtista()}">
                                                                         <i class="fa-solid fa-square-plus" style="color: #ff00ea;"></i>
                                                                     </a>
                                                                 </div>
@@ -240,6 +249,14 @@
                                                                         <i class="fa-solid fa-circle-exclamation" style="color: #ff8300;"></i>
                                                                     </a>
                                                                 </div>
+                                                                {if $controllo == true}
+                                                                    <form action="/lunova/Profile/SetQta/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <button type="submit" class="btn btn-info">Imposta</button>
+                                                                        </div>
+                                                                    </form>
+                                                                {/if}
 
                                                             </div>
                                                             <!--

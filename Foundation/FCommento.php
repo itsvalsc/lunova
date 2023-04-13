@@ -23,7 +23,7 @@ class FCommento
      * @param ECommento $commento
      */
     public static function store(ECommento $commento): void {
-        $descrizione = self::Sicurezza($commento->getDescrizione(),$commento->getCliente()->getIdClient());
+        $descrizione = self::Sicurezza($commento->getDescrizione(),$commento->getCliente()->getIdClient(),$commento->getId());
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO commenti VALUES(:id,:descrizione,:data,:segnalato,:cliente,:disco)";
         $stmt = $pdo->prepare($query);
@@ -117,7 +117,6 @@ class FCommento
 
     public static function delete(string $id) {
         $pdo=FConnectionDB::connect();
-
         try {
             $ifExist = self::exist($id);
             if($ifExist) {
@@ -132,7 +131,7 @@ class FCommento
 
     }
 
-    private static function Sicurezza(string $t, string $idap)
+    private static function Sicurezza(string $t, string $idap,string $idcomm)
     {   $f = "inc/crosswords.txt";
         $pers = FPersistentManager::getInstance();
         $apertura = file($f);
@@ -143,7 +142,7 @@ class FCommento
         $text = explode(" ", $t);
         $t1 = str_replace($words, "***",$t);
         if ( $t!=$t1){
-            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "bassa"," $idap");//todo: inserire da qualche parte l'id del commento
+            $n = new ENotifiche("Questo commento è inopportuno, generato dall'utente $idap", "bassa","$idcomm");
             $pers->store($n);
         }
         return $t1;

@@ -20,7 +20,7 @@ class CCommento
     { //todo:la data deve essere cambiata in datetime sul db e togliere la colonna voto nei commenti
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
-        if ($sessione->isLogged() || $sessione->isCliente()){
+        if ($sessione->isLogged() && $sessione->isCliente()){
             $cliente = $sessione->getUtente();
             $data = (string)date("c");
             $descrizione=$_POST['commento'];
@@ -45,7 +45,7 @@ class CCommento
     {
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
-        if ($sessione->isLogged() || $sessione->isCliente()){
+        if ($sessione->isLogged() && $sessione->isCliente()){
             $cliente = $sessione->getUtente();
             $commento = $pm->load("FCommento", $id);
             if ($cliente->getUsername() == $commento->getCliente()->getUsername()) {
@@ -70,6 +70,9 @@ class CCommento
             $commento = $pm->load('FCommento',$id);
             $commento->setSegnala(true);
             $pm->update($commento);
+            $t=$commento->getDescrizione();
+            $notifica = new ENotifiche("Questo commento è stato segnalato. Testo: $t",'bassa',$commento->getId());
+            $pm->store($notifica);
             header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
         } else {
             header('Location: /lunova/Errore/unathorized');
@@ -83,7 +86,7 @@ class CCommento
         $view = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
-        if ($session->isLogged() || $session->isCliente()){
+        if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
             $vot = new EVotazioneDisco($utente,$disco,intval($rating));
             $pers->store($vot);
@@ -98,7 +101,7 @@ class CCommento
     public static function votazioneCommento($comm,$disco){
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
-        if ($session->isLogged() || $session->isCliente()){
+        if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
             $vot = new EVotazioneCommento($utente,$disco,$comm);
             $pers->store($vot);
@@ -110,7 +113,7 @@ class CCommento
     public static function eliminaMP($comm,$disco){
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
-        if ($session->isLogged() || $session->isCliente()){
+        if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
             $pers->delete('FVotazioneCommento',$utente,$comm);
             //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');

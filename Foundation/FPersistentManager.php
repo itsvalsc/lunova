@@ -40,7 +40,7 @@ class FPersistentManager{
     }
 
 
-    public function delete(string $Fclass, $key1, $key2=null, $key3=null) : bool {
+    public function delete(string $Fclass, $key1, $key2=null, $key3=null) {
         $ris = $Fclass::delete($key1,$key2,$key3);
         return $ris;
     }

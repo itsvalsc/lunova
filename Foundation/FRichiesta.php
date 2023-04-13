@@ -52,11 +52,14 @@ class FRichiesta
         $stmt = $pdo->prepare("SELECT * FROM richieste_sondaggi");
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($rows as $row){
-
-            $richiesta=new ERichiesta($row['disco'],$row['data'],$row['nomeArtista']);
-
-            $array[]=$richiesta;
+        if (count($rows)==0){
+            return null;
+        }
+        else{
+            foreach ($rows as $row){
+                $richiesta=new ERichiesta($row['disco'],$row['data'],$row['nomeArtista']);
+                $array[]=$richiesta;
+            }
         }
         return $array;
     }

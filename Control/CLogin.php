@@ -117,8 +117,8 @@ class CLogin{
             $admin = $pm->load('FAdmin', $email);
             if (/*hash('sha256',$password) == $admin->getPassword()*/true) { //todo:ricambaire
                 $gs->setUtente($admin);
-                $v->ShowIndex(true,$admin->getUsername());
-                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");
+                //$v->ShowIndex(true,$admin->getUsername());
+                header("Location: /lunova/Admin/usersadmin");
             } else {
                 $v->message(false,'password errata','Login','Login/login');
                 //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaLogin");

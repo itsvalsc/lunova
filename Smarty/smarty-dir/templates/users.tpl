@@ -32,10 +32,10 @@
                     </li>
                 {/if}
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
+                    <a class="nav-link" href="/lunova/Admin/notifiche">Notifiche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Admin/usersadmin">Users</a>
                 </li>
             </ul>
 

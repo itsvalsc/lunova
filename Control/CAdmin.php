@@ -116,16 +116,31 @@ class CAdmin{
      * Funzione utile per eliminare un commento segnalato.
      * @param $id_commento int identificativo del commento
      */
-    public static function eliminaCommento(int $id_commento)
+    public static function eliminaCommento($id_commento,$id_notifica=null)
     {
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
 
         if ($sessione->isLogged() && $sessione->isAdmin()) {
-            $pm->delete("FCommento", $id_commento, "id");
-            header("Location: /lunova/Admin/usersadmin");
+            $pm->delete("FCommento", $id_commento);
+            self::eliminaNotifica($id_notifica);
+            header("Location: /lunova/Admin/notifiche");
         } else {
-            header("Location: /lunova/");
+            header("Location: /lunova");
+        }
+    }
+
+    public static function eliminaNotifica($id_notifica){
+        $sessione = FSessione::getInstance();
+        $pm = FPersistentManager::getInstance();
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            if ($id_notifica!=null){
+                $pm->delete("FNotifiche",$id_notifica);
+            }
+            header("Location: /lunova/Admin/notifiche");
+        }
+        else{
+            header("Location: /lunova");
         }
     }
 

@@ -132,8 +132,7 @@
                     <td>{$notifica[nt]->getText()}</td>
                     <td>{$notifica[nt]->getMittente()}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-info">Modifica</button>
-                        <button  type="button" class="btn btn-outline-danger">Elimina</button>
+                        <a><button  type="button" class="btn btn-outline-danger">Elimina</button></a>
                     </td>
                 </tr>
                 </tbody>
@@ -157,8 +156,8 @@
                     <td>{$notificb[pc]->getText()}</td>
                     <td>{$notificb[pc]->getMittente()}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-info">Modifica</button>
-                        <button type="button" class="btn btn-outline-danger">Elimina</button>
+                        <a href="/lunova/Admin/eliminaNotifica/{$notificb[pc]->getId()}"><button type="button" class="btn btn-outline-info">Ignora</button></a>
+                        <a href="/lunova/Admin/eliminaCommento/{$notificb[pc]->getMittente()}/{$notificb[pc]->getId()}"><button type="button" class="btn btn-outline-danger">Elimina Commento</button></a>
                     </td>
                 </tr>
                 </tbody>

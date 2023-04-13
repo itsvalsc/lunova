@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
     <title>Lunova</title>
 </head>
 <body>
@@ -167,30 +166,51 @@
         </table>
 
         <h4 id="scrollspyHeading3">Sondaggi</h4>
-        <table class="table table-warning bg-opacity-50">
+        <table class="table table-warning bg-opacity-50" style="margin-top: 10px">
             <thead>
-            <tr>
-                <th scope="col">Priorità</th>
-                <th scope="col">Testo</th>
-                <th scope="col">Mittente</th>
-                <th scope="col" >Opzioni</th>
+            <tr >
+                <th scope="col">Disco</th>
+                <th scope="col">Autore</th>
+                <th scope="col">Data</th>
+
+
             </tr>
             </thead>
+
+            <form method="post" id="sondaggi" action="/lunova/Sondaggi/nuovoSondaggio">
+                <small>SELEZIONARE 3 DISCHI CONFERMARLI PER CREARE UN NUOVO SONDAGGIO</small>
             {section name = ps loop= $notifics}
                 <tbody>
-                <tr class="table-dark">
 
-                    <td>{$notifics[ps]->getPriority()}</td>
-                    <td>{$notifics[ps]->getText()}</td>
-                    <td>{$notifics[ps]->getMittente()}</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-info">Modifica</button>
-                        <button type="button" class="btn btn-outline-danger">Elimina</button>
-                    </td>
-                </tr>
+                    <div>
+                        <tr class="table-dark">
+
+                            <td>{$notifics[ps]->getDisco()}</td>
+                            <td>{$notifics[ps]->getArtista()}</td>
+                            <td>{$notifics[ps]->getData()}</td>
+                            <td>
+                                <input
+                                type="checkbox"
+                                class="check"
+                                name="{$notifics[ps]->getDisco()}"
+                                value={$notifics[ps]->getDisco()}> <!-- todo:max 3 scelte-->
+                            </td>
+                        </tr>
+                    </div>
                 </tbody>
             {/section}
+                <div>
+                    <button type="submit" class="btn btn-primary">CONFERMA</button>
+                </div>
+
+            </form>
+
+
         </table>
+
+
+
+
     </div>
 </div>
 

@@ -180,12 +180,16 @@ class CAdmin{
     public static function notifiche(){
         $view = new VNotifiche();
         $pers = FPersistentManager::getInstance();
-        FSessione::start();
-        $alte = $pers->prelNotifAlte();
-        $basse = $pers->prelNotifBasse();
-        $sond = $pers->prelNotifSond();
-        $view->show($alte,$basse, $sond);
+        $session = FSessione::getInstance();
+        if($session->isLogged() && $session->isAdmin()){
+            $alte = $pers->prelNotifAlte();
+            $basse = $pers->prelNotifBasse();
+            $sond = $pers->prelevaRichieste();
+            $view->show($alte,$basse, $sond);
+        }
+
     }
+
 
     public static function login(){
         $view = new VLogin();

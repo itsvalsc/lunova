@@ -138,10 +138,9 @@ class FPersistentManager{
 
     public function crea_sondaggio(ESondaggio $sondaggio){
         FSondaggio::store($sondaggio);
-        FRichiesta::delete($sondaggio->getDisco1());
-        FRichiesta::delete($sondaggio->getDisco2());
-        FRichiesta::delete($sondaggio->getDisco3());
-
+        FRichiesta::delete($sondaggio->getDisco1()->getID());
+        FRichiesta::delete($sondaggio->getDisco2()->getID());
+        FRichiesta::delete($sondaggio->getDisco3()->getID());
     }
 
     public function prelevaDischiSondaggio(ESondaggio $sondaggio): array {

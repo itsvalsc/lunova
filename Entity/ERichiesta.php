@@ -4,10 +4,12 @@ class ERichiesta
 {
 private string $disco;
 private string $data;
+private string $nome_artista;
 
-    public function __construct($id_disco,$date){
+    public function __construct($id_disco,$date,$art){
         $this->disco= $id_disco;
         $this->data= $date;
+        $this->nome_artista= $art;
     }
 
 
@@ -27,6 +29,14 @@ private string $data;
         return $this->data;
     }
 
+    /**
+     * @return string
+     */
+    public function getArtista(): string
+    {
+        return $this->nome_artista;
+    }
+
 
     /**
      * @param string $disco
@@ -42,6 +52,14 @@ private string $data;
     public function setData(string $data): void
     {
         $this->data = $data;
+    }
+
+    /**
+     * @param string $data
+     */
+    public function setArtista(string $art): void
+    {
+        $this->nome_artista = $art;
     }
 
 

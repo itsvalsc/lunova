@@ -100,7 +100,6 @@ class FCliente
                 //$Livello = $rows[0]['Livello'];
 
                 $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
-
                 return $utente;
             }
             else {return "Non ci sono clienti";}
@@ -159,6 +158,17 @@ class FCliente
 
         return $ris;
 
+    }
+
+    public static function updateBannato($email,$value){
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE cliente SET Bannato = :value  WHERE Email = :email";
+        $stmt= $pdo->prepare($query);
+        $ris = $stmt->execute([
+            ":value" => $value,
+            ":email" => $email
+        ]);
+        return $ris;
     }
 
     public static function loadClienti() : array {

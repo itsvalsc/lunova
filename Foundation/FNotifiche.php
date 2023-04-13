@@ -51,7 +51,7 @@ class FNotifiche{
 
     }
 
-    public static function load() : array {
+    public static function load() : ?array {
         $pdo=FConnectionDB::connect();
 
         try {
@@ -74,7 +74,7 @@ class FNotifiche{
             return array();}
     }
 
-    public static function loadAlta() : array {
+    public static function loadAlta() : ?array {
         $pdo=FConnectionDB::connect();
 
         try {
@@ -97,7 +97,7 @@ class FNotifiche{
             return array();}
     }
 
-    public static function loadBassa() : array {
+    public static function loadBassa() : ?array {
         $pdo=FConnectionDB::connect();
 
         try {

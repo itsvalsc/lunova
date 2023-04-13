@@ -20,7 +20,7 @@ class FSondaggio
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (count($rows) == 0) { return ''; }
+        if (count($rows) == 0) { return null; }
         else { return $rows[0]['id']; }
     }
 
@@ -62,7 +62,7 @@ class FSondaggio
         return $sondaggio;
     }
 
-    public static function load_incorso(): ESondaggio {
+    public static function load_incorso() {
 
         $id = self::exist_incorso();
         if ($id == null){

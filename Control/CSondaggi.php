@@ -2,6 +2,7 @@
 class CSondaggi{
     public static function show(){
         $view = new VSondaggi();
+        $error = new VErrore();
         $logged = false;
         $num = null;
         $votazione = false;
@@ -9,6 +10,9 @@ class CSondaggi{
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
+        if ($sondaggio==null){
+            return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','');
+        }
 
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
@@ -25,9 +29,6 @@ class CSondaggi{
 
     public static function vota(string $id){
         $view = new VSondaggi();
-        $utente = null;
-        $logged = false;
-        $votazione = false;
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
@@ -44,18 +45,31 @@ class CSondaggi{
     }
 
 
-    public function nuovoSondaggio(){
+    public static function nuovoSondaggio(){
+        $v = new VErrore();
         $session = FSessione::getInstance();
         if ($session->isLogged() || $session->isAdmin()){
             $pers = FPersistentManager::getInstance();
-            $d1=$_POST['disco1'];// cambiare variabile disco1 in base al name della form post sui template
-            $d2=$_POST['disco2'];
-            $d3=$_POST['disco3'];
+            $dischi=$_POST;
+            $a=array();
+            foreach ($dischi as $n =>$value){
+                $a[]=$value;
+            }
+            if(count($a)!=3){
+                $v->message(true,'selezionare solo 3 sondaggi','alle notifiche','Admin/notifiche');
+            }
+
+            $d1=$a[0];
+            $d2=$a[1];
+            $d3=$a[2];
             $disco1 = $pers->load('FDisco',$d1);
             $disco2 = $pers->load('FDisco',$d2);
             $disco3 = $pers->load('FDisco',$d3);
-            $sondaggio = new ESondaggio($disco1,$disco2,$disco3,'2023-01-10'); //inserire data odierna
+
+            $sondaggio = new ESondaggio($disco1,$disco2,$disco3,(string)date('c'));
+
             $pers->crea_sondaggio($sondaggio);
+            $v->message(true,'Sondaggio creato con successo','alle notifiche','Admin/notifiche');
         }
         else{
             header("Location: /lunova");
@@ -68,20 +82,22 @@ class CSondaggi{
     }
 
 
-    public function mostraRichieste() {
 
-       $pers = FPersistentManager::getInstance();
-       $richieste = $pers->prelevaRichieste();
-
-    }
 
     public static function richiestaSondaggio($id) {
         $sessione = FSessione::getInstance();
+        $view = new VErrore();
         if ($sessione->isLogged() || $sessione->isArtista()){
             $pers = FPersistentManager::getInstance();
+            $name =$sessione->getUtente()->getUsername();
             $id = $_POST['disco'];
-            $richiesta = new ERichiesta($id,'2023-01-10'); //todo: data
+            $bool = $pers->exist('FRichiesta',$id);
+            if ($bool){
+                return $view->message($sessione->isLogged(),'richiesta gia effettuata per questo disco','alla home','');
+            }
+            $richiesta = new ERichiesta($id,(string)date('c'),$name);
             $pers->store($richiesta);
+            return $view->message($sessione->isLogged(),'richiesta effuata, ci vorrà un po di tempo prima che la tua richiesta venga elaborata ed apparirà il suo disco in un sondaggio','alla home','');
         }
 
         //nuova view o modifica in locale dopo aver premuto il pulsante?

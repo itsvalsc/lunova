@@ -55,6 +55,8 @@ class ECommento {
     public function getIdDisco() : string
     { return $this->idDisco; }
 
+    public function isSegnalato(): bool
+    { return $this->segnalata; }
     /** METODI SET */
 
     public function setId(?string $id): void
@@ -74,8 +76,7 @@ class ECommento {
     public function setIdDisco(string $idDisco): void
     { $this->idDisco = $idDisco; }
 
-    public function isSegnalato(): bool
-    { return $this->segnalata; }
+
 
     public function setSegnala(bool $segnalata): void
     { $this->segnalata = $segnalata; }

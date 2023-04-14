@@ -68,12 +68,17 @@ class CCommento
         if ($sessione->isLogged()){
             //$pm->update_value("FCommento", "segnalato", 1, "id", $id);
             $commento = $pm->load('FCommento',$id);
-            $commento->setSegnala(true);
-            $pm->update($commento);
-            $t=$commento->getDescrizione();
-            $notifica = new ENotifiche("Questo commento è stato segnalato. Testo: $t",'bassa',$commento->getId());
-            $pm->store($notifica);
-            header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+            if(!$commento->isSegnalato()){
+                $commento->setSegnala(true);
+                $pm->update($commento);
+                $t=$commento->getDescrizione();
+                $notifica = new ENotifiche("Questo commento è stato segnalato. Testo: $t",'bassa',$commento->getId());
+                $pm->store($notifica);
+                header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+            }
+            else{
+                header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+            }
         } else {
             header('Location: /lunova/Errore/unathorized');
 

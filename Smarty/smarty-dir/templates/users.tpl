@@ -149,7 +149,7 @@
                         <td>
                             {if $cli[pc]->getBannato()==true}
                             <a href="/lunova/Admin/riattivaUtente/{$cli[pc]->getEmail()}">
-                                <button type="button" class="btn btn-outline-danger">Sblocca</button>
+                                <button type="button" class="btn btn-outline-success">Sblocca</button>
                             </a>
                             {/if}
                             {if $cli[pc]->getBannato() == false}

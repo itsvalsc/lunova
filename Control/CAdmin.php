@@ -120,22 +120,26 @@ class CAdmin{
     {
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
-
         if ($sessione->isLogged() && $sessione->isAdmin()) {
             $pm->delete("FCommento", $id_commento);
-            self::eliminaNotifica($id_notifica);
+            if($id_notifica!=null){
+                $pm->delete("FNotifiche",$id_notifica);
+            }
             header("Location: /lunova/Admin/notifiche");
         } else {
             header("Location: /lunova");
         }
     }
 
-    public static function eliminaNotifica($id_notifica){
+    public static function eliminaNotifica($id_notifica,$id_commento){
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() && $sessione->isAdmin()) {
-            if ($id_notifica!=null){
+            if ($id_notifica!=null && $id_commento!=null){
                 $pm->delete("FNotifiche",$id_notifica);
+                $commento = $pm->load('FCommento',$id_commento);
+                $commento->setSegnala(false);
+                $pm->update($commento);
             }
             header("Location: /lunova/Admin/notifiche");
         }
@@ -200,6 +204,9 @@ class CAdmin{
             $basse = $pers->prelNotifBasse();
             $sond = $pers->prelevaRichieste();
             $view->show($alte,$basse, $sond);
+        }
+        else{
+            header('Location: /lunova');
         }
 
     }

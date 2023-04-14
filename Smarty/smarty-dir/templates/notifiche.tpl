@@ -26,11 +26,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
                 </li>
-                {if $logged==false}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/lunova/Login/login">Login</a>
-                    </li>
-                {/if}
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
@@ -58,7 +53,7 @@
             </form>
 
             <ul class="navbar-nav ml-4">
-                {if $logged}
+
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
@@ -68,17 +63,8 @@
 
                     </li>
 
-                {/if}
-                {if $logged==false}
-                    <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
-                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
-                        </a>
 
-                    </li>
-                {/if}
             </ul>
 
             </ul>
@@ -158,6 +144,7 @@
                     <td>
                         <a href="/lunova/Admin/eliminaNotifica/{$notificb[pc]->getId()}"><button type="button" class="btn btn-outline-info">Ignora</button></a>
                         <a href="/lunova/Admin/eliminaCommento/{$notificb[pc]->getMittente()}/{$notificb[pc]->getId()}"><button type="button" class="btn btn-outline-danger">Elimina Commento</button></a>
+                        <a href="/lunova/Admin/ricercaUtente/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-warning"> Vai all'Utente</button></a>
                     </td>
                 </tr>
                 </tbody>

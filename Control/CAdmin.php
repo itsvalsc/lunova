@@ -189,7 +189,6 @@ class CAdmin{
         else{
             header('Location: /lunova');
         }
-
     }
 
     public static function notifiche(){
@@ -225,5 +224,21 @@ class CAdmin{
         $elimina = $pers->delete('FArtista',$email);
         header ("Location: /lunova/Admin/users");
     }
+
+    public static function ricercaUtente($idComm){
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        if ($session->isLogged() && $session->isAdmin()){
+            $commento = $pers->load('FCommento',$idComm);
+            if ($commento != null){
+                $ut = $commento->getCliente()->getIdClient();
+                header ("Location: /lunova/Admin/usersadmin#$ut");
+            }
+        }
+        else{
+            header('Location: /lunova');
+        }
+    }
+
 
 }

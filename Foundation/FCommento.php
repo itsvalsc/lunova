@@ -61,8 +61,7 @@ class FCommento
                 return $commento;
             }
             else {
-                return "Non ci sono commenti per questo disco";
-                //return null;
+                return null;
             }
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}

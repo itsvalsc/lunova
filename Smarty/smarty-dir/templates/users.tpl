@@ -80,10 +80,6 @@
 
     <div id="main" class="container" style="margin-top:80px; height: 700px">
 
-    <form class="d-flex" style="margin-block-end: 2px;">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form >
         <hr>
 
 
@@ -97,8 +93,8 @@
                     <a class="nav-link" href="#scrollspyHeading2">Clienti</a>
                 </li>
                 <li class="nav-item" >
-                    <input type="text" id="username"/>
-                    <a class="nav-link" style="float:right" href="" onclick="this.href='#'+document.getElementById('username').value">Trova utente tramite username</a>
+                    <input type="text" id="username" style="margin-top: 7px"/>
+                    <a class="nav-link" style="float:right" href="" onclick="this.href='#'+document.getElementById('username').value">Trova utente tramite ID</a>
                 </li>
             </ul>
         </nav>
@@ -107,6 +103,7 @@
             <table class="table table-primary">
                 <thead>
                 <tr>
+                    <th scope="col">ID</th>
                     <th scope="col">Email</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Cognome</th>
@@ -114,14 +111,14 @@
                 </tr>
                 </thead>
                 {section name = ps loop= $user}
-                    <tbody>
+                    <tbody id="{$user[ps]->getIdArtista()}">
                     <tr class="table-dark">
 
+                        <td>{$user[ps]->getIdArtista()}</td>
                         <td>{$user[ps]->getEmail()}</td>
                         <td>{$user[ps]->getNome()}</td>
                         <td>{$user[ps]->getCognome()}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-info">Modifica</button>
                             <a href="/lunova/Admin/EliminaA/{$user[ps]->getEmail()}">
                                 <button type="button" class="btn btn-outline-danger">Blocca</button>
                             </a>
@@ -134,6 +131,7 @@
             <table class="table table-primary">
                 <thead>
                 <tr>
+                    <th scope="col">ID</th>
                     <th scope="col">Email</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Cognome</th>
@@ -141,14 +139,14 @@
                 </tr>
                 </thead>
                 {section name = pc loop= $cli}
-                    <tbody id="{$cli[pc]->getUsername()}">
+                    <tbody id="{$cli[pc]->getIdClient()}">
                     <tr class="table-dark">
 
+                        <td>{$cli[pc]->getIdClient()}</td>
                         <td>{$cli[pc]->getEmail()}</td>
                         <td>{$cli[pc]->getNome()}</td>
                         <td>{$cli[pc]->getCognome()}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-info">Modifica</button>
                             {if $cli[pc]->getBannato()==true}
                             <a href="/lunova/Admin/riattivaUtente/{$cli[pc]->getEmail()}">
                                 <button type="button" class="btn btn-outline-danger">Sblocca</button>

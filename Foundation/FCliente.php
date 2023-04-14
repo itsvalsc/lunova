@@ -209,6 +209,48 @@ class FCliente
             return array();}
     }
 
+    public static function loadClientiperUsername(string $username) : ?array {
+        try{
+            $pdo = FConnectionDB::connect();
+            //$pdo->beginTransaction();
+
+            $stmt = $pdo->prepare("SELECT * FROM cliente WHERE Username like CONCAT(:username,'%')");
+            $stmt->execute([":username"=>$username]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($rows)!=0){
+                $clienti = array();
+                $i= 0 ;
+                foreach ($rows as $row) {
+                    $Idcliente = $rows[0]['IdCliente'];
+                    $Email = $rows[0]['Email'];
+                    $Username = $rows[0]['Username'];
+                    $Nome = $rows[0]['Nome'];
+                    $Cognome = $rows[0]['Cognome'];
+                    $Via = $rows[0]['Via'];
+                    $NumeroCivico = $rows[0]['NCivico'];
+                    $Provincia = $rows[0]['Provincia'];
+                    $Citta = $rows[0]['Citta'];
+                    $CAP = $rows[0]['CAP'];
+                    $Telefono = $rows[0]['NTelefono'];
+                    $Password = $rows[0]['Password'];
+                    $Bannato = $rows[0]['Bannato'];
+
+                    $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                    $clienti[]=$utente;
+                }
+                return $clienti;
+            }else{
+                return null;
+            }
+        }
+        catch (PDOException $e){
+            print("ATTENTION ERROR: ") . $e->getMessage();
+            $pdo->rollBack();
+            return array();
+        }
+
+    }
+
     /**
      * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
      * @param $email

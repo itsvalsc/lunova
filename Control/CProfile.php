@@ -412,5 +412,20 @@ class CProfile
         header("Location: /lunova/Profile/users/$id_artista");
     }
 
-
+    public static function ricercaUtente(){
+        $view = new VRicerca();
+        $v = new VErrore();
+        $pers = FPersistentManager::getInstance();
+        $session = FSessione::getInstance();
+        $search = $view->getsearch();
+        if ($search!=null){
+            $ut = $pers->prelevaArtistiperUsername($search)??null;
+            if ($ut == null){
+                $ut = $pers->prelevaClientiperUsername($search)??null;
+            }
+            $v->message(true,json_encode(var_dump($ut)),'dsa','asd');
+        }else{
+            header('Location: /lunova');
+        }
+    }
 }

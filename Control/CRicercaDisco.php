@@ -76,24 +76,22 @@ class CRicercaDisco{
         elseif ($filtro=='genere'){
             $dischi = $pers->prelevaDischiperGen($search);
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi,$session->isLogged());
+                $view->lista_prodotti($dischi,$session->isLogged(),null);
             }else{
-                $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
+                $view->message($session->isLogged(),'Non è stato trovato nessun disco per questa categoria','alla home','/lunova');
             }
         }
         elseif ($filtro=='artista'){
             $dischi = $pers->prelevaDischiperAutore($search);
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi, $session->isLogged());
+                $view->lista_prodotti($dischi, $session->isLogged(),null);
             }else{
-                $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
+                $view->message($session->isLogged(),"Non sono stati trovati alcuni dischi per l'artista: $search",'alla home','/lunova');
             }
         }
         else{
             header("Location: /lunova/RicercaDisco/ricerca");
         }
-        //$search = $_POST['search'];
-        //$session = FSessione::getInstance();
-        //$view->message($session->isLogged(),$search,'alla ricerca','Products_list/elenco_dischi');
+
     }
 }

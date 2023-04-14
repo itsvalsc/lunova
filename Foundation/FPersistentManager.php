@@ -92,8 +92,12 @@ class FPersistentManager{
         return FDisco::prelevaDischiperGenere($genere);
     }
     public function prelevaDischiperAutore($aut){
-        $disco = $this->FindArtistId($aut);
-        return FDisco::prelevaDischiperAutore($disco);
+        $id = $this->FindArtistId($aut);
+        if ($id!=null){
+            return FDisco::prelevaDischiperAutore($id);
+        }
+        return array();
+
     }
 
     public function prelevaDischiperIDAutore($aut){
@@ -164,8 +168,13 @@ class FPersistentManager{
         return $artisti;
     }
 
-    public function prelevaArtistiperUsername($username):array{
+    public function prelevaArtistiperUsername($username):?array{
         $artisti = FArtista::loadArtistiperUsername($username);
+        return $artisti;
+    }
+
+    public function prelevaClientiperUsername($username){
+        $artisti = FCliente::loadClientiperUsername($username);
         return $artisti;
     }
 

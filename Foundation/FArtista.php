@@ -166,12 +166,12 @@ class FArtista{
             return array();}
     }
 
-    public static function loadArtistiperUsername(string $username) : array {
+    public static function loadArtistiperUsername(string $username) : ?array {
         try{
             $pdo = FConnectionDB::connect();
             //$pdo->beginTransaction();
 
-            $stmt = $pdo->prepare("SELECT * FROM artista WHERE Username = :username");
+            $stmt = $pdo->prepare("SELECT * FROM artista WHERE Username like CONCAT(:username,'%')");
             $stmt->execute([":username"=>$username]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($rows)!=0){
@@ -179,11 +179,10 @@ class FArtista{
                 $i= 0 ;
                 foreach ($rows as $row) {
                     $id = $row['IdArtista'];
-                    $immagine = FImmagine::load($id);
+                    //$immagine = FImmagine::load($id);
                     $art=new EArtista(
-                        $row['IdArtista'],
-                        $row['Email'],
                         $row['Username'],
+                        $row['Email'],
                         $row['Nome'],
                         $row['Cognome'],
                         $row['Via'],
@@ -193,14 +192,14 @@ class FArtista{
                         $row['CAP'],
                         $row['NTelefono'],
                         $row['Password'],
-                        $immagine
+                        $row['IdArtista']
                     );
                     $art->setIdArtista($id);
                     $artisti[$i]=$art;
                     ++$i;
                 }
             }else{
-                $artisti=array();
+                $artisti=null;
             }
 
             return $artisti;
@@ -267,7 +266,7 @@ class FArtista{
         $stmt= $pdo->prepare($query);
         $stmt->execute([":username" => $Username]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if ($rows>0){
+        if (count($rows)!=0){
             return $rows[0]['IdArtista'];
         }
         else{

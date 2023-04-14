@@ -40,18 +40,6 @@
             </ul>
 
 
-
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
-                    </a>
-                </li>
-            </ul>
-
-
-
             <form class="d-flex" style="margin-block-end: 2px;">
                 <input class="form-control me-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -63,7 +51,7 @@
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Admin/notifiche">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -74,7 +62,7 @@
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
+                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -95,18 +83,22 @@
     <form class="d-flex" style="margin-block-end: 2px;">
         <input class="form-control me-sm-2" type="text" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form >
         <hr>
 
 
-        <nav id="navbar-example2" class="navbar bg-primary px-3 mb-3">
+        <nav id="navbar-example2" class="navbar bg-primary px-3 mb-3" >
             <a class="navbar-brand" href="#">Users</a>
-            <ul class="nav nav-pills">
-                <li class="nav-item">
+            <ul class="nav nav-pills" style="margin-right: 0px">
+                <li class="nav-item" style="margin-right: 50px">
                     <a class="nav-link" href="#scrollspyHeading1">Artisti</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="margin-right: 50px">
                     <a class="nav-link" href="#scrollspyHeading2">Clienti</a>
+                </li>
+                <li class="nav-item" >
+                    <input type="text" id="username"/>
+                    <a class="nav-link" style="float:right" href="" onclick="this.href='#'+document.getElementById('username').value">Trova utente tramite username</a>
                 </li>
             </ul>
         </nav>
@@ -149,7 +141,7 @@
                 </tr>
                 </thead>
                 {section name = pc loop= $cli}
-                    <tbody>
+                    <tbody id="{$cli[pc]->getUsername()}">
                     <tr class="table-dark">
 
                         <td>{$cli[pc]->getEmail()}</td>

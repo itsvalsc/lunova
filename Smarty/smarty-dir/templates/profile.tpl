@@ -145,7 +145,7 @@
                                         <div class="vr"></div>
                                         <!-- User stat item -->
                                         <div>
-                                            <h6 class="mb-0">2.5K</h6>
+                                            <h6 class="mb-0">{$numComm}</h6>
                                             <small>Commenti</small>
                                         </div>
                                         <!-- Divider -->

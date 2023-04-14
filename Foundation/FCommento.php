@@ -77,6 +77,9 @@ class FCommento
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $commenti = array();
             $i = 0;
+            if ($rows==0){
+                return $commenti;
+            }
             foreach ($rows as $row) {
                 $id = $row['id'];
                 $descrizione = $row['descrizione'];

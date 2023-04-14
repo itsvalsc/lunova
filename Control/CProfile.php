@@ -229,7 +229,7 @@ class CProfile
      * @return void
      * @throws SmartyException
      */
-    public function profilo(){
+    public static function profilo(){
 
         $sessione = FSessione::getInstance();
         if (!$sessione->leggi_valore('utente')) {
@@ -363,14 +363,21 @@ class CProfile
 
 
     public static function users(string $id){
-        $view = new VUsers();
+        $view = new VUsers(); //todo:controllo per id artista
         $pers = FPersistentManager::getInstance();
+        $session = FSessione::getInstance();
         $l = true;
         $controllo = false;
         $Art = $pers->ArtistaFromID($id);
         $elenco = $pers->prelevaDischiperIDAutore($id);
+        $array=[];
+        foreach ($elenco as $key => $value){
+            $temp = $pers->loadCommenti($value->getID());
+            $array = array_merge($array,$temp);
+        }
+        $numComm = count($array);
         $numero = count($elenco);
-        $view->load($l,$Art, $elenco, $numero, $controllo);
+        $view->load($l,$Art, $elenco, $numero, $controllo,$numComm);
     }
 
 

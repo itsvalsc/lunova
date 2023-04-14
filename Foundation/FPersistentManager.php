@@ -180,11 +180,6 @@ class FPersistentManager{
     }
 
 
-    public function prelevaComProd(string $id){
-        $com = FCommento::prelevaCommentiperDisco($id);
-        return $com;
-    }
-
     public function prelNotifAlte(){
         $not = FNotifiche::loadAlta();
         return $not;

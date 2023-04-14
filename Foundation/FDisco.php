@@ -97,7 +97,7 @@ class FDisco {
         }
         catch (PDOException $e){
             print("ATTENTION ERROR: ") . $e->getMessage();
-            $pdo->rollBack();
+            //$pdo->rollBack();
             return array();
         }
 
@@ -185,7 +185,7 @@ class FDisco {
             $pdo = FConnectionDB::connect();
             //$pdo->beginTransaction();
 
-            $stmt = $pdo->prepare("SELECT * FROM dischi WHERE name = :titolo");
+            $stmt = $pdo->prepare("SELECT * FROM dischi WHERE name like CONCAT(:titolo,'%')");
             $stmt->execute([":titolo"=>$ttl]);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (count($rows)!=0){

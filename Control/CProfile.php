@@ -394,10 +394,17 @@ class CProfile
 
     public static function Delete(){
         $pers = FPersistentManager::getInstance();
+        $sessione = FSessione::getInstance();
         $l = true;
-        $id = ""; //recuperare l'id da sessione
         //TODO: CONTROLLO DIFFERENZIATO PER CLIENTE E ARTISTA
-        $pers->EliminaAccontA($id);
+        if ( $l && $sessione->isArtista()){
+            $utente = $sessione->getUtente();
+            $pers->EliminaAccontA($utente->getIdArtista());
+        }
+        if ( $l && $sessione->isCliente()){
+            $utente = $sessione->getUtente();
+            $pers->EliminaAccontC($utente->getIdClient());
+        }
         header('Location: /lunova');
     }
 
@@ -427,5 +434,25 @@ class CProfile
         }else{
             header('Location: /lunova');
         }
+    }
+
+
+
+    public static function NewPassword($password){
+        $pers = FPersistentManager::getInstance();
+        $sessione = FSessione::getInstance();
+        $l = true;
+        //TODO: CONTROLLO DIFFERENZIATO PER CLIENTE E ARTISTA
+        if ( $l && $sessione->isArtista()){
+            $utente = $sessione->getUtente();
+            $pass_nuova_cript = $utente->criptaPassword($password);
+            $pers->EliminaAccontA($utente->getIdArtista());
+        }
+        if ( $l && $sessione->isCliente()){
+            $utente = $sessione->getUtente();
+
+            $pers->Elimina($utente->getIdClient());
+        }
+        header('Location: /lunova');
     }
 }

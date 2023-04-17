@@ -258,13 +258,19 @@ class FPersistentManager{
     }
 
     public function AssistenzaMex($t,$id){
-        return FCliente::Assistenzaa($t,$id);
+        return FCliente::Assistenzaa($t,$id); //TODO: FARLO AANCHE PER ARTISTA OPPURE DEFINIRE DIRETTAMENTE QUI DENTRO
     }
 
     public function EliminaAccontA($id){
         $artista = FArtista::loadFromID($id);
         $mail = $artista->getEmail();
         return FArtista::delete($mail);
+    }
+
+    public function EliminaAccontC($id){
+        $cliente = FCliente::loadId($id);
+        $mail = $cliente->getEmail();
+        return FCliente::delete($mail);
     }
 
     public function SetQta($id, $numero ): void {

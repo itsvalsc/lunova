@@ -148,22 +148,6 @@ class CAdmin{
         }
     }
 
-    /**
-     * Funzione utile per togliere il segnalato a un commento segnalato.
-     * @param $id_commento int identificativo del commento
-     */
-    public static function reinserisciCommento(int $id_recensione)
-    {
-        $sessione = FSessione::getInstance();
-        $pm = FPersistentManager::getInstance();
-
-        if ($sessione->isLogged() && $sessione->isAdmin()) {
-            $pm->update_value("FRecensione", "segnalato", false, "id", $id_recensione);
-            header("Location: /lunova/Admin/usersadmin");
-        } else {
-            header("Location: /lunova/");
-        }
-    }
 
     /*
      * questo metodo è per quando qualcuno clicca su un artista

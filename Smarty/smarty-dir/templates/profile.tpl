@@ -120,8 +120,6 @@
                     <div class="offcanvas-body d-block px-2 px-lg-0">
                         <!-- Card START -->
                         <div class="card overflow-hidden">
-                            <!-- Cover image <div class="h-50px" style="background-image:url(assets/images/bg/01.jpg); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>-->
-                            <div class="h-50px" style="background-image:url(assets/images/bg/01.jpg); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
                             <!-- Card body START -->
                             <div class="card-body pt-0">
                                 <div class="text-center">
@@ -263,6 +261,11 @@
                                                                 <button class="btn btn-primary btn-sm btn-block rounded-0 disabled">Aggiungi al carrello</button>
                                                             -->
                                                         {/if}
+                                                            <a href="/lunova">
+                                                                <div class="row w-10" >
+                                                                    <button class="btn btn-info btn-sm btn-block rounded-0" type="submit" >Iscrivi al sondaggio</button>
+                                                                </div>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -262,6 +262,18 @@ class VProfile
 
     }
 
+    public function getNewNickNameSettings(){
+
+        return $_POST['nnickname'];
+
+    }
+
+    public function getNewPasswordSettings(){
+
+        return $_POST['npassword'];
+
+    }
+
 
 
 

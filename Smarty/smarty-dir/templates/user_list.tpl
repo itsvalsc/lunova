@@ -1,27 +1,4 @@
-<?php
-/* Smarty version 4.2.1, created on 2023-02-25 10:50:23
-  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\message.tpl' */
-
-/* @var Smarty_Internal_Template $_smarty_tpl */
-if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '4.2.1',
-  'unifunc' => 'content_63f9d9df999675_23899848',
-  'has_nocache_code' => false,
-  'file_dependency' => 
-  array (
-    '655caadc4e293dff427d5cbaf7df67008a6413a0' => 
-    array (
-      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\message.tpl',
-      1 => 1677316615,
-      2 => 'file',
-    ),
-  ),
-  'includes' => 
-  array (
-  ),
-),false)) {
-function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl) {
-?><!-- header -->
+<!-- header -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,11 +26,11 @@ function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl)
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
                 </li>
-                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                {if $logged==false}
                     <li class="nav-item">
                         <a class="nav-link" href="/lunova/Login/login">Login</a>
                     </li>
-                <?php }?>
+                {/if}
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/AboutUs/us">About</a>
                 </li>
@@ -63,16 +40,16 @@ function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl)
             </ul>
 
 
-
+            {if $logged}
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+                        <span class="badge rounded-pill bg-secondary">{$num}</span>
                     </a>
                 </li>
             </ul>
-
+            {/if}
 
 
             <form class="d-flex" style="margin-block-end: 2px;">
@@ -81,18 +58,18 @@ function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl)
             </form>
 
             <ul class="navbar-nav ml-4">
-                <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+                {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
 
-                <?php }?>
-                <?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
+                {/if}
+                {if $logged==false}
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
@@ -101,7 +78,15 @@ function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl)
                         </a>
 
                     </li>
-                <?php }?>
+                {/if}
+                <li class="nav-item">
+
+                    <a class="nav-link" style="align-items: center " href="/lunova/RicercaDisco/newDisc">
+                        <i class="fa-solid fa-record-vinyl" style="font-size:24px;" ></i>
+                        <span class="badge rounded-pill bg-secondary">+</span>
+                    </a>
+
+                </li>
             </ul>
 
             </ul>
@@ -113,38 +98,42 @@ function content_63f9d9df999675_23899848 (Smarty_Internal_Template $_smarty_tpl)
 
 <!-- end header -->
 
-<div id="main" class="container" style="margin-top:80px; height: 700px">
-    <div class="col-9">
-        <h2><?php echo $_smarty_tpl->tpl_vars['message']->value;?>
-</h2>
-        <a href="/lunova/<?php echo $_smarty_tpl->tpl_vars['var_url']->value;?>
-">Ritorna <?php echo $_smarty_tpl->tpl_vars['var_titolo']->value;?>
-</a>
-    </div>
+<div id="main" class="container" style="margin-top:40px; height: fit-content">
+    
+    <div class ='row'>
+        {section name = nr loop= $product}
+
+
+            <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
+                <img style = "width: 250px; height: 250px;" src={if !is_null($product[nr]->getImmProfilo())}"data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}"{elseif is_null($product[nr]->getImmProfilo())}"../Smarty/smarty-dir/templates/img/icona_profilo_utente.jpg"{/if} alt="prova">
+
+                <div class="card-body" >
+                    <h5 class="card-title"> {$product[nr]->getUsername()} </h5>
+                    <h6 class = "card-subtitle mb-2 text-muted">{if $product[nr]->getLivello() == 'B'}Artista{elseif  $product[nr]->getLivello() == 'C'}Utente{/if} </h6>
+
+                    <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
+                    <a href="/lunova/Profile/users/{if $product[nr]->getLivello() == 'B'}{$product[nr]->getIdArtista()}{elseif $product[nr]->getLivello() == 'C'}{$product[nr]->getIdClient()}{/if}">
+                        <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Val il Profilo</button></a>
+
+                </div>
+            </div>
+    {/section}
+
 </div>
 
 
-<!-- footer -->
-<footer class="bg-dark" style ="margin-bottom: 0px;">
+<div id="main" class="container" style="margin-top:100px; height: fit-content">
+</div>
+
+<footer class="bg-dark">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>
 
-<?php echo '<script'; ?>
- src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
- src="https://bootswatch.com/_vendor/prismjs/prism.js"><?php echo '</script'; ?>
->
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://bootswatch.com/_vendor/prismjs/prism.js"></script>
 
-<!--<?php echo '<script'; ?>
- src="<?php echo '<?php'; ?>
- //echo ROOT_URL; <?php echo '?>'; ?>
-assets/js/main.js"><?php echo '</script'; ?>
->-->
+<!--<script src="<?php //echo ROOT_URL; ?>assets/js/main.js"></script>-->
 </body>
-</html><?php }
-}
+</html>

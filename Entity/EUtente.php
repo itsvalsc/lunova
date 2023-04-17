@@ -100,7 +100,7 @@ class EUtente{
     public function getTelefono(): string
     { return $this->Telefono; }
 
-    public function getImmProfilo(): EImmagine
+    public function getImmProfilo(): ?EImmagine
     { return $this->ImmProfilo; }
 
     public function getLivello(): string
@@ -145,7 +145,7 @@ class EUtente{
     public function setLivello(string $livello)
     { $this->Livello = $livello; }
 
-    public function setImmProfilo(EImmagine $p)
+    public function setImmProfilo(?EImmagine $p)
     { $this->ImmProfilo = $p; }
 
     /** ALTRI METODI*/

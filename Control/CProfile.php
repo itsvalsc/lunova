@@ -419,11 +419,12 @@ class CProfile
         $session = FSessione::getInstance();
         $search = $view->getsearch();
         if ($search!=null){
-            $ut = $pers->prelevaArtistiperUsername($search)??null;
-            if ($ut == null){
-                $ut = $pers->prelevaClientiperUsername($search)??null;
-            }
-            $v->message(true,json_encode(var_dump($ut)),'dsa','asd');
+            $art = $pers->prelevaArtistiperUsername($search)??array();
+            $cl = $pers->prelevaClientiperUsername($search)??array();
+            $ut = array_merge($art,$cl);
+            //$v->message(true,json_encode($ut),'dsa','asd');
+            $view->lista_utenti($ut,$session->isLogged(),null);
+
         }else{
             header('Location: /lunova');
         }

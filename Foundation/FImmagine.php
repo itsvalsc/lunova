@@ -96,24 +96,23 @@ class FImmagine
      * @return EImmagine
      * @throws Exception
      */
-    public static function load(string $idappartenenza):EImmagine {
+    public static function load(string $idappartenenza):?EImmagine {
         $pdo=FConnectionDB::connect();
         $query = "SELECT * FROM immagine WHERE IdAppartenenza= :id";
         $stmt = $pdo->prepare($query);
         $stmt->execute( [":id" => $idappartenenza] );
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $Id = $rows[0]['Id'];
-        $nome = $rows[0]['Nome'];
-        $formato = $rows[0]['Formato'];
-        $immagine = $rows[0]['Immagine'];
-
-
-
-        $image = new EImmagine($nome,$formato,$immagine,$idappartenenza);
-        $image->setId($Id);
+        if (count($rows)!=0){
+            $Id = $rows[0]['Id'];
+            $nome = $rows[0]['Nome'];
+            $formato = $rows[0]['Formato'];
+            $immagine = $rows[0]['Immagine'];
+            $image = new EImmagine($nome,$formato,$immagine,$idappartenenza);
+            $image->setId($Id);
+        }else{
+            $image = null;
+        }
         return $image;
-
         }
 
     /**

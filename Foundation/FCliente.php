@@ -234,8 +234,9 @@ class FCliente
                     $Telefono = $rows[0]['NTelefono'];
                     $Password = $rows[0]['Password'];
                     $Bannato = $rows[0]['Bannato'];
-
+                    $immagine = FImmagine::load($Idcliente);
                     $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                    $utente->setImmProfilo($immagine);
                     $clienti[]=$utente;
                 }
                 return $clienti;

@@ -157,6 +157,15 @@ class VRicerca
         $this->setTemplate('products_list.tpl');
     }
 
+    public function lista_utenti($prod,$l,$num){
+        $this->setData('logged', $l);
+        $this->setData('product', $prod);
+        $this->setData('num', $num);
+        $this->setTemplate('user_list.tpl');
+    }
+
+
+
 
 
 }

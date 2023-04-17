@@ -179,7 +179,7 @@ class FArtista{
                 $i= 0 ;
                 foreach ($rows as $row) {
                     $id = $row['IdArtista'];
-                    //$immagine = FImmagine::load($id);
+                    $immagine = FImmagine::load($id);
                     $art=new EArtista(
                         $row['Username'],
                         $row['Email'],
@@ -195,6 +195,7 @@ class FArtista{
                         $row['IdArtista']
                     );
                     $art->setIdArtista($id);
+                    $art->setImmProfilo($immagine);
                     $artisti[$i]=$art;
                     ++$i;
                 }

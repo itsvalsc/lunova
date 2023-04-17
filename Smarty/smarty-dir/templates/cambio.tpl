@@ -92,28 +92,26 @@
 
 
 <div id="main" class="container" style="margin-top:80px; height: 700px">
-    <form action="/lunova" method="post">
+    <form action="/lunova/Profile/NewImage" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="formFile" class="form-label mt-4"><strong>Cambia foto profilo</strong></label>
-            <input class="form-control" name="foto" type="file" id="foto">
+            <input class="form-control" name="Foto" type="file" id="foto" required>
         </div>
         <hr>
         <button type="submit" class="btn btn-secondary">Cambia</button>
 
     </form>
 
-    <form action="/lunova" method="post">
+    <form action="/lunova/Profile/NewUsername" method="post">
         <div class="form-group">
-            <fieldset>
-                <label class="form-label mt-4" for="readOnlyInput"><strong>Cambia nickname</strong></label>
-                <input class="form-control" id="nnickname" type="text" placeholder="" readonly="">
-            </fieldset>
+                <label class="form-label mt-4" ><strong>Cambia nickname</strong></label>
+                <input class="form-control" id="username" name="Username" type="text" placeholder="Username" required>
         </div>
         <hr>
         <button type="submit" class="btn btn-secondary">Cambia</button>
     </form>
 
-    <form action="/lunova" method="post">
+    <form action="/lunova/Profile/NewPassword" method="post">
         <div class="form-group" >
             <label for="exampleInputPassword1" class="form-label mt-4"><strong>Cambia password</strong></label>
             <input type="password" class="form-control" id="npassword"  name="Password" placeholder="Password" required>

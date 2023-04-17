@@ -96,8 +96,9 @@ class FArtista{
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
-
+                $immagine = FImmagine::load($IdArtista);
                 $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                $artista->setImmProfilo($immagine);
                 return $artista;
                 //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
             }
@@ -128,6 +129,17 @@ class FArtista{
             )
         );
 
+        return $ris;
+    }
+
+    public static function update_value($attributo,$value,$id){
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE artista SET $attributo = :value  WHERE IdArtista = :id";
+        $stmt= $pdo->prepare($query);
+        $ris = $stmt->execute([
+            ":value" => $value,
+            ":id" => $id
+        ]);
         return $ris;
     }
 
@@ -194,7 +206,6 @@ class FArtista{
                         $row['Password'],
                         $row['IdArtista']
                     );
-                    $art->setIdArtista($id);
                     $art->setImmProfilo($immagine);
                     $artisti[$i]=$art;
                     ++$i;
@@ -279,13 +290,13 @@ class FArtista{
 
 
     public static function loadFromID(string $id) {
-        $pdo=FConnectionDB::connect();
+            $pdo=FConnectionDB::connect();
 
-                $query = "SELECT * FROM artista WHERE IdArtista= :email";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute( [":email" => $id] );
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            $query = "SELECT * FROM artista WHERE IdArtista= :email";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":email" => $id] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if (count($rows)!=0) {
                 $IdArtista = $rows[0]['IdArtista'];
                 $Email = $rows[0]['Email'];
                 $Username = $rows[0]['Username'];
@@ -298,9 +309,13 @@ class FArtista{
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
-
-                $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                $immagine = FImmagine::load($IdArtista);
+                $artista = new EArtista($Username, $Email, $Nome, $Cognome, $Via, $NumeroCivico, $Citta, $Provincia, $CAP, $Telefono, $Password, $IdArtista);
+                $artista->setImmProfilo($immagine);
                 return $artista;
+            }else{
+                return null;
+            }
                 //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
 
     }

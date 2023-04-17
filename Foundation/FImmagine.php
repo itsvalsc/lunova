@@ -115,6 +115,23 @@ class FImmagine
         return $image;
         }
 
+    public static function delete(string $id) {
+        $pdo=FConnectionDB::connect();
+
+        try {
+            $ifExist = self::exist($id);
+            if($ifExist) {
+                $query = "DELETE FROM immagine WHERE IdAppartenenza= :id";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([":id" => $id]);
+                return true;
+            }
+            else{ return false;}
+        }
+        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+
+    }
+
     /**
      * @return string
      */

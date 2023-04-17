@@ -3,6 +3,7 @@ class CRicercaDisco{
     public static function index(){
         $viewex = new VHome();
         $var = '';
+        $utente = null;
         $logged= false;
         $num = null;
         $session = FSessione::getInstance();
@@ -10,30 +11,25 @@ class CRicercaDisco{
             $ut = $session->getUtente();
             $logged = true;
             $var = $ut->getUsername();
+
             $pers = FPersistentManager::getInstance();
             if ($session->isCliente()){
                 $utente = $ut->getIdClient();
-                if ($session->carrelloIsSet()){   //se esiste il carrello in sessione
-                    $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
+                /* //todo:commentata parte del carrello x vale
+                if ($pers->exist('FCarrello',$utente)){   //se esiste il carrello in sessione
+                    $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
                     $num = count($elenco);
                 }
                 else{   //se non esiste il carrello in sessione
-                    $car = $pers->prelevaCarrelloCorrente($utente);
-                    if ( $car !=null){   //se esiste il carrello sul db relativo all utente
-                        $session->setCarrello($car);
-                        $elenco = $pers->prelevaCartItems($session->getCarrello()->getId());
-                        $num = count($elenco);
-                    }
-                    else{   //se non esiste il carrello sul db relativo all utente
-                        $car = new ECarrello($utente);
-                        $pers->store($car);
-                        $session->setCarrello($car);
-                        $num = 0;
-                    }
-                }
+                    $car = new ECarrello($utente);
+                    $pers->store($car);
+                    $num = 0;
+                }*/
+            }elseif ($session->isArtista()){
+                $utente = $ut->getIdArtista();
             }
         }
-        $viewex->ShowIndex($logged,$var, $num);
+        $viewex->ShowIndex($logged,$var, $num,$utente);
     }
 
     public static function newDisc(){

@@ -55,8 +55,8 @@ class FPersistentManager{
     /**
      * metodo che permette l'aggiornamento del valore di un campo passato per parametro
      */
-    public function update_value(string $class, string $attributo, string $newvalue, string $attributo_pk, string $value_pk) {
-        return $class::update($attributo, $newvalue, $attributo_pk, $value_pk);
+    public function update_value(string $class, string $attributo, string $newvalue,string $key) {
+        return $class::update_value($attributo, $newvalue, $key);
     }
 
     public function update_bannato(string $email, $value) {
@@ -257,19 +257,19 @@ class FPersistentManager{
         return FArtista::loadFromID($id);
     }
 
+    public function ClienteFromID($id){
+        return FCliente::loadId($id);
+    }
+
     public function AssistenzaMex($t,$id){
         return FCliente::Assistenzaa($t,$id); //TODO: FARLO AANCHE PER ARTISTA OPPURE DEFINIRE DIRETTAMENTE QUI DENTRO
     }
 
-    public function EliminaAccontA($id){
-        $artista = FArtista::loadFromID($id);
-        $mail = $artista->getEmail();
+    public function EliminaAccontA($mail){
         return FArtista::delete($mail);
     }
 
-    public function EliminaAccontC($id){
-        $cliente = FCliente::loadId($id);
-        $mail = $cliente->getEmail();
+    public function EliminaAccontC($mail){
         return FCliente::delete($mail);
     }
 

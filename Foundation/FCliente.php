@@ -98,8 +98,9 @@ class FCliente
                 $Password = $rows[0]['Password'];
                 $Bannato = $rows[0]['Bannato'];
                 //$Livello = $rows[0]['Livello'];
-
+                $immagine = FImmagine::load($Idcliente);
                 $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                $utente->setImmProfilo($immagine);
                 return $utente;
             }
             else {return "Non ci sono clienti";}
@@ -130,8 +131,9 @@ class FCliente
                 $Password = $rows[0]['Password'];
                 $Bannato = $rows[0]['Bannato'];
                 //$Livello = $rows[0]['Livello'];
-
+                $immagine = FImmagine::load($Idcliente);
                 $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                $utente->setImmProfilo($immagine);
                 return $utente;
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
@@ -167,6 +169,17 @@ class FCliente
         $ris = $stmt->execute([
             ":value" => $value,
             ":email" => $email
+        ]);
+        return $ris;
+    }
+
+    public static function update_value($attributo,$value,$id){
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE cliente SET $attributo = :value  WHERE IdCliente = :id";
+        $stmt= $pdo->prepare($query);
+        $ris = $stmt->execute([
+            ":value" => $value,
+            ":id" => $id
         ]);
         return $ris;
     }

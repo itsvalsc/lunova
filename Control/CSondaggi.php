@@ -16,9 +16,10 @@ class CSondaggi{
 
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
+            /* todo:reinserire variabili per carrello
             $cartid = $session->getCarrello()->getId();
             $elenco = $pers->prelevaCartItems($cartid);
-            $num = count($elenco);
+            $num = count($elenco);*/
             $votazione= $pers->exist('FVotazione',$utente,$sondaggio->getId());
             $view->show($sondaggio,$votazione,true, $num);
         }else{
@@ -87,20 +88,21 @@ class CSondaggi{
     public static function richiestaSondaggio($id) {
         $sessione = FSessione::getInstance();
         $view = new VErrore();
-        if ($sessione->isLogged() || $sessione->isArtista()){
+        if ($sessione->isLogged() && $sessione->isArtista()){
             $pers = FPersistentManager::getInstance();
-            $name =$sessione->getUtente()->getUsername();
-            $id = $_POST['disco'];
+            $artista = $sessione->getUtente();
+            $name = $artista->getUsername();
+            $idArt = $artista->getIdArtista();
             $bool = $pers->exist('FRichiesta',$id);
             if ($bool){
-                return $view->message($sessione->isLogged(),'richiesta gia effettuata per questo disco','alla home','');
+                return $view->message($sessione->isLogged(),'richiesta gia effettuata per questo disco','indietro',"Profile/users/$idArt");
             }
             $richiesta = new ERichiesta($id,(string)date('c'),$name);
             $pers->store($richiesta);
             return $view->message($sessione->isLogged(),'richiesta effuata, ci vorrà un po di tempo prima che la tua richiesta venga elaborata ed apparirà il suo disco in un sondaggio','alla home','');
+        }else{
+            header("Location: /lunova");
         }
-
-        //nuova view o modifica in locale dopo aver premuto il pulsante?
     }
 
 

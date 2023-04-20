@@ -3,21 +3,25 @@ class CProducts_list{
 
     public static function elenco_dischi(){
         $view = new VProducts_list();
+        $v = new VErrore();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $logged = false;
         $num = null;
+
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
-                $cartid = $session->getCarrello()->getId();
-                $elencoitems = $pers->prelevaCartItems($cartid);
-                $num = count($elencoitems);
+                //todo:scommentare per il settaggio del carrello
+                //$cartid = $session->getCarrello()->getId();
+                //$elencoitems = $pers->prelevaCartItems($utente);
+                //$num = count($elencoitems);
             }
         }
 
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco,$session->isLogged(), $num);
+        $generi = $pers->prelevaGeneri();
+        return $view->lista_prodotti($elenco,$session->isLogged(), $num,$generi);
     }
     /*
     public static function salva_foto(){
@@ -54,9 +58,9 @@ class CProducts_list{
             $pers->store($disco);
 
             $messaggio='Disco Creato Correttamente';
-            $view->message(true,$messaggio);
+            return $view->message(true,$messaggio,'alla home','');
         }else{
-            $view->message(false,'accedi come artista per aggiungere un disco');
+            return $view->message(false,'accedi come artista per aggiungere un disco');
         }
 
     }
@@ -79,9 +83,10 @@ class CProducts_list{
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
-                $cartid = $session->getCarrello()->getId();
-                $elencoitems = $pers->prelevaCartItems($cartid);
-                $num = count($elencoitems);
+                //todo: scommentare per carrello
+                //$cartid = $session->getCarrello()->getId();
+                //$elencoitems = $pers->prelevaCartItems($utente);
+                //$num = count($elencoitems);
                 $votazione = $pers->exist('FVotazioneDisco',$utente,$id);
                 $mpComm = $pers->loadmpCommenti($utente,$id);
             }

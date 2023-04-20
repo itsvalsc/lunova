@@ -46,7 +46,7 @@ class CRicercaDisco{
         }
     }
 
-    public static function ricerca(){
+    public static function ricerca($gen=null){
         $view = new VRicerca();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
@@ -63,24 +63,27 @@ class CRicercaDisco{
         }
         if ($filtro=='disco'){
             $dischi = $pers->prelevaDischiperTitolo($search);
+            $generi = $pers->prelevaGeneri();
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi,$session->isLogged(),$num);
+                $view->lista_prodotti($dischi,$session->isLogged(),$num,$generi);
             }else{
                 $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
             }
         }
-        elseif ($filtro=='genere'){
-            $dischi = $pers->prelevaDischiperGen($search);
+        elseif ($gen!=null){
+            $dischi = $pers->prelevaDischiperGen($gen);
+            $generi = $pers->prelevaGeneri();
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi,$session->isLogged(),null);
+                $view->lista_prodotti($dischi,$session->isLogged(),null,$generi);
             }else{
                 $view->message($session->isLogged(),'Non è stato trovato nessun disco per questa categoria','alla home','/lunova');
             }
         }
         elseif ($filtro=='artista'){
             $dischi = $pers->prelevaDischiperAutore($search);
+            $generi = $pers->prelevaGeneri();
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi, $session->isLogged(),null);
+                $view->lista_prodotti($dischi, $session->isLogged(),null,$generi);
             }else{
                 $view->message($session->isLogged(),"Non sono stati trovati alcuni dischi per l'artista: $search",'alla home','/lunova');
             }

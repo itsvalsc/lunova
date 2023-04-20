@@ -131,7 +131,24 @@ class CAdmin{
         }
     }
 
-    public static function eliminaNotifica($id_notifica,$id_commento){
+    public static function eliminaNotifica($id_notifica){
+        $view = new VErrore();
+        $sessione = FSessione::getInstance();
+        $pm = FPersistentManager::getInstance();
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            if ($id_notifica!=null){
+                $pm->delete("FNotifiche",$id_notifica);
+            }else{
+                return $view->message($sessione->isLogged(),"Si è verificato un errore durante l'eliminazione della notifica", "alle notifiche","Admin/notifiche");
+            }
+            header("Location: /lunova/Admin/notifiche");
+        }
+        else{
+            header("Location: /lunova");
+        }
+    }
+
+    public static function ignora($id_notifica,$id_commento){
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() && $sessione->isAdmin()) {
@@ -147,6 +164,8 @@ class CAdmin{
             header("Location: /lunova");
         }
     }
+
+
 
 
     /*

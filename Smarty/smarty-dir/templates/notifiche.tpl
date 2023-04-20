@@ -118,7 +118,7 @@
                     <td>{$notifica[nt]->getText()}</td>
                     <td>{$notifica[nt]->getMittente()}</td>
                     <td>
-                        <a><button  type="button" class="btn btn-outline-danger">Elimina</button></a>
+                        <a href="/lunova/Admin/eliminaNotifica/{$notifica[nt]->getId()}"><button  type="button" class="btn btn-outline-danger">Elimina</button></a>
                     </td>
                 </tr>
                 </tbody>
@@ -142,7 +142,7 @@
                     <td>{$notificb[pc]->getText()}</td>
                     <td>{$notificb[pc]->getMittente()}</td>
                     <td>
-                        <a href="/lunova/Admin/eliminaNotifica/{$notificb[pc]->getId()}/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-info">Ignora</button></a>
+                        <a href="/lunova/Admin/ignora/{$notificb[pc]->getId()}/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-info">Ignora</button></a>
                         <a href="/lunova/Admin/eliminaCommento/{$notificb[pc]->getMittente()}/{$notificb[pc]->getId()}"><button type="button" class="btn btn-outline-danger">Elimina Commento</button></a>
                         <a href="/lunova/Admin/ricercaUtente/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-warning"> Vai all'Utente</button></a>
                     </td>

@@ -4,7 +4,6 @@ class VNewDisc
 {
 
     private $smarty;
-    private static array $generi= ['Rock'=>'1','Rap'=>'2'];
 
     /**
      * VLogin constructor.
@@ -72,10 +71,7 @@ class VNewDisc
      */
     public function getGenere()
     {
-
-            $gen = $_POST['genere'];
-            return self::$generi[$gen];
-
+            return $_POST['genere'];
     }
 
     /**

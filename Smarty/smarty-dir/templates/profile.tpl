@@ -261,7 +261,7 @@
                                                                 <button class="btn btn-primary btn-sm btn-block rounded-0 disabled">Aggiungi al carrello</button>
                                                             -->
                                                         {/if}
-                                                            <a href="/lunova">
+                                                            <a href="/lunova/Sondaggi/richiestaSondaggio/{$product[nr]->getID()}">
                                                                 <div class="row w-10" >
                                                                     <button class="btn btn-info btn-sm btn-block rounded-0" type="submit" >Iscrivi al sondaggio</button>
                                                                 </div>

@@ -32,7 +32,35 @@ class VUsers{
         $this->setData('numComm', $numComm);
         $this->setData('controllo', $controllo);
         $this->setTemplate("profile.tpl");
-        //$this->setTemplate("user.tpl");
+    }
+
+    public function load_external($l,$s, $elenco, $num,$numComm){
+        //$this->setData('user', $l);
+        $this->setData('product', $elenco);
+        $this->setData('logged', $l);
+        $this->setData('artista', $s);
+        $this->setData('numero', $num);
+        $this->setData('numComm', $numComm);
+        $this->setTemplate("profile_seen_art.tpl");
+    }
+
+    public function load_cl($l,$ut,$vot,$numComm,$commenti){
+        $this->setData('cliente', $ut);
+        $this->setData('logged', $l);
+        $this->setData('votazioni', $vot);
+        $this->setData('numComm', $numComm);
+        $this->setData('commenti', $commenti);
+        $this->setTemplate("profile_cli.tpl");
+    }
+
+    public function load_cl_external($l,$ut,$vot,$numComm,$commenti,$nmp){
+        $this->setData('cliente', $ut);
+        $this->setData('logged', $l);
+        $this->setData('votazioni', $vot);
+        $this->setData('numComm', $numComm);
+        $this->setData('commenti', $commenti);
+        $this->setData('nmp', $nmp);
+        $this->setTemplate("profile_seen_cli.tpl");
     }
 
     public function loadadmin($l,$clienti, $artisti){

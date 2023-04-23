@@ -368,33 +368,107 @@ class CProfile
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $l = true;
+        $self_page = false;
         $controllo = false;
-        $Art = $pers->ArtistaFromID($id);
-        if ($Art!=null){
-            $elenco = $pers->prelevaDischiperIDAutore($id);
-            $array=[];
-            foreach ($elenco as $key => $value){
-                $temp = $pers->loadCommenti($value->getID());
-                $array = array_merge($array,$temp);
+
+        if($session->isLogged()){
+            if ($session->isArtista()){
+                $id_art = $session->getUtente()->getIdArtista();
+                if ($id == $id_art){
+                    $self_page = true;
+                }
+            }elseif ($session->isCliente()){
+                $id_cl = $session->getUtente()->getIdClient();
+                if ($id == $id_cl){
+                    $self_page = true;
+                }
             }
-            $numComm = count($array);
-            $numero = count($elenco);
-            $view->load($l,$Art, $elenco, $numero, $controllo,$numComm);
-        }else{
-            $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
         }
+        if (str_starts_with($id,'B')){
+            $Art = $pers->ArtistaFromID($id);
+            if ($Art!=null){
+                $elenco = $pers->prelevaDischiperIDAutore($id);
+                $array=[];
+                foreach ($elenco as $key => $value){
+                    $temp = $pers->loadCommenti($value->getID());
+                    $array = array_merge($array,$temp);
+                }
+                $numComm = count($array);
+                $numero = count($elenco);
+                if($self_page){
+                    return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm);
+
+                }else{
+                    return $view->load_external($session->isLogged(),$Art, $elenco, $numero,$numComm);
+                }
+            }else{
+                return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
+            }
+        }elseif (str_starts_with($id,'C')){
+            $cl = $pers->ClienteFromID($id);
+            if ($cl!=null){
+                $votazioni = $pers->loadVotazioniDiscoperCliente($id);
+                $new_vot=[];
+                foreach ($votazioni as $disco=>$voto){
+                    $d = $pers->load('FDisco',$disco);
+                    $new_vot[$d->getTitolo()]=CProducts_list::star_Rate($voto);
+                }
+                $commenti = $pers->loadCommentibyCliente($id);
+                $numComm= count($commenti);
+                $nmp_arr=[];
+                foreach ($commenti as  $comm){
+                    $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
+                    if (count($temp_arr)!=0){
+                        $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
+                    }
+                }
+                //return $err->message('true',json_encode($nmp_arr),'','');
+                if($self_page){
+                    return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti);
+                }else{
+                    return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr);
+                }
+                return $view->load_cl($session->isLogged(),$cl);
+            }
+
+        }
+
     }
 
 
     public static function userset(string $id){
         $view = new VUsers();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
-        $l = true;
-        $controllo = true ;
-        $Art = $pers->ArtistaFromID($id);
-        $elenco = $pers->prelevaDischiperIDAutore($id);
-        $numero = count($elenco);
-        $view->load($l,$Art, $elenco, $numero, $controllo);
+        $session = FSessione::getInstance();
+        if ($session->isLogged() && $session->isArtista()){
+            $id_art = $session->getUtente()->getIdArtista();
+            if ($id_art != $id){
+                return $err->message($session->isLogged(),'Impossibile accedere','alla home','');
+            }
+            $l = true;
+            $controllo = true ;
+            $Art = $pers->ArtistaFromID($id);
+            if ($Art!=null){
+                $elenco = $pers->prelevaDischiperIDAutore($id);
+                $array=[];
+                foreach ($elenco as $key => $value){
+                    $temp = $pers->loadCommenti($value->getID());
+                    $array = array_merge($array,$temp);
+                }
+                $numComm = count($array);
+                $numero = count($elenco);
+                $view->load($l,$Art, $elenco, $numero, $controllo,$numComm);
+            }
+            else{
+                return $err->message($session->isLogged(),"Errore: impossibile trovare l'artista",'alla home','');
+            }
+        }
+        else{
+            return header('Location: /lunova');
+
+        }
+
     }
 
     public static function Delete(){

@@ -101,6 +101,40 @@ class FCommento
             return array();}
     }
 
+    public static function loadCommentibyCliente($cliente) : array {
+        try {
+            $pdo = FConnectionDB::connect();
+            $query = "SELECT * FROM commenti WHERE cliente = :id_cliente";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":id_cliente" => $cliente]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $commenti = array();
+            $i = 0;
+            if ($rows==0){
+                return $commenti;
+            }
+            foreach ($rows as $row) {
+                $id = $row['id'];
+                $descrizione = $row['descrizione'];
+                $data = $row['data'];
+                $idCliente = $row['cliente'];
+                $disco = $row['disco'];
+
+                $cliente = FCliente::loadId($idCliente);
+                $commento = new ECommento($cliente,$descrizione, $data, $disco);
+                $commento->setId($id);
+
+                $commenti[$i] = $commento;
+                ++$i;
+            }
+            return $commenti;
+        }
+        catch (PDOException $exception) {
+            print ("Errore".$exception->getMessage());
+            $pdo->rollBack();
+            return array();}
+    }
+
     public static function update(ECommento $commento) : bool
     {
         $pdo = FConnectionDB::connect();

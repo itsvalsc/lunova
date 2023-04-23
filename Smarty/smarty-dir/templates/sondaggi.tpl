@@ -138,7 +138,7 @@
         <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco2()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco2()->getCopertina()->getImmagine()}">
         </img>
         </a>
-        <div>{$sondaggio->getDisco1()->getTitolo()}</div>
+        <div>{$sondaggio->getDisco2()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
@@ -165,7 +165,7 @@
         <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco3()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco3()->getCopertina()->getImmagine()}" >
         </img>
         </a>
-        <div>{$sondaggio->getDisco1()->getTitolo()}</div>
+        <div>{$sondaggio->getDisco3()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">

@@ -236,6 +236,9 @@ class FPersistentManager{
     public function loadCommenti($disco){
         return FCommento::loadCommenti($disco);
     }
+    public function loadCommentibyCliente($cl){
+        return FCommento::loadCommentibyCliente($cl);
+    }
 
     public function AddOrdine($productarray, $cartid, $cli_id){
         return FOrdine::AddToOrdine($productarray, $cartid, $cli_id);
@@ -251,6 +254,9 @@ class FPersistentManager{
 
     public function loadNumeroMP($dc){
         return FVotazioneCommento::loadNumeroMP($dc);
+    }
+    public function loadNumeroMPbyComm($comm){
+        return FVotazioneCommento::loadNumeroMPbyComm($comm);
     }
 
     public function ArtistaFromID($id){
@@ -276,6 +282,11 @@ class FPersistentManager{
     public function SetQta($id, $numero ): void {
         $modifica = FDisco::updateQta($numero, $id);
     }
+
+    public function loadVotazioniDiscoperCliente($id){
+        return FVotazioneDisco::loadperCliente($id);
+    }
+
 
 
 

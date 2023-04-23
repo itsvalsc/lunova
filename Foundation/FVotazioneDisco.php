@@ -38,4 +38,18 @@ class FVotazioneDisco
         return  $voti;
     }
 
+    public static function loadperCliente(string $cl) {
+        $pdo = FConnectionDB::connect();
+        $stmt = $pdo->prepare("SELECT * FROM votazione_disco WHERE utente = :cl");
+        $stmt->execute([':cl' => $cl]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $voti=[];
+        if (count($rows)!=0){
+            foreach ($rows as $row){
+                $voti[$row['disco']] = $row['voto'];
+            }
+        }
+        return  $voti;
+    }
+
 }

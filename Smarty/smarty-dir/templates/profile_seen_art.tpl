@@ -91,7 +91,6 @@
 <!-- end header -->
 
 
-{if $logged}
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
 <div class="container">
     <div class="row g-4">
@@ -223,8 +222,6 @@
     </div>
 </div>
 
-
-{/if}
 
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
 </div>

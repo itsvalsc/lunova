@@ -102,7 +102,7 @@ class CProducts_list{
 
     }
 
-    private static function star_Rate($media){
+    public static function star_Rate($media){
         if ($media <= 0.75){//0.5
             $starRate = ['fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
         } elseif ($media > 0.75 & $media <= 1.25){//1

@@ -231,7 +231,7 @@
                     <!-- Comment by -->
                     <div class="bg-light rounded-start-top-0 p-3 rounded bg-opacity-75">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-1"> <a href="#!"> {$commenti[nr]->getCliente()->getUsername()}</a></h6>
+                            <h6 class="mb-1"> <a href="/lunova/Profile/users/{$commenti[nr]->getCliente()->getIdClient()}"> {$commenti[nr]->getCliente()->getUsername()}</a></h6>
                             <small class="ms-2">{$commenti[nr]->getData()}</small>
                         </div>
                         <p class="small mb-0">{$commenti[nr]->getDescrizione()}</p>

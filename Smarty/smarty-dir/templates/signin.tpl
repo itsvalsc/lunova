@@ -184,11 +184,7 @@
                 </label>
             </div>
             <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
-
-            <button type="button" class="btn btn-primary">Accedi</button>
-            <hr>
-            <button type="button" class="btn btn-secondary">Inscriviti</button>
+            <button type="submit" class="btn btn-primary">CONFERMA ISCRIZIONE</button>
         </form>
     </div>
 

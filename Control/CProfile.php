@@ -271,7 +271,7 @@ class CProfile
                 $Etype = 'E'.$p['type'];
                 $Ftype = 'F'.$p['type'];
 
-                if (!$pers->exist($Ftype,$p['email']) || !$pers->exist_username($Ftype,$p['username']) ){
+                if (!$pers->exist($Ftype,$p['email']) && !$pers->exist_username($Ftype,$p['username']) ){
                     $new = new $Etype($p['username'],$p['nome'],$p['cognome'],$p['via'],$p['civico'],$p['citta'],$p['provincia'],$p['cap'],$p['telefono'],$p['email'],$p['password']);
                     $pers->store($new);
                     $view->message(false,'Registrazione avvenuta con successo','al Login per accedere','Login/login');

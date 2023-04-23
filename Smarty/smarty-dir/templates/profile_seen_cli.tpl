@@ -178,13 +178,14 @@
                                     <div class="ms-2">
                                     <div class="bg-dark rounded-start-top-0 p-3 rounded bg-opacity-75" style="margin-bottom: 5px">
                                         <div class="d-flex justify-content-between" >
-                                            <h6 class="mb-1"> <a href="#"> {$commenti[c]->getCliente()->getUsername()}</a></h6>
+                                            <h6 class="mb-1" ><span style="opacity: 0.7">Disco:</span> <a href="#"> {$commenti[c]->getCliente()->getUsername()}</a></h6>
                                             <small class="ms-2">{$commenti[c]->getData()}</small>
                                         </div>
-                                        <p class="small mb-0">{$commenti[c]->getDescrizione()}</p>
-
-                                        <p class="small mb-0 muted" style="opacity: 0.6;margin-top: 3px;">Like ({$nmp[$commenti[c]->getId()]|default:0})</p>
-
+                                        <p class="small mb-0" style="margin-top: 10px">{$commenti[c]->getDescrizione()}</p>
+                                        <div class="d-flex justify-content-between" >
+                                            <p></p>
+                                            <p class="small mb-0 muted" style="opacity: 0.6;margin-top: 5px">Like ({$nmp[$commenti[c]->getId()]|default:0})</p>
+                                        </div>
                                     </div>
 
                                 </div>

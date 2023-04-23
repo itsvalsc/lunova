@@ -137,8 +137,8 @@
                                     <div class="hstack gap-2 gap-xl-3 justify-content-center">
                                         <!-- User stat item -->
                                         <div>
-                                            <h6 class="mb-0">6</h6>
-                                            <small>N. Dischi</small>
+                                            <h6 class="mb-0">{$tot_nmp}</h6>
+                                            <small>Tot. &nbsp Mi Piace</small>
                                         </div>
                                         <!-- Divider -->
                                         <div class="vr"></div>

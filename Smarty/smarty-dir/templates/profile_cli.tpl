@@ -140,8 +140,8 @@
                                     <div class="hstack gap-2 gap-xl-3 justify-content-center">
                                         <!-- User stat item -->
                                         <div>
-                                            <h6 class="mb-0">6</h6>
-                                            <small>N. Dischi</small>
+                                            <h6 class="mb-0">{$tot_nmp}</h6>
+                                            <small>Tot. &nbsp Mi Piace</small>
                                         </div>
                                         <!-- Divider -->
                                         <div class="vr"></div>
@@ -171,6 +171,10 @@
                                         <hr>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link" href="/lunova/Profile/Impostazioni"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Impostazioni</span></a>
+                                        <hr>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#"> <i class="fa-solid fa-album-circle-plus"></i> <img class="me-2 h-20px fa-fw" src="assets/images/icon/calendar-outline-filled.svg" alt=""><span>Votazioni </span></a>
                                         {foreach from=$votazioni key=k item=i}
                                     <li style="margin-left: 25px">
@@ -185,9 +189,27 @@
                                         <hr>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/lunova/Profile/Impostazioni"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/cog-outline-filled.svg" alt=""><span>Impostazioni</span></a>
+                                        <a class="nav-link" href="#"> <span>Commenti</span></a>
+                                        {section name= c loop=$commenti}
+
+                                            <div class="ms-2">
+                                                <div class="bg-dark rounded-start-top-0 p-3 rounded bg-opacity-75" style="margin-bottom: 5px">
+                                                    <div class="d-flex justify-content-between" >
+                                                        <h6 class="mb-1" ><span style="opacity: 0.7">Disco:</span> <a href="#"> {$commenti[c]->getCliente()->getUsername()}</a></h6>
+                                                        <small class="ms-2">{$commenti[c]->getData()}</small>
+                                                    </div>
+                                                    <p class="small mb-0" style="margin-top: 10px">{$commenti[c]->getDescrizione()}</p>
+                                                    <div class="d-flex justify-content-between" >
+                                                        <p></p>
+                                                        <p class="small mb-0 muted" style="opacity: 0.6;margin-top: 5px">Like ({$nmp[$commenti[c]->getId()]|default:0})</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        {/section}
                                         <hr>
                                     </li>
+
                                 </ul>
                                 <!-- Side Nav END -->
                             </div>

@@ -416,17 +416,19 @@ class CProfile
                 $commenti = $pers->loadCommentibyCliente($id);
                 $numComm= count($commenti);
                 $nmp_arr=[];
+                $tot_nmp=0;
                 foreach ($commenti as  $comm){
                     $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
                     if (count($temp_arr)!=0){
                         $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
+                        $tot_nmp= $tot_nmp + intval($temp_arr[key($temp_arr)]);
                     }
                 }
-                //return $err->message('true',json_encode($nmp_arr),'','');
+                //return $err->message('true',json_encode($tot_nmp),'','');
                 if($self_page){
-                    return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti);
+                    return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
                 }else{
-                    return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr);
+                    return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
                 }
                 return $view->load_cl($session->isLogged(),$cl);
             }
@@ -539,7 +541,7 @@ class CProfile
             elseif ($sessione->isLogged() && $sessione->isCliente()){
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
-                $pers->update_value('FCliente','Password',$password,$utente->getIdAClient());
+                $pers->update_value('FCliente','Password',$password,$utente->getIdClient());
                 $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
             }
             else{

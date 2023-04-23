@@ -118,7 +118,7 @@
         <hr>
         <h6>Se non sei ancora inscritto...</h6>
         <a href="/lunova/Login/Signin">
-            <button type="button" class="btn btn-secondary">Inscriviti</button>
+            <button type="button" class="btn btn-secondary">Iscriviti</button>
         </a>
 
     </form>

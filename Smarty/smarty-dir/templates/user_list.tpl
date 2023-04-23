@@ -105,7 +105,7 @@
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
-                <img style = "width: 250px; height: 250px;" src={if !is_null($product[nr]->getImmProfilo())}"data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}"{elseif is_null($product[nr]->getImmProfilo())}"../Smarty/smarty-dir/templates/img/icona_profilo_utente.jpg"{/if} alt="prova">
+                <img style = "width: 250px; height: 250px;" src={if !is_null($product[nr]->getImmProfilo())}"data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}"{elseif is_null($product[nr]->getImmProfilo())}"../Utility/img/icona_profilo_utente.jpg"{/if} alt="prova">
 
                 <div class="card-body" >
                     <h5 class="card-title"> {$product[nr]->getUsername()} </h5>

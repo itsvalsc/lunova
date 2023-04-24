@@ -18,7 +18,6 @@
     <div class="container-fluid" >
         <div class="navbar-brand" >Lunova</div>
 
-
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
@@ -36,14 +35,18 @@
             </form>
 
             <ul class="navbar-nav ml-4">
-                    <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/Impostazioni">
-                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span style="scale: 0.9;" class="badge rounded-pill bg-primary">impostazioni</span>
-                        </a>
+                <li class="nav-item">
 
-                    </li>
+                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/Impostazioni">
+                        <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                        <span style="scale: 0.9;" class="badge rounded-pill bg-primary">impostazioni</span>
+                    </a>
+
+                </li>
+
+
+
             </ul>
 
             </ul>

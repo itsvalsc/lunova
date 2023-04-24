@@ -42,4 +42,11 @@ class VErrore
         $this->setData('logged', $logged);
         $this->setTemplate("message.tpl");
     }
+
+    public function message_admin($messaggio,$var_titolo,$var_url){
+        $this->setData('message', $messaggio);
+        $this->setData('var_titolo', $var_titolo);
+        $this->setData('var_url', $var_url);
+        $this->setTemplate("messageAdmin.tpl");
+    }
 }

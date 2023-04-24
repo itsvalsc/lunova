@@ -61,7 +61,7 @@
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
         <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
             <li class="nav-item">
-                <a class="nav-link" href="/lunova/Profile/Impostazioni"><span>Cambio dati profilo</span></a>
+                <a class="nav-link" href="/lunova/Profile/ModificheProfile"><span>Cambio dati profilo</span></a>
                 <hr>
             </li>
             <li class="nav-item">

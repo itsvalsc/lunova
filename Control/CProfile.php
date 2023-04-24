@@ -362,7 +362,7 @@ class CProfile
     }
 
 
-    public static function users(string $id){
+    public static function users(string $id=null){
         $err= new VErrore();
         $view = new VUsers(); //todo:controllo per id artista
         $pers = FPersistentManager::getInstance();
@@ -370,70 +370,80 @@ class CProfile
         $l = true;
         $self_page = false;
         $controllo = false;
+        try {
+            if($session->isLogged()){
+                if ($session->isArtista()){
+                    $id_art = $session->getUtente()->getIdArtista();
+                    if ($id == $id_art){
+                        $self_page = true;
+                    }
+                }elseif ($session->isCliente()){
 
-        if($session->isLogged()){
-            if ($session->isArtista()){
-                $id_art = $session->getUtente()->getIdArtista();
-                if ($id == $id_art){
-                    $self_page = true;
-                }
-            }elseif ($session->isCliente()){
-                $id_cl = $session->getUtente()->getIdClient();
-                if ($id == $id_cl){
-                    $self_page = true;
-                }
-            }
-        }
-        if (str_starts_with($id,'B')){
-            $Art = $pers->ArtistaFromID($id);
-            if ($Art!=null){
-                $elenco = $pers->prelevaDischiperIDAutore($id);
-                $array=[];
-                foreach ($elenco as $key => $value){
-                    $temp = $pers->loadCommenti($value->getID());
-                    $array = array_merge($array,$temp);
-                }
-                $numComm = count($array);
-                $numero = count($elenco);
-                if($self_page){
-                    return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm);
-
-                }else{
-                    return $view->load_external($session->isLogged(),$Art, $elenco, $numero,$numComm);
-                }
-            }else{
-                return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
-            }
-        }elseif (str_starts_with($id,'C')){
-            $cl = $pers->ClienteFromID($id);
-            if ($cl!=null){
-                $votazioni = $pers->loadVotazioniDiscoperCliente($id);
-                $new_vot=[];
-                foreach ($votazioni as $disco=>$voto){
-                    $d = $pers->load('FDisco',$disco);
-                    $new_vot[$d->getTitolo()]=CProducts_list::star_Rate($voto);
-                }
-                $commenti = $pers->loadCommentibyCliente($id);
-                $numComm= count($commenti);
-                $nmp_arr=[];
-                $tot_nmp=0;
-                foreach ($commenti as  $comm){
-                    $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
-                    if (count($temp_arr)!=0){
-                        $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
-                        $tot_nmp= $tot_nmp + intval($temp_arr[key($temp_arr)]);
+                    if (!isset($id)){
+                        $id=$session->getUtente()->getIdClient();
+                        $self_page = true;
+                    }else{
+                        $id_cl = $session->getUtente()->getIdClient();
+                        if ($id == $id_cl){
+                            $self_page = true;
+                        }
                     }
                 }
-                //return $err->message('true',json_encode($tot_nmp),'','');
-                if($self_page){
-                    return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
-                }else{
-                    return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
-                }
-                return $view->load_cl($session->isLogged(),$cl);
             }
+            if (str_starts_with($id,'B')){
+                $Art = $pers->ArtistaFromID($id);
+                if ($Art!=null){
+                    $elenco = $pers->prelevaDischiperIDAutore($id);
+                    $array=[];
+                    foreach ($elenco as $key => $value){
+                        $temp = $pers->loadCommenti($value->getID());
+                        $array = array_merge($array,$temp);
+                    }
+                    $numComm = count($array);
+                    $numero = count($elenco);
+                    if($self_page){
+                        return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm);
 
+                    }else{
+                        return $view->load_external($session->isLogged(),$Art, $elenco, $numero,$numComm);
+                    }
+                }else{
+                    return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
+                }
+            }elseif (str_starts_with($id,'C')){
+                $cl = $pers->ClienteFromID($id);
+                if ($cl!=null){
+                    $votazioni = $pers->loadVotazioniDiscoperCliente($id);
+                    $new_vot=[];
+                    foreach ($votazioni as $disco=>$voto){
+                        $d = $pers->load('FDisco',$disco);
+                        $new_vot[$d->getTitolo()]=CProducts_list::star_Rate($voto);
+                    }
+                    $commenti = $pers->loadCommentibyCliente($id);
+                    $numComm= count($commenti);
+                    $nmp_arr=[];
+                    $tot_nmp=0;
+                    foreach ($commenti as  $comm){
+                        $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
+                        if (count($temp_arr)!=0){
+                            $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
+                            $tot_nmp= $tot_nmp + intval($temp_arr[key($temp_arr)]);
+                        }
+
+                    }
+                    //return $err->message('true',json_encode($tot_nmp),'','');
+                    if($self_page){
+                        return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
+                    }else{
+                        return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
+                    }
+                    return $view->load_cl($session->isLogged(),$cl);
+                }
+            }
+        }catch (Exception $e){
+            return $err->message($session->isLogged(),$e->getMessage(),'alla home','');
         }
+
 
     }
 

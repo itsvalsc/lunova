@@ -113,7 +113,7 @@
 
                     <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
                     <a href="/lunova/Profile/users/{if $product[nr]->getLivello() == 'B'}{$product[nr]->getIdArtista()}{elseif $product[nr]->getLivello() == 'C'}{$product[nr]->getIdClient()}{/if}">
-                        <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Val il Profilo</button></a>
+                        <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vai al Profilo</button></a>
 
                 </div>
             </div>

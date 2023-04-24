@@ -307,11 +307,20 @@ class CProfile
     public static function Impostazioni(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
+        $session = FSessione::getInstance();
+        if ($session->isLogged()){
+            if($session->isAdmin()){
+                return $view->Settings_admin();
+            }else{
+                $elenco = $pers->prelevaCartItems('C151');
+                $num = count($elenco);
+                return $view->Settings(true, $num);
+            }
+        }
+        else{
+           return header('Location: /lunova');
+        }
 
-        $l = true;
-        $elenco = $pers->prelevaCartItems('C151');
-        $num = count($elenco);
-        $view->Settings($l, $num);
     }
 
     public static function AddDisco(){

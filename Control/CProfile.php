@@ -425,17 +425,18 @@ class CProfile
                     $tot_nmp=0;
                     foreach ($commenti as  $comm){
                         $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
+                        $d = $pers->load('FDisco',$comm->getIdDisco());
+                        $nome_dischi[$comm->getId()]=$d->getTitolo();
                         if (count($temp_arr)!=0){
                             $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
                             $tot_nmp= $tot_nmp + intval($temp_arr[key($temp_arr)]);
                         }
-
                     }
-                    //return $err->message('true',json_encode($tot_nmp),'','');
+                    //return $err->message('true',json_encode($nome_dischi),'','');
                     if($self_page){
-                        return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
+                        return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi);
                     }else{
-                        return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp);
+                        return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi);
                     }
                     return $view->load_cl($session->isLogged(),$cl);
                 }
@@ -443,8 +444,6 @@ class CProfile
         }catch (Exception $e){
             return $err->message($session->isLogged(),$e->getMessage(),'alla home','');
         }
-
-
     }
 
 

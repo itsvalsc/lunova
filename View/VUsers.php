@@ -44,7 +44,7 @@ class VUsers{
         $this->setTemplate("profile_seen_art.tpl");
     }
 
-    public function load_cl($l,$ut,$vot,$numComm,$commenti,$nmp,$tot_nmp){
+    public function load_cl($l,$ut,$vot,$numComm,$commenti,$nmp,$tot_nmp,$nome_dischi){
         $this->setData('cliente', $ut);
         $this->setData('logged', $l);
         $this->setData('votazioni', $vot);
@@ -52,10 +52,11 @@ class VUsers{
         $this->setData('commenti', $commenti);
         $this->setData('nmp', $nmp);
         $this->setData('tot_nmp', $tot_nmp);
+        $this->setData('nome_dischi', $nome_dischi);
         $this->setTemplate("profile_cli.tpl");
     }
 
-    public function load_cl_external($l,$ut,$vot,$numComm,$commenti,$nmp,$tot_nmp){
+    public function load_cl_external($l,$ut,$vot,$numComm,$commenti,$nmp,$tot_nmp,$nome_dischi){
         $this->setData('cliente', $ut);
         $this->setData('logged', $l);
         $this->setData('votazioni', $vot);
@@ -63,6 +64,7 @@ class VUsers{
         $this->setData('commenti', $commenti);
         $this->setData('nmp', $nmp);
         $this->setData('tot_nmp', $tot_nmp);
+        $this->setData('nome_dischi', $nome_dischi);
         $this->setTemplate("profile_seen_cli.tpl");
     }
 

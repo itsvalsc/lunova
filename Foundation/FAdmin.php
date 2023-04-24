@@ -62,6 +62,17 @@
             catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
         }
 
+        public static function update_value($attributo,$value,$id){
+            $pdo = FConnectionDB::connect();
+            $query = "UPDATE admin SET $attributo = :value  WHERE IDAmministratore = :id";
+            $stmt= $pdo->prepare($query);
+            $ris = $stmt->execute([
+                ":value" => $value,
+                ":id" => $id
+            ]);
+            return $ris;
+        }
+
         public static function delete(string $email) {
             $pdo=FConnectionDB::connect();
 

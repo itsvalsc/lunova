@@ -307,11 +307,20 @@ class CProfile
     public static function Impostazioni(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
+        $session = FSessione::getInstance();
+        if ($session->isLogged()){
+            if($session->isAdmin()){
+                return $view->Settings_admin();
+            }else{
+                $elenco = $pers->prelevaCartItems('C151');
+                $num = count($elenco);
+                return $view->Settings(true, $num);
+            }
+        }
+        else{
+           return header('Location: /lunova');
+        }
 
-        $l = true;
-        $elenco = $pers->prelevaCartItems('C151');
-        $num = count($elenco);
-        $view->Settings($l, $num);
     }
 
     public static function AddDisco(){
@@ -551,6 +560,12 @@ class CProfile
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FCliente','Password',$password,$utente->getIdClient());
+                $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
+            }
+            elseif ($sessione->isLogged() && $sessione->isAdmin()){
+                $utente = $sessione->getUtente();
+                $pass_nuova_cript = $utente->criptaPassword($password);
+                $pers->update_value('FAdmin','Password',$password,$utente->getIdAmministratore());
                 $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
             }
             else{

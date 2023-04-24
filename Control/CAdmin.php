@@ -172,8 +172,8 @@ class CAdmin{
      * questo metodo è per quando qualcuno clicca su un artista
      * bisogna crearne uno diverso se si tratta del suo stesso profilo
      * */
-
-    public static function users(string $id){
+/*
+    public static function users(string $id){todo:metodo eliminato, non serviva?
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
@@ -182,7 +182,7 @@ class CAdmin{
         $elenco = $pers->prelevaDischiperIDAutore($id);
         $numero = count($elenco);
         $view->load($l,$Art, $elenco, $numero);
-    }
+    }*/
 
     public static function usersadmin(){
         $view = new VUsers();
@@ -191,7 +191,7 @@ class CAdmin{
         if ($session->isLogged() && $session->isAdmin()){
             $Cli = $pers->prelevaClienti();
             $Art = $pers->prelevaArtisti();
-            $view->loadadmin(true,$Cli,$Art);
+            $view->loadadmin($Cli,$Art);
         }
         else{
             header('Location: /lunova');

@@ -36,7 +36,6 @@
             </form>
 
             <ul class="navbar-nav ml-4">
-                {if $logged}
                     <li class="nav-item">
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Profile/Impostazioni">
@@ -45,8 +44,6 @@
                         </a>
 
                     </li>
-
-                {/if}
             </ul>
 
             </ul>

@@ -68,11 +68,9 @@ class VUsers{
         $this->setTemplate("profile_seen_cli.tpl");
     }
 
-    public function loadadmin($l,$clienti, $artisti){
+    public function loadadmin($clienti, $artisti){
         $this->setData('user', $artisti);
-        $this->setData('logged', $l);
         $this->setData('cli', $clienti);
-        //$this->setTemplate("profile.tpl");
         $this->setTemplate("users.tpl");
     }
 

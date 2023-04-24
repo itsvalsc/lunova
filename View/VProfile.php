@@ -258,6 +258,10 @@ class VProfile
         $this->smarty->display('cambio.tpl');
     }
 
+    public function Change_admin(){
+        $this->smarty->display('cambioAdmin.tpl');
+    }
+
 
     public function getNotification(){
 

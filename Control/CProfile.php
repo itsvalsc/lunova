@@ -350,12 +350,19 @@ class CProfile
     public static function ModificheProfile(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
-
-        $utente = 'C151';
-        $l = true;
-        $elenco = $pers->prelevaCartItems($utente);
-        $num = count($elenco);
-        $view->Change($l, $num);
+        $session = FSessione::getInstance();
+        if ($session->isLogged()){
+            if ($session->isAdmin()){
+                return $view->Change_admin();
+            }else{//todo:carrello
+                //$elenco = $pers->prelevaCartItems($utente);
+                //$num = count($elenco);
+                $num = null;
+                return $view->Change(true, $num);
+            }
+        }else{
+            return header('Location: /lunova');
+        }
     }
 
     public static function AssistenceSend(){
@@ -559,14 +566,14 @@ class CProfile
             elseif ($sessione->isLogged() && $sessione->isCliente()){
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
-                $pers->update_value('FCliente','Password',$password,$utente->getIdClient());
+                $pers->update_value('FCliente','Password',$pass_nuova_cript,$utente->getIdClient());
                 $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
             }
             elseif ($sessione->isLogged() && $sessione->isAdmin()){
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
-                $pers->update_value('FAdmin','Password',$password,$utente->getIdAmministratore());
-                $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
+                $pers->update_value('FAdmin','Password',$pass_nuova_cript,$utente->getIdAmministratore());
+                $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','Admin/usersadmin');
             }
             else{
                 header('Location: /lunova');

@@ -91,15 +91,19 @@ class CProducts_list{
                 $mpComm = $pers->loadmpCommenti($utente,$id);
             }
         }
-        $commenti = $pers->loadCommenti($id);
         $prodotto = $pers->load('FDisco',$id);
-        $art = $pers->FindArtistName($prodotto->getAutore());
-        $nmp = $pers->loadNumeroMP($id);
-        $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
-        $starRate= self::star_Rate($mediaVoti);
-        $starRating = [$starRate,$mediaVoti,$votazione];
-        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp);
-
+        if ($prodotto != null){
+            $commenti = $pers->loadCommenti($id);
+            $art = $pers->FindArtistName($prodotto->getAutore());
+            $nmp = $pers->loadNumeroMP($id);
+            $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
+            $starRate= self::star_Rate($mediaVoti);
+            $starRating = [$starRate,$mediaVoti,$votazione];
+            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp);
+        }else{
+            $err = new VErrore();
+            return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi');
+        }
     }
 
     public static function star_Rate($media){

@@ -61,9 +61,8 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Admin/usersadmin">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>

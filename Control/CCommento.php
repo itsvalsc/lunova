@@ -21,11 +21,13 @@ class CCommento
         $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
+        $num = null;
         if ($sessione->isLogged() && $sessione->isCliente()){
             $cliente = $sessione->getUtente();
+            $cli = true;
             $bannato = ($pm->load('FCliente',$cliente->getEmail()))->getBannato();
             if ($bannato){
-                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','');
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
             }
             $data = (string)date("c");
             $descrizione=$_POST['commento'];
@@ -51,11 +53,13 @@ class CCommento
         $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
+        $num = null;
         if ($sessione->isLogged() && $sessione->isCliente()){
             $cliente = $sessione->getUtente();
+            $cli = true;
             $bannato = ($pm->load('FCliente',$cliente->getEmail()))->getBannato();
             if ($bannato){
-                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','');
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
             }
             $commento = $pm->load("FCommento", $id);
             if ($cliente->getUsername() == $commento->getCliente()->getUsername()) {
@@ -76,12 +80,14 @@ class CCommento
         $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
+        $num = null;
         if ($sessione->isLogged()){
             if ($sessione->isCliente()){
                 $cliente = $sessione->getUtente();
+                $cli = true;
                 $bannato = ($pm->load('FCliente',$cliente->getEmail()))->getBannato();
                 if ($bannato){
-                    return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','');
+                    return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
                 }
             }
             $commento = $pm->load('FCommento',$id);
@@ -108,11 +114,13 @@ class CCommento
         $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
+        $num = null;
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente();
+            $cli = true;
             $bannato = ($pers->load('FCliente',$utente->getEmail()))->getBannato();
             if ($bannato){
-                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','');
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
             }
             $vot = new EVotazioneDisco($utente->getIdClient(),$disco,intval($rating));
             $pers->store($vot);
@@ -124,11 +132,13 @@ class CCommento
         $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
+        $num = null;
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente();
+            $cli = true;
             $bannato = ($pers->load('FCliente',$utente->getEmail()))->getBannato();
             if ($bannato){
-                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','');
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
             }
             $vot = new EVotazioneCommento($utente->getIdClient(),$disco,$comm);
             $pers->store($vot);
@@ -140,11 +150,13 @@ class CCommento
         $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
+        $num = null;
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente();
+            $cli = true;
             $bannato = ($pers->load('FCliente',$utente->getEmail()))->getBannato();
             if ($bannato){
-                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','');
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
             }
             $pers->delete('FVotazioneCommento',$utente->getIdClient(),$comm);
         }

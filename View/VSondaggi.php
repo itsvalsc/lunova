@@ -1,31 +1,21 @@
 <?php
 class VSondaggi{
     /**
-     * VLogin constructor.
+     * VSondaggi
      */
     public function __construct()
-    {
-        $this->smarty = StartSmarty::configuration();
-    }
+    { $this->smarty = StartSmarty::configuration(); }
 
-    /**
-     * @param $name
-     * @param $dati
-     */
+
     public function setData($name, $dati)
-    {
-        $this->smarty->assign($name, $dati);
-    }
+    { $this->smarty->assign($name, $dati); }
 
-    /**
-     * @param $template
-     */
+
     public function setTemplate($template)
-    {
-        $this->smarty->display($template);
-    }
+    { $this->smarty->display($template); }
 
-    public function show(ESondaggio $s,$votazione,$logged, $num)
+
+    public function show(ESondaggio $s, $votazione, $logged, $num, $cli)
     {
         $totale = $s->getVotiDisco1()+$s->getVotiDisco2()+$s->getVotiDisco3();
         if ($totale==0){
@@ -45,6 +35,7 @@ class VSondaggi{
         $this->setData("votazione", $votazione);
         $this->setData("logged", $logged);
         $this->setData('num',$num);
+        $this->setData('isCliente', $cli);
 
         $this->setTemplate('sondaggi.tpl');
     }

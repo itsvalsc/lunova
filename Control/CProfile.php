@@ -68,10 +68,13 @@ class CProfile
         if ($session->isLogged()){
             if($session->isAdmin()){
                 return $view->Settings_admin();
-            }else{
+            }elseif ($session->isArtista()){
+                return $view->Settings(true,null,false);
+            }
+            else{
                 $elenco = $pers->prelevaCartItems('C151');
                 $num = count($elenco);
-                return $view->Settings(true, $num);
+                return $view->Settings(true, $num,true);
             }
         }
         else{
@@ -96,26 +99,38 @@ class CProfile
     public static function Assistence(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
-
-        $utente = 'C151';
+        $session = FSessione::getInstance();
         $l = true;
-        $elenco = $pers->prelevaCartItems($utente);
-        $num = count($elenco);
-        $view->Assistence($l, $num);
+        if ($session->isLogged()){
+            if ($session->isArtista()){
+                return $view->Assistence($l, null, false);
+            }
+        }else {
+            $utente = 'C151';
+
+            $elenco = $pers->prelevaCartItems($utente);
+            $num = count($elenco);
+            $view->Assistence($l, $num, true);
+        }
     }
 
     public static function ModificheProfile(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
+        $num = null;
         if ($session->isLogged()){
             if ($session->isAdmin()){
                 return $view->Change_admin();
-            }else{//todo:carrello
+            }elseif ($session->isArtista()){
+                return $view->Change(true,$num,false);
+            }
+            else{
+                //todo:carrello
                 //$elenco = $pers->prelevaCartItems($utente);
                 //$num = count($elenco);
-                $num = null;
-                return $view->Change(true, $num);
+                $cli = true;
+                return $view->Change(true, $num,true);
             }
         }else{
             return header('Location: /lunova');
@@ -142,6 +157,8 @@ class CProfile
         $session = FSessione::getInstance();
         $self_page = false;
         $controllo = false;
+        $num = null;
+        $cli = false;
         try {
             if($session->isLogged()){
                 if ($session->isArtista()){
@@ -155,6 +172,7 @@ class CProfile
                         }
                     }
                 }elseif ($session->isCliente()){
+                    $cli = true;
                     if (!isset($id)){
                         $id=$session->getUtente()->getIdClient();
                         $self_page = true;
@@ -178,16 +196,17 @@ class CProfile
                     $numComm = count($array);
                     $numero = count($elenco);
                     if($self_page){
-                        return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm);
+                        return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm,$cli);
 
                     }else{
-                        return $view->load_external($session->isLogged(),$Art, $elenco, $numero,$numComm);
+                        return $view->load_external($session->isLogged(),$Art, $elenco, $numero,$numComm,$cli);
                     }
                 }else{
                     return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
                 }
             }elseif (str_starts_with($id,'C')){
                 $cl = $pers->ClienteFromID($id);
+                $cli = true;
                 if ($cl!=null){
                     $votazioni = $pers->loadVotazioniDiscoperCliente($id);
                     $new_vot=[];
@@ -210,15 +229,15 @@ class CProfile
                     }
                     //return $err->message('true',json_encode($nome_dischi),'','');
                     if($self_page){
-                        return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi);
+                        return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi,$cli);
                     }else{
-                        return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi);
+                        return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi,$cli);
                     }
                     return $view->load_cl($session->isLogged(),$cl);
                 }
             }
         }catch (Exception $e){
-            return $err->message($session->isLogged(),$e->getMessage(),'alla home','');
+            return $err->message($session->isLogged(),$e->getMessage(),'alla home','',$num,$cli);
         }
     }
 
@@ -228,10 +247,12 @@ class CProfile
         $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
+        $num = null;
+        $cli = false;
         if ($session->isLogged() && $session->isArtista()){
             $id_art = $session->getUtente()->getIdArtista();
             if ($id_art != $id){
-                return $err->message($session->isLogged(),'Impossibile accedere','alla home','');
+                return $err->message($session->isLogged(),'Impossibile accedere','alla home','', $num, $cli);
             }
             $l = true;
             $controllo = true ;
@@ -248,7 +269,7 @@ class CProfile
                 $view->load($l,$Art, $elenco, $numero, $controllo,$numComm);
             }
             else{
-                return $err->message($session->isLogged(),"Errore: impossibile trovare l'artista",'alla home','');
+                return $err->message($session->isLogged(),"Errore: impossibile trovare l'artista",'alla home','', $num, $cli);
             }
         }
         else{
@@ -259,21 +280,24 @@ class CProfile
     }
 
     public static function Delete(){
-        $view = new VHome();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $sessione = FSessione::getInstance();
+        $num = null;
+        $cli = false;
         if ($sessione->isLogged() && $sessione->isArtista()){
             $utente = $sessione->getUtente();
             $email = $utente->getEmail();
             $sessione->logout();
             $pers->EliminaAccontA($email);
-            $view->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','');
+            $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
         }elseif ($sessione->isLogged() && $sessione->isCliente()){
             $utente = $sessione->getUtente();
+            $cli = true;
             $email = $utente->getEmail();
             $sessione->logout();
             $pers->EliminaAccontC($email);
-            $view->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','');
+            $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
         }
         else{
             header('Location: /lunova');
@@ -302,7 +326,7 @@ class CProfile
             $cl = $pers->prelevaClientiperUsername($search)??array();
             $ut = array_merge($art,$cl);
             //$v->message(true,json_encode($ut),'dsa','asd');
-            $view->lista_utenti($ut,$session->isLogged(),null);
+            $view->lista_utenti($ut,$session->isLogged(),null,$session->isCliente());
 
         }else{
             header('Location: /lunova');
@@ -312,41 +336,46 @@ class CProfile
 
 
     public static function NewPassword(){
-        $view = new VHome();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $sessione = FSessione::getInstance();
         $password = $_POST['Password'];
+        $num = null;
+        $cli = false;
         if ($password!=null){
             if ( $sessione->isLogged() && $sessione->isArtista()){
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FArtista','Password',$pass_nuova_cript,$utente->getIdArtista());
-                $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
+                $err->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','',$num,$cli);
             }
             elseif ($sessione->isLogged() && $sessione->isCliente()){
                 $utente = $sessione->getUtente();
+                $cli = true;
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FCliente','Password',$pass_nuova_cript,$utente->getIdClient());
-                $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','');
+                $err->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','',$num,$cli);
             }
             elseif ($sessione->isLogged() && $sessione->isAdmin()){
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FAdmin','Password',$pass_nuova_cript,$utente->getIdAmministratore());
-                $view->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','Admin/usersadmin');
+                $err->message_admin('La tua password è stata cambiata','alla home','Admin/usersadmin');
             }
             else{
                 header('Location: /lunova');
             }
         }else{
-            $view->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della password",'alla home','');
+            $err->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della password",'alla home','',$num,$cli);
         }
     }
 
     public static function NewUsername(){
-        $view = new VHome();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $sessione = FSessione::getInstance();
+        $num = null;
+        $cli = false;
         $username = $_POST['Username'];
         if ($username!=null){
             if ( $sessione->isLogged() && $sessione->isArtista()){
@@ -357,36 +386,40 @@ class CProfile
                     $pers->update_value('FArtista','Username',$username,$id);
                     $ut = $pers->ArtistaFromID($id);
                     $sessione->setUtente($ut);
-                    $view->message($sessione->isLogged(),'Il tuo username è stato cambiato','alla home','');
+                    $err->message($sessione->isLogged(),'Il tuo username è stato cambiato','alla home','',$num,$cli);
                 }else{
-                    $view->message($sessione->isLogged(),'Lo username scelto è gia stato preso','alla modifica','/Profile/Impostazioni');
+                    $err->message($sessione->isLogged(),'Lo username scelto è gia stato preso','alla modifica','Profile/ModificheProfile',$num,$cli);
                 }
             }
             elseif ($sessione->isLogged() && $sessione->isCliente()){
                 $verifica = $pers->exist_username('FCliente',$username);
+                $cli = true;
                 if ($verifica){
                     $utente = $sessione->getUtente();
                     $id = $utente->getIdClient();
                     $pers->update_value('FCliente','Username',$username,$id);
                     $ut = $pers->ClienteFromID($id);
                     $sessione->setUtente($ut);
-                    $view->message($sessione->isLogged(),'Il tuo username è stato cambiato','alla home','');
+                    $err->message($sessione->isLogged(),'Il tuo username è stato cambiato','alla home','',$num,$cli);
                 }else{
-                    $view->message($sessione->isLogged(),'Lo username scelto è gia stato preso','alla modifica','/Profile/Impostazioni');
+                    $err->message($sessione->isLogged(),'Lo username scelto è gia stato preso','alla modifica','Profile/ModificheProfile',$num,$cli);
                 }
             }
             else{
                 header('Location: /lunova');
             }
         }else{
-            $view->message($sessione->isLogged(),"Si è verificato un errore durante la modifica dello username",'alla home','');
+            $err->message($sessione->isLogged(),"Si è verificato un errore durante la modifica dello username",'alla home','',$num,$cli);
         }
     }
 
     public static function NewImage(){
         $view = new VHome();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $sessione = FSessione::getInstance();
+        $num = null;
+        $cli = false;
         $imgName =$_FILES['Foto']['name'];
         $imgType =$_FILES['Foto']['type'];
         $imgData =@file_get_contents($_FILES['Foto']['tmp_name']);
@@ -401,17 +434,18 @@ class CProfile
                     $pers->store($image);
                     $ut = $pers->ArtistaFromID($id);
                     $sessione->setUtente($ut);
-                    $view->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','');
+                    $err->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','',$num,$cli);
                 }else{
                     $pers->delete('FImmagine',$id);
                     $pers->store($image);
                     $ut = $pers->ArtistaFromID($id);
                     $sessione->setUtente($ut);
-                    $view->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','');
+                    $err->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','',$num,$cli);
                 }
             }
             elseif ($sessione->isLogged() && $sessione->isCliente()){
                 $utente = $sessione->getUtente();
+                $cli = true;
                 $id = $utente->getIdClient();
                 $image = new EImmagine($imgName,$imgType,$imgData,$id);
                 $verifica = $pers->exist('FImmagine',$id);
@@ -419,20 +453,20 @@ class CProfile
                     $pers->store($image);
                     $ut = $pers->ClienteFromID($id);
                     $sessione->setUtente($ut);
-                    $view->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','');
+                    $err->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','',$num,$cli);
                 }else{
                     $pers->delete('FImmagine',$id);
                     $pers->store($image);
                     $ut = $pers->ClienteFromID($id);
                     $sessione->setUtente($ut);
-                    $view->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','');
+                    $err->message($sessione->isLogged(),'La tua foto profilo è stata cambiata','alla home','',$num,$cli);
                 }
             }
             else{
                 header('Location: /lunova');
             }
         }else{
-            $view->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della foto",'alla home','');
+            $err->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della foto",'alla home','',$num,$cli);
         }
     }
 

@@ -1,30 +1,34 @@
 <?php
 class CSondaggi{
+
     public static function show(){
         $view = new VSondaggi();
         $error = new VErrore();
         $logged = false;
         $num = null;
+        $cli = false;
         $votazione = false;
         $ut = null;
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
-        if ($sondaggio==null){
-            return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','');
-        }
+
 
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
+            $cli = true;
             /* todo:reinserire variabili per carrello
-            $cartid = $session->getCarrello()->getId();
-            $elenco = $pers->prelevaCartItems($cartid);
-            $num = count($elenco);*/
+            $cartid = $session->getCarrello()->getId();*/
+            $elenco = $pers->prelevaCartItems($utente);
+            $num = count($elenco);
+            if ($sondaggio==null){
+                return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','',$num,$cli);
+            }
             $votazione= $pers->exist('FVotazione',$utente,$sondaggio->getId());
-            $view->show($sondaggio,$votazione,true, $num);
+            $view->show($sondaggio,$votazione,true, $num,$cli);
         }else{
 
-            $view->show($sondaggio,true,$session->isLogged(), $num );
+            $view->show($sondaggio,true,$session->isLogged(), $num, $cli );
         }
     }
 
@@ -57,7 +61,7 @@ class CSondaggi{
                 $a[]=$value;
             }
             if(count($a)!=3){
-                $v->message(true,'selezionare solo 3 sondaggi','alle notifiche','Admin/notifiche');
+                $v->message_admin('selezionare solo 3 sondaggi','alle notifiche','Admin/notifiche');
             }
 
             $d1=$a[0];
@@ -70,7 +74,7 @@ class CSondaggi{
             $sondaggio = new ESondaggio($disco1,$disco2,$disco3,(string)date('c'));
 
             $pers->crea_sondaggio($sondaggio);
-            $v->message(true,'Sondaggio creato con successo','alle notifiche','Admin/notifiche');
+            $v->message_admin('Sondaggio creato con successo','alle notifiche','Admin/notifiche');
         }
         else{
             header("Location: /lunova");
@@ -88,6 +92,8 @@ class CSondaggi{
     public static function richiestaSondaggio($id) {
         $sessione = FSessione::getInstance();
         $view = new VErrore();
+        $num = null;
+        $cli = false;
         if ($sessione->isLogged() && $sessione->isArtista()){
             $pers = FPersistentManager::getInstance();
             $artista = $sessione->getUtente();
@@ -95,22 +101,13 @@ class CSondaggi{
             $idArt = $artista->getIdArtista();
             $bool = $pers->exist('FRichiesta',$id);
             if ($bool){
-                return $view->message($sessione->isLogged(),'richiesta gia effettuata per questo disco','indietro',"Profile/users/$idArt");
+                return $view->message($sessione->isLogged(),'richiesta gia effettuata per questo disco','indietro',"Profile/users/$idArt",$num,$cli);
             }
             $richiesta = new ERichiesta($id,(string)date('c'),$name);
             $pers->store($richiesta);
-            return $view->message($sessione->isLogged(),'richiesta effuata, ci vorrà un po di tempo prima che la tua richiesta venga elaborata ed apparirà il suo disco in un sondaggio','alla home','');
+            return $view->message($sessione->isLogged(),'richiesta effuata, ci vorrà un po di tempo prima che la tua richiesta venga elaborata ed apparirà il suo disco in un sondaggio','alla home','',$num, $cli);
         }else{
             header("Location: /lunova");
         }
     }
-
-
-
-
-
-
-
-
-
 }

@@ -1,11 +1,13 @@
 <?php
 class CRicercaDisco{
+
     public static function index(){
         $viewex = new VHome();
         $var = '';
         $utente = null;
         $logged= false;
         $num = null;
+        $cli= false;
         $session = FSessione::getInstance();
         if ($session->isLogged()){
             $ut = $session->getUtente();
@@ -15,6 +17,7 @@ class CRicercaDisco{
             $pers = FPersistentManager::getInstance();
             if ($session->isCliente()){
                 $utente = $ut->getIdClient();
+                $cli = true;
                 /* //todo:commentata parte del carrello x vale
                 if ($pers->exist('FCarrello',$utente)){   //se esiste il carrello in sessione
                     $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
@@ -32,7 +35,7 @@ class CRicercaDisco{
                 //return header('Location: /lunova/Admin/usersadmin');
             }
         }
-        $viewex->ShowIndex($logged,$var, $num,$utente);
+        $viewex->ShowIndex($logged,$var, $num,$utente,$cli);
     }
 
     public static function newDisc(){

@@ -7,10 +7,12 @@ class CProducts_list{
         $session = FSessione::getInstance();
         $logged = false;
         $num = null;
+        $cli = false;
 
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
+                $cli = true;
                 //todo:scommentare per il settaggio del carrello
                 //$cartid = $session->getCarrello()->getId();
                 //$elencoitems = $pers->prelevaCartItems($utente);
@@ -20,7 +22,7 @@ class CProducts_list{
 
         $elenco = $pers->prelevaDischi();
         $generi = $pers->prelevaGeneri();
-        return $view->lista_prodotti($elenco,$session->isLogged(), $num,$generi);
+        return $view->lista_prodotti($elenco,$session->isLogged(), $num,$generi,$cli);
     }
     /*
     public static function salva_foto(){
@@ -98,7 +100,7 @@ class CProducts_list{
             $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
             $starRate= self::star_Rate($mediaVoti);
             $starRating = [$starRate,$mediaVoti,$votazione];
-            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp);
+            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$session->isCliente());
         }else{
             $err = new VErrore();
             return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi');

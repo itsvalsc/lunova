@@ -36,10 +36,14 @@ class CErrore
         $view = new VErrore();
         $view->error();
     }
+
+
     public static function unathorized(){
         $v = new VErrore();
         $session = FSessione::getInstance();
         $logged = $session->isLogged();
-        $v->message($logged,"Impossibile accedere in questa sezione",'alla homepage','/');
+        $num = null;
+        $cli = false;
+        $v->message($logged,"Impossibile accedere in questa sezione",'alla homepage','/',$num,$cli);
     }
 }

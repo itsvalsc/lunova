@@ -262,6 +262,10 @@ class VProfile
         $this->smarty->display('cambioAdmin.tpl');
     }
 
+    public function Aggiungi_admin(){
+        $this->smarty->display('addAdmin.tpl');
+    }
+
 
     public function getNotification(){
 

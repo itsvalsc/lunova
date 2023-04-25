@@ -47,7 +47,6 @@ class EUtente{
             $this->Provincia = "";
             $this->CAP = "";
 
-            $this->Profilo = null;
         }
         elseif (11 === func_num_args()){
             $this->Username = func_get_arg(0);

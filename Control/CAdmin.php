@@ -202,7 +202,7 @@ class CAdmin{
         if ($session->isLogged() && $session->isAdmin()){
             if (!$pers->exist('FCommento',$idComm)) {
                 $err = new VErrore();
-                return $err->message_admin("Impossibile ricerca l'artista: commento non trovato");
+                return $err->message_admin("Impossibile ricerca l'artista: commento non trovato",'alle notifiche','Admin/notifiche');
             }
             $commento = $pers->load('FCommento',$idComm);
             if ($commento != null){
@@ -214,6 +214,41 @@ class CAdmin{
             return header('Location: /lunova');
         }
     }
+
+    public static function aggiungi(){
+        $session = FSessione::getInstance();
+        $view = new VProfile();
+        if ($session->isLogged() && $session->isAdmin()){
+            return $view->Aggiungi_admin();
+        }
+        else{
+            return header('Location: /lunova');
+        }
+    }
+    public static function aggiungi_admin(){
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        $view = new VErrore();
+        if ($session->isLogged() && $session->isAdmin()){
+            $nome = $_POST['nome'];
+            $cognome = $_POST['cognome'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $telefono = $_POST['telefono'];
+            if ($pers->exist('FAdmin',$email)){
+                return $view->message_admin('Email gia esistente','indietro','Admin/aggiungi');
+            }
+            $amm = new EAdmin($nome,$cognome,$email,$password,$telefono);
+            $pers->store($amm);
+            return $view->message_admin('Amministratore aggiunto con successo','alle impostazioni','Profile/Impostazioni');
+
+        }
+        else{
+            return header('Location: /lunova');
+        }
+    }
+
+
 
 
 }

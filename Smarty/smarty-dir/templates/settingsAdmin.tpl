@@ -69,7 +69,7 @@
                 <hr>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/lunova/Profile"><span>Aggiungi Admin</span></a>
+                <a class="nav-link" href="/lunova/Admin/aggiungi"><span>Aggiungi Admin</span></a>
                 <hr>
             </li>
         </ul>

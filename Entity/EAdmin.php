@@ -12,9 +12,9 @@ class EAdmin extends EUtente{
         if (5 === func_num_args()){
             $nome = func_get_arg(0);
             $cognome = func_get_arg(1);
-            $email = func_get_arg(3);
-            $pw = func_get_arg(4);
-            $telefono = func_get_arg(2);
+            $email = func_get_arg(2);
+            $pw = func_get_arg(3);
+            $telefono = func_get_arg(4);
             parent::__construct($nome, $cognome,$email, $pw,$telefono,'A');
             $this->IdAdmin = "A"  . random_int(0,999);
         }

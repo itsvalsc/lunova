@@ -213,6 +213,12 @@
             <input hidden name="disco" value="{$product->getID()}">
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
+            {else}
+            <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
+                <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Effettua il login per poter pubblicare commenti"></textarea>
+                <input hidden name="disco" value="{$product->getID()}">
+                <button type="submit" class="btn btn-primary" disabled>Invia</button>
+            </form>
         {/if}
     </div>
 

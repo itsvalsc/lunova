@@ -73,6 +73,7 @@ class CProducts_list{
 
     public static function mostra_prodotto(string $id){
         $view = new VProducts_list();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $num = null;
@@ -100,7 +101,6 @@ class CProducts_list{
             $starRating = [$starRate,$mediaVoti,$votazione];
             return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp);
         }else{
-            $err = new VErrore();
             return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi');
         }
     }

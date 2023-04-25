@@ -16,52 +16,28 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/">Lunova</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="navbar-brand" >Lunova</div>
 
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
+                    <a class="nav-link" href="/lunova/Admin/notifiche">Notifiche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Admin/usersadmin">Users</a>
                 </li>
             </ul>
 
-
-
             <ul class="navbar-nav ml-4">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+
+                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/Impostazioni">
+                        <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                        <span style="scale: 0.9;" class="badge rounded-pill bg-primary">impostazioni</span>
                     </a>
+
                 </li>
-            </ul>
-
-
-
-            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
-                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
-            </form>
-
-            <ul class="navbar-nav ml-4">
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
-                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                        </a>
-
-                    </li>
 
 
 

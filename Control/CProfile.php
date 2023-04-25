@@ -104,13 +104,12 @@ class CProfile
         if ($session->isLogged()){
             if ($session->isArtista()){
                 return $view->Assistence($l, null, false);
+            }else {
+                $utente = 'C151';
+                $elenco = $pers->prelevaCartItems($utente);
+                $num = count($elenco);
+                $view->Assistence($l, $num, true);
             }
-        }else {
-            $utente = 'C151';
-
-            $elenco = $pers->prelevaCartItems($utente);
-            $num = count($elenco);
-            $view->Assistence($l, $num, true);
         }
     }
 

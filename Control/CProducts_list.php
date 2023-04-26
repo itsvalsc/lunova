@@ -79,12 +79,14 @@ class CProducts_list{
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $num = null;
+        $cli = false;
         $votazione=false;
         $mpComm = []; //gli passo l array dei commenti relativi ad un disco a cui ha messo mi piace
 
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
+                $cli = true;
                 //todo: scommentare per carrello
                 //$cartid = $session->getCarrello()->getId();
                 //$elencoitems = $pers->prelevaCartItems($utente);
@@ -101,7 +103,7 @@ class CProducts_list{
             $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
             $starRate= self::star_Rate($mediaVoti);
             $starRating = [$starRate,$mediaVoti,$votazione];
-            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$session->isCliente());
+            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli);
         }else{
             return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi');
         }

@@ -18,18 +18,25 @@ class CCommento
      */
     public static function scriviCommento()
     { //todo:la data deve essere cambiata in datetime sul db e togliere la colonna voto nei commenti
+        $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
+        $num = null;
         if ($sessione->isLogged() && $sessione->isCliente()){
             $cliente = $sessione->getUtente();
+            $cli = true;
+            $bannato = ($pm->load('FCliente',$cliente->getEmail()))->getBannato();
+            if ($bannato){
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
+            }
             $data = (string)date("c");
             $descrizione=$_POST['commento'];
             $id_disco=$_POST['disco'];
             $commento = new ECommento($cliente, $descrizione, $data, $id_disco);
             $pm->store($commento);
-            header('Location: /lunova/Products_list/mostra_prodotto/'.$id_disco);
+            return header('Location: /lunova/Products_list/mostra_prodotto/'.$id_disco);
         }else{
-            header('Location: /lunova/Errore/unathorized');
+            return header('Location: /lunova/Errore/unathorized');
         }
     }
 
@@ -42,18 +49,25 @@ class CCommento
      * @throws SmartyException
      */
     static function cancellaCommento($id,$disco)
-    {
+    {//todo:caso:commento gia cancellato
+        $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
+        $num = null;
         if ($sessione->isLogged() && $sessione->isCliente()){
             $cliente = $sessione->getUtente();
+            $cli = true;
+            $bannato = ($pm->load('FCliente',$cliente->getEmail()))->getBannato();
+            if ($bannato){
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
+            }
             $commento = $pm->load("FCommento", $id);
             if ($cliente->getUsername() == $commento->getCliente()->getUsername()) {
                 $pm->delete("FCommento", $id);
-                header('Location: /lunova/Products_list/mostra_prodotto/'.$disco);
+                return header('Location: /lunova/Products_list/mostra_prodotto/'.$disco);
             }
         }
-        header('Location: /lunova/Products_list/mostra_prodotto/'.$disco);
+        return header('Location: /lunova/Products_list/mostra_prodotto/'.$disco);
     }
 
     /**
@@ -63,10 +77,19 @@ class CCommento
      */
     public static function segnalaCommento($id,$disco)
     {
+        $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
+        $num = null;
         if ($sessione->isLogged()){
-            //$pm->update_value("FCommento", "segnalato", 1, "id", $id);
+            if ($sessione->isCliente()){
+                $cliente = $sessione->getUtente();
+                $cli = true;
+                $bannato = ($pm->load('FCliente',$cliente->getEmail()))->getBannato();
+                if ($bannato){
+                    return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
+                }
+            }
             $commento = $pm->load('FCommento',$id);
             if(!$commento->isSegnalato()){
                 $commento->setSegnala(true);
@@ -74,13 +97,13 @@ class CCommento
                 $t=$commento->getDescrizione();
                 $notifica = new ENotifiche("Questo commento è stato segnalato. Testo: $t",'bassa',$commento->getId());
                 $pm->store($notifica);
-                header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+                return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
             }
             else{
-                header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+                return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
             }
         } else {
-            header('Location: /lunova/Errore/unathorized');
+           return header('Location: /lunova/Errore/unathorized');
 
         }
     }
@@ -88,42 +111,56 @@ class CCommento
     public static function votazioneDisco(){
         $disco = $_POST['disco'];
         $rating = $_POST['rate'];
-        $view = new VErrore();
+        $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
+        $num = null;
         if ($session->isLogged() && $session->isCliente()){
-            $utente = $session->getUtente()->getIdClient();
-            $vot = new EVotazioneDisco($utente,$disco,intval($rating));
+            $utente = $session->getUtente();
+            $cli = true;
+            $bannato = ($pers->load('FCliente',$utente->getEmail()))->getBannato();
+            if ($bannato){
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
+            }
+            $vot = new EVotazioneDisco($utente->getIdClient(),$disco,intval($rating));
             $pers->store($vot);
-            //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');
         }
-
-
-        header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
-
+        return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
     }
 
     public static function votazioneCommento($comm,$disco){
+        $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
+        $num = null;
         if ($session->isLogged() && $session->isCliente()){
-            $utente = $session->getUtente()->getIdClient();
-            $vot = new EVotazioneCommento($utente,$disco,$comm);
+            $utente = $session->getUtente();
+            $cli = true;
+            $bannato = ($pers->load('FCliente',$utente->getEmail()))->getBannato();
+            if ($bannato){
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
+            }
+            $vot = new EVotazioneCommento($utente->getIdClient(),$disco,$comm);
             $pers->store($vot);
-            //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');
         }
-        header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+        return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
     }
 
     public static function eliminaMP($comm,$disco){
+        $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
+        $num = null;
         if ($session->isLogged() && $session->isCliente()){
-            $utente = $session->getUtente()->getIdClient();
-            $pers->delete('FVotazioneCommento',$utente,$comm);
-            //$view->message(false,json_encode(self::media($voti)),'ai prodotti','Products_list/elenco_dischi');
+            $utente = $session->getUtente();
+            $cli = true;
+            $bannato = ($pers->load('FCliente',$utente->getEmail()))->getBannato();
+            if ($bannato){
+                return $err->message(true,'Il tuo account è stato sospeso, non è possibile scrivere commenti','alla home','',$num,$cli);
+            }
+            $pers->delete('FVotazioneCommento',$utente->getIdClient(),$comm);
         }
-        header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
+        return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
     }
 
 }

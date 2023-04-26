@@ -13,102 +13,49 @@ require_once "Foundation/FSessione.php";
 
 class CAdmin{
 
-    private static ?CAdmin $instance = null;
-
-    private function __construct() {}
-
     /**
-     * Restituisce l'istanza della classe.
-     * @return CAdmin|null
+     * Metodo che permetta all'admin di sospendere un utente settando l'attributo bannato relativo a quell'utente a 'true'
+     * @param $email
+     * @return null
      */
-    public static function getInstance(): ?CAdmin
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new CAdmin();
-        }
-        return self::$instance;
-    }
-
-    /**
-     * Metodo che mostra la dashboard di controllo del admin.
-     * @throws SmartyException
-     */
-    public static function dashboardAdmin()
-    {
-        $sessione = FSessione::getInstance();
-        $pm = FPersistentManager::getInstance();
-        $view = new VAdmin();
-        if ($sessione->isLogged() && ($sessione->isAdmin())) {
-
-            //loadUtenti --> Separo in Utenti attivi e Bannati
-            $utentiAttivi = $pm->load("FCliente", "stato");
-            $utentiA = array();
-            if(!is_array($utentiAttivi) && $utentiAttivi != null){
-                $utentiA[0] = $utentiAttivi;
-            }else if(!empty($utentiAttivi)){
-                $utentiA = $utentiAttivi;
-            }
-
-            $utentiBannati = $pm->load("FCliente", "stato");
-            $utentiB = array();
-            if(!is_array($utentiBannati) && $utentiBannati != null){
-                $utentiB[0] = $utentiBannati;
-            }else if(!empty($utentiBannati)){
-                $utentiB = $utentiBannati;
-            }
-
-            //loadCommenti segnalati
-            $comSegnalati = $pm->load("FCommento", "segnalato");
-
-            //loadArtisti
-            $artisti = $pm->prelevaArtisti();
-            $dischi = $pm->prelevaDischiperAutore("FDisco");
-
-            $view->HomeAdmin($utentiA, $utentiB, $artisti, $dischi,$comSegnalati);
-        } else {
-            header('Location: /lunova/Ricerca/mostraHome');
-        }
-    }
-
-    /**
-     * Funzione utile per cambiare lo stato di un utente (nel caso specifico porta la visibilità a false).
-     * @param $username string Username dell'utente da bannare sul sito, impedendogli di scrivere ulteriori commenti.
-     **/
     public static function sospendiUtente(string $email)
     {
-        //$v = new VErrore();
+        $v = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
 
         if ($sessione->isLogged() && $sessione->isAdmin()) {
             $ex = $pm->exist('FCliente',$email);
+            if (!$ex){
+                return $v->message_admin('errore: utente non trovato','alla home','Admin/usersadmin');
+            }
             $ris = $pm->update_bannato($email,1);
-            header("Location: /lunova/Admin/usersadmin");
-            //header ("Location: /lunova/Admin/users");
-            //$v->message(true,$ris,'','');
+            return header("Location: /lunova/Admin/usersadmin");
+
         } else {
-            //header("Location: /lunova/Ricerca/mostraHome");
-            header ("Location: /lunova/Admin/users");
+            return header ("Location: /lunova");
         }
     }
 
     /**
-     * Funzione utile per cancellare un utente già bannato.
+     * Funzione utile per riattivae l'account di un utente che era stato precedentemente bannato.
      * @param $username string username identificativo univoco dell'utente
      **/
     public static function riattivaUtente(string $email)
     {
-        //$v = new VErrore();
+        $v = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
 
         if ($sessione->isLogged() && $sessione->isAdmin()) {
             $ex = $pm->exist('FCliente',$email);
+            if (!$ex){
+                return $v->message_admin('errore: utente non trovato','alla home','Admin/usersadmin');
+            }
             $ris = $pm->update_bannato($email,0);
-            header("Location: /lunova/Admin/usersadmin");
-            //$v->message(true,$ris,'','');
+            return header("Location: /lunova/Admin/usersadmin");
         } else {
-            header ("Location: /lunova/Admin/usersadmin");
+            return header ("Location: /lunova/Admin/usersadmin");
         }
     }
 
@@ -118,11 +65,18 @@ class CAdmin{
      */
     public static function eliminaCommento($id_commento,$id_notifica=null)
     {
+        $v = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() && $sessione->isAdmin()) {
+            if (!$pm->exist('FCommento',$id_commento)){
+                return $v->message_admin('Si è verificato un errore, non è possibile trovare il commento selezionato','alle notifiche','Admin/notifiche');
+            }
             $pm->delete("FCommento", $id_commento);
             if($id_notifica!=null){
+                if (!$pm->exist('FNotifiche',$id_notifica)){
+                    return $v->message_admin('Impossibile trovare la notifica selezionata','alle notifiche',"Admin/notifiche");
+                }
                 $pm->delete("FNotifiche",$id_notifica);
             }
             header("Location: /lunova/Admin/notifiche");
@@ -131,40 +85,63 @@ class CAdmin{
         }
     }
 
-    public static function eliminaNotifica($id_notifica,$id_commento){
+    /**
+     * Metodo che permetta all'admin di eliminare una notifica
+     * @param $id_notifica
+     * @return null
+     */
+    public static function eliminaNotifica($id_notifica){
+        $view = new VErrore();
+        $sessione = FSessione::getInstance();
+        $pm = FPersistentManager::getInstance();
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            if ($id_notifica!=null){
+                if (!$pm->exist('FNotifiche',$id_notifica)){
+                    return $view->message_admin('Impossibile trovare la notifica selezionata','alle notifiche',"Admin/notifiche");
+                }
+                $pm->delete("FNotifiche",$id_notifica);
+            }else{
+                return $view->message_admin("Si è verificato un errore durante l'eliminazione della notifica", "alle notifiche","Admin/notifiche");
+            }
+            return header("Location: /lunova/Admin/notifiche");
+        }
+        else{
+            return header("Location: /lunova");
+        }
+    }
+
+    /**
+     * Metodo che permette all'admin di ignorare una notifica relativa ad un commento
+     * @param $id_notifica
+     * @param $id_commento
+     * @return null
+     */
+    public static function ignora($id_notifica,$id_commento){
+        $view = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() && $sessione->isAdmin()) {
             if ($id_notifica!=null && $id_commento!=null){
+                if(!$pm->exist('FNotifiche',$id_notifica) || !$pm->exist('FCommento',$id_commento)){
+                    return $view->message_admin('Impossibile eseguire questa azione, notifica/commento non trovati','alle notifiche',"Admin/notifiche");
+                }
                 $pm->delete("FNotifiche",$id_notifica);
                 $commento = $pm->load('FCommento',$id_commento);
                 $commento->setSegnala(false);
                 $pm->update($commento);
             }
-            header("Location: /lunova/Admin/notifiche");
+            return header("Location: /lunova/Admin/notifiche");
         }
         else{
-            header("Location: /lunova");
+            return header("Location: /lunova");
         }
     }
 
-
-    /*
-     * questo metodo è per quando qualcuno clicca su un artista
-     * bisogna crearne uno diverso se si tratta del suo stesso profilo
-     * */
-
-    public static function users(string $id){
-        $view = new VUsers();
-        $pers = FPersistentManager::getInstance();
-        $session = FSessione::getInstance();
-        $l = true;
-        $Art = $pers->ArtistaFromID($id);
-        $elenco = $pers->prelevaDischiperIDAutore($id);
-        $numero = count($elenco);
-        $view->load($l,$Art, $elenco, $numero);
-    }
-
+    /**
+     * Metodo che ritorna la dashboard iniziale dell'admin, che mostra la lista degli utenti (artisti e clienti),
+     * con la possibilità di effettuare delle azioni su di essi
+     * @return void
+     */
     public static function usersadmin(){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
@@ -172,13 +149,17 @@ class CAdmin{
         if ($session->isLogged() && $session->isAdmin()){
             $Cli = $pers->prelevaClienti();
             $Art = $pers->prelevaArtisti();
-            $view->loadadmin(true,$Cli,$Art);
+            $view->loadadmin($Cli,$Art);
         }
         else{
             header('Location: /lunova');
         }
     }
 
+    /**
+     * Metodo che mostra le notifiche dell'admin, divise in sezioni e per categorie
+     * @return void
+     */
     public static function notifiche(){
         $view = new VNotifiche();
         $pers = FPersistentManager::getInstance();
@@ -187,49 +168,87 @@ class CAdmin{
             $alte = $pers->prelNotifAlte();
             $basse = $pers->prelNotifBasse();
             $sond = $pers->prelevaRichieste();
-            $view->show($alte,$basse, $sond);
+            return $view->show($alte,$basse, $sond);
         }
         else{
-            header('Location: /lunova');
+            return header('Location: /lunova');
         }
 
     }
 
-
+    /**
+     * Metodo che restituisce la schermata di login dell'admin
+     * @return void
+     */
     public static function login(){
-        $view = new VLogin();
-        $view->AdminLogin(false);
+        $session = FSessione::getInstance();
+        if (!$session->isLogged()){
+            $view = new VLogin();
+            return $view->AdminLogin(false);
+        }
+        else{
+            return header('Location: /lunova');
+        }
     }
 
-    public static function EliminaC($email){
-        $view = new VAdmin();
-        $l = true;
-        $pers = FPersistentManager::getInstance();
-        $elimina = $pers->delete('FCliente',$email);
-        header ("Location: /lunova/Admin/users");
-    }
-    public static function EliminaA($email){
-        $view = new VAdmin();
-        $l = true;
-        $pers = FPersistentManager::getInstance();
-        $elimina = $pers->delete('FArtista',$email);
-        header ("Location: /lunova/Admin/users");
-    }
-
+    /**
+     * Metodo che permette all'admin di ricercare facilmente un utente partendo dal commento selezionato nelle notifiche
+     * @param $idComm
+     * @return void|null
+     */
     public static function ricercaUtente($idComm){
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
         if ($session->isLogged() && $session->isAdmin()){
+            if (!$pers->exist('FCommento',$idComm)) {
+                $err = new VErrore();
+                return $err->message_admin("Impossibile ricerca l'artista: commento non trovato",'alle notifiche','Admin/notifiche');
+            }
             $commento = $pers->load('FCommento',$idComm);
             if ($commento != null){
                 $ut = $commento->getCliente()->getIdClient();
-                header ("Location: /lunova/Admin/usersadmin#$ut");
+                return header ("Location: /lunova/Admin/usersadmin#$ut");
             }
         }
         else{
-            header('Location: /lunova');
+            return header('Location: /lunova');
         }
     }
+
+    public static function aggiungi(){
+        $session = FSessione::getInstance();
+        $view = new VProfile();
+        if ($session->isLogged() && $session->isAdmin()){
+            return $view->Aggiungi_admin();
+        }
+        else{
+            return header('Location: /lunova');
+        }
+    }
+    public static function aggiungi_admin(){
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        $view = new VErrore();
+        if ($session->isLogged() && $session->isAdmin()){
+            $nome = $_POST['nome'];
+            $cognome = $_POST['cognome'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $telefono = $_POST['telefono'];
+            if ($pers->exist('FAdmin',$email)){
+                return $view->message_admin('Email gia esistente','indietro','Admin/aggiungi');
+            }
+            $amm = new EAdmin($nome,$cognome,$email,$password,$telefono);
+            $pers->store($amm);
+            return $view->message_admin('Amministratore aggiunto con successo','alle impostazioni','Profile/Impostazioni');
+
+        }
+        else{
+            return header('Location: /lunova');
+        }
+    }
+
+
 
 
 }

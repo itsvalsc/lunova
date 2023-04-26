@@ -34,12 +34,20 @@ class VErrore
     public function error()
     { $this->smarty->display('error.tpl'); }
 
-    public function message($logged,$messaggio,$var_titolo,$var_url){
+    public function message($logged,$messaggio,$var_titolo,$var_url,$num,$cli){
+        $this->setData('logged', $logged);
         $this->setData('message', $messaggio);
         $this->setData('var_titolo', $var_titolo);
         $this->setData('var_url', $var_url);
-
-        $this->setData('logged', $logged);
+        $this->setData('num', $num);
+        $this->setData('isCliente',$cli);
         $this->setTemplate("message.tpl");
+    }
+
+    public function message_admin($messaggio,$var_titolo,$var_url){
+        $this->setData('message', $messaggio);
+        $this->setData('var_titolo', $var_titolo);
+        $this->setData('var_url', $var_url);
+        $this->setTemplate("messageAdmin.tpl");
     }
 }

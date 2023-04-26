@@ -39,7 +39,7 @@
             </ul>
 
 
-            {if $logged}
+            {if $logged && $isCliente}
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
@@ -60,7 +60,7 @@
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users/{$idUtente}">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">profilo</span>
                         </a>

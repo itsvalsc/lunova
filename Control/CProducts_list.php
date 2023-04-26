@@ -7,17 +7,22 @@ class CProducts_list{
         $session = FSessione::getInstance();
         $logged = false;
         $num = null;
+        $cli = false;
+
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
-                $cartid = $session->getCarrello()->getId();
-                $elencoitems = $pers->prelevaCartItems($cartid);
-                $num = count($elencoitems);
+                $cli = true;
+                //todo:scommentare per il settaggio del carrello
+                //$cartid = $session->getCarrello()->getId();
+                //$elencoitems = $pers->prelevaCartItems($utente);
+                //$num = count($elencoitems);
             }
         }
 
         $elenco = $pers->prelevaDischi();
-        $view->lista_prodotti($elenco,$session->isLogged(), $num);
+        $generi = $pers->prelevaGeneri();
+        return $view->lista_prodotti($elenco,$session->isLogged(), $num,$generi,$cli);
     }
     /*
     public static function salva_foto(){
@@ -54,9 +59,9 @@ class CProducts_list{
             $pers->store($disco);
 
             $messaggio='Disco Creato Correttamente';
-            $view->message(true,$messaggio);
+            return $view->message(true,$messaggio,'alla home','');
         }else{
-            $view->message(false,'accedi come artista per aggiungere un disco');
+            return $view->message(false,'accedi come artista per aggiungere un disco');
         }
 
     }
@@ -70,34 +75,41 @@ class CProducts_list{
 
     public static function mostra_prodotto(string $id){
         $view = new VProducts_list();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $num = null;
+        $cli = false;
         $votazione=false;
         $mpComm = []; //gli passo l array dei commenti relativi ad un disco a cui ha messo mi piace
 
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
-                $cartid = $session->getCarrello()->getId();
-                $elencoitems = $pers->prelevaCartItems($cartid);
-                $num = count($elencoitems);
+                $cli = true;
+                //todo: scommentare per carrello
+                //$cartid = $session->getCarrello()->getId();
+                //$elencoitems = $pers->prelevaCartItems($utente);
+                //$num = count($elencoitems);
                 $votazione = $pers->exist('FVotazioneDisco',$utente,$id);
                 $mpComm = $pers->loadmpCommenti($utente,$id);
             }
         }
-        $commenti = $pers->loadCommenti($id);
         $prodotto = $pers->load('FDisco',$id);
-        $art = $pers->FindArtistName($prodotto->getAutore());
-        $nmp = $pers->loadNumeroMP($id);
-        $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
-        $starRate= self::star_Rate($mediaVoti);
-        $starRating = [$starRate,$mediaVoti,$votazione];
-        $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp);
-
+        if ($prodotto != null){
+            $commenti = $pers->loadCommenti($id);
+            $art = $pers->FindArtistName($prodotto->getAutore());
+            $nmp = $pers->loadNumeroMP($id);
+            $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
+            $starRate= self::star_Rate($mediaVoti);
+            $starRating = [$starRate,$mediaVoti,$votazione];
+            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli);
+        }else{
+            return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi');
+        }
     }
 
-    private static function star_Rate($media){
+    public static function star_Rate($media){
         if ($media <= 0.75){//0.5
             $starRate = ['fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
         } elseif ($media > 0.75 & $media <= 1.25){//1

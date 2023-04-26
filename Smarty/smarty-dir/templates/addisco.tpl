@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
     <title>Lunova</title>
 </head>
 <body>
@@ -41,29 +40,18 @@
 
 
 
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">{$num}</span>
-                    </a>
-                </li>
-            </ul>
 
-
-
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
             </form>
 
             <ul class="navbar-nav ml-4">
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
 
                     </li>
@@ -98,17 +86,17 @@
         <div class="form-group">
             <fieldset>
                 <label class="form-label mt-4" for="readOnlyInput">Nome disco</label>
-                <input class="form-control" name="ndisco" id="ndisco" type="text" placeholder="Nome">
+                <input class="form-control" name="ndisco" id="ndisco" type="text" placeholder="Nome" required>
             </fieldset>
         </div>
         <div class="form-group">
             <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
-            <textarea class="form-control" name="descrizione" id="descrizione" rows="3" placeholder="Scrivi qui la tua descrizione..."></textarea>
+            <textarea class="form-control" name="descrizione" id="descrizione" rows="3" placeholder="Scrivi qui la tua descrizione..." required></textarea>
         </div>
 
         <div class="form-group">
             <label for="exampleSelect1" class="form-label mt-4">Genere</label>
-            <select class="form-select" name="genere" id="genere">
+            <select class="form-select" name="genere" id="genere" required>
                 {section name = gn loop= $gen}
                     <option>{$gen[gn]}</option>
                 {/section}
@@ -117,7 +105,7 @@
 
         <div class="form-group">
             <label for="formFile" class="form-label mt-4">Scegli una copertina</label>
-            <input class="form-control" name="copertina" type="file" id="copertina">
+            <input class="form-control" name="copertina" type="file" id="copertina" accept="image/png, image/jpeg" required>
         </div>
 
 
@@ -126,7 +114,7 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text">€</span>
-                    <input type="text" class="form-control" name="prezzo" aria-label="Prezzo">
+                    <input type="" class="form-control" name="prezzo" aria-label="Prezzo" required required>
                     <span class="input-group-text"></span>
                 </div>
             </div>
@@ -137,7 +125,7 @@
             <label class="form-label mt-4">Quantita</label>
             <div class="form-group">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="quantita" aria-label="Quantita">
+                    <input type="number" class="form-control" name="quantita" aria-label="Quantita" required datatype="number">
                     <span class="input-group-text"></span>
                 </div>
             </div>

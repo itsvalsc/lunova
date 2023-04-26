@@ -40,30 +40,29 @@
             </ul>
 
 
-            {if $logged}
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">{$num}</span>
-                    </a>
-                </li>
-            </ul>
+            {if $logged && $isCliente}
+                <ul class="navbar-nav ml-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Carrello/mio_carrello">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge rounded-pill bg-secondary">{$num}</span>
+                        </a>
+                    </li>
+                </ul>
             {/if}
 
 
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
             </form>
 
             <ul class="navbar-nav ml-4">
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -138,7 +137,7 @@
         <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco2()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco2()->getCopertina()->getImmagine()}">
         </img>
         </a>
-        <div>{$sondaggio->getDisco1()->getTitolo()}</div>
+        <div>{$sondaggio->getDisco2()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
@@ -165,7 +164,7 @@
         <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco3()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco3()->getCopertina()->getImmagine()}" >
         </img>
         </a>
-        <div>{$sondaggio->getDisco1()->getTitolo()}</div>
+        <div>{$sondaggio->getDisco3()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">

@@ -109,14 +109,18 @@ class FCliente
     }
 
     public static function loadId(string $id) {
-        $pdo=FConnectionDB::connect();
-
         try {
-                $query = "SELECT * FROM cliente WHERE IdCliente= :id";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute( [":id" => $id] );
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+            $pdo=FConnectionDB::connect();
+            $query = "SELECT * FROM cliente WHERE IdCliente= :id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":id" => $id] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch (Exception $a){
+            throw new Exception('errore nel caricamento dell utente');
+        }
+        if (count($rows)==0){
+                throw new Exception('utente non trovato');
+            }else{
                 $Idcliente = $rows[0]['IdCliente'];
                 $Email = $rows[0]['Email'];
                 $Username = $rows[0]['Username'];
@@ -135,8 +139,8 @@ class FCliente
                 $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
                 $utente->setImmProfilo($immagine);
                 return $utente;
-        }
-        catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
+            }
+
     }
 
     public static function update(ECliente $cl) : bool{

@@ -40,30 +40,29 @@
             </ul>
 
 
-            {if $logged}
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">{$num}</span>
-                    </a>
-                </li>
-            </ul>
+            {if $logged && $isCliente}
+                <ul class="navbar-nav ml-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Carrello/mio_carrello">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge rounded-pill bg-secondary">{$num}</span>
+                        </a>
+                    </li>
+                </ul>
             {/if}
 
 
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
             </form>
 
             <ul class="navbar-nav ml-4">
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -105,7 +104,7 @@
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
-                <img style = "width: 250px; height: 250px;" src={if !is_null($product[nr]->getImmProfilo())}"data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}"{elseif is_null($product[nr]->getImmProfilo())}"../Smarty/smarty-dir/templates/img/icona_profilo_utente.jpg"{/if} alt="prova">
+                <img style = "width: 250px; height: 250px;" src={if !is_null($product[nr]->getImmProfilo())}"data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}"{elseif is_null($product[nr]->getImmProfilo())}"../Utility/img/icona_profilo_utente.jpg"{/if} alt="prova">
 
                 <div class="card-body" >
                     <h5 class="card-title"> {$product[nr]->getUsername()} </h5>
@@ -113,7 +112,7 @@
 
                     <!--<button class="btn btn-secondary btn-sm btn-block rounded-0" onclick="location.href='<?php //echo ROOT_URL . '?page=view-product&id=' . esc_html($product->getID()); ?>'">Vedi</button>-->
                     <a href="/lunova/Profile/users/{if $product[nr]->getLivello() == 'B'}{$product[nr]->getIdArtista()}{elseif $product[nr]->getLivello() == 'C'}{$product[nr]->getIdClient()}{/if}">
-                        <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Val il Profilo</button></a>
+                        <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vai al Profilo</button></a>
 
                 </div>
             </div>

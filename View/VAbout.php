@@ -20,9 +20,10 @@ class VAbout{
         $this->smarty->display($template);
     }
 
-    public function about_us($l, $num){
+    public function about_us($l, $num, $cli){
         $this->setData('num', $num);
         $this->setData('logged', $l);
+        $this->setData('isCliente', $cli);
         $this->setTemplate('about.tpl');
     }
 }

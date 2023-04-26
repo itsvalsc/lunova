@@ -16,52 +16,28 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid" >
-        <a class="navbar-brand" href="/lunova/">Lunova</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="navbar-brand" >Lunova</div>
 
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Products_list/elenco_dischi">Prodotti</a>
+                    <a class="nav-link" href="/lunova/Admin/notifiche">Notifiche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/AboutUs/us">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Sondaggi/show">Sondaggi</a>
+                    <a class="nav-link" href="/lunova/Admin/usersadmin">Users</a>
                 </li>
             </ul>
 
-
-
             <ul class="navbar-nav ml-4">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
+
+                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/Impostazioni">
+                        <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                        <span style="scale: 0.9;" class="badge rounded-pill bg-primary">impostazioni</span>
                     </a>
+
                 </li>
-            </ul>
-
-
-
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-
-            <ul class="navbar-nav ml-4">
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
-                            <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
-                        </a>
-
-                    </li>
 
 
 
@@ -118,7 +94,7 @@
                     <td>{$notifica[nt]->getText()}</td>
                     <td>{$notifica[nt]->getMittente()}</td>
                     <td>
-                        <a><button  type="button" class="btn btn-outline-danger">Elimina</button></a>
+                        <a href="/lunova/Admin/eliminaNotifica/{$notifica[nt]->getId()}"><button  type="button" class="btn btn-outline-danger">Elimina</button></a>
                     </td>
                 </tr>
                 </tbody>
@@ -142,7 +118,7 @@
                     <td>{$notificb[pc]->getText()}</td>
                     <td>{$notificb[pc]->getMittente()}</td>
                     <td>
-                        <a href="/lunova/Admin/eliminaNotifica/{$notificb[pc]->getId()}/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-info">Ignora</button></a>
+                        <a href="/lunova/Admin/ignora/{$notificb[pc]->getId()}/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-info">Ignora</button></a>
                         <a href="/lunova/Admin/eliminaCommento/{$notificb[pc]->getMittente()}/{$notificb[pc]->getId()}"><button type="button" class="btn btn-outline-danger">Elimina Commento</button></a>
                         <a href="/lunova/Admin/ricercaUtente/{$notificb[pc]->getMittente()}"><button type="button" class="btn btn-outline-warning"> Vai all'Utente</button></a>
                     </td>

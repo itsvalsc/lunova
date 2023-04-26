@@ -1,11 +1,13 @@
 <?php
 class CRicercaDisco{
+
     public static function index(){
         $viewex = new VHome();
         $var = '';
         $utente = null;
         $logged= false;
         $num = null;
+        $cli= false;
         $session = FSessione::getInstance();
         if ($session->isLogged()){
             $ut = $session->getUtente();
@@ -15,6 +17,7 @@ class CRicercaDisco{
             $pers = FPersistentManager::getInstance();
             if ($session->isCliente()){
                 $utente = $ut->getIdClient();
+                $cli = true;
                 /* //todo:commentata parte del carrello x vale
                 if ($pers->exist('FCarrello',$utente)){   //se esiste il carrello in sessione
                     $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
@@ -28,8 +31,11 @@ class CRicercaDisco{
             }elseif ($session->isArtista()){
                 $utente = $ut->getIdArtista();
             }
+            elseif (($session->isAdmin())){
+                //return header('Location: /lunova/Admin/usersadmin');
+            }
         }
-        $viewex->ShowIndex($logged,$var, $num,$utente);
+        $viewex->ShowIndex($logged,$var, $num,$utente,$cli);
     }
 
     public static function newDisc(){
@@ -46,10 +52,13 @@ class CRicercaDisco{
         }
     }
 
-    public static function ricerca(){
+    public static function ricerca($gen=null){
         $view = new VRicerca();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
+        $num=null;
+        $cli=false;
         $filtro = $view->getfiltro();
         $search = $view->getsearch();
         if($session->isLogged() && $session->isCliente()){
@@ -57,32 +66,33 @@ class CRicercaDisco{
             //$elencoitems = $pers->prelevaCartItems($cartid);
             //$num = count($elencoitems);
             $num = null; //todo:aggiungere carrello
-        }
-        else{
-            $num=null;
+            $cli = true;
         }
         if ($filtro=='disco'){
             $dischi = $pers->prelevaDischiperTitolo($search);
+            $generi = $pers->prelevaGeneri();
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi,$session->isLogged(),$num);
+                $view->lista_prodotti($dischi,$session->isLogged(),$num,$generi);
             }else{
-                $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
+                $err->message($session->isLogged(),'Disco non trovato','alla home','/lunova', $num, $cli);
             }
         }
-        elseif ($filtro=='genere'){
-            $dischi = $pers->prelevaDischiperGen($search);
+        elseif ($gen!=null){
+            $dischi = $pers->prelevaDischiperGen($gen);
+            $generi = $pers->prelevaGeneri();
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi,$session->isLogged(),null);
+                $view->lista_prodotti($dischi,$session->isLogged(),null,$generi);
             }else{
-                $view->message($session->isLogged(),'Non è stato trovato nessun disco per questa categoria','alla home','/lunova');
+                $err->message($session->isLogged(),'Non è stato trovato nessun disco per questa categoria','alla home','/lunova', $num, $cli);
             }
         }
         elseif ($filtro=='artista'){
             $dischi = $pers->prelevaDischiperAutore($search);
+            $generi = $pers->prelevaGeneri();
             if (count($dischi)!=0){
-                $view->lista_prodotti($dischi, $session->isLogged(),null);
+                $view->lista_prodotti($dischi, $session->isLogged(),null,$generi);
             }else{
-                $view->message($session->isLogged(),"Non sono stati trovati alcuni dischi per l'artista: $search",'alla home','/lunova');
+                $err->message($session->isLogged(),"Non sono stati trovati alcuni dischi per l'artista: $search",'alla home','/lunova', $num, $cli);
             }
         }
         else{

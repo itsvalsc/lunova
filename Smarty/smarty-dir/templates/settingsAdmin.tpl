@@ -19,44 +19,68 @@
         <div class="navbar-brand" >Lunova</div>
 
         <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav me-auto"> </ul>
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/Admin/notifiche">Notifiche</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/Admin/usersadmin">Users</a>
+                </li>
+            </ul>
 
             <ul class="navbar-nav ml-4">
 
-                <li class="nav-item"> </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/Impostazioni">
+                        <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
+                        <span style="scale: 0.9;" class="badge rounded-pill bg-primary">impostazioni</span>
+                    </a>
+
+                </li>
+
+
 
             </ul>
+
             </ul>
         </div>
     </div>
 </nav>
 
+
+
 <!-- end header -->
 
-{if $logged==false}
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/Login/verificaLoginAdmin" method="post">
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
-        </div>
+    <div id="main" class="container" style="margin-top:80px; height: fit-content">
+        <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
+            <li class="nav-item">
+                <a class="nav-link" href="/lunova/Profile/ModificheProfile"><span>Cambio dati profilo</span></a>
+                <hr>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/lunova/Login/logout"><i class="fa-solid fa-right-from-bracket"></i><span> Logout</span></a>
+                <hr>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/lunova/Admin/aggiungi"><span>Aggiungi Admin</span></a>
+                <hr>
+            </li>
+        </ul>
+    </div>
 
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-            <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
-        </div>
-        <hr>
 
-        <hr>
-        <button type="submit" class="btn btn-primary">Accedi</button>
-        <hr>
 
-    </form>
-</div>
-{/if}
 
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
-</div>
+
+
+
+
+
+
+
+
+
 
 <footer class="bg-dark">
     <hr>

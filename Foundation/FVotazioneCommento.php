@@ -70,4 +70,16 @@ class FVotazioneCommento
         return  (array_count_values($voti));
     }
 
+    public static function loadNumeroMPbyComm(string $comm) {
+        $pdo = FConnectionDB::connect();
+        $stmt = $pdo->prepare("SELECT commento FROM votazione_commenti WHERE commento = :comm");
+        $stmt->execute([':comm' => $comm]);
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $voti=[];
+        foreach ($rows as $row){
+            $voti[] = $row['commento'];
+        }
+        return  (array_count_values($voti));
+    }
+
 }

@@ -230,10 +230,14 @@ class VProfile
         }*/
     }
 
-    public function Settings($l, $num) {
+    public function Settings($l, $num, $cli) {
         $this->smarty->assign('logged',$l);
         $this->smarty->assign('num', $num);
+        $this->smarty->assign('isCliente', $cli);
         $this->smarty->display('settings.tpl');
+    }
+    public function Settings_admin() {
+        $this->smarty->display('settingsAdmin.tpl');
     }
 
     public function addDisco($l, $num, $generi) {
@@ -243,16 +247,26 @@ class VProfile
         $this->smarty->display('addisco.tpl');
     }
 
-    public function Assistence($l, $num){
+    public function Assistence($l, $num, $cli){
         $this->smarty->assign('logged',$l);
         $this->smarty->assign('num', $num);
+        $this->smarty->assign('isCliente', $cli);
         $this->smarty->display('assistence.tpl');
     }
 
-    public function Change($l, $num){
+    public function Change($l, $num, $cli){
         $this->smarty->assign('logged',$l);
         $this->smarty->assign('num', $num);
+        $this->smarty->assign('isCliente', $cli);
         $this->smarty->display('cambio.tpl');
+    }
+
+    public function Change_admin(){
+        $this->smarty->display('cambioAdmin.tpl');
+    }
+
+    public function Aggiungi_admin(){
+        $this->smarty->display('addAdmin.tpl');
     }
 
 

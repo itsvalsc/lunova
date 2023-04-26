@@ -53,18 +53,17 @@
 
 
 
-			<form class="d-flex" style="margin-block-end: 2px;">
-				<input class="form-control me-sm-2" type="text" placeholder="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			<form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+				<input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
 			</form>
 
 			<ul class="navbar-nav ml-4">
 				{if $logged}
 					<li class="nav-item">
 
-						<a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+						<a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
 							<i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-							<span class="badge rounded-pill bg-secondary">2</span>
 						</a>
 
 					</li>

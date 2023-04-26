@@ -24,14 +24,17 @@ class VProducts_list{
         $this->smarty->assign($name,$dati);
     }
 
-    public function lista_prodotti($prod,$l, $num){
+    public function lista_prodotti($prod,$l, $num,$generi,$cli){
         $this->setData('logged', $l);
         $this->setData('product', $prod);
         $this->setData('num', $num);
+        $this->setData('generi', $generi);
+        $this->setData('isCliente', $cli);
+
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product, $l, $num, $artista,$commenti,$utente,$starRating,$a,$nmp){
+    public function prodotto_singolo($product, $l, $num, $artista,$commenti,$utente,$starRating,$a,$nmp,$cli){
         $this->setData('logged', $l);
         $this->setData('product', $product);
         $this->setData('num', $num);
@@ -43,6 +46,7 @@ class VProducts_list{
         $this->setData('votazione',$starRating[2]);
         $this->setData('arr',$a);
         $this->setData('nmp',$nmp);
+        $this->setData('isCliente', $cli);
 
         $this->setTemplate('viewproduct.tpl');
     }

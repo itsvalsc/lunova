@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
+
+
     <title>Lunova</title>
 </head>
 <body>
@@ -40,30 +42,29 @@
             </ul>
 
 
-            {if $logged}
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">{$num}</span>
-                    </a>
-                </li>
-            </ul>
+            {if $logged && $isCliente}
+                <ul class="navbar-nav ml-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Carrello/mio_carrello">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge rounded-pill bg-secondary">{$num}</span>
+                        </a>
+                    </li>
+                </ul>
             {/if}
 
 
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
             </form>
 
             <ul class="navbar-nav ml-4">
                 {if $logged}
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -79,14 +80,6 @@
 
                     </li>
                 {/if}
-                <li class="nav-item">
-
-                    <a class="nav-link" style="align-items: center " href="/lunova/RicercaDisco/newDisc">
-                        <i class="fa-solid fa-record-vinyl" style="font-size:24px;" ></i>
-                        <span class="badge rounded-pill bg-secondary">+</span>
-                    </a>
-
-                </li>
             </ul>
 
             </ul>
@@ -100,27 +93,47 @@
 
 <div id="main" class="container" style="margin-top:40px; height: fit-content">
 
+    <h5 ><label style="margin-left: 430px;margin-bottom: 15px">UTILIZZA I FILTRI PER UN RICERCA PIU VELOCE</label></h5 >
+    <div>
+        <div style="display: inline-block">
+            <form class="d-flex" style="margin-bottom:40px" action="/lunova/RicercaDisco/ricerca" method="post">
 
+                <select class="btn btn-secondary my-2 my-sm-0" name="filtro" id="filtro" style="margin-right:5px;width: 200px">
+                    <option value="disco">NOME DISCO</option>
+                    <option value="artista">ARTISTA</option>
+                </select>
+                <input style="width: 400px" id="test" class="form-control me-sm-2" type="text" name="search" placeholder="Search"></input>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="dropdown" style="display: inline-block;margin-left: 100px">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> GENERI </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                {section name = ng loop= $generi}
+                    <li><a class="dropdown-item" href="/lunova/RicercaDisco/ricerca/{$generi[ng]}">{$generi[ng]}</a></li>
+                {/section}
+            </ul>
+        </div>
+    </div>
+        <!--
     <form class="d-flex" style="margin-bottom:40px" action="/lunova/RicercaDisco/ricerca" method="post">
-        <label  class=" my-2 my-sm-0">FILTRA PER</label>
-        <select class="btn btn-secondary my-2 my-sm-0" name="filtro" id="filtro" style="margin-right:5px">
-            <option value="disco">Nome Disco</option>
-            <option value="genere">Genere</option>
-            <option value="artista">Artista</option>
+
+        <select class="btn btn-secondary my-2 my-sm-0" name="filtro" id="filtro" style="margin-right:5px;width: 200px">
+            <option value="disco">GENERI</option>
+            <option value="artista">ARTISTA</option>
         </select>
-        <input class="form-control me-sm-2" type="text" name="search" placeholder="Search"></input>
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form>-->
+
 
 
 
 
     <div class ='row'>
-        <script>
-            var p;
-        </script>
-        {section name = nr loop= $product}
+         <label style="margin-bottom: 15px;text-align: center;font-size: xx-large" >LISTA DEGLI ARTICOLI IN VENDITA</label>
 
+        {section name = nr loop= $product}
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
                 <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getCopertina()->getFormato()};base64,{$product[nr]->getCopertina()->getImmagine()}" alt="prova">
@@ -152,9 +165,6 @@
 
 </div>
 
-
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
-</div>
 
 <footer class="bg-dark">
     <hr>

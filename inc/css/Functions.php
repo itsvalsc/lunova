@@ -152,7 +152,7 @@ function load(string $id_cli){
     return $dischi;
 
 }
-
+/*
 function CheckQta($id) : bool{
     $pdo=FConnectionDB::connect();
 
@@ -176,7 +176,7 @@ function CheckQta($id) : bool{
 
 $B= CheckQta("12345");
 var_dump($B);
-
+*/
 
 /*
 function AddToCart($productId, $cartid, $cli_id){

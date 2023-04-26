@@ -53,7 +53,7 @@ $a=FCliente::store($utt3);
 */
 
 /*
-$utt1 = new EAdmin("nicola","rossi","3331122456",'nicolarossi@gmail.com',"123");
+$utt1 = new EAdmin("vvv","sss","3331122856",'vvvsss@gmail.com',"brina");
 $a=FAdmin::store($utt1);
 */
 
@@ -143,7 +143,7 @@ print_r("\n-----------\n");
 $A = Sicurezza("ciao", "C231");
 print_r ($A);
 */
-
+/*
 function exist($id): bool
 {
 
@@ -464,7 +464,7 @@ $G = load('C151');
 $r =RecuperoOrdini('C151');
 print_r($r);
 
-
+*/
 
 
 
@@ -504,6 +504,124 @@ var_dump($lista);*/
 //var_dump($A->getCarrello());
 
 
+function CheckQta($id) : bool{
+    $pdo=FConnectionDB::connect();
+
+
+    //controllo quantità
+
+    $query = "SELECT Qta FROM dischi WHERE ID= :id";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute( [":id" => $id] );
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $quantity = $rows[0]["Qta"];
+
+    $verify=false;
+
+
+    if($quantity>0){
+        $verify=true;
+    }
+    return $verify;
+}
+
+function GETQta($id) {
+    $pdo=FConnectionDB::connect();
+
+
+    //controllo quantità
+
+    $query = "SELECT Qta FROM dischi WHERE ID= :id";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute( [":id" => $id] );
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $quantity = $rows[0]["Qta"];
+
+    return $quantity;
+}
+
+
+
+
+
+
+function AddToCart($productId, $cartid, $cli_id)
+{
+    $pdo = FConnectionDB::connect();
+
+    //$quantity = 0;
+
+    $query = "SELECT quantity, product_id FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(array(
+        ":idcart" => $cartid,
+        ':idprod' => $productId
+    ));
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //var_dump($rows);
+    $id_magazzino = $productId;
+    //$verify = CheckQta($id_magazzino);
+    $verify = CheckQta($id_magazzino);
+    $quantity = 0;
+
+    if ($verify) {
+        if (count($rows) > 0) {
+            $quantity = $rows[0]["quantity"];
+
+        }
+        ++$quantity;
+
+        if (count($rows) > 0) {
+            $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
+            $stmt1 = $pdo->prepare($query1);
+            $stmt1->execute(array(
+                ":q" => $quantity,
+                ":idcart" => $cartid,
+                ':idprod' => $productId
+            ));
+
+            $numero = GETQta($productId);
+            $quantity = $numero - 1;
+            $query2 = "UPDATE dischi SET Qta= :q WHERE ID= :id";
+            $stmt2 = $pdo->prepare($query2);
+            $stmt2->execute(array(
+                ":q" => $quantity,
+                ':id' => $productId
+            ));
+
+        } else {
+            $G = FDisco::load($productId);
+            $cart = new ECartItem(($G));
+            store($cart, $cartid);
+
+
+        }
+        return $quantity;
+    } else {
+        if (count($rows) > 0) {
+            $quantity = $rows[0]["quantity"];
+            return $quantity;
+        } else {
+            $quantity = 0;
+            return $quantity;
+        }
+    }
+
+}
+
+function store(ECartItem $citem, $cartid): void
+{
+    $pdo = FConnectionDB::connect();
+    $query = "INSERT INTO cart_item VALUES(:id,:cart_id,:product_id,:quantity)";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(array(
+        ':id' => $citem->getIdCartItem(),
+        ':cart_id' => $cartid,
+        ':product_id' => $citem->getIdItem(),
+        ':quantity' => $citem->getQuantity()
+    ));
+    //FImmagine::store($disco->getCopertina());
+}
 
 
 
@@ -511,20 +629,20 @@ var_dump($lista);*/
 
 
 
+$B= CheckQta("12345");
+var_dump($B);
 
+$S= GETQta("12345");
+var_dump($S);
 
-
-//$B= CheckQta("12345");
-//var_dump($B);
-
-
+//TODO: trasferire in cart_item (self::), controllare esistenza cart dall'id cliente preso da sessione,
 
 //$A= getCurrentCartId('C151');
 //$B = load('C151');
 //var_dump($B[0]->getIdCartItem());
 //print_r($B);
 //MinusToCart('12345','F94','C151');
-//AddToCart('12345','F94','C151');
+AddToCart('12345','F94','C151');
 //print_r($B);
 //delete('5584','F94');
 

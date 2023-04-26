@@ -143,7 +143,8 @@ class FCartItem
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($rows);
         $id_magazzino = $rows[0]["product_id"];
-        $verify = CheckQta($id_magazzino);
+        //$verify = CheckQta($id_magazzino);
+        $verify = self::CheckQta($id_magazzino);
         $quantity = 0;
 
         if ($verify){
@@ -214,6 +215,15 @@ class FCartItem
                 ":idcart" => $cartid,
                 ':idprod' => $productId
             ));
+
+            $numero = self::GETQta($productId);
+            $quantity = $numero + 1;
+            $query2 = "UPDATE dischi SET Qta= :q WHERE ID= :id";
+            $stmt2 = $pdo->prepare($query2);
+            $stmt2->execute(array(
+                ":q" => $quantity,
+                ':id' => $productId
+            ));
         }
 
         else{
@@ -232,7 +242,7 @@ class FCartItem
 
 
 
-    function CheckQta($id) : bool{
+    public static function CheckQta($id) : bool{
         $pdo=FConnectionDB::connect();
 
 

@@ -54,8 +54,11 @@ class CRicercaDisco{
 
     public static function ricerca($gen=null){
         $view = new VRicerca();
+        $err = new VErrore();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
+        $num=null;
+        $cli=false;
         $filtro = $view->getfiltro();
         $search = $view->getsearch();
         if($session->isLogged() && $session->isCliente()){
@@ -63,9 +66,7 @@ class CRicercaDisco{
             //$elencoitems = $pers->prelevaCartItems($cartid);
             //$num = count($elencoitems);
             $num = null; //todo:aggiungere carrello
-        }
-        else{
-            $num=null;
+            $cli = true;
         }
         if ($filtro=='disco'){
             $dischi = $pers->prelevaDischiperTitolo($search);
@@ -73,7 +74,7 @@ class CRicercaDisco{
             if (count($dischi)!=0){
                 $view->lista_prodotti($dischi,$session->isLogged(),$num,$generi);
             }else{
-                $view->message($session->isLogged(),'Disco non trovato','alla home','/lunova');
+                $err->message($session->isLogged(),'Disco non trovato','alla home','/lunova', $num, $cli);
             }
         }
         elseif ($gen!=null){
@@ -82,7 +83,7 @@ class CRicercaDisco{
             if (count($dischi)!=0){
                 $view->lista_prodotti($dischi,$session->isLogged(),null,$generi);
             }else{
-                $view->message($session->isLogged(),'Non è stato trovato nessun disco per questa categoria','alla home','/lunova');
+                $err->message($session->isLogged(),'Non è stato trovato nessun disco per questa categoria','alla home','/lunova', $num, $cli);
             }
         }
         elseif ($filtro=='artista'){
@@ -91,7 +92,7 @@ class CRicercaDisco{
             if (count($dischi)!=0){
                 $view->lista_prodotti($dischi, $session->isLogged(),null,$generi);
             }else{
-                $view->message($session->isLogged(),"Non sono stati trovati alcuni dischi per l'artista: $search",'alla home','/lunova');
+                $err->message($session->isLogged(),"Non sono stati trovati alcuni dischi per l'artista: $search",'alla home','/lunova', $num, $cli);
             }
         }
         else{

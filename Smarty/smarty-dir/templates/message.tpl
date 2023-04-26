@@ -41,7 +41,7 @@
 
 
 
-            {if $logged}
+            {if $logged && $isCliente}
                 <ul class="navbar-nav ml-4">
                     <li class="nav-item">
                         <a class="nav-link" href="/lunova/Carrello/mio_carrello">

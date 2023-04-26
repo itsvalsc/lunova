@@ -231,7 +231,7 @@
                 <!-- Avatar -->
                 <div class="avatar avatar-xs">
                     {if !is_null($commenti[nr]->getCliente()->getImmProfilo())}
-                        <a href="#!"><img class="avatar-img rounded-circle" style="width= 50 px; height: 50px;" src="data:{$commenti[nr]->getCliente()->getImmProfilo()->getFormato()};base64,{$commenti[nr]->getCliente()->getImmProfilo()->getImmagine()}" alt=""></a>
+                        <a href="#!"><img style="width: 50px;height: 50px;position: relative;overflow: hidden;border-radius: 50%;" src="data:{$commenti[nr]->getCliente()->getImmProfilo()->getFormato()};base64,{$commenti[nr]->getCliente()->getImmProfilo()->getImmagine()}" alt=""></a>
                     {/if}
                     {if is_null($commenti[nr]->getCliente()->getImmProfilo())}
                         <a href="#!"><img class="avatar-img rounded-circle" style="width= 50 px; height: 50px;" src="../../Utility/img/icona_profilo_utente.jpg" alt=""></a>

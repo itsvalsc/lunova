@@ -320,12 +320,15 @@ class CProfile
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $search = $view->getsearch();
+        $cli = false;
         if ($search!=null){
             $art = $pers->prelevaArtistiperUsername($search)??array();
             $cl = $pers->prelevaClientiperUsername($search)??array();
             $ut = array_merge($art,$cl);
-            //$v->message(true,json_encode($ut),'dsa','asd');
-            $view->lista_utenti($ut,$session->isLogged(),null,$session->isCliente());
+            if ($session->isLogged() && $session->isCliente()){
+                $cli = true;
+            }
+            $view->lista_utenti($ut,$session->isLogged(),null,$cli);
 
         }else{
             header('Location: /lunova');

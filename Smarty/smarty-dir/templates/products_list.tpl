@@ -93,7 +93,7 @@
 
 <div id="main" class="container" style="margin-top:40px; height: fit-content">
 
-    <h5 ><label style="margin-left: 430px;margin-bottom: 15px">UTILIZZA I FILTRI PER UN RICERCA PIU VELOCE</label></h5 >
+    <h5 ><label>UTILIZZA I FILTRI PER UN RICERCA PIU VELOCE</label></h5 >
     <div>
         <div style="display: inline-block">
             <form class="d-flex" style="margin-bottom:40px" action="/lunova/RicercaDisco/ricerca" method="post">
@@ -164,8 +164,9 @@
     {/section}
 
 </div>
-
-
+</div>
+    <div id="main" class="container" style="margin-top:100px; height: fit-content">
+</div>
 <footer class="bg-dark">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>

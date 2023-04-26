@@ -27,8 +27,12 @@ class CSondaggi{
             $votazione= $pers->exist('FVotazione',$utente,$sondaggio->getId());
             $view->show($sondaggio,$votazione,true, $num,$cli);
         }else{
+            if ($sondaggio==null){
+                return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','',$num,$cli);
+            }else{
+                $view->show($sondaggio,true,$session->isLogged(), $num, $cli );
+            }
 
-            $view->show($sondaggio,true,$session->isLogged(), $num, $cli );
         }
     }
 

@@ -148,7 +148,7 @@
                         <button class="btn btn-secondary btn-sm btn-block rounded-0" type="submit" >Vedi</button></a>
 
 
-
+                    {if $logged && $isCliente}
                     {if $product[nr]->getQta() != 0 }
                         <a href="/lunova/Carrello/Add/{$product[nr]->getID()}">
                             <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" >Aggiungi al carrello</button>
@@ -156,9 +156,10 @@
                     {/if}
                     {if $product[nr]->getQta() == 0 }
                             <button class="btn btn-primary btn-sm btn-block rounded-0 disabled">Aggiungi al carrello</button>
-
                     {/if}
-
+                        {elseif $logged==false}
+                        <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" disabled>Aggiungi al carrello</button>
+                    {/if}
                 </div>
             </div>
     {/section}

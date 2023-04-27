@@ -116,14 +116,17 @@
 
             <p>{$product->getDescrizione()}</p>
 
-            {if $product->getQta() != 0 }
-            <a href="/lunova/Carrello/Add/{$product->getID()}">
-                <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" style="margin-top: 15px" >Aggiungi al carrello</button>
-            </a>
-            {/if}
-            {if $product->getQta() == 0 }
-                <button class="btn btn-primary btn-sm btn-block rounded-0 disabled" type="submit" style="margin-top: 15px" >Aggiungi al carrello</button>
-
+            {if $logged && $isCliente}
+                {if $product->getQta() != 0 }
+                    <a href="/lunova/Carrello/Add/{$product->getID()}">
+                        <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" >Aggiungi al carrello</button>
+                    </a>
+                {/if}
+                {if $product->getQta() == 0 }
+                    <button class="btn btn-primary btn-sm btn-block rounded-0 disabled">Aggiungi al carrello</button>
+                {/if}
+            {elseif $logged==false}
+                <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" disabled>Aggiungi al carrello</button>
             {/if}
 
 

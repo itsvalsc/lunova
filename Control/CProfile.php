@@ -208,7 +208,6 @@ class CProfile
                 }
             }elseif (str_starts_with($id,'C')){
                 $cl = $pers->ClienteFromID($id);
-                $cli = true;
                 if ($cl!=null){
                     $votazioni = $pers->loadVotazioniDiscoperCliente($id);
                     $new_vot=[];

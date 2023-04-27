@@ -100,9 +100,19 @@
     {/if}
 
     <!--<p class="lead">Benvenuti nel sito!</p>-->
+
+    {if !$logged || $isCliente}
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
     <!--<a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>-->
     <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
+    {/if}
+
+    {if $logged && !$isCliente}
+        <p class="lead">Clicca sul bottone per vedere i prodotti.</p>
+        <!--<a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>-->
+        <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai al catalogo! &raquo;</a>
+    {/if}
+
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">

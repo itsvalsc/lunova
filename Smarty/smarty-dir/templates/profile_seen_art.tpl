@@ -213,10 +213,7 @@
                                         </div>
                                         <hr>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/lunova/Profile/Impostazioni"><span>Impostazioni</span></a>
-                                        <hr>
-                                    </li>
+
                                 </ul>
                                 <!-- Side Nav END -->
                             </div>

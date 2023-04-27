@@ -66,9 +66,9 @@ class CCarrello{
         $utente = 'C151'; //sessione
         $cartid = 'F94';
         $l = true;
-        $elenco = $pers->prelevaCartItems('C151');
+        $elenco = $pers->prelevaCartItems($utente);
         $num = count($elenco);
-        $Disc = $pers->prelevaCartDischiItems('C151');
+        $Disc = $pers->prelevaCartDischiItems($utente);
         $view->cart($l, $elenco,$Disc, $num);
     }
 

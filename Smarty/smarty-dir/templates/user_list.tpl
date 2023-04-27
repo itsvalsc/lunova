@@ -78,14 +78,7 @@
 
                     </li>
                 {/if}
-                <li class="nav-item">
 
-                    <a class="nav-link" style="align-items: center " href="/lunova/RicercaDisco/newDisc">
-                        <i class="fa-solid fa-record-vinyl" style="font-size:24px;" ></i>
-                        <span class="badge rounded-pill bg-secondary">+</span>
-                    </a>
-
-                </li>
             </ul>
 
             </ul>
@@ -118,12 +111,10 @@
             </div>
     {/section}
 
+    </div>
 </div>
-
-
 <div id="main" class="container" style="margin-top:100px; height: fit-content">
 </div>
-
 <footer class="bg-dark">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>

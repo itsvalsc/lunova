@@ -204,7 +204,7 @@ class CProfile
                         return $view->load_external($session->isLogged(),$num,$Art, $elenco, $numero,$numComm,$cli);
                     }
                 }else{
-                    return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
+                    return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','',$num,$cli);
                 }
             }elseif (str_starts_with($id,'C')){
                 $cl = $pers->ClienteFromID($id);

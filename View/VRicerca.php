@@ -150,11 +150,12 @@ class VRicerca
         $this->setTemplate("message.tpl");
     }
 
-    public function lista_prodotti($prod,$l,$num,$generi){
+    public function lista_prodotti($prod,$l,$num,$generi,$cli){
         $this->setData('logged', $l);
         $this->setData('product', $prod);
         $this->setData('num', $num);
         $this->setData('generi', $generi);
+        $this->setData('isCliente', $cli);
         $this->setTemplate('products_list.tpl');
     }
 

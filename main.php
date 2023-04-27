@@ -360,7 +360,6 @@ function AddToCart($productId, $cartid, $cli_id){
 function CheckQta($id){
     $pdo=FConnectionDB::connect();
 
-
     //controllo quantità
 
     $query = "SELECT Qta FROM dischi WHERE ID= :id";

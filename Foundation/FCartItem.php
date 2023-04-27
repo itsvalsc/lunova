@@ -34,24 +34,25 @@ class FCartItem
     }
 
     public static function delete(string $ID_carti, string $cart_id) {
-        $pdo=FConnectionDB::connect();
+    $pdo=FConnectionDB::connect();
 
-        try {
-            $ifExist = self::exist($ID_carti);
-            if($ifExist) {
-                $query = "DELETE FROM cart_item WHERE id= :id and cart_id = :cart_id";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute(array(
-                    ':id' => $ID_carti,
-                    ':cart_id' => $cart_id
-                ));
-                return true;
-            }
-            else{ return print('File non trovato');}
+    try {
+        //$ifExist = self::exist($ID_carti);
+        //if($ifExist) {
+        if(true) {
+            $query = "DELETE FROM cart_item WHERE id= :id and cart_id = :cart_id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute(array(
+                ':id' => $ID_carti,
+                ':cart_id' => $cart_id
+            ));
+            return true;
         }
-        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+else{ return print('File non trovato');}
+}
+catch(PDOException $exception) {print("Errore".$exception->getMessage());}
 
-    }
+}
 
     public static function load(string $id_cli){
         $pdo=FConnectionDB::connect();
@@ -82,7 +83,6 @@ class FCartItem
             $Disc->setQuantity($quantity);
             $Disc->setIdCartItem($idd);
             $Disc->setIdCart($id);
-
 
             array_push($dischi, $Disc);
 
@@ -119,8 +119,6 @@ class FCartItem
 
             $Disc = FDisco::load($product_id);
 
-
-
             array_push($dischi, $Disc);
 
         }
@@ -132,9 +130,9 @@ class FCartItem
     public static function AddToCart($productId, $cartid, $cli_id){
         $pdo=FConnectionDB::connect();
 
-        //$quantity = 0;
+        $quantity = 0;
 
-        $query = "SELECT quantity, product_id FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
+        $query = "SELECT quantity FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ":idcart" => $cartid,
@@ -142,47 +140,28 @@ class FCartItem
         ));
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($rows);
-        $id_magazzino = $rows[0]["product_id"];
-        $verify = CheckQta($id_magazzino);
-        $quantity = 0;
 
-        if ($verify){
-            if (count($rows) > 0 ){
-                $quantity = $rows[0]["quantity"];
-
-            }
-            ++ $quantity ;
-
-            if (count($rows) > 0 ) {
-                $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
-                $stmt1 = $pdo->prepare($query1);
-                $stmt1->execute(array(
-                    ":q" => $quantity,
-                    ":idcart" => $cartid,
-                    ':idprod' => $productId
-                ));
-            }
-            else{
-                $G= FDisco::load($productId);
-                $cart = new ECartItem(($G));
-                self::store($cart,$cartid);
-
-
-            }
-            return $quantity;
+        if (count($rows) > 0 ){
+            $quantity = $rows[0]["quantity"];
         }
-        else {
-            if (count($rows) > 0 ){
-                $quantity = $rows[0]["quantity"];
-                return $quantity;
-            }
-            else {
-                $quantity = 0;
-                return $quantity;
-            }
+        ++ $quantity ;
+
+        if (count($rows) > 0 ) {
+            $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
+            $stmt1 = $pdo->prepare($query1);
+            $stmt1->execute(array(
+                ":q" => $quantity,
+                ":idcart" => $cartid,
+                ':idprod' => $productId
+            ));
         }
+        else{
+            $G= FDisco::load($productId);
+            $cart = new ECartItem(($G));
+            FCartItem::store($cart,$cartid);
 
-
+        }
+        return $quantity;
 
     }
 
@@ -205,7 +184,6 @@ class FCartItem
 
         if ($quantity > 1 ){
             -- $quantity ;
-            //print_r($quantity);
 
             $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
             $stmt1 = $pdo->prepare($query1);
@@ -224,17 +202,14 @@ class FCartItem
             //$G= FDisco::load($productId);
             //$cart = new ECartItem(($G));
             //FCartItem::store($cart,$cartid);
-
         }
         return $quantity;
-
     }
 
 
 
-    function CheckQta($id) : bool{
+    public static function CheckQta($id){
         $pdo=FConnectionDB::connect();
-
 
         //controllo quantità
 
@@ -245,12 +220,23 @@ class FCartItem
         $quantity = $rows[0]["Qta"];
 
         $verify=false;
+        $solution = array();
 
-
-        if($quantity>0){
+        if($quantity>0 && $quantity<10){
             $verify=true;
+            $message = "disponibili pochi pezzi";
+            array_push($solution, $verify,$message);
         }
-        return $verify;
+        if($quantity>0 ){
+            $verify=true;
+            $message = "disponibile";
+            array_push($solution, $verify,$message);
+        }
+        else{
+            $message = "non disponibile";
+            array_push($solution, $verify,$message);
+        }
+        return $solution;
     }
 
 

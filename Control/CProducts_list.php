@@ -11,12 +11,9 @@ class CProducts_list{
 
         if ($session->isLogged()){
             if ($session->isCliente()){
-                $utente = $session->getUtente()->getIdClient();
                 $cli = true;
-                //todo:scommentare per il settaggio del carrello
-                //$cartid = $session->getCarrello()->getId();
-                //$elencoitems = $pers->prelevaCartItems($utente);
-                //$num = count($elencoitems);
+                $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+                $num = count($elenco);
             }
         }
 
@@ -87,10 +84,8 @@ class CProducts_list{
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
                 $cli = true;
-                //todo: scommentare per carrello
-                //$cartid = $session->getCarrello()->getId();
-                //$elencoitems = $pers->prelevaCartItems($utente);
-                //$num = count($elencoitems);
+                $elenco = $pers->prelevaCartItems($utente);
+                $num = count($elenco);
                 $votazione = $pers->exist('FVotazioneDisco',$utente,$id);
                 $mpComm = $pers->loadmpCommenti($utente,$id);
             }

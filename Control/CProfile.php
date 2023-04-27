@@ -72,7 +72,7 @@ class CProfile
                 return $view->Settings(true,null,false);
             }
             else{
-                $elenco = $pers->prelevaCartItems('C151');
+                $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
                 $num = count($elenco);
                 return $view->Settings(true, $num,true);
             }
@@ -104,11 +104,13 @@ class CProfile
         if ($session->isLogged()){
             if ($session->isArtista()){
                 return $view->Assistence($l, null, false);
-            }else {
-                $utente = 'C151';
-                $elenco = $pers->prelevaCartItems($utente);
+            }elseif ($session->isCliente()) {
+                $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
                 $num = count($elenco);
-                $view->Assistence($l, $num, true);
+                return $view->Assistence($l, $num, true);
+            }
+            else{
+                return header('Location: /lunova');
             }
         }
     }
@@ -125,9 +127,8 @@ class CProfile
                 return $view->Change(true,$num,false);
             }
             else{
-                //todo:carrello
-                //$elenco = $pers->prelevaCartItems($utente);
-                //$num = count($elenco);
+                $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+                $num = count($elenco);
                 $cli = true;
                 return $view->Change(true, $num,true);
             }
@@ -145,7 +146,7 @@ class CProfile
         $utente = 'C151';
         $l = true;
         $pers->AssistenzaMex($testo,$utente);
-        header('Location: /lunova/Profile/Impostazioni');
+        return header('Location: /lunova/Profile/Impostazioni');
     }
 
 
@@ -171,6 +172,8 @@ class CProfile
                         }
                     }
                 }elseif ($session->isCliente()){
+                    $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+                    $num = count($elenco);
                     $cli = true;
                     if (!isset($id)){
                         $id=$session->getUtente()->getIdClient();
@@ -198,7 +201,7 @@ class CProfile
                         return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm,$cli);
 
                     }else{
-                        return $view->load_external($session->isLogged(),$Art, $elenco, $numero,$numComm,$cli);
+                        return $view->load_external($session->isLogged(),$num,$Art, $elenco, $numero,$numComm,$cli);
                     }
                 }else{
                     return $err->message($session->isLogged(),"non è stato possibile trovare l'artista selezionato",'alla home','');
@@ -228,11 +231,10 @@ class CProfile
                     }
                     //return $err->message('true',json_encode($nome_dischi),'','');
                     if($self_page){
-                        return $view->load_cl($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi,$cli);
+                        return $view->load_cl($session->isLogged(),$num,$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi,$cli);
                     }else{
-                        return $view->load_cl_external($session->isLogged(),$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi,$cli);
+                        return $view->load_cl_external($session->isLogged(),$num,$cl,$new_vot,$numComm,$commenti,$nmp_arr,$tot_nmp,$nome_dischi,$cli);
                     }
-                    return $view->load_cl($session->isLogged(),$cl);
                 }
             }
         }catch (Exception $e){
@@ -289,17 +291,18 @@ class CProfile
             $email = $utente->getEmail();
             $sessione->logout();
             $pers->EliminaAccontA($email);
-            $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
+            return $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
         }elseif ($sessione->isLogged() && $sessione->isCliente()){
             $utente = $sessione->getUtente();
+
             $cli = true;
             $email = $utente->getEmail();
             $sessione->logout();
             $pers->EliminaAccontC($email);
-            $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
+            return $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
         }
         else{
-            header('Location: /lunova');
+            return header('Location: /lunova');
         }
     }
 
@@ -311,7 +314,7 @@ class CProfile
         $id = ""; //recuperare l'id da sessione
         $numero = $view->getQta();
         $pers->SetQta($id_disco, $numero);
-        header("Location: /lunova/Profile/users/$id_artista");
+        return header("Location: /lunova/Profile/users/$id_artista");
     }
 
     public static function ricercaUtente(){
@@ -321,17 +324,20 @@ class CProfile
         $session = FSessione::getInstance();
         $search = $view->getsearch();
         $cli = false;
+        $num=null;
         if ($search!=null){
             $art = $pers->prelevaArtistiperUsername($search)??array();
             $cl = $pers->prelevaClientiperUsername($search)??array();
             $ut = array_merge($art,$cl);
             if ($session->isLogged() && $session->isCliente()){
+                $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+                $num = count($elenco);
                 $cli = true;
             }
-            $view->lista_utenti($ut,$session->isLogged(),null,$cli);
+            return $view->lista_utenti($ut,$session->isLogged(),$num,$cli);
 
         }else{
-            header('Location: /lunova');
+            return header('Location: /lunova');
         }
     }
 
@@ -349,26 +355,28 @@ class CProfile
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FArtista','Password',$pass_nuova_cript,$utente->getIdArtista());
-                $err->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','',$num,$cli);
+                return $err->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','',$num,$cli);
             }
             elseif ($sessione->isLogged() && $sessione->isCliente()){
-                $utente = $sessione->getUtente();
                 $cli = true;
+                $utente = $sessione->getUtente();
+                $elenco = $pers->prelevaCartItems($utente->getIdClient());
+                $num = count($elenco);
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FCliente','Password',$pass_nuova_cript,$utente->getIdClient());
-                $err->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','',$num,$cli);
+                return $err->message($sessione->isLogged(),'La tua password è stata cambiata','alla home','',$num,$cli);
             }
             elseif ($sessione->isLogged() && $sessione->isAdmin()){
                 $utente = $sessione->getUtente();
                 $pass_nuova_cript = $utente->criptaPassword($password);
                 $pers->update_value('FAdmin','Password',$pass_nuova_cript,$utente->getIdAmministratore());
-                $err->message_admin('La tua password è stata cambiata','alla home','Admin/usersadmin');
+                return $err->message_admin('La tua password è stata cambiata','alla home','Admin/usersadmin');
             }
             else{
-                header('Location: /lunova');
+                return header('Location: /lunova');
             }
         }else{
-            $err->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della password",'alla home','',$num,$cli);
+            return $err->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della password",'alla home','',$num,$cli);
         }
     }
 
@@ -394,11 +402,13 @@ class CProfile
                 }
             }
             elseif ($sessione->isLogged() && $sessione->isCliente()){
+                $utente = $sessione->getUtente();
+                $id = $utente->getIdClient();
+                $elenco = $pers->prelevaCartItems($id);
+                $num = count($elenco);
                 $verifica = $pers->exist_username('FCliente',$username);
                 $cli = true;
                 if ($verifica){
-                    $utente = $sessione->getUtente();
-                    $id = $utente->getIdClient();
                     $pers->update_value('FCliente','Username',$username,$id);
                     $ut = $pers->ClienteFromID($id);
                     $sessione->setUtente($ut);
@@ -447,6 +457,8 @@ class CProfile
             }
             elseif ($sessione->isLogged() && $sessione->isCliente()){
                 $utente = $sessione->getUtente();
+                $elenco = $pers->prelevaCartItems($utente->getIdClient());
+                $num = count($elenco);
                 $cli = true;
                 $id = $utente->getIdClient();
                 $image = new EImmagine($imgName,$imgType,$imgData,$id);

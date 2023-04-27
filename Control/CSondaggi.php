@@ -17,8 +17,6 @@ class CSondaggi{
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
             $cli = true;
-            /* todo:reinserire variabili per carrello
-            $cartid = $session->getCarrello()->getId();*/
             $elenco = $pers->prelevaCartItems($utente);
             $num = count($elenco);
             if ($sondaggio==null){
@@ -42,14 +40,14 @@ class CSondaggi{
         $session = FSessione::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
 
-        if ($session->isLogged()){
+        if ($session->isLogged() && $session->isCliente()){
             $ut = $session->getUtente();
             $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
             if (!$votazione){
                 $votazione = $pers->vota($id,$ut->getIdClient());
             }
         }
-        header("Location: /lunova/Sondaggi/show");
+        return header("Location: /lunova/Sondaggi/show");
 
     }
 
@@ -65,7 +63,7 @@ class CSondaggi{
                 $a[]=$value;
             }
             if(count($a)!=3){
-                $v->message_admin('selezionare solo 3 sondaggi','alle notifiche','Admin/notifiche');
+                return $v->message_admin('selezionare solo 3 sondaggi','alle notifiche','Admin/notifiche');
             }
 
             $d1=$a[0];
@@ -78,10 +76,10 @@ class CSondaggi{
             $sondaggio = new ESondaggio($disco1,$disco2,$disco3,(string)date('c'));
 
             $pers->crea_sondaggio($sondaggio);
-            $v->message_admin('Sondaggio creato con successo','alle notifiche','Admin/notifiche');
+            return $v->message_admin('Sondaggio creato con successo','alle notifiche','Admin/notifiche');
         }
         else{
-            header("Location: /lunova");
+            return header("Location: /lunova");
         }
 
 
@@ -111,7 +109,7 @@ class CSondaggi{
             $pers->store($richiesta);
             return $view->message($sessione->isLogged(),'richiesta effuata, ci vorrà un po di tempo prima che la tua richiesta venga elaborata ed apparirà il suo disco in un sondaggio','alla home','',$num, $cli);
         }else{
-            header("Location: /lunova");
+            return header("Location: /lunova");
         }
     }
 }

@@ -54,10 +54,6 @@
 
 <div id="main" class="container" style="margin-top:80px; height: 700px">
 
-    <form class="d-flex" style="margin-block-end: 2px;">
-        <input class="form-control me-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
     <hr>
 
 

@@ -159,6 +159,7 @@ class CProfile
         $controllo = false;
         $num = null;
         $cli = false;
+        $nome_dischi=null;
         try {
             if($session->isLogged()){
                 if ($session->isArtista()){
@@ -407,7 +408,7 @@ class CProfile
                 $num = count($elenco);
                 $verifica = $pers->exist_username('FCliente',$username);
                 $cli = true;
-                if ($verifica){
+                if (!$verifica){
                     $pers->update_value('FCliente','Username',$username,$id);
                     $ut = $pers->ClienteFromID($id);
                     $sessione->setUtente($ut);

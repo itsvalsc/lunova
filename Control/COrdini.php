@@ -2,25 +2,36 @@
 class COrdini{
     public static function tutti(){
         $view = new VOrdini();
-        $l = true;
         $pers = FPersistentManager::getInstance();
-        $utente = 'C151'; //sessione
-        $elenco = $pers->prelevaCartItems($utente);
-        $num = count($elenco);
-        $ordini = $pers->LoadOrdini($utente);
-        $view->lista_ordini($ordini,$l, $num);
+        $session = FSessione::getInstance();
+        if ($session->isLogged() && $session->isCliente()){
+            $utente = $session->getUtente()->getIdClient();
+            $elenco = $pers->prelevaCartItems($utente);
+            $num = count($elenco);
+            $ordini = $pers->LoadOrdini($utente);
+            return $view->lista_ordini($ordini,true, $num);
+        }else{
+            return header("Location: /lunova");
+        }
+
     }
 
 
 
     public static function AddToOrdini(){
         $view = new VCarrello();
-        $l = true;
         $pers = FPersistentManager::getInstance();
-        $utente = 'C151'; //sessione
-        $cartid = 'F94';
-        $elenco = $pers->prelevaCartItems($utente);
-        $pers->AddOrdine($elenco, $cartid,$utente);
-        $view->getFeedback($l);
+        $session = FSessione::getInstance();
+        if ($session->isLogged() && $session->isCliente()){
+            $utente = $session->getUtente()->getIdClient();
+            $cart = $pers->prelevaCarrelloCorrente($utente);
+            $elenco = $pers->prelevaCartItems($utente);
+            $pers->AddOrdine($elenco, $cart->getId(),$utente);
+            return $view->getFeedback(true);
+        }else{
+            return header("Location: /lunova");
+
+        }
+
     }
 }

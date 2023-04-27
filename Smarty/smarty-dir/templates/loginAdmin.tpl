@@ -47,7 +47,6 @@
         </div>
         <hr>
 
-        <hr>
         <button type="submit" class="btn btn-primary">Accedi</button>
         <hr>
 

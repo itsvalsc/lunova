@@ -108,24 +108,21 @@ class CLogin{
     }
 
     public static function verificaLoginAdmin(){
-        $v = new VLogin(); //todo: inserire view giusta per restituire la homepage dell amministratore
+        $v = new VLogin();
+        $err = new VErrore();
         $email = $v->getEmail();
         $password = $v->getPwd();
         $pm = FPersistentManager::getInstance();
         $gs = FSessione::getInstance();
         if ($pm->exist('FAdmin', $email)) {
             $admin = $pm->load('FAdmin', $email);
-            if (/*hash('sha256',$password) == $admin->getPassword()*/true) { //todo:ricambaire
+            if (hash('sha256',$password) == $admin->getPassword()) {
                 $gs->setUtente($admin);
-                //$v->ShowIndex(true,$admin->getUsername());
-                header("Location: /lunova/Admin/usersadmin");
+                return header("Location: /lunova/Admin/usersadmin");
             } else {
-                $v->message(false,'password errata','Login','Login/login');
-                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaLogin");
+                return $err->message_admin('password errata','Login','Login/Admin');
             }
         }
-
-
     }
 
 }

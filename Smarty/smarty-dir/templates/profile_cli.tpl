@@ -173,7 +173,7 @@
                                 <!-- Side Nav START -->
                                 <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>I miei ordini</span></a>
+                                        <a class="nav-link" href="/lunova/Ordini/tutti"> <img class="me-2 h-20px fa-fw" src="assets/images/icon/earth-outline-filled.svg" alt=""><span>I miei ordini</span></a>
                                         <hr>
                                     </li>
                                     <li class="nav-item">

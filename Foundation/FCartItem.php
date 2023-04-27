@@ -49,7 +49,17 @@ class FCartItem
             else{ return print('File non trovato');}
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+    }
+    public static function delete_cart(string $cart_id) {
+        $pdo=FConnectionDB::connect();
 
+        try {
+            $query = "DELETE FROM cart_item WHERE cart_id = :cart_id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([':cart_id' => $cart_id]);
+            return true;
+        }
+        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
     }
 
     public static function load(string $id_cli){

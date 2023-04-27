@@ -6,7 +6,7 @@ class FCarrello{
 
         $pdo = FConnectionDB::connect();
 
-        $query = "SELECT * FROM cart WHERE id = :id";
+        $query = "SELECT * FROM cart WHERE client_id = :id";
         $stmt= $pdo->prepare($query);
         $stmt->execute([":id" => $id]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

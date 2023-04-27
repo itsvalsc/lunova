@@ -25,16 +25,16 @@ class EOrdine
     private string $IdCliente;
 
 
-    public function __construct(string $Idcl)
+    public function __construct( ?ECliente $cl)
     {
         $this->IdOrdine = random_int(0, 1000);
         $this->TotOrdine = 0.0;
-        $this->IdCliente = $Idcl;
+        $this->IdCliente = $cl->getIdClient();
         $this->carrello = "";
-        $this->IndirizzoSped = 'null';
-        $this->ModPagamento = 'null';
-        $this->CAPSped = 'null';
-        $this->CittaSped = 'null';
+        $this->IndirizzoSped = $cl->getVia();
+        $this->ModPagamento = 'carta';
+        $this->CAPSped = $cl->getCAP();
+        $this->CittaSped = $cl->getCitta();
     }
 
     /** metodi get **/

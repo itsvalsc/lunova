@@ -143,10 +143,11 @@ class FOrdine{
 
             $tot = $tot + ($qta * $prezzo);
 
-            FCartItem::delete($id_nel_carrello,$cartid);
+            FCartItem::delete_cart($cartid);
         }
 
-        $ordine = new EOrdine( $cli_id);
+        $cli = FCliente::loadId($cli_id);
+        $ordine = new EOrdine( $cli);
         //$ordine->setCarrello($lista);
         $ordine->setCarrello($stringa);
         $ordine->setTotOrdine($tot);

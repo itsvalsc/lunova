@@ -46,7 +46,9 @@ class FVotazioneDisco
         $voti=[];
         if (count($rows)!=0){
             foreach ($rows as $row){
-                $voti[$row['disco']] = $row['voto'];
+                if(FDisco::exist($row['disco'])){
+                    $voti[$row['disco']] = $row['voto'];
+                }
             }
         }
         return  $voti;

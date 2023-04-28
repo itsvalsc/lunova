@@ -48,7 +48,7 @@ class FCartItem
             }
             else{ return print('File non trovato');}
         }
-        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+        catch(PDOException $exception) {return ("Errore".$exception->getMessage());}
     }
     public static function delete_cart(string $cart_id) {
         $pdo=FConnectionDB::connect();
@@ -59,7 +59,19 @@ class FCartItem
             $stmt->execute([':cart_id' => $cart_id]);
             return true;
         }
-        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+        catch(PDOException $exception) {return ("Errore".$exception->getMessage());}
+    }
+
+    public static function delete_disco(string $product_id) {
+        $pdo=FConnectionDB::connect();
+
+        try {
+            $query = "DELETE FROM cart_item WHERE product_id = :id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([':id' => $product_id]);
+            return true;
+        }
+        catch(PDOException $exception) {return ("Errore".$exception->getMessage());}
     }
 
     public static function load(string $id_cli){
@@ -126,12 +138,10 @@ class FCartItem
             $product_id = $row['product_id'];
             //$immagine = FImmagine::load($id);
 
-            $Disc = FDisco::load($product_id);
-
-
-
-            array_push($dischi, $Disc);
-
+            if (FDisco::exist($product_id)){
+                $Disc = FDisco::load($product_id);
+                array_push($dischi, $Disc);
+            }
         }
         return $dischi;
 

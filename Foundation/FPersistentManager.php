@@ -224,6 +224,11 @@ class FPersistentManager{
     public function MinusItem($prodctId, $cartid,$cli_id){
         return FCartItem::MinusToCart($prodctId, $cartid,$cli_id);
     }
+    public function DeleteItem($prodctId,){
+        return FCartItem::delete_disco($prodctId);
+    }
+
+
 
     public function FindArtistName($id){
         return FArtista::loadName($id);

@@ -130,7 +130,7 @@
                                             <a href="#!"><img class="avatar-img rounded border border-white border-3" style="width: 200px;height: 200px" src="data:{$artista->getImmProfilo()->getFormato()};base64,{$artista->getImmProfilo()->getImmagine()}" alt=""></a>
                                         {/if}
                                         {if is_null($artista->getImmProfilo())}
-                                            <a href="#!"><img class="avatar-img rounded border border-white border-3" style="width= 200 px; height: 200px;" src="../../Utility/img/icona_profilo_utente.jpg" alt=""></a>
+                                            <a href="#!"><img class="avatar-img rounded border border-white border-2" style="width= 200 px; height: 200px;" src="https://st2.depositphotos.com/50337402/47081/v/450/depositphotos_470817490-stock-illustration-black-male-user-symbol-blue.jpg" alt=""></a>
                                         {/if}
                                     </div>
                                     <!-- Info -->

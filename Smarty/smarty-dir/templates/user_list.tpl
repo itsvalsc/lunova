@@ -97,8 +97,15 @@
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
-                <img style = "width: 250px; height: 250px;" src={if !is_null($product[nr]->getImmProfilo())}"data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}"{elseif is_null($product[nr]->getImmProfilo())}"../Utility/img/icona_profilo_utente.jpg"{/if} alt="prova">
-
+                {if !is_null($product[nr]->getImmProfilo())}
+                <img style = "width: 250px; height: 250px;" src="data:{$product[nr]->getImmProfilo()->getFormato()};base64,{$product[nr]->getImmProfilo()->getImmagine()}" alt="prova">
+                {elseif is_null($product[nr]->getImmProfilo())}
+                {if $product[nr]->getLivello() == 'B'}
+                    <img style = "width: 250px; height: 250px;" src="https://st2.depositphotos.com/50337402/47081/v/450/depositphotos_470817490-stock-illustration-black-male-user-symbol-blue.jpg" alt="prova">
+                {elseif  $product[nr]->getLivello() == 'C'}
+                    <img style = "width: 250px; height: 250px;" src="https://static.vecteezy.com/ti/vettori-gratis/p2/2318271-icona-profilo-utente-vettoriale.jpg" alt="prova">
+                {/if}
+                {/if}
                 <div class="card-body" >
                     <h5 class="card-title"> {$product[nr]->getUsername()} </h5>
                     <h6 class = "card-subtitle mb-2 text-muted">{if $product[nr]->getLivello() == 'B'}Artista{elseif  $product[nr]->getLivello() == 'C'}Utente{/if} </h6>

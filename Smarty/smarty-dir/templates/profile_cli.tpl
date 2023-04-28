@@ -134,7 +134,7 @@
                                             <a href="#!"><img class="avatar-img rounded border border-white border-3" style="width: 200px;height: 200px" src="data:{$cliente->getImmProfilo()->getFormato()};base64,{$cliente->getImmProfilo()->getImmagine()}" alt=""></a>
                                         {/if}
                                         {if is_null($cliente->getImmProfilo())}
-                                            <a href="#!"><img class="avatar-img rounded border border-white border-3" style="width= 200 px; height: 200px;" src="../Utility/img/icona_profilo_utente.jpg" alt=""></a>
+                                            <a href="#!"><img class="avatar-img rounded border border-white border-3" style="width= 200 px; height: 200px;" src="https://static.vecteezy.com/ti/vettori-gratis/p2/2318271-icona-profilo-utente-vettoriale.jpg" alt=""></a>
                                         {/if}
                                     </div>
                                     <!-- Info -->

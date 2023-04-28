@@ -201,7 +201,7 @@
                                             <div class="ms-2">
                                                 <div class="bg-dark rounded-start-top-0 p-3 rounded bg-opacity-75" style="margin-bottom: 5px">
                                                     <div class="d-flex justify-content-between" >
-                                                        <h6 class="mb-1" ><span style="opacity: 0.7">Disco:</span> <a href="/lunova/Products_list/mostra_prodotto/{$commenti[c]->getIdDisco()}"> {$nome_dischi[$commenti[c]->getId()]}</a></h6>
+                                                        <h6 class="mb-1" ><span style="opacity: 0.7">Disco:</span> <a href="/lunova/Products_list/mostra_prodotto/{$commenti[c]->getIdDisco()}"> {$nome_dischi[$commenti[c]->getId()]|default:"Errore, disco non trovato"}</a></h6>
                                                         <small class="ms-2">{$commenti[c]->getData()}</small>
                                                     </div>
                                                     <p class="small mb-0" style="margin-top: 10px">{$commenti[c]->getDescrizione()}</p>

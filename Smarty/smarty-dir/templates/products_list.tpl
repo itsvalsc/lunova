@@ -133,6 +133,7 @@
     <div class ='row'>
          <label style="margin-bottom: 15px;text-align: center;font-size: xx-large" >LISTA DEGLI ARTICOLI IN VENDITA</label>
 
+        {if count($product)!=0}
         {section name = nr loop= $product}
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
@@ -163,10 +164,13 @@
                 </div>
             </div>
     {/section}
+            {else}
+            <h3 style="text-align: center;margin-top: 100px;color: #ff00ea"><label >Spiacente, nessun disco trovato</label></h3>
+        {/if}
 
 </div>
 </div>
-    <div id="main" class="container" style="margin-top:100px; height: fit-content">
+    <div id="main" class="container" style="margin-top:400px; height: fit-content">
 </div>
 <footer class="bg-dark">
     <hr>

@@ -210,23 +210,28 @@ class CProfile
             }elseif (str_starts_with($id,'C')){
                 $cl = $pers->ClienteFromID($id);
                 if ($cl!=null){
-                    $votazioni = $pers->loadVotazioniDiscoperCliente($id);
+                    $votazioni = $pers->loadVotazioniDiscoperCliente($id); //array vuoto se non ci sono
                     $new_vot=[];
                     foreach ($votazioni as $disco=>$voto){
                         $d = $pers->load('FDisco',$disco);
-                        $new_vot[$d->getTitolo()]=CProducts_list::star_Rate($voto);
+                        if ($d!=null){
+                            $new_vot[$d->getTitolo()]=CProducts_list::star_Rate($voto);
+                        }
                     }
                     $commenti = $pers->loadCommentibyCliente($id);
                     $numComm= count($commenti);
                     $nmp_arr=[];
                     $tot_nmp=0;
+                    $nome_dischi=[];
                     foreach ($commenti as  $comm){
-                        $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
                         $d = $pers->load('FDisco',$comm->getIdDisco());
-                        $nome_dischi[$comm->getId()]=$d->getTitolo();
-                        if (count($temp_arr)!=0){
-                            $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
-                            $tot_nmp= $tot_nmp + intval($temp_arr[key($temp_arr)]);
+                        if ($d!=null){
+                            $temp_arr = $pers->loadNumeroMPbyComm($comm->getId());
+                            $nome_dischi[$comm->getId()]=$d->getTitolo();
+                            if (count($temp_arr)!=0){
+                                $nmp_arr[key($temp_arr)]= $temp_arr[key($temp_arr)];
+                                $tot_nmp= $tot_nmp + intval($temp_arr[key($temp_arr)]);
+                            }
                         }
                     }
                     //return $err->message('true',json_encode($nome_dischi),'','');

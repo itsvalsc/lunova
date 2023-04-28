@@ -100,7 +100,7 @@ class CProducts_list{
             $starRating = [$starRate,$mediaVoti,$votazione];
             return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli);
         }else{
-            return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi');
+            return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi',$num,$cli);
         }
     }
 

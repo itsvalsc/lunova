@@ -223,7 +223,6 @@ class FDisco {
 
     public static function delete(string $ID_disco) {
         $pdo=FConnectionDB::connect();
-
         try {
             $ifExist = self::exist($ID_disco);
             if($ifExist) {
@@ -232,7 +231,7 @@ class FDisco {
                 $stmt->execute([":id" => $ID_disco]);
                 return true;
             }
-            else{ return print('File non trovato');}
+            else{ return false;}
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
 

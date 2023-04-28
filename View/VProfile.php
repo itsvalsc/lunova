@@ -240,9 +240,8 @@ class VProfile
         $this->smarty->display('settingsAdmin.tpl');
     }
 
-    public function addDisco($l, $num, $generi) {
+    public function addDisco($l, $generi) {
         $this->smarty->assign('logged',$l);
-        $this->smarty->assign('num', $num);
         $this->smarty->assign('gen', $generi);
         $this->smarty->display('addisco.tpl');
     }

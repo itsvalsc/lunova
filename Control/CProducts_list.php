@@ -39,6 +39,7 @@ class CProducts_list{
     public static function aggiungi_disco(){
         $session = FSessione::getInstance();
         $view = new VNewDisc() ;
+        $mess = new VErrore();
         if ($session->isLogged() && $session->isArtista()){
             $artista_id = $session->getUtente()->getIdArtista();
             $pers = FPersistentManager::getInstance();
@@ -56,12 +57,28 @@ class CProducts_list{
             $pers->store($disco);
 
             $messaggio='Disco Creato Correttamente';
-            return $view->message(true,$messaggio,'alla home','');
+            return $mess->message(true,$messaggio,'alla home','',null,false);
         }else{
-            return $view->message(false,'accedi come artista per aggiungere un disco');
+            return $mess->message(false,'accedi come artista per aggiungere un disco','','',null,false);
         }
-
     }
+
+    public static function delete_disco($id){
+        $session = FSessione::getInstance();
+        $mess = new VErrore();
+        if ($session->isLogged() && $session->isArtista()){
+            $artista_id = $session->getUtente()->getIdArtista();
+            $pers = FPersistentManager::getInstance();
+
+            $pers->delete('FDisco',$id);
+            //todo:gestione
+            $messaggio='Disco Eliminato Correttamente';
+            return $mess->message(true,$messaggio,'alla home','',null,false);
+        }else{
+            return header('Location: /lunova');
+        }
+    }
+
 
     public static function recuperaAggiungiProdotto(){
         //$artista = sessione->recupera artista(); da implementare con le sessioni

@@ -119,13 +119,15 @@ class FCommento
                 $data = $row['data'];
                 $idCliente = $row['cliente'];
                 $disco = $row['disco'];
+                if (FDisco::exist($disco)){
+                    $cliente = FCliente::loadId($idCliente);
+                    $commento = new ECommento($cliente,$descrizione, $data, $disco);
+                    $commento->setId($id);
 
-                $cliente = FCliente::loadId($idCliente);
-                $commento = new ECommento($cliente,$descrizione, $data, $disco);
-                $commento->setId($id);
+                    $commenti[$i] = $commento;
+                    ++$i;
+                }
 
-                $commenti[$i] = $commento;
-                ++$i;
             }
             return $commenti;
         }

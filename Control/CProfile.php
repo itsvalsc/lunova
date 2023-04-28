@@ -86,13 +86,13 @@ class CProfile
     public static function AddDisco(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
-
-        $utente = 'C151';
-        $l = true;
-        $generi = $pers->prelevaGeneri();
-        $elenco = $pers->prelevaCartItems($utente);
-        $num = count($elenco);
-        $view->addDisco($l, $num, $generi);
+        $session = FSessione::getInstance();
+        if ( $session->isLogged() && $session->isArtista()){
+            $generi = $pers->prelevaGeneri();
+            return $view->addDisco(true, $generi);
+        }else{
+            return header('Location: /lunova');
+        }
     }
 
 
@@ -272,7 +272,7 @@ class CProfile
                 }
                 $numComm = count($array);
                 $numero = count($elenco);
-                $view->load($l,$Art, $elenco, $numero, $controllo,$numComm);
+                $view->load($l,$Art, $elenco, $numero, $controllo,$numComm,false);
             }
             else{
                 return $err->message($session->isLogged(),"Errore: impossibile trovare l'artista",'alla home','', $num, $cli);
@@ -280,9 +280,7 @@ class CProfile
         }
         else{
             return header('Location: /lunova');
-
         }
-
     }
 
     public static function Delete(){

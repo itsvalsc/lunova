@@ -210,7 +210,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Products_list/delete_disco/{$product[nr]->getID()}">
                                                                         <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                                                     </a>
                                                                 </div>
@@ -244,7 +244,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:20%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Products_list/delete_disco/{$product[nr]->getID()}">
                                                                         <i class="fa-solid fa-trash-can" style="color: #ff0000;"></i>
                                                                     </a>
                                                                 </div>

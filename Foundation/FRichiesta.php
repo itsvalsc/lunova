@@ -57,8 +57,10 @@ class FRichiesta
         }
         else{
             foreach ($rows as $row){
-                $richiesta=new ERichiesta($row['disco'],$row['data'],$row['nomeArtista']);
-                $array[]=$richiesta;
+                if (FDisco::exist($row['disco'])){
+                    $richiesta=new ERichiesta($row['disco'],$row['data'],$row['nomeArtista']);
+                    $array[]=$richiesta;
+                }
             }
         }
         return $array;

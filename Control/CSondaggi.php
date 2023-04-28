@@ -23,7 +23,7 @@ class CSondaggi{
                 return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','',$num,$cli);
             }
             $votazione= $pers->exist('FVotazione',$utente,$sondaggio->getId());
-            $view->show($sondaggio,$votazione,true, $num,$cli);
+            return $view->show($sondaggio,$votazione,true, $num,$cli);
         }else{
             if ($sondaggio==null){
                 return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','',$num,$cli);

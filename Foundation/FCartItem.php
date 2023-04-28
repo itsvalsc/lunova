@@ -87,14 +87,14 @@ class FCartItem
             $quantity = $row['quantity'];
             $product_id = $row['product_id'];
             //$immagine = FImmagine::load($id);
-            $Disc = new ECartItem(FDisco::load($product_id));
-            $Disc->setQuantity($quantity);
-            $Disc->setIdCartItem($idd);
-            $Disc->setIdCart($id);
-
-
-            array_push($dischi, $Disc);
-
+            $disco = FDisco::load($product_id);
+            if ($disco!=null){
+                $Disc = new ECartItem($disco);
+                $Disc->setQuantity($quantity);
+                $Disc->setIdCartItem($idd);
+                $Disc->setIdCart($id);
+                array_push($dischi, $Disc);
+            }
         }
         return $dischi;
 

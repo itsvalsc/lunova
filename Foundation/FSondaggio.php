@@ -85,6 +85,9 @@ class FSondaggio
             $disco1 = FDisco::load($disco_1);
             $disco2 = FDisco::load($disco_2);
             $disco3 = FDisco::load($disco_3);
+            if ($disco1==null || $disco2==null || $disco3==null){
+                return null;
+            }
             $sondaggio = new ESondaggio($disco1,$disco2,$disco3,$data);
             $sondaggio->setId($id);
             //$sondaggio->setDisco1($disco_1);

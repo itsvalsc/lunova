@@ -113,8 +113,7 @@ class FPersistentManager{
     /** METODI DI FSondaggio */
 
     public function prelevaSondaggioInCorso(){
-        $sondaggio = FSondaggio::load_incorso();
-        return $sondaggio;
+        return FSondaggio::load_incorso();
     }
     public function prelevaSondaggi(){
         $sondaggi = FSondaggio::prelevaSondaggi();

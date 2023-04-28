@@ -54,7 +54,7 @@
 </div>
 {/if}
 
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
+<div id="main" class="container" style="margin-top: 400px; height: fit-content">
 </div>
 
 <footer class="bg-dark">

@@ -198,6 +198,14 @@ class FCartItem
                 $cart = new ECartItem(($G));
                 self::store($cart, $cartid);
 
+                $numero = self::GETQta($productId);
+                $quantity = $numero - 1;
+                $query2 = "UPDATE dischi SET Qta= :q WHERE ID= :id";
+                $stmt2 = $pdo->prepare($query2);
+                $stmt2->execute(array(
+                    ":q" => $quantity,
+                    ':id' => $productId
+                ));
 
             }
             return $quantity;

@@ -120,7 +120,7 @@
 
     </div>
 </div>
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
+<div id="main" class="container" style="margin-top:500px; height: fit-content">
 </div>
 <footer class="bg-dark">
     <hr>

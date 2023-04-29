@@ -1,10 +1,16 @@
 <?php
 
-class FCliente
-{
-    private static $class = "Cliente";
-    private static $table = "cliente";
+/**
+ * La classe FCliente permette la comunicazione tra db e l'stanza di un oggetto ECliente
+ * @package Foundation
+ */
 
+class FCliente{
+
+    /**
+     * metodo che verifica l'esistenza di un cliente nel db
+     * @package Foundation
+     */
     public static function exist($email) : bool {
 	    $pdo = FConnectionDB::connect();
 	    $query = "SELECT * FROM cliente WHERE Email = :email";
@@ -18,6 +24,11 @@ class FCliente
 		    return true;
 	    }
     }
+
+    /**
+     * metodo che verifica l'esistenza dello username del cliente nel db
+     * @package Foundation
+     */
     public static function exist_username($Username) : bool {
 	    $pdo = FConnectionDB::connect();
 	    $query = "SELECT * FROM cliente WHERE Username = :username";
@@ -32,7 +43,7 @@ class FCliente
 	    }
     }
     /**
-     * Memorizza un'istanza di EClient sul database
+     * metodo che memorizza un'istanza di EClient sul database
      * @param ECliente $cliente
      */
     public static function store(ECliente $cliente): void {
@@ -57,6 +68,10 @@ class FCliente
         ));
     }
 
+    /**
+     * metodo che permette la cancellazione dell'stanza di ECliente dal db
+     * @package Foundation
+     */
     public static function delete(string $email) {
         $pdo=FConnectionDB::connect();
 
@@ -74,6 +89,10 @@ class FCliente
 
     }
 
+    /**
+     * metodo che permette di caricare un oggetto ECliente prendendo i dati dal db
+     * @package Foundation
+     */
     public static function load(string $email) {
         $pdo=FConnectionDB::connect();
         try {
@@ -99,7 +118,7 @@ class FCliente
                 $Bannato = $rows[0]['Bannato'];
                 //$Livello = $rows[0]['Livello'];
                 $immagine = FImmagine::load($Idcliente);
-                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,$Idcliente,$Bannato);
                 $utente->setImmProfilo($immagine);
                 return $utente;
             }
@@ -108,6 +127,10 @@ class FCliente
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
+    /**
+     * metodo che permette di caricare tutte le istanze di ECliente presenti nel db passandogli come parametro di ricerca l'id
+     * @package Foundation
+     */
     public static function loadId(string $id) {
         try {
             $pdo=FConnectionDB::connect();
@@ -136,13 +159,16 @@ class FCliente
                 $Bannato = $rows[0]['Bannato'];
                 //$Livello = $rows[0]['Livello'];
                 $immagine = FImmagine::load($Idcliente);
-                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,$Idcliente,$Bannato);
                 $utente->setImmProfilo($immagine);
                 return $utente;
             }
-
     }
 
+    /**
+     * metodo che permette di aggiornare l'istanza di ECliente nel db
+     * @package Foundation
+     */
     public static function update(ECliente $cl) : bool{
         $pdo = FConnectionDB::connect();
         $query = "UPDATE cliente SET Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello, Bannato = :bannato   WHERE Email = :email";
@@ -161,11 +187,13 @@ class FCliente
             ":password" => $cl->getPassword(),
             ":livello" => $cl->getLivello(),
             ":bannato" => $cl->getBannato()));
-
         return $ris;
-
     }
 
+    /**
+     * metodo che permette di aggiornare lo stato di bannato di ECliente nel db
+     * @package Foundation
+     */
     public static function updateBannato($email,$value){
         $pdo = FConnectionDB::connect();
         $query = "UPDATE cliente SET Bannato = :value  WHERE Email = :email";
@@ -177,6 +205,10 @@ class FCliente
         return $ris;
     }
 
+    /**
+     * metodo che permette di aggiornare un valore dell'istanza di ECliente
+     * @package Foundation
+     */
     public static function update_value($attributo,$value,$id){
         $pdo = FConnectionDB::connect();
         $query = "UPDATE cliente SET $attributo = :value  WHERE IdCliente = :id";
@@ -188,6 +220,10 @@ class FCliente
         return $ris;
     }
 
+    /**
+     * metodo che permette di caricare tutte le istanze di ECliente presenti nel db
+     * @package Foundation
+     */
     public static function loadClienti() : array {
         try {
             $pdo = FConnectionDB::connect();
@@ -213,8 +249,7 @@ class FCliente
                 $Bannato = $row['Bannato'];
                 //$Livello = $rows[0]['Livello'];
 
-                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
-
+                $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,$Idcliente,$Bannato);
                 $clienti[$i] = $utente;
                 ++$i;
             }
@@ -226,10 +261,13 @@ class FCliente
             return array();}
     }
 
+    /**
+     * metodo che permette di caricare tutte le istanze di ECliente presenti nel db passandogli come parametro di ricerca lo Username
+     * @package Foundation
+     */
     public static function loadClientiperUsername(string $username) : ?array {
         try{
             $pdo = FConnectionDB::connect();
-            //$pdo->beginTransaction();
 
             $stmt = $pdo->prepare("SELECT * FROM cliente WHERE Username like CONCAT(:username,'%')");
             $stmt->execute([":username"=>$username]);
@@ -252,7 +290,7 @@ class FCliente
                     $Password = $rows[0]['Password'];
                     $Bannato = $rows[0]['Bannato'];
                     $immagine = FImmagine::load($Idcliente);
-                    $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,null,$Idcliente,$Bannato);
+                    $utente = new ECliente($Email,$Username,$Nome,$Cognome,$Via,$NumeroCivico,$Provincia,$Citta,$CAP,$Telefono,$Password,$Idcliente,$Bannato);
                     $utente->setImmProfilo($immagine);
                     $clienti[]=$utente;
                 }
@@ -266,48 +304,16 @@ class FCliente
             $pdo->rollBack();
             return array();
         }
-
     }
 
     /**
-     * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
-     * @param $email
-     * @param $pass
+     * metodo che permette di generare la notifica di tipo: alta
+     * @package Foundation
      */
-    public static function VerificaAccesso(string $email, string $password)
-    {
-        $pdo=FConnectionDB::connect();
-        $pdo->beginTransaction();
-        try {
-            $email = addslashes($email);
-            $query = "SELECT * FROM admin WHERE Email = :email";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute( [":email" => $email] );
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $pdo->commit();
-
-            // verificaPassword controlla se la password inserita corrisponde alla password hash recuperata da db
-            if ($rows && ECliente::verificaPassword($password, $rows['Password'])) return true;
-            return false;
-        }
-        catch (PDOException $e) {
-            echo "\nAttenzione errore: " . $e->getMessage();
-            $pdo->rollBack();
-            return null;
-        }
-    }
-
     public static function Assistenzaa($testo,$idmittente){
         $pers = FPersistentManager::getInstance();
         $n = new ENotifiche($testo, "alta"," $idmittente");
         $pers->store($n);
     }
-
-
-
-
-
 }
-
-
 ?>

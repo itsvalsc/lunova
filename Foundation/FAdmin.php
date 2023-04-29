@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * La classe FAdmin permette la comunicazione tra db e l'istanza di un oggetto EAdmin
+ * @package Foundation
+ */
 
+class FAdmin{
 
-	class FAdmin{
-
-        public static function exist($email) : bool {
+    /**
+     * metodo che verifica l'esistenza di un amministratore nel db
+     * @package Foundation
+     */
+    public static function exist($email) : bool {
 
             $pdo = FConnectionDB::connect();
             $query = "SELECT * FROM admin WHERE Email = :email";
@@ -17,9 +24,13 @@
             else {
                 return true;
             }
-        }
+    }
 
-        public static function store(EAdmin $admin): void {
+    /**
+     * metodo che memorizza un'istanza di EAdmin sul db
+     * @package Foundation
+     */
+    public static function store(EAdmin $admin): void {
 
             $pdo = FConnectionDB::connect();
             $query = "INSERT INTO admin VALUES(:IdAmministratore,:Email,:Nome,:Cognome,:NTelefono,:Password,:Livello)";
@@ -33,9 +44,13 @@
                 ':Password' =>$admin->criptaPassword($admin->getPassword()),
                 ':Livello' =>$admin->getLivello()
             ));
-        }
+    }
 
-        public static function load(string $email) {
+    /**
+     * metodo che permette di caricare un oggetto EAdmin prendendo i dati dal db
+     * @package Foundation
+     */
+    public static function load(string $email) {
             $pdo=FConnectionDB::connect();
 
             try {
@@ -60,9 +75,14 @@
                 else {return "Non ci sono amministratori";}
             }
             catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
-        }
 
-        public static function update_value($attributo,$value,$id){
+    }
+
+    /**
+     * metodo che permette di aggiornare un valore del profilo EAdmin
+     * @package Foundation
+     */
+    public static function update_value($attributo,$value,$id){
             $pdo = FConnectionDB::connect();
             $query = "UPDATE admin SET $attributo = :value  WHERE IDAmministratore = :id";
             $stmt= $pdo->prepare($query);
@@ -71,9 +91,13 @@
                 ":id" => $id
             ]);
             return $ris;
-        }
+    }
 
-        public static function delete(string $email) {
+    /**
+     * metodo che permette la cancellazione di un oggetto EAdmin dal db
+     * @package Foundation
+     */
+    public static function delete(string $email) {
             $pdo=FConnectionDB::connect();
 
             try {
@@ -87,11 +111,14 @@
                 else{ return false;}
             }
             catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+    }
 
-        }
 
-
-        public static function loadgeneri() : array {
+    /**
+     * metodo che mermette all'amministratore di caricare i generi dal db
+     * @package Foundation
+     */
+    public static function loadgeneri() : array {
             $pdo=FConnectionDB::connect();
 
             try {
@@ -105,42 +132,11 @@
                         array_push($gen,$genere);
                     }
                     return $gen;
-
             }
             catch (PDOException $exception) {
                 print ("Errore".$exception->getMessage());
                 $pdo->rollBack();
                 return array();}
-        }
-
-    /**
-    * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
-     * @param $email
-     * @param $pass
-     */
-    public static function VerificaAccesso(string $email, string $password)
-    {
-        $pdo=FConnectionDB::connect();
-        $pdo->beginTransaction();
-        try {
-            //$email = addslashes($email);
-            $query = "SELECT * FROM admin WHERE Email = :email";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute( [":email" => $email] );
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $pdo->commit();
-
-            // verificaPassword controlla se la password inserita corrisponde alla password hash recuperata da db
-            if ($rows && EAdmin::verificaPassword($password, $rows['Password'])) return true;
-            return false;
-        }
-        catch (PDOException $e) {
-            echo "\nAttenzione errore: " . $e->getMessage();
-            $pdo->rollBack();
-            return null;
-        }
     }
-    }
-
-
+}
 ?>

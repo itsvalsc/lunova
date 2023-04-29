@@ -85,31 +85,36 @@ class FCartItem
         $stmt->execute( [":idcli" => $id_cli] );
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $id = $rows[0]['id'];
-
-        //prendiamo i prodotti che hanno lo stesso id carrello
-
-        $query = "SELECT * FROM cart_item WHERE cart_id= :idcart";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute( [":idcart" => $id] );
-        $prods = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($prods as $row) {
-            $idd = $row['id'];
-            $quantity = $row['quantity'];
-            $product_id = $row['product_id'];
-            //$immagine = FImmagine::load($id);
-            $disco = FDisco::load($product_id);
-            if ($disco!=null){
-                $Disc = new ECartItem($disco);
-                $Disc->setQuantity($quantity);
-                $Disc->setIdCartItem($idd);
-                $Disc->setIdCart($id);
-                array_push($dischi, $Disc);
-            }
+        if (count($rows)==0 ){
+            $elenco = [];
+            return $elenco;
         }
-        return $dischi;
+        else {
+            $id = $rows[0]['id'];
 
+            //prendiamo i prodotti che hanno lo stesso id carrello
+
+            $query = "SELECT * FROM cart_item WHERE cart_id= :idcart";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([":idcart" => $id]);
+            $prods = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($prods as $row) {
+                $idd = $row['id'];
+                $quantity = $row['quantity'];
+                $product_id = $row['product_id'];
+                //$immagine = FImmagine::load($id);
+                $disco = FDisco::load($product_id);
+                if ($disco != null) {
+                    $Disc = new ECartItem($disco);
+                    $Disc->setQuantity($quantity);
+                    $Disc->setIdCartItem($idd);
+                    $Disc->setIdCart($id);
+                    array_push($dischi, $Disc);
+                }
+            }
+            return $dischi;
+        }
     }
 
     public static function loadD(string $id_cli){

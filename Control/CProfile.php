@@ -313,11 +313,17 @@ class CProfile
     public static function SetQta($id_disco, $id_artista){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
-        $l = true;
-        $id = ""; //recuperare l'id da sessione
-        $numero = $view->getQta();
-        $pers->SetQta($id_disco, $numero);
-        return header("Location: /lunova/Profile/users/$id_artista");
+        $session = FSessione::getInstance();
+        if($session->isLogged() && $session->isArtista()){
+            $numero = $view->getQta();
+            if ($numero!=null){
+                $pers->SetQta($id_disco, $numero);
+            }
+            return header("Location: /lunova/Profile/users/$id_artista");
+        }
+        else{
+            return header("Location: /lunova");
+        }
     }
 
     public static function ricercaUtente(){

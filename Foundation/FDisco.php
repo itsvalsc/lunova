@@ -257,6 +257,16 @@ class FDisco {
         return true;
     }
 
+    public static function updatePrice( $valore, $id)
+    {
+        $pdo=FConnectionDB::connect();
+
+        $query = "UPDATE dischi SET price = :valore  WHERE  ID = :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([":id" => $id , ":valore" => $valore]);
+        return true;
+    }
+
 }
 
 

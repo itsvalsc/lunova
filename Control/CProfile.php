@@ -157,6 +157,7 @@ class CProfile
         $session = FSessione::getInstance();
         $self_page = false;
         $controllo = false;
+        $controllo_prezzo = false;
         $num = null;
         $cli = false;
         $nome_dischi=null;
@@ -199,7 +200,7 @@ class CProfile
                     $numComm = count($array);
                     $numero = count($elenco);
                     if($self_page){
-                        return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm,$cli);
+                        return $view->load($session->isLogged(),$Art, $elenco,$numero,$controllo,$numComm,$cli, $controllo_prezzo);
 
                     }else{
                         return $view->load_external($session->isLogged(),$num,$Art, $elenco, $numero,$numComm,$cli);
@@ -262,6 +263,7 @@ class CProfile
             }
             $l = true;
             $controllo = true ;
+            $controllo_prezzo= false ;
             $Art = $pers->ArtistaFromID($id);
             if ($Art!=null){
                 $elenco = $pers->prelevaDischiperIDAutore($id);
@@ -272,7 +274,43 @@ class CProfile
                 }
                 $numComm = count($array);
                 $numero = count($elenco);
-                $view->load($l,$Art, $elenco, $numero, $controllo,$numComm,false);
+                $view->load($l,$Art, $elenco, $numero, $controllo,$numComm,false, $controllo_prezzo);
+            }
+            else{
+                return $err->message($session->isLogged(),"Errore: impossibile trovare l'artista",'alla home','', $num, $cli);
+            }
+        }
+        else{
+            return header('Location: /lunova');
+        }
+    }
+
+    public static function usersetPrice(string $id){
+        $view = new VUsers();
+        $err = new VErrore();
+        $pers = FPersistentManager::getInstance();
+        $session = FSessione::getInstance();
+        $num = null;
+        $cli = false;
+        if ($session->isLogged() && $session->isArtista()){
+            $id_art = $session->getUtente()->getIdArtista();
+            if ($id_art != $id){
+                return $err->message($session->isLogged(),'Impossibile accedere','alla home','', $num, $cli);
+            }
+            $l = true;
+            $controllo = false;
+            $controllo_prezzo = true ;
+            $Art = $pers->ArtistaFromID($id);
+            if ($Art!=null){
+                $elenco = $pers->prelevaDischiperIDAutore($id);
+                $array=[];
+                foreach ($elenco as $key => $value){
+                    $temp = $pers->loadCommenti($value->getID());
+                    $array = array_merge($array,$temp);
+                }
+                $numComm = count($array);
+                $numero = count($elenco);
+                $view->load($l,$Art, $elenco, $numero, $controllo,$numComm,false, $controllo_prezzo);
             }
             else{
                 return $err->message($session->isLogged(),"Errore: impossibile trovare l'artista",'alla home','', $num, $cli);
@@ -492,5 +530,25 @@ class CProfile
             $err->message($sessione->isLogged(),"Si è verificato un errore durante la modifica della foto",'alla home','',$num,$cli);
         }
     }
+
+
+    public static function SetPrice($id_disco, $id_artista){
+        $view = new VUsers();
+        $pers = FPersistentManager::getInstance();
+        $session = FSessione::getInstance();
+        if($session->isLogged() && $session->isArtista()){
+            $numero = $view->getPrice();
+            if ($numero!=null){
+                $pers->SetPrice($id_disco, $numero);
+            }
+            return header("Location: /lunova/Profile/users/$id_artista");
+        }
+        else{
+            return header("Location: /lunova");
+        }
+    }
+
+
+
 
 }

@@ -291,6 +291,10 @@ class FPersistentManager{
         return FVotazioneDisco::loadperCliente($id);
     }
 
+    public function SetPrice($id, $numero ): void {
+        $modifica = FDisco::updatePrice($numero, $id);
+    }
+
 
 
 

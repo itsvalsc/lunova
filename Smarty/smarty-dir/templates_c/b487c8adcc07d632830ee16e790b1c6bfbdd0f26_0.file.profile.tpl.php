@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-29 19:49:30
+/* Smarty version 4.2.1, created on 2023-04-29 22:10:28
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_644d58aaaf31d3_84358820',
+  'unifunc' => 'content_644d79b41e3361_97572935',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b487c8adcc07d632830ee16e790b1c6bfbdd0f26' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\profile.tpl',
-      1 => 1682787610,
+      1 => 1682799025,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644d58aaaf31d3_84358820 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644d79b41e3361_97572935 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -249,7 +249,8 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/usersetPrice/<?php echo $_smarty_tpl->tpl_vars['artista']->value->getIdArtista();?>
+">
                                                                         <i class="fa-solid fa-pen-to-square" style="color: #63ff0f;"></i>
                                                                     </a>
                                                                 </div>
@@ -271,6 +272,17 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                                                                     </div>
                                                                 </form>
                                                                 <?php }?>
+                                                                <?php if ($_smarty_tpl->tpl_vars['controllo_pre']->value == true) {?>
+                                                                    <form action="/lunova/Profile/SetPrice/<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getID();?>
+/<?php echo $_smarty_tpl->tpl_vars['artista']->value->getIdArtista();?>
+" method="post">
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
+" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <button type="submit" class="btn btn-info">Imposta</button>
+                                                                        </div>
+                                                                    </form>
+                                                                <?php }?>
 
                                                             </div>
                                                         <?php }?>
@@ -289,7 +301,8 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:20%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/usersetPrice/<?php echo $_smarty_tpl->tpl_vars['artista']->value->getIdArtista();?>
+">
                                                                         <i class="fa-solid fa-pen-to-square" style="color: #63ff0f;"></i>
                                                                     </a>
                                                                 </div>
@@ -310,6 +323,17 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 " method="post">
                                                                         <div class="input-group mb-3">
                                                                             <input type="text" name="quantitaa" id="quantitaa" class="form-control" placeholder="<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getQta();?>
+" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <button type="submit" class="btn btn-info">Imposta</button>
+                                                                        </div>
+                                                                    </form>
+                                                                <?php }?>
+                                                                <?php if ($_smarty_tpl->tpl_vars['controllo_pre']->value == true) {?>
+                                                                    <form action="/lunova/Profile/SetPrice/<?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getID();?>
+/<?php echo $_smarty_tpl->tpl_vars['artista']->value->getIdArtista();?>
+" method="post">
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ <?php echo $_smarty_tpl->tpl_vars['product']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getPrezzo();?>
 " aria-label="quantitaa" aria-describedby="button-addon2">
                                                                             <button type="submit" class="btn btn-info">Imposta</button>
                                                                         </div>

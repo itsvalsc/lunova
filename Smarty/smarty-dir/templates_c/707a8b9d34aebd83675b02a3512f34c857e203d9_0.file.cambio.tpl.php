@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-26 19:27:59
-  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\login.tpl' */
+/* Smarty version 4.2.1, created on 2023-04-29 19:01:41
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\cambio.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_64495f1fcd5069_76010565',
+  'unifunc' => 'content_644d4d75d9da28_89093151',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'dda42547ea97a8c65434a6c0cb65bf92e7a7adf2' => 
+    '707a8b9d34aebd83675b02a3512f34c857e203d9' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\login.tpl',
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\cambio.tpl',
       1 => 1682529174,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64495f1fcd5069_76010565 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644d4d75d9da28_89093151 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -64,6 +64,20 @@ function content_64495f1fcd5069_76010565 (Smarty_Internal_Template $_smarty_tpl)
 
 
 
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value && $_smarty_tpl->tpl_vars['isCliente']->value) {?>
+                <ul class="navbar-nav ml-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Carrello/mio_carrello">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
+                        </a>
+                    </li>
+                </ul>
+            <?php }?>
+
+
+
             <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
                 <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
@@ -73,9 +87,8 @@ function content_64495f1fcd5069_76010565 (Smarty_Internal_Template $_smarty_tpl)
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"></span>
                         </a>
 
                     </li>
@@ -86,7 +99,7 @@ function content_64495f1fcd5069_76010565 (Smarty_Internal_Template $_smarty_tpl)
 
                         <a class="nav-link" style="align-items: center " href="/lunova/Login/login">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary"></span>
+                            <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
 
                     </li>
@@ -102,45 +115,41 @@ function content_64495f1fcd5069_76010565 (Smarty_Internal_Template $_smarty_tpl)
 
 <!-- end header -->
 
-<?php if ($_smarty_tpl->tpl_vars['logged']->value == false) {?>
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/Login/verificaLogin" method="post">
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-            <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
 
-        <div class="form-group" style="width: 30rem;">
-            <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-            <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
+<div id="main" class="container" style="margin-top:80px; height: 700px">
+    <form action="/lunova/Profile/NewImage" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4"><strong>Cambia foto profilo</strong></label>
+            <input class="form-control" name="Foto" type="file" id="foto" required>
         </div>
         <hr>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="type" id="type" value="artista">
-            <label class="form-check-label" for="type">
-                Seleziona se sei un Artista
-            </label>
-
-        </div>
-
-        <hr>
-        <button type="submit" class="btn btn-primary">Accedi</button>
-
-        <hr>
-        <h6>Se non sei ancora iscritto...</h6>
-        <a href="/lunova/Login/Signin">
-            <button type="button" class="btn btn-secondary">Iscriviti</button>
-        </a>
+        <button type="submit" class="btn btn-secondary">Cambia</button>
 
     </form>
-</div>
-<?php }?>
 
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
+    <form action="/lunova/Profile/NewUsername" method="post">
+        <div class="form-group">
+                <label class="form-label mt-4" ><strong>Cambia nickname</strong></label>
+                <input class="form-control" id="username" name="Username" type="text" placeholder="Username" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-secondary">Cambia</button>
+    </form>
+
+    <form action="/lunova/Profile/NewPassword" method="post">
+        <div class="form-group" >
+            <label for="exampleInputPassword1" class="form-label mt-4"><strong>Cambia password</strong></label>
+            <input type="password" class="form-control" id="npassword"  name="Password" placeholder="Password" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-secondary">Cambia</button>
+    </form>
+
 </div>
 
-<footer class="bg-dark">
+
+<!-- footer -->
+<footer class="bg-dark" style ="margin-bottom: 0px;">
     <hr>
     <p class="container text-light">Copyright &copy; 2022 </p>
 </footer>

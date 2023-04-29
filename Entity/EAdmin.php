@@ -1,7 +1,9 @@
 <?php
 /**
- * ok
- * @package Entity
+ * La classe EAddmin estende la classe EUtente con degli attributi caratterizzanti attraverso:
+ ** IdAdmin: id che identifica l'amministratore in modo univoco
+ *  senza gli attributi relativi all'indirizzo
+ *  @package Entity
  */
 
 class EAdmin extends EUtente{
@@ -36,27 +38,5 @@ class EAdmin extends EUtente{
 
 	public function setIdAmministratore(string $IdAmministratore): void
     { $this->IdAdmin = $IdAmministratore; }
-
-    /**
-     * Metodo che cripta la password inserita da un utente con un hash
-     * da 60 caratteri
-     * @param string $password
-     * @return string
-     */
-    public static function criptaPassword(string $password): string {
-        return hash('sha256',$password);
-    }
-
-
-    /**
-     * Metodo che verifica la password inserita corrisponda all'hash
-     * nel database
-     * @param string $password
-     * @return string
-     */
-    public static function verificaPassword(string $password, string $hash): bool {
-        return password_verify($password, $hash);
-    }
-
 }
 ?>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-25 16:53:11
+/* Smarty version 4.2.1, created on 2023-04-26 19:42:21
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63fa2ee75e19f5_84307912',
+  'unifunc' => 'content_6449627dad3738_49728259',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bc918b062fc5f506c7ae1da3512d5668763b09a1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\cart.tpl',
-      1 => 1677340387,
+      1 => 1682529174,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63fa2ee75e19f5_84307912 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6449627dad3738_49728259 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -79,18 +79,17 @@ function content_63fa2ee75e19f5_84307912 (Smarty_Internal_Template $_smarty_tpl)
 
 
 
-			<form class="d-flex" style="margin-block-end: 2px;">
-				<input class="form-control me-sm-2" type="text" placeholder="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			<form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+				<input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
 			</form>
 
 			<ul class="navbar-nav ml-4">
 				<?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
 					<li class="nav-item">
 
-						<a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+						<a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
 							<i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-							<span class="badge rounded-pill bg-secondary">2</span>
 						</a>
 
 					</li>
@@ -144,7 +143,7 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 								<div class="col-lg-4 col-6">
 									<h6 class="my-0"><?php echo $_smarty_tpl->tpl_vars['disc']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getTitolo();?>
 </h6>
-									<small class="text-muted"><?php echo $_smarty_tpl->tpl_vars['disc']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrizione();?>
+									<small class="text-muted"><?php echo $_smarty_tpl->tpl_vars['disc']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_nr']->value['index'] : null)]->getDescrtaglio();?>
 </small>
 								</div>
 

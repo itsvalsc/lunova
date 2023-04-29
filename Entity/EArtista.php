@@ -1,18 +1,15 @@
 <?php
 /**
- * ok
- * @package Entity
+ * La classe EArtista estende la classe EUtente con degli attributi caratterizzanti attraverso:
+ ** IdArtista: id che identifica l'artista in modo univoco
+ ** Album: array di canzoni che identificano l'album dell'artista
+ *  @package Entity
  */
 
 class EArtista extends EUtente{
 
 	private string $IdArtista;
-
-    protected string $Username;
-
 	private $Album = array();
-
-	private ?string $IBAN = null;
 
     public function __construct(){
         if (11 === func_num_args()){
@@ -54,10 +51,6 @@ class EArtista extends EUtente{
         }
     }
 
-	public function addAlbum(EDisco $d){
-		array_push($this->Album, $d);
-	}
-
     /** METODI GET*/
 
 	public function getIdArtista(): string
@@ -82,29 +75,6 @@ class EArtista extends EUtente{
 
     public function setUsername(string $n): void {
         $this->Username = $n; }
-
-    /** ALTRI METODI*/
-
-    /**
-     * Metodo che cripta la password inserita da un utente con un hash
-     * da 60 caratteri
-     * @param string $password
-     * @return string
-     */
-    public static function criptaPassword(string $password): string {
-        return hash('sha256',$password);
-    }
-
-    /**
-     * Metodo che verifica la password inserita corrisponda all'hash
-     * nel database
-     * @param string $password
-     * @return string
-     */
-    public static function verificaPassword(string $password, string $hash): bool {
-        return password_verify($password, $hash);
-    }
-
 }
 
 ?>

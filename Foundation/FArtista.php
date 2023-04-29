@@ -1,6 +1,16 @@
 <?php
+
+/**
+ * La classe FArtista permette la comunicazione tra db e l'stanza di un oggetto EArtista
+ * @package Foundation
+ */
+
 class FArtista{
 
+    /**
+     * metodo che verifica l'esistenza di un artista nel db
+     * @package Foundation
+     */
     public static function exist($email) : bool {
 
         $pdo = FConnectionDB::connect();
@@ -17,6 +27,10 @@ class FArtista{
         }
     }
 
+    /**
+     * metodo che verifica l'esistenza dello username dell'artista nel db
+     * @package Foundation
+     */
     public static function exist_username($Username) : bool {
         $pdo = FConnectionDB::connect();
         $query = "SELECT * FROM artista WHERE Username = :username";
@@ -32,7 +46,7 @@ class FArtista{
     }
 
     /**
-     * Memorizza un'istanza di EArtista sul database
+     * metodo che memorizza un'istanza di EArtista sul database
      * @param EArtista $artista
      */
     public static function store(EArtista $artista): void {
@@ -56,6 +70,10 @@ class FArtista{
         ));
     }
 
+    /**
+     * metodo che permette la cancellazione dell'stanza di EArtista dal db
+     * @package Foundation
+     */
     public static function delete(string $email) {
         $pdo=FConnectionDB::connect();
 
@@ -73,6 +91,10 @@ class FArtista{
 
     }
 
+    /**
+     * metodo che permette di caricare un oggetto EArtista prendendo i dati dal db
+     * @package Foundation
+     */
     public static function load(string $email) {
         $pdo=FConnectionDB::connect();
 
@@ -100,14 +122,16 @@ class FArtista{
                 $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
                 $artista->setImmProfilo($immagine);
                 return $artista;
-                //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
             }
             else {return "Non ci sono artisti";}
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
-    //TODO:finire update artista [da controllare]
+    /**
+     * metodo che permette di aggiornare un oggetto EArtista prendendo i dati dal db
+     * @package Foundation
+     */
     public static function update(EArtista $art) : bool{
         $pdo = FConnectionDB::connect();
         $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello WHERE Email = :email";
@@ -128,10 +152,13 @@ class FArtista{
             ":livello" => $art->getLivello(),
             )
         );
-
         return $ris;
     }
 
+    /**
+     * metodo che permette di aggiornare un valore dell'oggetto EArtista
+     * @package Foundation
+     */
     public static function update_value($attributo,$value,$id){
         $pdo = FConnectionDB::connect();
         $query = "UPDATE artista SET $attributo = :value  WHERE IdArtista = :id";
@@ -143,6 +170,10 @@ class FArtista{
         return $ris;
     }
 
+    /**
+     * metodo che permette di caricare tutte le istanze di EArtista presenti nel db
+     * @package Foundation
+     */
     public static function loadArtisti() : array {
         try {
             $pdo = FConnectionDB::connect();
@@ -178,10 +209,13 @@ class FArtista{
             return array();}
     }
 
+    /**
+     * metodo che permette di caricare tutte le istanze di EArtista presenti nel db passandogli come parametro di ricerca lo Username
+     * @package Foundation
+     */
     public static function loadArtistiperUsername(string $username) : ?array {
         try{
             $pdo = FConnectionDB::connect();
-            //$pdo->beginTransaction();
 
             $stmt = $pdo->prepare("SELECT * FROM artista WHERE Username like CONCAT(:username,'%')");
             $stmt->execute([":username"=>$username]);
@@ -210,10 +244,7 @@ class FArtista{
                     $artisti[$i]=$art;
                     ++$i;
                 }
-            }else{
-                $artisti=null;
-            }
-
+            } else{ $artisti=null; }
             return $artisti;
         }
         catch (PDOException $e){
@@ -221,57 +252,34 @@ class FArtista{
             $pdo->rollBack();
             return array();
         }
-
     }
 
     /**
-     * Metodo che verifica l'accesso di un utente , controllando che le credenziali (email e password) siano presenti nel db
-     * @param $email
-     * @param $pass
+     * metodo che permette la ricerca del nome di uno o più artisti passandogli l'id come parametro
+     * @package Foundation
      */
-    public static function VerificaAccesso(string $email, string $password)
-    {
-        $pdo=FConnectionDB::connect();
-        $pdo->beginTransaction();
-        try {
-            //$email = addslashes($email);
-            $query = "SELECT * FROM admin WHERE Email = :email";
-            $stmt = $pdo->prepare($query);
-            $stmt->execute( [":email" => $email] );
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $pdo->commit();
-
-            // verificaPassword controlla se la password inserita corrisponde alla password hash recuperata da db
-            if ($rows && EArtista::verificaPassword($password, $rows['Password'])) return true;
-            return false;
-        }
-        catch (PDOException $e) {
-            echo "\nAttenzione errore: " . $e->getMessage();
-            $pdo->rollBack();
-            return null;
-        }
-    }
-
     public static function loadName(string $id) {
         $pdo=FConnectionDB::connect();
 
         try {
-                $query = "SELECT * FROM artista WHERE IdArtista= :id";
-                $stmt = $pdo->prepare($query);
-                $stmt->execute( [":id" => $id] );
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $query = "SELECT * FROM artista WHERE IdArtista= :id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":id" => $id] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                $Username = $rows[0]['Username'];
-                $Nome = $rows[0]['Nome'];
-                $Cognome = $rows[0]['Cognome'];
+            $Username = $rows[0]['Username'];
+            $Nome = $rows[0]['Nome'];
+            $Cognome = $rows[0]['Cognome'];
 
-                return $Username;
-                //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
-
+            return $Username;
         }
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
+    /**
+     * metodo che permette la ricerca dell'id di un artista passando lo username
+     * @package Foundation
+     */
     public static function loadId($Username){
         $pdo = FConnectionDB::connect();
         $query = "SELECT * FROM artista WHERE Username = :username";
@@ -284,11 +292,12 @@ class FArtista{
         else{
             return null;
         }
-
     }
 
-
-
+    /**
+     * metodo che permette di caricare tutte le istanze di EArtista presenti nel db passandogli come parametro di ricerca l'id
+     * @package Foundation
+     */
     public static function loadFromID(string $id) {
             $pdo=FConnectionDB::connect();
 
@@ -316,38 +325,5 @@ class FArtista{
             }else{
                 return null;
             }
-                //TODO: aggiustare costruttore per artista e cliente, ad artista aggiungere e recupare l'IBAN [da controllare]
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

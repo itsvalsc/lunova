@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * La classe EUtente contiene tutti gli attributi e metodi base riguardanti gli utenti attraverso:
+ * * Nome: identifica il nome dell'utente
+ * * Cognome: identifica il cognome dell'utente
+ * * Email: identifica l'email dell'utente
+ * * Username: identifica l'username utilizzata dall'utente in fase di login
+ * * Password: identifica la password utilizzata dall'utente in fase di login
+ * * ImmProfilo: identifica l'immagine di profilo dell'utente
+ * * Indirizzo: indica l'indirizzo dell'utente
+ * * Telefono: indica il numero di telefono dell'utente
+ * * Livello: indica il livello degli utenti: A per l'amministratore, B per l'artista, C per il cliente
+ *  @package Entity
+ */
+
 class EUtente{
 
     protected string $Username;
@@ -147,8 +161,7 @@ class EUtente{
     public function setImmProfilo(?EImmagine $p)
     { $this->ImmProfilo = $p; }
 
-    /** ALTRI METODI*/
-
+    /** Altri metodi */
 
     /**
      * Metodo che verifica la password inserita corrisponda all'hash
@@ -158,6 +171,15 @@ class EUtente{
      */
     public static function verificaPassword(string $password, string $hash): bool {
         return password_verify($password, $hash);
+    }
+    /**
+     * Metodo che cripta la password inserita da un utente con un hash
+     * da 64 caratteri
+     * @param string $password
+     * @return string
+     */
+    public static function criptaPassword(string $password): string {
+        return hash('sha256',$password);
     }
 }
 

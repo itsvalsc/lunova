@@ -1,7 +1,15 @@
 <?php
 
-class ESondaggio
-{
+/** La classe ESondaggio caratterizza il sondaggio attraverso:
+ * id: identificativo del sondaggio
+ * disco_n: identifica i 3 dischi che partecipano al sondaggio
+ * voti_disco_n: identifica il numero di voti di ciascuno dei 3 dischi
+ * data: identifica la data del sondaggio
+ * in_corso: identifica se il sondaggio è in corso o è finito
+ */
+
+class ESondaggio{
+
     private string $id;
     private EDisco $disco_1;
     private int $voti_disco_1;
@@ -12,10 +20,6 @@ class ESondaggio
     private string $data;
     private bool $in_corso;
 
-
-    /**
-     *
-     */
     public function __construct(EDisco $disco1,EDisco $disco2,EDisco $disco3,string $date){
         $this->id = "S"  . random_int(0,100);
         $this->disco_1 = $disco1;
@@ -25,155 +29,65 @@ class ESondaggio
         $this->in_corso = 0;
     }
 
+    /** metodi get */
 
-
-
-
-    /**
-     * @return bool
-     */
-    public function getInCorso(): bool
-    {
-        return $this->in_corso;
-    }
-
-    /**
-     * @param bool $in_corso
-     */
-    public function setInCorso(bool $in_corso): void
-    {
-        $this->in_corso = $in_corso;
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getVotiDisco1(): int
-    {
-        return $this->voti_disco_1;
-    }
-
-    /**
-     * @return int
-     */
-    public function getVotiDisco2(): int
-    {
-        return $this->voti_disco_2;
-    }
-
-    /**
-     * @return int
-     */
-    public function getVotiDisco3(): int
-    {
-        return $this->voti_disco_3;
-    }
-
-    /**
-     * @param int $voti_disco_1
-     */
-    public function setVotiDisco1(int $voti_disco_1): void
-    {
-        $this->voti_disco_1 = $voti_disco_1;
-    }
-
-    /**
-     * @param int $voti_disco_2
-     */
-    public function setVotiDisco2(int $voti_disco_2): void
-    {
-        $this->voti_disco_2 = $voti_disco_2;
-    }
-
-    /**
-     * @param int $voti_disco_3
-     */
-    public function setVotiDisco3(int $voti_disco_3): void
-    {
-        $this->voti_disco_3 = $voti_disco_3;
-    }
-
-
-    /**
-     * @return string
-     */
     public function getId(): string
-    {
-        return $this->id;
-    }
+    { return $this->id; }
 
-    /**
-     * @return EDisco
-     */
     public function getDisco1(): EDisco
-    {
-        return $this->disco_1;
-    }
+    { return $this->disco_1; }
 
-    /**
-     * @return EDisco
-     */
     public function getDisco2(): EDisco
-    {
-        return $this->disco_2;
-    }
+    { return $this->disco_2; }
 
-    /**
-     * @return EDisco
-     */
     public function getDisco3(): EDisco
-    {
-        return $this->disco_3;
-    }
+    { return $this->disco_3; }
 
-    /**
-     * @return string
-     */
+    public function getVotiDisco1(): int
+    { return $this->voti_disco_1; }
+
+    public function getVotiDisco2(): int
+    { return $this->voti_disco_2; }
+
+    public function getVotiDisco3(): int
+    { return $this->voti_disco_3; }
+
+    public function getInCorso(): bool
+    { return $this->in_corso; }
+
     public function getData(): string
-    {
-        return $this->data;
-    }
+    { return $this->data; }
 
-    /**
-     * @param string $id
-     */
+    /** metodi set */
+
     public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
+    { $this->id = $id; }
 
-    /**
-     * @param EDisco $disco_1
-     */
     public function setDisco1(EDisco $disco_1): void
-    {
-        $this->disco_1 = $disco_1;
-    }
+    { $this->disco_1 = $disco_1; }
 
-    /**
-     * @param EDisco $disco_2
-     */
     public function setDisco2(EDisco $disco_2): void
-    {
-        $this->disco_2 = $disco_2;
-    }
+    { $this->disco_2 = $disco_2; }
 
-    /**
-     * @param EDisco $disco_3
-     */
     public function setDisco3(EDisco $disco_3): void
-    {
-        $this->disco_3 = $disco_3;
-    }
+    { $this->disco_3 = $disco_3; }
 
-    /**
-     * @param string $data
-     */
+    public function setVotiDisco1(int $voti_disco_1): void
+    { $this->voti_disco_1 = $voti_disco_1; }
+
+    public function setVotiDisco2(int $voti_disco_2): void
+    { $this->voti_disco_2 = $voti_disco_2; }
+
+    public function setVotiDisco3(int $voti_disco_3): void
+    { $this->voti_disco_3 = $voti_disco_3; }
+
+    public function setInCorso(bool $in_corso): void
+    { $this->in_corso = $in_corso; }
+
     public function setData(string $data): void
-    {
-        $this->data = $data;
-    }
+    { $this->data = $data; }
+
+    /** Altri metodi */
 
     public function aggiungi_voto(string $disco): bool {
 
@@ -191,5 +105,4 @@ class ESondaggio
         }
         else return false;
     }
-
 }

@@ -7,8 +7,6 @@ require_once "C:\\xampp\\htdocs\\lunova\\inc\\configdb.php";
 require_once "./Foundation/FCliente.php";
 require_once "./Entity/ECliente.php";
 require_once "./Entity/EUtente.php";
-require_once "./Entity/ECarta.php";
-require_once "./Entity/EWallet.php";
 require_once "./Foundation/FConnectionDB.php";
 require_once "./inc/configdb.php";
 require_once "./Foundation/FDisco.php";

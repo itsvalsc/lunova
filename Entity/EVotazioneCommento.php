@@ -1,5 +1,10 @@
 <?php
 
+/** La classe EVotazioneCommento caratterizza la votazione di un commento relativo al disco attraverso:
+ * utente: identifica l'd dell'utente
+ * disco: identifica l'id del disco
+ * commento: identifica l'id del commento
+ */
 class EVotazioneCommento
 {
     private string $utente;
@@ -13,51 +18,23 @@ class EVotazioneCommento
         $this->commento = $commento;
     }
 
-    /**
-     * @return string
-     */
+    /** metodi get */
     public function getUtente(): string
-    {
-        return $this->utente;
-    }
+    { return $this->utente; }
 
-    /**
-     * @return string
-     */
     public function getDisco(): string
-    {
-        return $this->disco;
-    }
+    { return $this->disco; }
 
-    /**
-     * @return int
-     */
     public function getCommento(): string
-    {
-        return $this->commento;
-    }
+    { return $this->commento; }
 
-    /**
-     * @param string $utente
-     */
+    /** metodi set */
     public function setUtente(string $utente): void
-    {
-        $this->utente = $utente;
-    }
+    { $this->utente = $utente; }
 
-    /**
-     * @param string $disco
-     */
     public function setDisco(string $disco): void
-    {
-        $this->disco = $disco;
-    }
+    { $this->disco = $disco; }
 
-    /**
-     * @param int $sondaggio
-     */
     public function setCommento(string $commento): void
-    {
-        $this->commento = $commento;
-    }
+    { $this->commento = $commento; }
 }

@@ -1,5 +1,11 @@
 <?php
 
+/** La classe EVotazione caratterizza il voto di un sondaggio attraverso:
+ * utente: identifica l'utente
+ * disco: identifica il disco
+ * sondaggio: identifica l'id del sondaggio
+*/
+
 class EVotazione
 {
     private string $utente;
@@ -13,53 +19,23 @@ class EVotazione
         $this->sondaggio = $sond;
     }
 
-    /**
-     * @return string
-     */
+    /** metodi get */
     public function getUtente(): string
-    {
-        return $this->utente;
-    }
+    { return $this->utente; }
 
-    /**
-     * @return string
-     */
     public function getDisco(): string
-    {
-        return $this->disco;
-    }
+    { return $this->disco; }
 
-    /**
-     * @return string
-     */
     public function getSondaggio(): string
-    {
-        return $this->sondaggio;
-    }
+    { return $this->sondaggio; }
 
-    /**
-     * @param string $utente
-     */
+    /** metodi set */
     public function setUtente(string $utente): void
-    {
-        $this->utente = $utente;
-    }
+    { $this->utente = $utente; }
 
-    /**
-     * @param string $disco
-     */
     public function setDisco(string $disco): void
-    {
-        $this->disco = $disco;
-    }
+    { $this->disco = $disco; }
 
-    /**
-     * @param string $sondaggio
-     */
     public function setSondaggio(string $sondaggio): void
-    {
-        $this->sondaggio = $sondaggio;
-    }
-
-
+    { $this->sondaggio = $sondaggio; }
 }

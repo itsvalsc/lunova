@@ -1,10 +1,16 @@
 <?php
 
-class ERichiesta
-{
-private string $disco;
-private string $data;
-private string $nome_artista;
+/** La classe ERichiesta caratterizza la richiesta di un artista di voler partecipare a un sondaggio con un suo disco attraverso:
+ * disco: identificativo dell'id del disco con il quale si vuole effettuare la richiesta
+ * data: identifica la data della richiesta
+ * nome_artista: identifica l'id dell'artista che ha effettuato la richiesta
+ */
+
+class ERichiesta{
+
+    private string $disco;
+    private string $data;
+    private string $nome_artista;
 
     public function __construct($id_disco,$date,$art){
         $this->disco= $id_disco;
@@ -13,54 +19,25 @@ private string $nome_artista;
     }
 
 
-    /**
-     * @return string
-     */
+    /** metodi get */
+
     public function getDisco(): string
-    {
-        return $this->disco;
-    }
+    { return $this->disco; }
 
-    /**
-     * @return string
-     */
     public function getData(): string
-    {
-        return $this->data;
-    }
+    { return $this->data; }
 
-    /**
-     * @return string
-     */
     public function getArtista(): string
-    {
-        return $this->nome_artista;
-    }
+    { return $this->nome_artista; }
 
 
-    /**
-     * @param string $disco
-     */
+    /** metodi set */
     public function setDisco(string $disco): void
-    {
-        $this->disco = $disco;
-    }
+    { $this->disco = $disco; }
 
-    /**
-     * @param string $data
-     */
     public function setData(string $data): void
-    {
-        $this->data = $data;
-    }
+    { $this->data = $data; }
 
-    /**
-     * @param string $data
-     */
     public function setArtista(string $art): void
-    {
-        $this->nome_artista = $art;
-    }
-
-
+    { $this->nome_artista = $art; }
 }

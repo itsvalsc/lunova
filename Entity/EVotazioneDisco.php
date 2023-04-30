@@ -1,11 +1,16 @@
 <?php
 
-class EVotazioneDisco
-{
+/** La classe EVotazioneDisco caratterizza la votazione di un disco attraverso:
+ * utente: identifica l'id del cliente che ha effettuato il voto
+ * disco: identifica l'id del disco al qiale si riferisce il voto
+ * voto: identifica il voto del disco
+ */
+
+class EVotazioneDisco{
+
     private string $utente;
     private string $disco;
     private int $voto;
-
 
     public function __construct(string $ut, string $disc, int $voto){
         $this->utente = $ut;
@@ -13,53 +18,24 @@ class EVotazioneDisco
         $this->voto = $voto;
     }
 
-    /**
-     * @return string
+    /** metodi get
      */
     public function getUtente(): string
-    {
-        return $this->utente;
-    }
+    { return $this->utente; }
 
-    /**
-     * @return string
-     */
     public function getDisco(): string
-    {
-        return $this->disco;
-    }
+    { return $this->disco; }
 
-    /**
-     * @return int
-     */
     public function getVoto(): int
-    {
-        return $this->voto;
-    }
+    { return $this->voto; }
 
-    /**
-     * @param string $utente
-     */
+    /** metodi set */
     public function setUtente(string $utente): void
-    {
-        $this->utente = $utente;
-    }
+    { $this->utente = $utente; }
 
-    /**
-     * @param string $disco
-     */
     public function setDisco(string $disco): void
-    {
-        $this->disco = $disco;
-    }
+    { $this->disco = $disco; }
 
-    /**
-     * @param int $sondaggio
-     */
     public function setVoto(int $voto): void
-    {
-        $this->voto = $voto;
-    }
-
-
+    { $this->voto = $voto; }
 }

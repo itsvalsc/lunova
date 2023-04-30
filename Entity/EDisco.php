@@ -1,7 +1,14 @@
 <?php
-/**
- * ok
- * @package Entity 
+
+/** La classe EDisco caratterizza il disco di un artista attraverso:
+ * ID_disco: identificativo del disco
+ * titolo: identifica il titolo del disco
+ * autore: identifica l'autore del disco, ovvero l'artista
+ * prezzo: identifica il prezzo del disco
+ * descrizione: identifica le canzoni appartenenti al disco
+ * genere: identifica il genere a cui appartiene il disco
+ * quantità: indica il numero di dischi disponibili
+ * EImmagine: identifica l'immagine di copertina del disco
  */
 
 class EDisco{
@@ -12,9 +19,7 @@ class EDisco{
 	private string $descrizione;
 	private string $genere;
     private int $quantita;
-	private ?EImmagine $copertina;    //reinserire Eimmagine come tipo
-
-	private $_commento = array();
+	private ?EImmagine $copertina;
 
 	public function __construct(string $titol, string $aut, float $price, string $descriz, string $gen, ?EImmagine $img, int $q){
 
@@ -26,28 +31,11 @@ class EDisco{
 		$this->genere = $gen ;
         $this->quantita = $q;
 		$this->copertina = $img ;
+    }
 
-	}
-
-	public function addCommento(Ecommento $commento){
-		array_push($this->_commento, $commento);}
-
-	public function  getCommenti(){
-		$num=count($this->_commento);
-		if ($num>1){
-			return ($this->_commento);
-		}
-		else return "Non ci sono commenti";
-		}
-
-
-
-	//metodi get
+	/** metodi get */
     public function getID()
     { return($this->ID_disco);}
-
-    public function getQta()
-    { return($this->quantita);}
 
 	public function getTitolo()
 	{ return($this->titolo);}
@@ -61,21 +49,16 @@ class EDisco{
 	public function getDescrizione()
 	{ return($this->descrizione);}
 
-    public function getDescrtaglio()
-    { $x= $this->descrizione;
-        $p = substr($x,0,20);
+    public function getGenere()
+    { return($this->genere);}
 
-        return("$p...");}
+    public function getQta()
+    { return($this->quantita);}
 
-	public function getGenere()
-	{ return($this->genere);}
+    public function getCopertina()
+    { return($this->copertina);}
 
-	public function getCopertina()
-	{ return($this->copertina);}
-
-
-
-	//metodi set
+	/** metodi set */
     public function setID( string $id )
     { $this->ID_disco = $id ;}
 
@@ -97,6 +80,15 @@ class EDisco{
 	public function setCopertina( EImmagine $c )
 	{ $this->copertina = $c ;}
 
+    /** Altri metodi */
+
+    /** metodo che serve a vedere la descrizione del disco(i.e. le canzoni)
+     * tagliate quando è troppo lungo
+     */
+    public function getDescrtaglio()
+    { $x= $this->descrizione;
+        $p = substr($x,0,20);
+        return("$p...");}
 }
 
 ?>

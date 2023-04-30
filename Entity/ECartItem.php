@@ -1,20 +1,19 @@
 <?php
 
-
-/**
- * Class checked
- * @package Entity
+/** La classe ECarrello caratterizza il carello di un cd attraverso:
+ * IdCartItem: identificativo del cartItem
+ * IdCart: identifica l'id del carrello collegato al cartItem
+ * quantity: identifica la quantità del cartItem
+ * id_disco: identifica l'id del disco inserito nel carrello
+ * totprice: identifica il prezzo totale del cartItem
  */
+
 class ECartItem {
 
-    private string $IdCart;
-
     private string $IdCartItem;
-    
+    private string $IdCart;
     private int $quantity;
-    
     private string $id_disco;
-    
     private float $totprice;
 
     public function __construct(EDisco $disco){
@@ -25,15 +24,13 @@ class ECartItem {
         $this->totprice = 0.0; 
     }
 
-
-
-    //metodi get
-
-    public function getIdCartItem()
-    { return $this->IdCartItem; }
+    /** metodi get */
 
     public function getIdCart()
     { return $this->IdCart; }
+
+    public function getIdCartItem()
+    { return $this->IdCartItem; }
 
     public function getIdItem()
     { return $this->id_disco; }
@@ -44,9 +41,7 @@ class ECartItem {
     public function getTotPrice(): float 
     { return $this->totprice; }
 
-
-
-    //metodi set
+    /** metodi set */
     
     public function setIdCartItem( $IdOrdineItem ) :void
     { $this->IdCartItem = $IdOrdineItem; }
@@ -62,6 +57,5 @@ class ECartItem {
 
     public function setTotPrice( float $totprice ) :void 
     { $this->totprice = $totprice; }
-
 }
 ?>

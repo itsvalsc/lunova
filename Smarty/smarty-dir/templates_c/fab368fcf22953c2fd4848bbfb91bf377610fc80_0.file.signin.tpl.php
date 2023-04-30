@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-17 19:07:34
+/* Smarty version 4.2.1, created on 2023-04-26 19:31:54
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\signin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63efc26648a139_16408274',
+  'unifunc' => 'content_6449600ada8ca6_49129922',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fab368fcf22953c2fd4848bbfb91bf377610fc80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\signin.tpl',
-      1 => 1676657251,
+      1 => 1682529174,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63efc26648a139_16408274 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6449600ada8ca6_49129922 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -64,29 +64,18 @@ function content_63efc26648a139_16408274 (Smarty_Internal_Template $_smarty_tpl)
 
 
 
-            <ul class="navbar-nav ml-4">
-                <li class="nav-item">
-                    <a class="nav-link" href="/lunova/Carrello/mio_carrello">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge rounded-pill bg-secondary">2</span>
-                    </a>
-                </li>
-            </ul>
 
-
-
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
             </form>
 
             <ul class="navbar-nav ml-4">
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Carrello/mio_carrello">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
-                            <span class="badge rounded-pill bg-secondary">2</span>
                         </a>
 
                     </li>
@@ -115,36 +104,45 @@ function content_63efc26648a139_16408274 (Smarty_Internal_Template $_smarty_tpl)
 
 
     <div id="main" class="container" style="margin-top:80px; height: fit-content">
-        <form action="/lunova/AboutUs/us/" method="post">
+        <div><?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+</div>
+        <form action="/lunova/Profile/registrati" method="post">
+            <div class="form-group" style="width: 50rem;">
+                <fieldset>
+                    <label class="form-label mt-4" ">Username</label>
+                    <input class="form-control" id="nutente" name='username' type="text" placeholder="Username" required>
+                </fieldset>
+            </div>
+
             <div class="form-group" style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" ">Nome</label>
-                    <input class="form-control" id="nutente" type="text" placeholder="Nome" >
+                    <input class="form-control" id="nutente" name='nome' type="text" placeholder="Nome" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Cognome</label>
-                    <input class="form-control" id="cutente" type="text" placeholder="Nome" >
+                    <input class="form-control" id="cutente" name='cognome' type="text" placeholder="Nome" required>
                 </fieldset>
             </div>
 
             <div class="form-group" style="width: 50rem;">
                 <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
-                <input type="email" class="form-control" id="Email" name="Email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                <input type="email" class="form-control" id="Email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
 
             <div class="form-group" style="width: 50rem;">
                 <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-                <input type="password" class="form-control" id="Password"  name="Password" placeholder="Password" required>
+                <input type="password" class="form-control" id="password"  name="password" placeholder="password" required>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Telefono</label>
-                    <input class="form-control" id="telefono" type="text" placeholder="Nome" >
+                    <input class="form-control" id="telefono" name='telefono' type="text" placeholder="Telefono" required>
                 </fieldset>
             </div>
             <hr>
@@ -153,57 +151,53 @@ function content_63efc26648a139_16408274 (Smarty_Internal_Template $_smarty_tpl)
 
                 <fieldset>
                     <label class="form-label mt-4" >CAP</label>
-                    <input class="form-control" id="CAP" type="text" placeholder="Nome">
+                    <input class="form-control" id="CAP"  name='cap' type="text" placeholder="CAP" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4">Provincia</label>
-                    <input class="form-control" id="provincia" type="text" placeholder="Nome">
+                    <input class="form-control" id="provincia" name='provincia' type="text" placeholder="Provincia" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Città</label>
-                    <input class="form-control" id="citta" type="text" placeholder="Nome" >
+                    <input class="form-control" id="citta" name='citta' type="text" placeholder="Città" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >N. Civico</label>
-                    <input class="form-control" id="civico" type="text" placeholder="Nome" >
+                    <input class="form-control" id="civico" name='civico' type="text" placeholder="Civico" required>
                 </fieldset>
             </div>
 
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4">Via</label>
-                    <input class="form-control" id="via" type="text" placeholder="Nome" >
+                    <input class="form-control" id="via" type="text" name='via' placeholder="Via" required>
                 </fieldset>
             </div>
             <hr>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                <input class="form-check-input" type="radio" name="type" id="optionsRadios1" value="Artista" checked="">
                 <label class="form-check-label" for="optionsRadios1">
                     Artista
                 </label>
 
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked="">
+                <input class="form-check-input" type="radio" name="type" id="optionsRadios1" value="Cliente" checked="">
                 <label class="form-check-label" for="optionsRadios1">
                     Utente
                 </label>
             </div>
             <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
-
-            <button type="button" class="btn btn-primary">Accedi</button>
-            <hr>
-            <button type="button" class="btn btn-secondary">Inscriviti</button>
+            <button type="submit" class="btn btn-primary">CONFERMA ISCRIZIONE</button>
         </form>
     </div>
 

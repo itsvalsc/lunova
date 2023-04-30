@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-26 17:12:09
+/* Smarty version 4.2.1, created on 2023-04-29 19:27:54
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\successorder.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63fb84d96c5d89_86445802',
+  'unifunc' => 'content_644d539aaa6325_27619723',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63fb84d96c5d89_86445802 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644d539aaa6325_27619723 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/vapor/bootstrap.css">
 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
     <div class = "container">

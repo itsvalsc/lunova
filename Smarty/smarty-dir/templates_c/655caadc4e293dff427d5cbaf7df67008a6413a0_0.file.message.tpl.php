@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-29 19:50:02
-  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\addisco.tpl' */
+/* Smarty version 4.2.1, created on 2023-04-29 18:57:41
+  from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\message.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_644d58ca29d218_04368021',
+  'unifunc' => 'content_644d4c856f6244_95680444',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '60066c2c891b6640edafb91485464804a328437e' => 
+    '655caadc4e293dff427d5cbaf7df67008a6413a0' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\addisco.tpl',
-      1 => 1682787610,
+      0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\message.tpl',
+      1 => 1682529174,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644d58ca29d218_04368021 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644d4c856f6244_95680444 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -32,6 +32,7 @@ function content_644d58ca29d218_04368021 (Smarty_Internal_Template $_smarty_tpl)
 
     <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     <title>Lunova</title>
 </head>
@@ -61,6 +62,19 @@ function content_644d58ca29d218_04368021 (Smarty_Internal_Template $_smarty_tpl)
                 </li>
             </ul>
 
+
+
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value && $_smarty_tpl->tpl_vars['isCliente']->value) {?>
+                <ul class="navbar-nav ml-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/lunova/Carrello/mio_carrello">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge rounded-pill bg-secondary"><?php echo $_smarty_tpl->tpl_vars['num']->value;?>
+</span>
+                        </a>
+                    </li>
+                </ul>
+            <?php }?>
 
 
 
@@ -101,76 +115,16 @@ function content_644d58ca29d218_04368021 (Smarty_Internal_Template $_smarty_tpl)
 
 <!-- end header -->
 
-
-
-
-<div id="main" class="container" style="margin-top:80px; height: fit-content">
-    <form action="/lunova/Products_list/aggiungi_disco" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <fieldset>
-                <label class="form-label mt-4" for="readOnlyInput">Nome disco</label>
-                <input class="form-control" name="ndisco" id="ndisco" type="text" placeholder="Nome" required>
-            </fieldset>
-        </div>
-        <div class="form-group">
-            <label for="exampleTextarea" class="form-label mt-4">Descrizione</label>
-            <textarea class="form-control" name="descrizione" id="descrizione" rows="3" placeholder="Scrivi qui la tua descrizione..." required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="exampleSelect1" class="form-label mt-4">Genere</label>
-            <select class="form-select" name="genere" id="genere" required>
-                <?php
-$__section_gn_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['gen']->value) ? count($_loop) : max(0, (int) $_loop));
-$__section_gn_0_total = $__section_gn_0_loop;
-$_smarty_tpl->tpl_vars['__smarty_section_gn'] = new Smarty_Variable(array());
-if ($__section_gn_0_total !== 0) {
-for ($__section_gn_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index'] = 0; $__section_gn_0_iteration <= $__section_gn_0_total; $__section_gn_0_iteration++, $_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index']++){
-?>
-                    <option><?php echo $_smarty_tpl->tpl_vars['gen']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_gn']->value['index'] : null)];?>
-</option>
-                <?php
-}
-}
-?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="formFile" class="form-label mt-4">Scegli una copertina</label>
-            <input class="form-control" name="copertina" type="file" id="copertina" accept="image/png, image/jpeg" required>
-        </div>
-
-
-        <div class="form-group">
-            <label class="form-label mt-4">Prezzo</label>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">€</span>
-                    <input type="" class="form-control" name="prezzo" aria-label="Prezzo" required required>
-                    <span class="input-group-text"></span>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="form-label mt-4">Quantita</label>
-            <div class="form-group">
-                <div class="input-group mb-3">
-                    <input type="number" class="form-control" name="quantita" aria-label="Quantita" required datatype="number">
-                    <span class="input-group-text"></span>
-                </div>
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-secondary">Aggiungi</button>
-    </form>
+<div id="main" class="container" style="margin-top:80px; height: 700px">
+    <div class="col-9">
+        <h2><?php echo $_smarty_tpl->tpl_vars['message']->value;?>
+</h2>
+        <a href="/lunova/<?php echo $_smarty_tpl->tpl_vars['var_url']->value;?>
+">Ritorna <?php echo $_smarty_tpl->tpl_vars['var_titolo']->value;?>
+</a>
+    </div>
 </div>
 
-
-<div id="main" class="container" style="margin-top:100px; height: fit-content">
-</div>
 
 <!-- footer -->
 <footer class="bg-dark" style ="margin-bottom: 0px;">

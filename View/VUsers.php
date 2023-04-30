@@ -23,7 +23,7 @@ class VUsers{
         $this->smarty->display($template);
     }
 
-    public function load($l,$s, $elenco, $num, $controllo,$numComm, $cli){
+    public function load($l,$s, $elenco, $num, $controllo,$numComm, $cli, $controllo_prezzo){
         //$this->setData('user', $l);
         $this->setData('product', $elenco);
         $this->setData('logged', $l);
@@ -31,6 +31,7 @@ class VUsers{
         $this->setData('numero', $num);
         $this->setData('numComm', $numComm);
         $this->setData('controllo', $controllo);
+        $this->setData('controllo_pre', $controllo_prezzo);
         $this->setData('isCliente', $cli);
         $this->setTemplate("profile.tpl");
     }
@@ -108,6 +109,12 @@ class VUsers{
     public function getQta(){
 
         return $_POST['quantitaa'];
+
+    }
+
+    public function getPrice(){
+
+        return $_POST['prezzoo'];
 
     }
 

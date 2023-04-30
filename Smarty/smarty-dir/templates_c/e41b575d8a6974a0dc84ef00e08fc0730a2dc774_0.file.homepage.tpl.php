@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-02-25 10:46:02
+/* Smarty version 4.2.1, created on 2023-04-26 19:32:12
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\homepage.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_63f9d8daa253d7_89554465',
+  'unifunc' => 'content_6449601c3ec255_84266911',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e41b575d8a6974a0dc84ef00e08fc0730a2dc774' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\homepage.tpl',
-      1 => 1677316615,
+      1 => 1682529174,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63f9d8daa253d7_89554465 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6449601c3ec255_84266911 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +62,7 @@ function content_63f9d8daa253d7_89554465 (Smarty_Internal_Template $_smarty_tpl)
             </ul>
 
 
-            <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
+            <?php if ($_smarty_tpl->tpl_vars['logged']->value && $_smarty_tpl->tpl_vars['isCliente']->value) {?>
             <ul class="navbar-nav ml-4">
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Carrello/mio_carrello">
@@ -75,16 +75,16 @@ function content_63f9d8daa253d7_89554465 (Smarty_Internal_Template $_smarty_tpl)
             <?php }?>
 
 
-            <form class="d-flex" style="margin-block-end: 2px;">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="d-flex" style="margin-block-end: 2px;" action="/lunova/Profile/ricercaUtente" method="post">
+                <input class="form-control me-sm-2" type="text" name="search" placeholder="Cerca Utenti o Artisti" required>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Cerca</button>
             </form>
 
             <ul class="navbar-nav ml-4">
                 <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
                     <li class="nav-item">
 
-                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/mostraProfilo">
+                        <a class="nav-link" style="align-items: center " href="/lunova/Profile/users">
                             <i class="fa-solid fa-circle-user" style="font-size:24px;"></i>
                             <span class="badge rounded-pill bg-secondary">profilo</span>
                         </a>
@@ -127,7 +127,7 @@ function content_63f9d8daa253d7_89554465 (Smarty_Internal_Template $_smarty_tpl)
     <!--<p class="lead">Benvenuti nel sito!</p>-->
     <p class="lead">Clicca sul bottone per iniziare gli acquisti.</p>
     <!--<a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>-->
-    <a href="/lunova/Admin/users" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
+    <a href="/lunova/Products_list/elenco_dischi" class="btn btn-primary btn-lg mb-5 mt-3">Vai allo Shopping &raquo;</a>
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-indicators">

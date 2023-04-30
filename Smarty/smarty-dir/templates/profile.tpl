@@ -205,7 +205,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:25%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/usersetPrice/{$artista->getIdArtista()}">
                                                                         <i class="fa-solid fa-pen-to-square" style="color: #63ff0f;"></i>
                                                                     </a>
                                                                 </div>
@@ -223,6 +223,14 @@
                                                                     </div>
                                                                 </form>
                                                                 {/if}
+                                                                {if $controllo_pre == true}
+                                                                    <form action="/lunova/Profile/SetPrice/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ {$product[nr]->getPrezzo()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <button type="submit" class="btn btn-info">Imposta</button>
+                                                                        </div>
+                                                                    </form>
+                                                                {/if}
 
                                                             </div>
                                                         {/if}
@@ -239,7 +247,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:20%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="/lunova/Profile/usersetPrice/{$artista->getIdArtista()}">
                                                                         <i class="fa-solid fa-pen-to-square" style="color: #63ff0f;"></i>
                                                                     </a>
                                                                 </div>
@@ -257,6 +265,14 @@
                                                                     <form action="/lunova/Profile/SetQta/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
                                                                         <div class="input-group mb-3">
                                                                             <input type="text" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <button type="submit" class="btn btn-info">Imposta</button>
+                                                                        </div>
+                                                                    </form>
+                                                                {/if}
+                                                                {if $controllo_pre == true}
+                                                                    <form action="/lunova/Profile/SetPrice/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="text" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ {$product[nr]->getPrezzo()}" aria-label="quantitaa" aria-describedby="button-addon2">
                                                                             <button type="submit" class="btn btn-info">Imposta</button>
                                                                         </div>
                                                                     </form>

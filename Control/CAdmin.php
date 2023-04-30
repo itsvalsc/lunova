@@ -70,7 +70,8 @@ class CAdmin{
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() && $sessione->isAdmin()) {
             if (!$pm->exist('FCommento',$id_commento)){
-                return $v->message_admin('Si è verificato un errore, non è possibile trovare il commento selezionato','alle notifiche','Admin/notifiche');
+                $pm->delete("FNotifiche",$id_notifica);
+                return $v->message_admin('Il commento è gia stato elimanto, la notifica verrà eliminata','alle notifiche','Admin/notifiche');
             }
             $pm->delete("FCommento", $id_commento);
             if($id_notifica!=null){
@@ -122,15 +123,27 @@ class CAdmin{
         $pm = FPersistentManager::getInstance();
         if ($sessione->isLogged() && $sessione->isAdmin()) {
             if ($id_notifica!=null && $id_commento!=null){
-                if(!$pm->exist('FNotifiche',$id_notifica) || !$pm->exist('FCommento',$id_commento)){
-                    return $view->message_admin('Impossibile eseguire questa azione, notifica/commento non trovati','alle notifiche',"Admin/notifiche");
+                if($pm->exist('FNotifiche',$id_notifica)){
+                    if (!$pm->exist('FCommento',$id_commento)){
+                        $pm->delete("FNotifiche",$id_notifica);
+                        return header("Location: /lunova/Admin/notifiche");
+                    }
+                    $commento = $pm->load('FCommento',$id_commento);
+                    if ($commento != null){//caso in cui non esiste piu l utente
+                        $commento->setSegnala(false);
+                        $pm->update($commento);
+                        $pm->delete("FNotifiche",$id_notifica);
+                        return header("Location: /lunova/Admin/notifiche");
+                    }else{
+                        $pm->delete("FNotifiche",$id_notifica);
+                        return header("Location: /lunova/Admin/notifiche");
+                    }
+                }else{
+                    return $view->message_admin('Impossibile eseguire questa azione, notifica non trovata','alle notifiche',"Admin/notifiche");
                 }
-                $pm->delete("FNotifiche",$id_notifica);
-                $commento = $pm->load('FCommento',$id_commento);
-                $commento->setSegnala(false);
-                $pm->update($commento);
+            }else{
+                return header("Location: /lunova/Admin/notifiche");
             }
-            return header("Location: /lunova/Admin/notifiche");
         }
         else{
             return header("Location: /lunova");
@@ -197,17 +210,19 @@ class CAdmin{
      * @return void|null
      */
     public static function ricercaUtente($idComm){
+        $err = new VErrore();
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
         if ($session->isLogged() && $session->isAdmin()){
             if (!$pers->exist('FCommento',$idComm)) {
-                $err = new VErrore();
-                return $err->message_admin("Impossibile ricerca l'artista: commento non trovato",'alle notifiche','Admin/notifiche');
+                return $err->message_admin("Impossibile cercare l'utente: commento non trovato",'alle notifiche','Admin/notifiche');
             }
             $commento = $pers->load('FCommento',$idComm);
             if ($commento != null){
                 $ut = $commento->getCliente()->getIdClient();
                 return header ("Location: /lunova/Admin/usersadmin#$ut");
+            }else{
+                return $err->message_admin("Impossibile cercare l'utente: utente non trovato",'alle notifiche','Admin/notifiche');
             }
         }
         else{

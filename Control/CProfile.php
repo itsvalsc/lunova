@@ -330,16 +330,20 @@ class CProfile
         if ($sessione->isLogged() && $sessione->isArtista()){
             $utente = $sessione->getUtente();
             $email = $utente->getEmail();
+            $id = $utente->getIdArtista();
+            $pers->deletebyUtente('FDisco',$id);
             $sessione->logout();
             $pers->EliminaAccontA($email);
             return $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
         }elseif ($sessione->isLogged() && $sessione->isCliente()){
             $utente = $sessione->getUtente();
-
             $cli = true;
             $email = $utente->getEmail();
+            $id = $utente->getIdClient();
+            $pers->deletebyUtente('FCommento',$id);
             $sessione->logout();
             $pers->EliminaAccontC($email);
+
             return $err->message(false,'Il tuo account è stato eliminato con successo','Torna alla Home','',$num,$cli);
         }
         else{

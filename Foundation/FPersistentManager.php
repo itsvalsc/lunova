@@ -20,6 +20,10 @@ class FPersistentManager{
         $ris = $Fclass::exist_username($key1);
         return $ris;
     }
+    public function exist_id(string $Fclass, $key1) : bool {
+        $ris = $Fclass::exist_id($key1);
+        return $ris;
+    }
 
 
     /**
@@ -42,6 +46,11 @@ class FPersistentManager{
 
     public function delete(string $Fclass, $key1, $key2=null, $key3=null) {
         $ris = $Fclass::delete($key1,$key2,$key3);
+        return $ris;
+    }
+
+    public function deletebyUtente(string $Fclass, $key1) {
+        $ris = $Fclass::deletebyUtente($key1);
         return $ris;
     }
 
@@ -227,6 +236,7 @@ class FPersistentManager{
     public function DeleteItem($prodctId){
         return FCartItem::delete_disco($prodctId);
     }
+
 
 
     public function FindArtistName($id){

@@ -83,10 +83,12 @@ class FNotifiche{
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $not = array();
-            foreach ($rows as $row){
+            if (count($rows)!=0){
+                foreach ($rows as $row){
                 $sing = new ENotifiche($row['testo'], $row['priority'], $row['mittente']);
                 $sing->setId($row['id']);
                 array_push($not, $sing);
+                }
             }
             return $not;
 

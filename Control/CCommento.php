@@ -101,7 +101,7 @@ class CCommento
                 $commento->setSegnala(true);
                 $pm->update($commento);
                 $t=$commento->getDescrizione();
-                $notifica = new ENotifiche("Questo commento è stato segnalato. Testo: $t",'bassa',$commento->getId());
+                $notifica = new ENotifiche("Questo commento è stato segnalato. Testo: $t".". Id_Autore: ".$commento->getCliente()->getIdClient(),'bassa',$commento->getId());
                 $pm->store($notifica);
                 return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
             }

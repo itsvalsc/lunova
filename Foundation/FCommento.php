@@ -54,11 +54,18 @@ class FCommento
                 $data = $rows[0]['data'];
                 $disco = $rows[0]['disco'];
 
-                $cliente = FCliente::loadId($cliente);
-                $commento = new ECommento($cliente,$descrizione, $data,  $disco);
-                $commento->setId($id);
-                $commento->setSegnala($segnalato);
-                return $commento;
+
+                if (FCliente::exist_id($cliente)){
+                    $cliente = FCliente::loadId($cliente);
+                    $commento = new ECommento($cliente,$descrizione, $data,  $disco);
+                    $commento->setId($id);
+                    $commento->setSegnala($segnalato);
+                    return $commento;
+                }else{
+                    return null;
+                }
+
+
             }
             else {
                 return null;
@@ -86,12 +93,13 @@ class FCommento
                 $idCliente = $row['cliente'];
                 $disco = $row['disco'];
 
-                $cliente = FCliente::loadId($idCliente);
-                $commento = new ECommento($cliente,$descrizione, $data, $disco);
-                $commento->setId($id);
-
-                $commenti[$i] = $commento;
-                ++$i;
+                if (FCliente::exist_id($idCliente)){
+                    $cliente = FCliente::loadId($idCliente);
+                    $commento = new ECommento($cliente,$descrizione, $data, $disco);
+                    $commento->setId($id);
+                    $commenti[$i] = $commento;
+                    ++$i;
+                }
             }
             return $commenti;
         }
@@ -120,14 +128,14 @@ class FCommento
                 $idCliente = $row['cliente'];
                 $disco = $row['disco'];
                 if (FDisco::exist($disco)){
-                    $cliente = FCliente::loadId($idCliente);
-                    $commento = new ECommento($cliente,$descrizione, $data, $disco);
-                    $commento->setId($id);
-
-                    $commenti[$i] = $commento;
-                    ++$i;
+                    if (FCliente::exist_id($idCliente)){
+                        $cliente = FCliente::loadId($idCliente);
+                        $commento = new ECommento($cliente,$descrizione, $data, $disco);
+                        $commento->setId($id);
+                        $commenti[$i] = $commento;
+                        ++$i;
+                    }
                 }
-
             }
             return $commenti;
         }
@@ -166,7 +174,16 @@ class FCommento
             else{ return false;}
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+    }
 
+    public static function deletebyUtente(string $id) {
+        $pdo=FConnectionDB::connect();
+        try {
+                $query = "DELETE FROM commenti WHERE cliente= :id";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([":id" => $id]);
+        }
+        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
     }
 
     private static function Sicurezza(string $t, string $idap,string $idcomm)

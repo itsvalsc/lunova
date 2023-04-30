@@ -43,6 +43,23 @@ class FCliente{
 	    }
     }
     /**
+     * metodo che verifica l'esistenza dell' id del cliente nel db
+     * @package Foundation
+     */
+    public static function exist_id($id) : bool {
+	    $pdo = FConnectionDB::connect();
+	    $query = "SELECT * FROM cliente WHERE IdCliente = :id";
+	    $stmt= $pdo->prepare($query);
+	    $stmt->execute([":id" => $id]);
+	    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    if (count($rows)==0){
+		    return false;
+	    }
+	    else {
+		    return true;
+	    }
+    }
+    /**
      * metodo che memorizza un'istanza di EClient sul database
      * @param ECliente $cliente
      */

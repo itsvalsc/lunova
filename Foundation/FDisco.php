@@ -234,7 +234,16 @@ class FDisco {
             else{ return false;}
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
+    }
 
+    public static function deletebyUtente(string $id) {
+        $pdo=FConnectionDB::connect();
+        try {
+                $query = "DELETE FROM dischi WHERE artist_id= :id";
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([":id" => $id]);
+        }
+        catch(PDOException $exception) {print("Errore".$exception->getMessage());}
     }
 
     public static function update( $campo, $valore, $id)

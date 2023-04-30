@@ -102,7 +102,7 @@
             <tr>
                 <th scope="col">Priorità</th>
                 <th scope="col">Testo</th>
-                <th scope="col">Mittente</th>
+                <th scope="col">Commento</th>
                 <th scope="col" >Opzioni</th>
             </tr>
             </thead>

@@ -1,27 +1,21 @@
 <?php
 
-/**
- * Class ECarrello
+/** La classe ECarrello caratterizza il carello di un cd attraverso:
+ * Id: identificativo del carrello
+ * dischi: identifica i dischi aggiunti al carrello
+ * id_utente: identifica l'id del cliente a cui appartiene il carrello
+ * id_ordine: identifica l'id dell'ordine a cui è legato il carrello
+ * totale: identifica il prezzo totale del carrello(i.e. la somma di tutti i prezzi dei dischi che sono presenti nel carrello)
  */
 
-class ECarrello
-{
-    private $dischi = array();
+class ECarrello{
 
-    private string $id_utente;
-    
     private string $id;
-
+    private $dischi = array();
+    private string $id_utente;
     private string $id_ordine;
-
     private float $totale;
 
-    //TODO: fare un array associativo con dischi e quantità + metodi per modifica quantità (FATTO ?)
-    /**
-     * @param string $id
-     * @param array $dischi
-     *
-     */
     public function __construct($ut)
     {
         if (1 === func_num_args()){
@@ -44,101 +38,60 @@ class ECarrello
         }
     }
 
-    /**
-     * @param string $mail_utente
-     */
-    public function setIdUtente(string $id_utente): void
-    {
-        $this->id_utente = $id_utente;
-    }
+    /** metodi get */
 
-    /**
-     * @return string
-     */
-    public function getIdUtente(): string
-    {
-        return $this->id_utente;
-    }
-
-    /**
-     * @param string $id
-     */
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @param float $totale
-     */
-    public function setTotale(float $totale): void
-    {
-        $this->totale = $totale;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTotale(): float
-    {
-        return $this->totale;
-    }
-    /**
-     * @return string
-     */
     public function getId(): string
-    {
-        return $this->id;
-    }
+    { return $this->id; }
 
-    /**
-     * @return string
-     */
-    public function getIdOrdine(): string
-    {
-        return $this->id_ordine;
-    }
-
-    /**
-     * @return array
-     */
     public function getDischi(): array
-    {
-        return $this->dischi;
-    }
+    { return $this->dischi; }
+
+    public function getIdUtente(): string
+    { return $this->id_utente; }
+
+    public function getIdOrdine(): string
+    { return $this->id_ordine; }
+
+    public function getTotale(): float
+    { return $this->totale; }
+
+
+    /** metodi set */
+    public function setId(string $id): void
+    { $this->id = $id; }
 
     public function setDischi(array $d): void
-    {
-        $this->dischi = $d;
-    }
+    { $this->dischi = $d; }
 
-    /**
-     * @return string
-     */
-    public function getToStringDischi(): string
-    {
+    public function setIdUtente(string $id_utente): void
+    { $this->id_utente = $id_utente; }
+
+    public function setIdOrdine(string $id_ordine): void
+    { $this->id_ordine = $id_ordine; }
+
+    public function setTotale(float $totale): void
+    { $this->totale = $totale; }
+
+    /** Altri metodi */
+
+    public function getToStringDischi(): string{
         $a = "";
         $out = implode(";",array_map(function($a) {return implode("",$a);},$this->getDischi()));
         $out =$out .";";
-
         return $out;
     }
 
-    /**
-     * @param array $dischi
-     */
-    public function aggiungiDisco(EDisco $disco, int $QuantitaRichiesta): void
-    {
+    /** metodo che permette di aggiungere un disco con la quantità al carrello se disponibile */
+    public function aggiungiDisco(EDisco $disco, int $QuantitaRichiesta): void{
         if($disco->getQuantita() >= $QuantitaRichiesta){
             $this->dischi[$disco->getId()] = $QuantitaRichiesta;
             $this->totale += $disco->getPrezzo() * $QuantitaRichiesta;
         }
         else print("Quantità non disponibile");
-
     }
 
-    public function modificaQuantita(EDisco $disco, int $quantita): void
-    {
+    /** metodo che permette di modificare la quantità di un disco nel carrello */
+    public function modificaQuantita(EDisco $disco, int $quantita): void{
         if ($disco->getQuantita() >= $quantita) {
             $differenzaPrezzo = ($this->dischi[$disco->getId()] - $quantita) * $disco->getPrezzo();
             $this->dischi[$disco->getId()] = $quantita;

@@ -1,7 +1,11 @@
 <?php
 
-/**
- * Class EImmagine
+/** La classe EImmagine caratterizza l'immagine di un cd, o del profilo di un utente(artista o cliente) attraverso:
+ * Id: identificativo dell'immagine
+ * nome: identifica il nome dell'immagine
+ * formato: identifica il formato dell'immagine (es. jpg, jpeg, ecc.)
+ * Immagine: la codifica in base 64 dell'immagine
+ * IdAppartenenza: identifica l'id della classe di appartenenza dell'immagine(i.e. se è la copertina di un disco o l'immagine profilo di un artista o cliente)
  */
 
 class EImmagine {
@@ -60,8 +64,4 @@ class EImmagine {
 
     public function setIdAppartenenza(string $IdAppartenenza): void
     { $this->IdAppartenenza = $IdAppartenenza; }
-
-
-
-
 }

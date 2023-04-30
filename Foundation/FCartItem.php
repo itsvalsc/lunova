@@ -1,11 +1,9 @@
 <?php
 
-class FCartItem
-{
+class FCartItem{
 
     public static function exist($id): bool
     {
-
         $pdo = FConnectionDB::connect();
 
         $query = "SELECT * FROM cart_item WHERE id = :id";
@@ -34,7 +32,6 @@ class FCartItem
 
     public static function delete(string $ID_carti, string $cart_id) {
         $pdo=FConnectionDB::connect();
-
         try {
             $ifExist = self::exist($ID_carti);
             if($ifExist) {
@@ -50,6 +47,7 @@ class FCartItem
         }
         catch(PDOException $exception) {return ("Errore".$exception->getMessage());}
     }
+
     public static function delete_cart(string $cart_id) {
         $pdo=FConnectionDB::connect();
 
@@ -109,7 +107,6 @@ class FCartItem
             }
         }
         return $dischi;
-
     }
 
     public static function loadD(string $id_cli){
@@ -144,7 +141,6 @@ class FCartItem
             }
         }
         return $dischi;
-
     }
 
 
@@ -166,7 +162,6 @@ class FCartItem
         if ($verify) {
             if (count($rows) > 0) {
                 $quantity = $rows[0]["quantity"];
-
             }
             ++$quantity;
 
@@ -192,8 +187,6 @@ class FCartItem
                 $G = FDisco::load($productId);
                 $cart = new ECartItem(($G));
                 self::store($cart, $cartid);
-
-
             }
             return $quantity;
         } else {
@@ -205,7 +198,6 @@ class FCartItem
                 return $quantity;
             }
         }
-
     }
 
 
@@ -254,10 +246,8 @@ class FCartItem
             //$G= FDisco::load($productId);
             //$cart = new ECartItem(($G));
             //FCartItem::store($cart,$cartid);
-
         }
         return $quantity;
-
     }
 
 
@@ -265,9 +255,7 @@ class FCartItem
     public static function CheckQta($id) : bool{
         $pdo=FConnectionDB::connect();
 
-
         //controllo quantità
-
         $query = "SELECT Qta FROM dischi WHERE ID= :id";
         $stmt = $pdo->prepare($query);
         $stmt->execute( [":id" => $id] );
@@ -275,7 +263,6 @@ class FCartItem
         $quantity = $rows[0]["Qta"];
 
         $verify=false;
-
 
         if($quantity>0){
             $verify=true;
@@ -286,9 +273,7 @@ class FCartItem
     public static function GETQta($id) {
         $pdo=FConnectionDB::connect();
 
-
         //controllo quantità
-
         $query = "SELECT Qta FROM dischi WHERE ID= :id";
         $stmt = $pdo->prepare($query);
         $stmt->execute( [":id" => $id] );
@@ -297,18 +282,4 @@ class FCartItem
 
         return $quantity;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

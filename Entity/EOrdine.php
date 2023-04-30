@@ -1,29 +1,26 @@
 <?php
-/**
- * ok
- * @package Entity
+
+/** La classe EOrdine caratterizza l'ordine di un cliente attraverso:
+ * IdOrdine: identificativo dell'ordine
+ * carrello: identifica l'id del carrello
+ * IdCliente: identifica l'id del cliente che ha effettuato l'ordine
+ * indirizzo: identifica l'indirizzo del cliente a cui viene inviato l'ordine
+ * TotOrdine: identifica il prezzo totale
  */
-class EOrdine
-{
+
+class EOrdine{
 
     private string $IdOrdine;
-
     private string $carrello;
 
     //----------------------------------------------------------
 
-    private string $CittaSped;
-
-    private string $CAPSped;
-
-    private string $IndirizzoSped;
-
-    private string $ModPagamento;
-
-    private float $TotOrdine;
-
     private string $IdCliente;
-
+    private string $CittaSped;
+    private string $CAPSped;
+    private string $IndirizzoSped;
+    private string $ModPagamento;
+    private float $TotOrdine;
 
     public function __construct( ?ECliente $cl)
     {
@@ -40,108 +37,52 @@ class EOrdine
     /** metodi get **/
 
     public function getCittaSpe(): string
-    {
-        return $this->CittaSped;
-    }
+    { return $this->CittaSped; }
 
     public function getIdOrdine(): string
-    {
-        return $this->IdOrdine;
-    }
+    { return $this->IdOrdine; }
 
     public function getCapSped(): string
-    {
-        return $this->CAPSped;
-    }
+    { return $this->CAPSped; }
 
     public function getIndirizzoSped(): string
-    {
-        return $this->IndirizzoSped;
-    }
+    { return $this->IndirizzoSped; }
 
     public function getModPagamento(): string
-    {
-        return $this->ModPagamento;
-    }
+    { return $this->ModPagamento; }
 
     public function getCarrello(): string
-    {
-        return $this->carrello;
-    }
+    { return $this->carrello; }
 
     public function getTotOrdine(): float
-    {
-        return $this->TotOrdine;
-    }
+    { return $this->TotOrdine; }
 
     public function getIdCliente(): string
-    {
-        return $this->IdCliente;
-    }
+    { return $this->IdCliente; }
 
-    /**metodi set**/
+    /** metodi set */
 
     public function setCittaSpe(string $cittaspe): void
-    {
-        $this->CittaSped = $cittaspe;
-    }
+    { $this->CittaSped = $cittaspe; }
 
     public function setIdOrdine($IdOrdine): void
-    {
-        $this->IdOrdine = $IdOrdine;
-    }
+    { $this->IdOrdine = $IdOrdine; }
 
     public function setCapSped(string $cap): void
-    {
-        $this->CAPSped = $cap;
-    }
+    { $this->CAPSped = $cap; }
 
     public function setIndirizzoSped(string $ind): void
-    {
-        $this->IndirizzoSped = $ind;
-    }
+    { $this->IndirizzoSped = $ind; }
 
     public function setModPagamento(string $mod): void
-    {
-        $this->ModPagamento = $mod;
-    }
+    { $this->ModPagamento = $mod; }
 
     public function setTotOrdine(float $tot): void
-    {
-        $this->TotOrdine = $tot;
-    }
+    { $this->TotOrdine = $tot; }
 
     public function setIdCliente(string $IdCli): void
-    {
-        $this->IdCliente = $IdCli;
-    }
+    { $this->IdCliente = $IdCli; }
 
     public function setCarrello(string $car): void
-    {
-        $this->carrello = $car;
-    }
-
+    { $this->carrello = $car; }
 }
-    /** _METHODS_
-    
-    public function addDisco(EOrdineItem $orditem){
-        array_push($this->Dischi, $orditem);
-    }
-
-    public function NumericTotal(){
-        foreach($this->Dischi as $disco){
-            $this->TotOrdine += $disco->getTotPrice();
-        }
-    }
-
-    public function Compile($IdOrdine, $CittàSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine, ECarrello $car): void
-    {
-        $this->setIdOrdine($IdOrdine);
-        $this->setCittaSpe($CittàSpe);
-        $this->setCapSped($CAPSped);
-        $this->setIndirizzoSped($IndirizzoSped);
-        $this->setModPagamento($ModPagamento);
-        $this->setTotOrdine($TotOrdine);
-        $this->setCarrello($car);
-    }
-}**/

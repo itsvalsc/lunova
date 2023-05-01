@@ -31,10 +31,10 @@ class CRicercaDisco{
                 $utente = $ut->getIdArtista();
             }
             elseif (($session->isAdmin())){
-                //return header('Location: /lunova/Admin/usersadmin');
+                return header('Location: /lunova/Admin/usersadmin');
             }
         }
-        $viewex->ShowIndex($logged,$var, $num,$utente,$cli);
+        return $viewex->ShowIndex($logged,$var, $num,$utente,$cli);
     }
 
     public static function newDisc(){

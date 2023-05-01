@@ -102,14 +102,14 @@
 <div class="row">
     <div class = "container" style="width: 20rem;">
         <a href="/lunova/Products_list/mostra_prodotto/{$sondaggio->getDisco1()->getID()}">
-            <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco1()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco1()->getCopertina()->getImmagine()}">
+            <img style = "width: 300px; height: 300px;" src="data:{$sondaggio->getDisco1()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco1()->getCopertina()->getImmagine()}">
             </img>
         </a>
         <div>{$sondaggio->getDisco1()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco1()->getID()}" >
-                    <button type="button" class="btn btn-secondary" style="width: 250px" >Vota</button>
+                    <button type="button" class="btn btn-secondary" style="width: 300px" >Vota</button>
                 </a>
             {/if}
             {if $votazione}
@@ -118,11 +118,11 @@
         {/if}
         {if $logged ==false}
             <a >
-                <button type="button" class="btn btn-secondary" style="width: 250px"  disabled>Vota</button>
+                <button type="button" class="btn btn-secondary" style="width: 300px"  disabled>Vota</button>
             </a>
         {/if}
 
-        <div class="progress" style="width: 250px">
+        <div class="progress" style="width: 300px">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {$voti[0]}%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         {$sondaggio->getVotiDisco1()}
@@ -134,14 +134,14 @@
 
     <div class = "container" style="width: 20rem;">
         <a href="/lunova/Products_list/mostra_prodotto/{$sondaggio->getDisco2()->getID()}">
-        <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco2()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco2()->getCopertina()->getImmagine()}">
+        <img style = "width: 300px; height: 300px;" src="data:{$sondaggio->getDisco2()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco2()->getCopertina()->getImmagine()}">
         </img>
         </a>
         <div>{$sondaggio->getDisco2()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco2()->getID()}">
-                    <button type="button" class="btn btn-secondary" style="width: 250px">Vota</button>
+                    <button type="button" class="btn btn-secondary" style="width: 300px">Vota</button>
                 </a>
             {/if}
             {if $votazione}
@@ -150,10 +150,10 @@
         {/if}
         {if $logged ==false}
             <a >
-                <button type="button" class="btn btn-secondary" style="width: 250px" disabled>Vota</button>
+                <button type="button" class="btn btn-secondary" style="width: 300px" disabled>Vota</button>
             </a>
         {/if}
-        <div class="progress" style="width: 250px">
+        <div class="progress" style="width: 300px">
             <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {$voti[1]}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         {$sondaggio->getVotiDisco2()}
@@ -161,14 +161,14 @@
 
     <div class="container" style="width: 20rem;">
         <a href="/lunova/Products_list/mostra_prodotto/{$sondaggio->getDisco3()->getID()}">
-        <img style = "width: 250px; height: 200px;" src="data:{$sondaggio->getDisco3()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco3()->getCopertina()->getImmagine()}" >
+        <img style = "width: 300px; height: 300px;" src="data:{$sondaggio->getDisco3()->getCopertina()->getFormato()};base64,{$sondaggio->getDisco3()->getCopertina()->getImmagine()}" >
         </img>
         </a>
         <div>{$sondaggio->getDisco3()->getTitolo()}</div>
         {if $logged}
             {if $votazione == false}
                 <a href="/lunova/Sondaggi/vota/{$sondaggio->getDisco3()->getID()}">
-                    <button type="button" class="btn btn-secondary" style="width: 250px">Vota</button>
+                    <button type="button" class="btn btn-secondary" style="width: 300px">Vota</button>
                 </a>
             {/if}
             {if $votazione}
@@ -177,11 +177,11 @@
         {/if}
         {if $logged ==false}
             <a >
-                <button type="button" class="btn btn-secondary" style="width: 250px" disabled>Vota</button>
+                <button type="button" class="btn btn-secondary" style="width: 300px" disabled>Vota</button>
             </a>
         {/if}
 
-        <div class="progress" style="width: 250px">
+        <div class="progress" style="width: 300px">
             <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {$voti[2]}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         {$sondaggio->getVotiDisco3()}

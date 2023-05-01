@@ -175,6 +175,15 @@
                                     </li>
                                     -->
                                     <li class="nav-item">
+                                        <a class="nav-link" href="/lunova/Profile/AddDisco"><span>Aggiungi disco</span></a>
+                                        <hr>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/lunova/Profile/Impostazioni"><span>Impostazioni</span></a>
+                                        <hr>
+                                    </li>
+                                    <li class="nav-item">
                                         <div class ='row'>
                                             <a class="nav-link" href=""> <img class="me-2 h-20px fa-fw" src="" alt=""><span>Dischi </span></a>
                                             <script>
@@ -296,15 +305,7 @@
                                         </div>
                                         <hr>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/lunova/Profile/AddDisco"><span>Aggiungi disco</span></a>
-                                        <hr>
-                                    </li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/lunova/Profile/Impostazioni"><span>Impostazioni</span></a>
-                                        <hr>
-                                    </li>
                                 </ul>
                                 <!-- Side Nav END -->
                             </div>

@@ -124,10 +124,7 @@ class FPersistentManager{
     public function prelevaSondaggioInCorso(){
         return FSondaggio::load_incorso();
     }
-    public function prelevaSondaggi(){
-        $sondaggi = FSondaggio::prelevaSondaggi();
-        return $sondaggi;
-    }
+
 
     public function prelevaRichieste(){
         $richieste = FRichiesta::load_richieste();
@@ -153,22 +150,6 @@ class FPersistentManager{
         FRichiesta::delete($sondaggio->getDisco1()->getID());
         FRichiesta::delete($sondaggio->getDisco2()->getID());
         FRichiesta::delete($sondaggio->getDisco3()->getID());
-    }
-
-    public function prelevaDischiSondaggio(ESondaggio $sondaggio): array {
-        $disco1 = $sondaggio->getDisco1();
-        $disco2 = $sondaggio->getDisco2();
-        $disco3 = $sondaggio->getDisco3();
-        $load_disco1 = FDisco::load($disco1);
-        $load_disco2 = FDisco::load($disco2);
-        $load_disco3 = FDisco::load($disco3);
-        $dischi = array($load_disco1,$load_disco2,$load_disco3);
-        return $dischi;
-    }
-
-    public function prelevaOrdini($ut){
-        $ordini = FOrdine::prelevaOrdini($ut);
-        return $ordini;
     }
 
     public function prelevaArtisti(){
@@ -208,10 +189,6 @@ class FPersistentManager{
         return $not;
     }
 
-    public function prelNotifSond(){
-        $not = FNotifiche::loadSond();
-        return $not;
-    }
 
     public function prelevaCartItems($car){
         return FCartItem::load($car);
@@ -233,11 +210,6 @@ class FPersistentManager{
     public function MinusItem($prodctId, $cartid,$cli_id){
         return FCartItem::MinusToCart($prodctId, $cartid,$cli_id);
     }
-    public function DeleteItem($prodctId){
-        return FCartItem::delete_disco($prodctId);
-    }
-
-
 
     public function FindArtistName($id){
         return FArtista::loadName($id);
@@ -303,10 +275,5 @@ class FPersistentManager{
     public function SetPrice($id, $numero ): void {
         $modifica = FDisco::updatePrice($numero, $id);
     }
-
-
-
-
-
 
 }

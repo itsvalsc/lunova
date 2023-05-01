@@ -114,7 +114,7 @@
             <div class="form-group">
                 <div class="input-group mb-3">
                     <span class="input-group-text">€</span>
-                    <input type="" class="form-control" name="prezzo" aria-label="Prezzo" required required>
+                    <input type="number" class="form-control" name="prezzo" aria-label="Prezzo" required datatype="number" min="1" step="0.1">
                     <span class="input-group-text"></span>
                 </div>
             </div>
@@ -125,7 +125,7 @@
             <label class="form-label mt-4">Quantita</label>
             <div class="form-group">
                 <div class="input-group mb-3">
-                    <input type="number" class="form-control" name="quantita" aria-label="Quantita" required datatype="number">
+                    <input type="number" class="form-control" name="quantita" aria-label="Quantita" required datatype="number" min="0">
                     <span class="input-group-text"></span>
                 </div>
             </div>

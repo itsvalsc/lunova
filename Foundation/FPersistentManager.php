@@ -463,4 +463,10 @@ class FPersistentManager{
     public function LoadOrdini($id_cli){
         return FOrdine::RecuperoOrdini($id_cli);
     }
+
+    public function LoadOrdini_totale_ADMIN(){
+        return FAdmin::RecuperoOrdini_totale_ADMIN();
+    }
+
+
 }

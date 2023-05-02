@@ -84,4 +84,11 @@ class VAdmin
         $this->smarty->display('admin.tpl');
     }
 
+
+    public function Ordini_Admin($l, $ordine) {
+        $this->smarty->assign('logged',$l);
+        $this->smarty->assign('ordine',$ordine);
+        $this->smarty->display('ordine_admin.tpl');
+    }
+
 }

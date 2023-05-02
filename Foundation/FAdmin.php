@@ -138,5 +138,33 @@ class FAdmin{
                 $pdo->rollBack();
                 return array();}
     }
+
+
+
+    public static function RecuperoOrdini_totale_ADMIN(){
+        $pdo = FConnectionDB::connect();
+
+        $query = "SELECT * FROM ordine";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $recovery = [];
+
+        foreach ($rows as $row) {
+            $fff = $row['TotaleOrdine'];
+            $totalesoldi = $row['TotSpesa'];
+            $utile_array = explode(";", $fff);
+            $uscita = "";
+            foreach ($utile_array as $utile) {
+                $uscita = $uscita . $utile . "\n";
+            }
+            $uscita = nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
+            array_push($recovery, $uscita);
+        }
+        return $recovery;
+    }
+
+
 }
 ?>

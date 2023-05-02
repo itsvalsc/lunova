@@ -149,9 +149,18 @@ class FAdmin{
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
         $recovery = [];
 
         foreach ($rows as $row) {
+            $via = $row['IndirizzoSped'];
+            $n = $row['Civico'];
+            $c = $row['CittaSped'];
+            $cap = $row['CAPSped'];
+
+            $indirizzo = $via. ", ". $n . ", ".$c. ", ".$cap;
+
             $fff = $row['TotaleOrdine'];
             $totalesoldi = $row['TotSpesa'];
             $utile_array = explode(";", $fff);
@@ -159,11 +168,15 @@ class FAdmin{
             foreach ($utile_array as $utile) {
                 $uscita = $uscita . $utile . "\n";
             }
-            $uscita = nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
+            $uscita ="$indirizzo\n". nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
             array_push($recovery, $uscita);
         }
         return $recovery;
     }
+
+
+
+
 
 
 }

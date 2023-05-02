@@ -144,7 +144,7 @@ class FAdmin{
     public static function RecuperoOrdini_totale_ADMIN(){
         $pdo = FConnectionDB::connect();
 
-        $query = "SELECT * FROM ordine";
+        $query = "SELECT * FROM ordine WHERE Confermato = 0";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -159,8 +159,8 @@ class FAdmin{
             $c = $row['CittaSped'];
             $cap = $row['CAPSped'];
 
-            $indirizzo = $via. ", ". $n . ", ".$c. ", ".$cap;
-
+            $indirizzo = "Via ".$via. ", ". $n . ", ".$c. ", ".$cap."\n\n";
+            $indirizzo = nl2br($indirizzo);
             $fff = $row['TotaleOrdine'];
             $totalesoldi = $row['TotSpesa'];
             $utile_array = explode(";", $fff);
@@ -168,7 +168,7 @@ class FAdmin{
             foreach ($utile_array as $utile) {
                 $uscita = $uscita . $utile . "\n";
             }
-            $uscita ="$indirizzo\n". nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
+            $uscita =["$indirizzo". nl2br($uscita). "\nTOTALE : €". "$totalesoldi",$row['IdOrdine']];
             array_push($recovery, $uscita);
         }
         return $recovery;

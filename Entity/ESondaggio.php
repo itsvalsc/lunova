@@ -21,7 +21,7 @@ class ESondaggio{
     private bool $in_corso;
 
     public function __construct(EDisco $disco1,EDisco $disco2,EDisco $disco3,string $date){
-        $this->id = "S"  . random_int(0,100);
+        $this->id = "S"  . random_int(0,99999);
         $this->disco_1 = $disco1;
         $this->disco_2 = $disco2;
         $this->disco_3 = $disco3;

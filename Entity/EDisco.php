@@ -1,3 +1,4 @@
+
 <?php
 
 /** La classe EDisco caratterizza il disco di un artista attraverso:
@@ -23,7 +24,7 @@ class EDisco{
 
 	public function __construct(string $titol, string $aut, float $price, string $descriz, string $gen, ?EImmagine $img, int $q){
 
-        $this->ID_disco = "D"  . random_int(0,1000);
+        $this->ID_disco = "D"  . random_int(0,99999);
 		$this->titolo = $titol ;
 		$this->autore = $aut ;
 		$this->prezzo = $price ; 

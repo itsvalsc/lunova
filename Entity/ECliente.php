@@ -29,7 +29,7 @@ class ECliente extends EUtente{
 
             parent::__construct($username,$n, $c, $v, $nc,$citta,$prov,$cap,$telefono,$email,$pw);
             parent::setLivello("C");
-            $this->IdClient = "C"  . random_int(0,9999);
+            $this->IdClient = "C"  . random_int(0,99999);
             $this->Bannato = false;
         }
         elseif (13 === func_num_args()){

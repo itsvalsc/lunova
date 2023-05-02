@@ -63,13 +63,11 @@
                 <h5 class="card-header">Ordine</h5>
                 <div class="card-body">
                     <!--<h5 class="card-title">Special title treatment</h5>-->
-                    <p class="card-text">{$ordine[nr]}</p>
+                    <p class="card-text">{$ordine[nr][0]}</p>
                     <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
-                    <a href="/lunova/">
-                        <div class="row w-10" >
-                            <button class="btn btn-info btn-sm btn-block rounded-0" type="submit" >Iscrivi al sondaggio</button>
-                        </div>
-                    </a>
+                           <a href="/lunova/Admin/conferma/{$ordine[nr][1]}">
+                                <button class="btn btn-info btn-sm btn-block rounded-0" type="button" >Conferma Ordine</button>
+                            </a>
                 </div>
             </div>
         {/section}

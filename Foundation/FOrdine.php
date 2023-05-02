@@ -124,6 +124,17 @@ class FOrdine{
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
     }
 
+    public static function update_value($attributo,$value,$id){
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE ordine SET $attributo = :value  WHERE IdOrdine = :id";
+        $stmt= $pdo->prepare($query);
+        $ris = $stmt->execute([
+            ":value" => $value,
+            ":id" => $id
+        ]);
+        return $ris;
+    }
+
 
     /**
      * metodo che permette di aggiungere  l'istanza di un oggetto EOrdine al db associato all'id del cliente in sessione

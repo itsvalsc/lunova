@@ -16,7 +16,7 @@ class ENotifiche{
 
     public function __construct(string $t, string $pri, string $mit)
     {
-        $this->id = "N" . random_int(0, 1000);
+        $this->id = "N" . random_int(0, 99999);
         $this->testo = $t;
         $this->priorita = $pri;
         $this->mittente = $mit;

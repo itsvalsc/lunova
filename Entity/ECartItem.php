@@ -17,8 +17,8 @@ class ECartItem {
     private float $totprice;
 
     public function __construct(EDisco $disco){
-        $this->IdCartItem = random_int(0,1000);
-        $this->IdCart = random_int(0,1000);
+        $this->IdCartItem = random_int(0,99999);
+        $this->IdCart = random_int(0,99999);
         $this->id_disco = $disco->getID();
         $this->quantity = 1;
         $this->totprice = 0.0; 

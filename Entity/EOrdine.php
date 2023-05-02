@@ -24,7 +24,7 @@ class EOrdine{
 
     public function __construct( ?ECliente $cl)
     {
-        $this->IdOrdine = random_int(0, 99999);
+        $this->IdOrdine = "O".random_int(0, 99999);
         $this->TotOrdine = 0.0;
         $this->IdCliente = $cl->getIdClient();
         $this->carrello = "";

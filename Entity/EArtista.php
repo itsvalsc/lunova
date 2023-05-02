@@ -28,7 +28,7 @@ class EArtista extends EUtente{
 
             parent::__construct($nom_arte,$n, $c, $v, $nc, $citta, $prov, $cap, $telefono, $email, $pw);
             parent::setLivello("B");
-            $this->IdArtista = "B"  . random_int(0,999);
+            $this->IdArtista = "B"  . random_int(0,9999);
             $this->Username=$nom_arte;
         }
         elseif (12 === func_num_args()){

@@ -27,7 +27,7 @@ class ECommento {
      * @param string $disco
      */
     public function __construct(ECliente $Cliente, string $descrizione, string $data, string $idDisco){
-        $this->id = "Comm" . random_int(0,9999);
+        $this->id = "Comm" . random_int(0,99999);
         $this->Cliente = $Cliente;
         $this->descrizione = $descrizione;
         $this->data = $data;

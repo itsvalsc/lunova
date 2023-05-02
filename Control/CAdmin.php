@@ -275,6 +275,20 @@ class CAdmin{
         }
     }
 
+    public static function conferma($idOrd){
+        $view = new VAdmin();
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        if ($session->isLogged() && $session->isAdmin()){
+            $pers->update_value('FOrdine',"Confermato",1,$idOrd);
+
+            $ordini = $pers->LoadOrdini_totale_ADMIN();
+            return $view->Ordini_Admin($ordini);
+        }else{
+            return header('Location: /lunova');
+        }
+    }
+
 
 
 

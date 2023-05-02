@@ -18,7 +18,7 @@ class EAdmin extends EUtente{
             $pw = func_get_arg(3);
             $telefono = func_get_arg(4);
             parent::__construct($nome, $cognome,$email, $pw,$telefono,'A');
-            $this->IdAdmin = "A"  . random_int(0,999);
+            $this->IdAdmin = "A"  . random_int(0,9999);
         }
         elseif (6 === func_num_args()){
             $n = func_get_arg(0);

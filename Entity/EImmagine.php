@@ -24,7 +24,7 @@ class EImmagine {
      */
     public function __construct(string $nome, string $formato, string $Immagine, string $IdAppartenenza)
     {
-        $this->Id = ("I".random_int(0,1000));
+        $this->Id = ("I".random_int(0,99999));
         $this->nome = $nome;
         $this->formato = $formato;
         $this->Immagine = $Immagine;

@@ -39,7 +39,9 @@ class CSondaggi{
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
-
+        if ($id==null || !$pers->exist('FDisco',$id)){
+            return header("Location: /lunova/Sondaggi/show");
+        }
         if ($session->isLogged() && $session->isCliente()){
             $ut = $session->getUtente();
             $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());

@@ -37,7 +37,10 @@ class CFrontController
                         return header("Location: /lunova");
                     }
                 }
+            }else{
+                return header("Location: /lunova");
             }
+
         }else{
             $controller = "CRicercaDisco";
             $function = "index";

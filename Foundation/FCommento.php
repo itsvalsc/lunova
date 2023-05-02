@@ -84,6 +84,24 @@ class FCommento{
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
+    public static function update(ECommento $commento) : bool
+    {
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE commenti SET id = :id,descrizione = :descrizione,data = :data,segnalato = :segnalato,cliente = :cliente,disco = :disco WHERE id = :id";
+        $stmt = $pdo->prepare($query);
+        $ris = $stmt->execute(array(
+            ':id' => $commento->getId(),
+            ':descrizione' => $commento->getDescrizione(),
+            ':data' => $commento->getData(),
+            ':segnalato' => $commento->isSegnalato(),
+            ':cliente' => $commento->getCliente()->getIdClient(),
+            ':disco' => $commento->getIdDisco()
+        ));
+        return $ris;
+        return array();
+    }
+
+
     /**
      * metodo che permette di caricare tutti gli oggetti ECommento relativi allo stesso disco(id_disco) prendendo i dati dal db
      * @package Foundation

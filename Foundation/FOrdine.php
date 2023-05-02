@@ -33,16 +33,16 @@ class FOrdine{
      */
     public static function store(EOrdine $ordine): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO ordine VALUES(:IdOrdine,:CittaSped,:CAPSped,:IndirizzoSped,:ModPagamento,:Dischi,:TotOrdine,:IdCliente, :TotSpesa)";
+        $query = "INSERT INTO ordine VALUES(:IdOrdine,:CittaSped,:CAPSped,:IndirizzoSped,:civico,:TotOrdine,:Confermato,:IdCliente, :TotSpesa)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':IdOrdine' => $ordine->getIdOrdine(),
             ':CittaSped' => $ordine->getCittaSpe(),
             ':CAPSped'  =>$ordine->getCapSped(),
             ':IndirizzoSped' =>$ordine->getIndirizzoSped(),
-            ':ModPagamento' =>$ordine->getModPagamento(),
-            ':Dischi' =>$ordine->getCarrello(),
-            ':TotOrdine' =>$ordine->getTotOrdine(),
+            ':civico' =>$ordine->getcivico(),
+            ':TotOrdine' =>$ordine->getCarrello(),
+            ':Confermato' =>0,
             ':IdCliente' =>$ordine->getIdCliente(),
             ':TotSpesa' =>$ordine->getTotOrdine()
         ));
@@ -64,7 +64,7 @@ class FOrdine{
         $CittaSpe = $rows[0]['CittaSped'];
         $CAPSped = $rows[0]['CAPSped'];
         $IndirizzoSped = $rows[0]['IndirizzoSped'];
-        $ModPagamento = $rows[0]['ModPagamento'];
+        $civico = $rows[0]['civico'];
         $TotOrdine = $rows[0]['TotOrdine'];
         $IdCliente = $rows[0]['IdCliente'];
 
@@ -72,7 +72,7 @@ class FOrdine{
         $carrello->setDischi(FCarrello::loadlista($IdOrdine));
 
         $ordine = new EOrdine($IdCliente);
-        $ordine->Compile($IdOrdine, $CittaSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
+        $ordine->Compile($IdOrdine, $CittaSpe, $CAPSped, $IndirizzoSped, $civico, $TotOrdine,$carrello );
         return $ordine;
     }
 

@@ -19,17 +19,17 @@ class EOrdine{
     private string $CittaSped;
     private string $CAPSped;
     private string $IndirizzoSped;
-    private string $ModPagamento;
+    private string $civico;
     private float $TotOrdine;
 
     public function __construct( ?ECliente $cl)
     {
-        $this->IdOrdine = random_int(0, 1000);
+        $this->IdOrdine = random_int(0, 99999);
         $this->TotOrdine = 0.0;
         $this->IdCliente = $cl->getIdClient();
         $this->carrello = "";
         $this->IndirizzoSped = $cl->getVia();
-        $this->ModPagamento = 'carta';
+        $this->civico = $cl->getNumeroCivico();
         $this->CAPSped = $cl->getCAP();
         $this->CittaSped = $cl->getCitta();
     }
@@ -48,8 +48,8 @@ class EOrdine{
     public function getIndirizzoSped(): string
     { return $this->IndirizzoSped; }
 
-    public function getModPagamento(): string
-    { return $this->ModPagamento; }
+    public function getcivico(): string
+    { return $this->civico; }
 
     public function getCarrello(): string
     { return $this->carrello; }
@@ -74,8 +74,8 @@ class EOrdine{
     public function setIndirizzoSped(string $ind): void
     { $this->IndirizzoSped = $ind; }
 
-    public function setModPagamento(string $mod): void
-    { $this->ModPagamento = $mod; }
+    public function setCivico(string $mod): void
+    { $this->civico = $mod; }
 
     public function setTotOrdine(float $tot): void
     { $this->TotOrdine = $tot; }

@@ -266,11 +266,13 @@ class CAdmin{
     public static function ordini_admin(){
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
-        $view = new VAdmin();
-        $l = true;
-        $ordini = $pers->LoadOrdini_totale_ADMIN();
-        $view->Ordini_Admin($l, $ordini);
-
+        if ($session->isLogged() && $session->isAdmin()){
+            $view = new VAdmin();
+            $ordini = $pers->LoadOrdini_totale_ADMIN();
+            return $view->Ordini_Admin($ordini);
+        }else{
+            return header('Location: /lunova');
+        }
     }
 
 

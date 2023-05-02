@@ -1,7 +1,16 @@
 <?php
+
+/**
+ * La classe FCarrello fornisce query per gli oggetti ECarrello
+ * @package Foundation
+ */
+
 class FCarrello{
 
-
+    /**
+     * metodo che verifica l'esistenza di un carrello nel db
+     * @package Foundation
+     */
     public static function exist($id) : bool {
 
         $pdo = FConnectionDB::connect();
@@ -18,7 +27,10 @@ class FCarrello{
         }
     }
 
-
+    /**
+     * metodo che ritorna il corrente cartId prendendo l'id del cliente
+     * @package Foundation
+     */
     public static function getCurrentCartId($id_cli){
         $pdo=FConnectionDB::connect();
 
@@ -35,10 +47,13 @@ class FCarrello{
             $carrello->setId($cartid);
         }
         return $carrello;
-
     }
 
 
+    /**
+     * metodo che memorizza l'istanza di ECarrello nel db
+     * @package Foundation
+     */
     public static function store(ECarrello $car): void {
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO cart VALUES(:id,:id_cliente)";
@@ -49,6 +64,10 @@ class FCarrello{
         ));
     }
 
+    /**
+     * metodo che permette di caricare i dati del carrello dal db
+     * @package Foundation
+     */
     public static function load(string $id_cli): ECarrello {
         $pdo=FConnectionDB::connect();
 

@@ -1,68 +1,16 @@
 <?php
 
 /**
- * in FUtente e Fdisco mettere il riferimento id dell'immagine nei values (bind)
+ * La classe FImmagine fornisce query per gli oggetti EImmagine
  * Class FImmagine
  */
 
-class FImmagine
-{
-    private static $class = "FImmagine";
-
-    private static $table = "immagine";
-
-    private static $values = "(:Id,:Nome,:Formato,:Byte)";
-
-    public function __construct(){}
+class FImmagine{
 
     /**
-     * @param $statement
-     * @param EImmagine $immagine
-     * @param $foreignkey
-
-    public static function bind($statement, EImmagine $immagine, $foreignkey){
-        $statement->bindValue(':Id',$immagine->getId(), PDO::PARAM_STR);
-        $statement->bindValue(':Nome',$immagine->getNome(), PDO::PARAM_STR);
-        $statement->bindValue(':Formato',$immagine->getFormato(), PDO::PARAM_STR);
-        $statement->bindValue(':Byte',$immagine->getByte(), PDO::PARAM_STR);
-        if($foreignkey["idartista"]!=null){
-            $statement->bindValue(':IdArtista',$foreignkey["idartista"], PDO::PARAM_STR);
-        }else{
-            $statement->bindValue(':IdArtista',null, PDO::PARAM_STR);
-        }
-        //if($foreignkey["idcategoria"]!=null){
-            //$statement->bindValue(':RIdCategoria',$foreignkey["idcategoria"],PDO::PARAM_STR);
-        //}else{
-            //$statement->bindValue(':RIdCategoria',null,PDO::PARAM_STR);
-        //}
-
-    }*/
-
-    /**
-     * @param $immagine
-     * @param $foreignkey
+     * metodo che verifica l'esistenza dellistanza di EImmagine nel db
+     * @package Foundation
      */
-    public static function store(EImmagine $imm): void {
-        $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO immagine VALUES(:id,:nome,:formato,:immagine,:idAppartenenza)";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(array(
-            ':id' => $imm->getId(),
-            ':nome' => $imm->getNome(),
-            ':formato'  =>$imm->getFormato(),
-            ':immagine' => base64_encode($imm->getImmagine()),
-            ':idAppartenenza' =>$imm->getIdAppartenenza(),
-
-        ));
-
-    }
-
-    /**
-     * @param $etichetta
-     * @param $nome
-     * @return mixed
-     */
-
     public static function exist($id) : bool {
 
         $pdo = FConnectionDB::connect();
@@ -80,21 +28,26 @@ class FImmagine
     }
 
     /**
-     * @param $etichetta
-     * @param $nome
-     * @return bool
+     * metodo che memorizza l'istanza di un oggetto EImmagine sul db
+     * @package Foundation
+     */
+    public static function store(EImmagine $imm): void {
+        $pdo = FConnectionDB::connect();
+        $query = "INSERT INTO immagine VALUES(:id,:nome,:formato,:immagine,:idAppartenenza)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ':id' => $imm->getId(),
+            ':nome' => $imm->getNome(),
+            ':formato'  =>$imm->getFormato(),
+            ':immagine' => base64_encode($imm->getImmagine()),
+            ':idAppartenenza' =>$imm->getIdAppartenenza(),
 
-    public static function deleteImmagine ($etichetta,$nome){
-        $connection = FPersistentManager::getInstance();
-        $ris = $connection->delete(static::getClass(),$etichetta,$nome);
-        return $ris;
-    }*/
+        ));
+    }
 
     /**
-     * @param $etichetta
-     * @param $id
-     * @return EImmagine
-     * @throws Exception
+     * metodo che restituisce un oggetto EImmagine caricato dal db
+     * @package Foundation
      */
     public static function load(string $idappartenenza):?EImmagine {
         $pdo=FConnectionDB::connect();
@@ -115,6 +68,10 @@ class FImmagine
         return $image;
         }
 
+    /**
+     * metodo che permette di eliminare l'istanza di un oggetto EImmagine dal db
+     * @package Foundation
+     */
     public static function delete(string $id) {
         $pdo=FConnectionDB::connect();
 
@@ -129,33 +86,5 @@ class FImmagine
             else{ return false;}
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
-
     }
-
-    /**
-     * @return string
-     */
-    public static function getClass(): string
-    {
-        return self::$class;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getTable(): string
-    {
-        return self::$table;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getValues(): string
-    {
-        return self::$values;
-    }
-
-
-
 }

@@ -2,15 +2,15 @@
 
 require_once 'Smarty/smarty-lib/Smarty.class.php';
 
+/** La classe FSession si occupa di gestire tutte le operazioni legate alla gestione delle sessioni PHP.
+ *  @package Foundation
+ */
 class FSessione{
 
     private static $instance;
 
-    /**
-     * Costruttore della classe FSession.
-     */
-    public function __construct()
-    {
+    /** Costruttore della classe FSession. */
+    public function __construct() {
         if(!isset($_SESSION)) {
             session_start();
         }
@@ -22,7 +22,6 @@ class FSessione{
         }
         return self::$instance;
     }
-
 
     /**
      * Metodo che verifica se un untente è loggato o meno
@@ -50,7 +49,16 @@ class FSessione{
     }
 
     /**
-     * Metodo che permette ci eliminare i dati riguardanti la sessione di un utente
+     * Metodo che permette di salvare l'utente in sessione
+     * @param $utente
+     */
+    public function setUtente($utente){
+        $user_ser = serialize($utente);
+        $_SESSION['utente'] = $user_ser;
+    }
+
+    /**
+     * Metodo che permette di eliminare i dati riguardanti la sessione di un utente
      * @return bool
      */
     public function logout(){
@@ -63,41 +71,9 @@ class FSessione{
         return $bool;
     }
 
-
     /**
-     * Metodo che permette di salvare l'utente in sessione
-     * @param $utente
+     * Metodi che vengono utilizzati per capire se l'utente in sessione è un cliente, artista o amministratore
      */
-    public function setUtente($utente){
-        $user_ser = serialize($utente);
-        $_SESSION['utente'] = $user_ser;
-    }
-
-    /**
-     * Imposta il valore di un elemento dell'array globale $_SESSION identificato dalla chiave
-     * @param $chiave mixed
-     * @param $valore mixed
-     * @return void
-     */
-    function imposta_valore($chiave, $valore) {
-        $val = serialize($valore);
-        $_SESSION[$chiave] = $val;
-    }
-
-    /**
-     * Metodo utilizzato per accedere all'elemento di $_SESSION identificato dalla propria chiave
-     * @param $chiave mixed identifica l'elemento del array
-     */
-    function leggi_valore($chiave) {
-        if (isset($_SESSION[$chiave])) {
-            $value = unserialize($_SESSION[$chiave]);
-        }else{
-            $value=false;
-        }
-        return $value;
-    }
-
-
     public function isCliente(): bool {
         $utente = unserialize($_SESSION['utente']);
         if($utente->getLivello() == 'C'){
@@ -107,6 +83,7 @@ class FSessione{
         }
         return $bool;
     }
+
     public function isArtista(): bool {
         $utente = unserialize($_SESSION['utente']);
         if($utente->getLivello() == 'B'){
@@ -116,6 +93,7 @@ class FSessione{
         }
         return $bool;
     }
+
     public function isAdmin(): bool {
         $utente = unserialize($_SESSION['utente']);
         if($utente->getLivello() == 'A'){
@@ -124,85 +102,6 @@ class FSessione{
             $bool = false;
         }
         return $bool;
-    }
-    public function carrelloIsSet(): bool {
-        if (isset($_SESSION['carrello'])){
-            $bool = true;
-        }else{
-            $bool=false;
-        }
-        return $bool;
-    }
-
-    public function setCarrello($carrello){
-        $val = serialize($carrello);
-        $_SESSION['carrello'] = $val;
-    }
-
-    public function getCarrello(){
-        if(isset($_SESSION['carrello'])){
-            $carrello = $_SESSION['carrello'];
-            return unserialize($carrello);
-        }else{
-            return null;
-        }
-    }
-
-
-    public static function start(){
-        session_start();
-    }
-    /**
-     * Metodo che inizializza una sessione.
-     */
-    private function iniziaSessione(){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-    }
-
-
-
-
-
-    /**
-     * Metodo che restituisce una stringa identificativa dell'utente
-     * per poter mostrare una NavBar personalizzata: i risultati che possono uscire
-     * da questo metodo sono: "non loggato", "admim", "username artista" o "username cliente"
-     */
-    public static function UserNavBar():string {
-        if(FSessione::isLogged()) {
-            $utente = unserialize(($_SESSION['utente']));
-            if ($utente->getLivello() == "A") {
-                $user = "admin";
-            }
-            elseif ($utente->getLivello() == "B") {
-                $user = "artista";
-            }
-            elseif ($utente->getLivello() == "C") {
-                $user = "cliente";
-            }
-        } else { $user = null; }
-        return $user;
-    }
-
-
-
-    /**
-     * Metodo che va a svuotare uno degli elementi del vettore $_SESSION, identificato dalla sua chiave
-     * @param $chiave mixed
-     * @return void
-     */
-    function cancella_valore($chiave): void{
-        unset($_SESSION[$chiave]);
-    }
-
-    public static function unset(){
-        session_unset();
-    }
-
-    public static function destroy(){
-        session_destroy();
     }
 
     /**
@@ -214,10 +113,4 @@ class FSessione{
         session_destroy(); //Distrugge il file sul file system del server, cioè distrugge tutti i dati associati alla sessione corrente
         setcookie('PHPSESSID','',time()-3600); //Svuota il cookie su client dopo un'ora di inattività
     }
-
-    /** */
-    public static function status(){
-        return session_status();
-    }
-
 }

@@ -1,10 +1,17 @@
 <?php
 
-class FCartItem
-{
+/**
+* La classe FCartItem fornisce query per gli oggetti ECartItem
+* @package Foundation
+ */
 
-    public static function exist($id): bool
-    {
+class FCartItem{
+
+    /**
+     * metodo che verifica l'esistenza di un cartItem nel db
+     * @package Foundation
+     */
+    public static function exist($id): bool{
 
         $pdo = FConnectionDB::connect();
 
@@ -19,8 +26,12 @@ class FCartItem
         }
     }
 
-    public static function store(ECartItem $citem, $cartid): void
-    {
+    /**
+     * metodo che memorizza l'istanza di un oggetto ECartItem nel db
+     * @package Foundation
+     */
+    public static function store(ECartItem $citem, $cartid): void{
+
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO cart_item VALUES(:id,:cart_id,:product_id,:quantity)";
         $stmt = $pdo->prepare($query);
@@ -32,7 +43,11 @@ class FCartItem
         ));
     }
 
-    public static function delete(string $ID_carti, string $cart_id) {
+    /**
+     * metodo che permette di eliminare l'stanza di ECartItem dal db
+     * @package Foundation
+     */
+    public static function delete(string $ID_carti, string $cart_id){
         $pdo=FConnectionDB::connect();
 
         try {
@@ -117,6 +132,10 @@ class FCartItem
         }
     }
 
+    /**
+     * metodo che permette di caricare i dischi dello stesso CartItem
+     * @package Foundation
+     */
     public static function loadD(string $id_cli){
         $pdo=FConnectionDB::connect();
         $dischi = array();
@@ -149,12 +168,13 @@ class FCartItem
             }
         }
         return $dischi;
-
     }
 
-
-    public static function AddToCart($productId, $cartid, $cli_id)
-    {
+    /**
+     * metodo che permette di aggiungere di una unità alla volta un oggetto di tipo EDisco al CartItem
+     * @package Foundation
+     */
+    public static function AddToCart($productId, $cartid, $cli_id){
         $pdo = FConnectionDB::connect();
 
         $query = "SELECT quantity, product_id FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
@@ -218,10 +238,12 @@ class FCartItem
                 return $quantity;
             }
         }
-
     }
 
-
+    /**
+     * metodo che permette di rimuovere di una unità alla volta un oggetto di tipo Edisco dal CartItem
+     * @package Foundation
+     */
     public static function MinusToCart($productId, $cartid, $cli_id){
         $pdo=FConnectionDB::connect();
 
@@ -262,22 +284,20 @@ class FCartItem
         else{
             self::delete($cartitem,$cartid);
             //FCartItem::delete($cartitem,$cartid);
-
-
             //$G= FDisco::load($productId);
             //$cart = new ECartItem(($G));
             //FCartItem::store($cart,$cartid);
-
         }
         return $quantity;
-
     }
 
 
-
+    /**
+     * metodo che permette di controllare la quantità di dischi presenti nel db per verificare se è possibile aggiungerne un numero >0 al carrello
+     * @package Foundation
+     */
     public static function CheckQta($id) : bool{
         $pdo=FConnectionDB::connect();
-
 
         //controllo quantità
 
@@ -286,9 +306,7 @@ class FCartItem
         $stmt->execute( [":id" => $id] );
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $quantity = $rows[0]["Qta"];
-
         $verify=false;
-
 
         if($quantity>0){
             $verify=true;
@@ -296,32 +314,19 @@ class FCartItem
         return $verify;
     }
 
+    /**
+     * metodo che preleva la quantità disponibile di un EDisco
+     * @package Foundation
+     */
     public static function GETQta($id) {
         $pdo=FConnectionDB::connect();
 
-
         //controllo quantità
-
         $query = "SELECT Qta FROM dischi WHERE ID= :id";
         $stmt = $pdo->prepare($query);
         $stmt->execute( [":id" => $id] );
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $quantity = $rows[0]["Qta"];
-
         return $quantity;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

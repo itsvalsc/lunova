@@ -1,6 +1,16 @@
 <?php
+
+/**
+ * La classe FOrdine fornisce query per gli oggetti EOrdine
+ * @package Foundation
+ */
+
 class FOrdine{
 
+    /**
+     * metodo che verifica l'esistenza di un ordine nel db
+     * @package Foundation
+     */
     public static function exist($id) : bool {
 
         $pdo = FConnectionDB::connect();
@@ -17,6 +27,10 @@ class FOrdine{
         }
     }
 
+    /**
+     * metodo che memorizza l'istanza di un oggetto EOrdine nel db
+     * @package Foundation
+     */
     public static function store(EOrdine $ordine): void {
         $pdo = FConnectionDB::connect();
         $query = "INSERT INTO ordine VALUES(:IdOrdine,:CittaSped,:CAPSped,:IndirizzoSped,:ModPagamento,:Dischi,:TotOrdine,:IdCliente, :TotSpesa)";
@@ -34,6 +48,10 @@ class FOrdine{
         ));
     }
 
+    /**
+     * metodo che restituisce un oggetto EOrdine caricato dal db
+     * @package Foundation
+     */
     public static function load(string $idor) : EOrdine {
         $pdo=FConnectionDB::connect();
 
@@ -50,17 +68,46 @@ class FOrdine{
         $TotOrdine = $rows[0]['TotOrdine'];
         $IdCliente = $rows[0]['IdCliente'];
 
-
-        $carrello = new ECarrello($IdCliente) ; //TODO: da mettere ECarrello [da controllare]
+        $carrello = new ECarrello($IdCliente) ;
         $carrello->setDischi(FCarrello::loadlista($IdOrdine));
 
         $ordine = new EOrdine($IdCliente);
-
         $ordine->Compile($IdOrdine, $CittaSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
-
         return $ordine;
     }
 
+    /**
+     * metodo che restituisce la lista di oggetti EOrdine caricati dal db passando come parametro l'id del cliente
+     * @package Foundation
+     */
+    public static function RecuperoOrdini($id_cli){
+        $pdo = FConnectionDB::connect();
+
+        $query = "SELECT * FROM ordine WHERE IdCliente= :idcl";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute( [":idcl" => $id_cli] );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $recovery = [];
+
+        foreach ($rows as $row) {
+            $fff = $row['TotaleOrdine'];
+            $totalesoldi = $row['TotSpesa'];
+            $utile_array = explode(";", $fff);
+            $uscita = "";
+            foreach ($utile_array as $utile) {
+                $uscita = $uscita . $utile . "\n";
+            }
+            $uscita = nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
+            array_push($recovery, $uscita);
+        }
+        return $recovery;
+    }
+
+    /**
+     * metodo che permette di eliminare l'istanza di un oggetto EOrdine dal db
+     * @package Foundation
+     */
     public static function delete(string $idor) {
         $pdo=FConnectionDB::connect();
 
@@ -75,48 +122,14 @@ class FOrdine{
             else{ return false;}
         }
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
-
     }
 
 
-
-    public static function prelevaOrdini(string $cl) : EOrdine {
-        $pdo=FConnectionDB::connect();
-
-        $query = "SELECT * FROM ordine WHERE IdCliente= :idcl";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute( [":idcl" => $cl] );
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $ordini = array();
-        foreach ($rows as $row) {
-            $IdOrdine = $rows[0]['IdOrdine'];
-            $CittaSpe = $rows[0]['CittaSped'];
-            $CAPSped = $rows[0]['CAPSped'];
-            $IndirizzoSped = $rows[0]['IndirizzoSped'];
-            $ModPagamento = $rows[0]['ModPagamento'];
-            $TotOrdine = $rows[0]['TotaleOrdine'];
-            $IdCliente = $rows[0]['IdCliente'];
-            $carrello = new ECarrello($IdCliente) ; //TODO: da mettere ECarrello [da controllare]
-            $carrello->setDischi(FCarrello::loadlista($IdOrdine));
-
-            $ordine = new EOrdine($IdCliente);
-
-            $ordine->Compile($IdOrdine, $CittaSpe, $CAPSped, $IndirizzoSped, $ModPagamento, $TotOrdine,$carrello );
-            $ordini[$IdOrdine]=$ordine;
-        }
-
-
-
-
-        return $ordine;
-    }
-
-
-
-
-
-    public static function AddToOrdine(array $productarray, $cartid, $cli_id)
-    {
+    /**
+     * metodo che permette di aggiungere  l'istanza di un oggetto EOrdine al db associato all'id del cliente in sessione
+     * @package Foundation
+     */
+    public static function AddToOrdine(array $productarray, $cartid, $cli_id) {
         //$pdo = FConnectionDB::connect();
 
         $lista = [];
@@ -142,7 +155,6 @@ class FOrdine{
             array_push($lista, $stringa);
 
             $tot = $tot + ($qta * $prezzo);
-
             FCartItem::delete_cart($cartid);
         }
 
@@ -152,38 +164,6 @@ class FOrdine{
         $ordine->setCarrello($stringa);
         $ordine->setTotOrdine($tot);
         FOrdine::store($ordine);
-
-
         return $ordine;
     }
-
-    public static function RecuperoOrdini($id_cli){
-        $pdo = FConnectionDB::connect();
-
-        $query = "SELECT * FROM ordine WHERE IdCliente= :idcl";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute( [":idcl" => $id_cli] );
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $recovery = [];
-
-        foreach ($rows as $row) {
-            $fff = $row['TotaleOrdine'];
-            $totalesoldi = $row['TotSpesa'];
-            $utile_array = explode(";", $fff);
-            $uscita = "";
-            foreach ($utile_array as $utile) {
-                $uscita = $uscita . $utile . "\n";
-            }
-            $uscita = nl2br($uscita). "\nTOTALE : €". "$totalesoldi";
-            array_push($recovery, $uscita);
-        }
-
-        return $recovery;
-    }
-
-
-
-
-
 }

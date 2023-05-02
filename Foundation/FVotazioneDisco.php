@@ -1,7 +1,16 @@
 <?php
 
-class FVotazioneDisco
-{
+/**
+ * La classe FVotazioneDisco fornisce query per gli oggetti EVotazioneDisco
+ * @package Foundation
+ */
+
+class FVotazioneDisco{
+
+    /**
+     * metodo che verifica l'esistenza di una votazione_disco nel db
+     * @package Foundation
+     */
     public static function exist(string $ut,string $disco): bool {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT * FROM votazione_disco WHERE utente = :ut AND disco = :disc");
@@ -14,8 +23,11 @@ class FVotazioneDisco
         else { return true; }
     }
 
-    public static function store( EVotazioneDisco $votazione): bool
-    {
+    /**
+     * metodo che memorizza l'istanza di un oggetto EVotazioneDisco nel db
+     * @package Foundation
+     */
+    public static function store( EVotazioneDisco $votazione): bool {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("INSERT INTO votazione_disco VALUES (:utente, :disco, :voto)");
 
@@ -26,6 +38,10 @@ class FVotazioneDisco
         return $ris;
     }
 
+    /**
+     * metodo che restituisce un oggetto EVotazioneDisco caricato dal db
+     * @package Foundation
+     */
     public static function load(string $id) {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT voto FROM votazione_disco WHERE disco = :id");
@@ -38,6 +54,10 @@ class FVotazioneDisco
         return  $voti;
     }
 
+    /**
+     * metodo che restituisce la lista di oggetti EVotazioneDisco caricati dal db passando come parametro l'id del cliente
+     * @package Foundation
+     */
     public static function loadperCliente(string $cl) {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT * FROM votazione_disco WHERE utente = :cl");
@@ -53,5 +73,4 @@ class FVotazioneDisco
         }
         return  $voti;
     }
-
 }

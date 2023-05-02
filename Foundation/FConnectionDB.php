@@ -1,6 +1,11 @@
 <?php
-if (file_exists('./inc/configdb.php'))
-{
+
+/**
+ * La classe FConnectionDB permette di creare una connessione con il database
+ * @package Foundation
+ */
+
+if (file_exists('./inc/configdb.php')) {
     require_once './inc/configdb.php';
 }
 
@@ -22,7 +27,4 @@ class FConnectionDB{
 
         return self::$instance;
     }
-
-
-
 }

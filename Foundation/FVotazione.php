@@ -1,7 +1,16 @@
 <?php
 
-class FVotazione
-{
+/**
+ * La classe FVotazione fornisce query per gli oggetti EVotazione
+ * @package Foundation
+ */
+
+class FVotazione{
+
+    /**
+     * metodo che verifica l'esistenza di una votazione nel db
+     * @package Foundation
+     */
     public static function exist(string $ut,string $sondaggio): bool {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT * FROM votazioni WHERE utente = :ut AND sondaggio = :sond");
@@ -14,6 +23,10 @@ class FVotazione
         else { return true; }
     }
 
+    /**
+     * metodo che memorizza l'istanza di un oggetto EVotazione nel db
+     * @package Foundation
+     */
     public static function store(EVotazione $votazione): bool
     {
         $pdo = FConnectionDB::connect();
@@ -25,5 +38,4 @@ class FVotazione
             ':disco' => $votazione->getDisco()));
         return $ris;
     }
-
 }

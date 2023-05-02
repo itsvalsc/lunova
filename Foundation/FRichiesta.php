@@ -1,7 +1,16 @@
 <?php
 
-class FRichiesta
-{
+/**
+ * La classe FRichiesta fornisce query per gli oggetti ERichiesta
+ * @package Foundation
+ */
+
+class FRichiesta{
+
+    /**
+     * metodo che verifica l'esistenza di una richiesta nel db
+     * @package Foundation
+     */
     public static function exist(string $id): bool {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT * FROM richieste_sondaggi WHERE disco = :disco");
@@ -12,6 +21,10 @@ class FRichiesta
         else { return true; }
     }
 
+    /**
+     * metodo che restituisce un oggetto ERichiesta caricato dal db
+     * @package Foundation
+     */
     public static function load(string $id): ERichiesta {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT * FROM richieste_sondaggi WHERE disco = :id");
@@ -26,27 +39,10 @@ class FRichiesta
         return  $richiesta;
     }
 
-    public static function store(ERichiesta $richiesta): bool
-    {
-        $pdo = FConnectionDB::connect();
-        $stmt = $pdo->prepare("INSERT INTO richieste_sondaggi VALUES (:disco, :data,:artista)");
-
-        $ris = $stmt->execute(array(
-            ':disco' => $richiesta->getDisco(),
-            ':data' =>$richiesta->getData(),
-            ':artista' =>$richiesta->getArtista()));
-        return $ris;
-    }
-
-    //far partire la funzioone delte ogni qualvolta si crea un nuovo sondaggio
-    public static function delete(string $disco): bool {
-        $pdo = FConnectionDB::connect();
-        $stmt = $pdo->prepare("DELETE FROM richieste_sondaggi WHERE disco = :dc");
-        $ris = $stmt->execute([':dc' => $disco]);
-        return $ris;
-    }
-
-    //ritorna  un array contenente tutte le richieste
+    /**
+     * metodo che restituisce la lista di oggetti ERichiesta caricate dal db
+     * @package Foundation
+     */
     public static function load_richieste():?array {
         $pdo = FConnectionDB::connect();
         $stmt = $pdo->prepare("SELECT * FROM richieste_sondaggi");
@@ -64,5 +60,33 @@ class FRichiesta
             }
         }
         return $array;
+    }
+
+    /**
+     * metodo che memorizza l'istanza di un oggetto ERichiesta nel db
+     * @package Foundation
+     */
+    public static function store(ERichiesta $richiesta): bool
+    {
+        $pdo = FConnectionDB::connect();
+        $stmt = $pdo->prepare("INSERT INTO richieste_sondaggi VALUES (:disco, :data,:artista)");
+
+        $ris = $stmt->execute(array(
+            ':disco' => $richiesta->getDisco(),
+            ':data' =>$richiesta->getData(),
+            ':artista' =>$richiesta->getArtista()));
+        return $ris;
+    }
+
+    /**
+     * metodo che permette di eliminare l'istanza di un oggetto ERichiesta dal db
+     * fa partire la funzione ogni qualvolta si crea un nuovo sondaggio
+     * @package Foundation
+     */
+    public static function delete(string $disco): bool {
+        $pdo = FConnectionDB::connect();
+        $stmt = $pdo->prepare("DELETE FROM richieste_sondaggi WHERE disco = :dc");
+        $ris = $stmt->execute([':dc' => $disco]);
+        return $ris;
     }
 }

@@ -1,8 +1,17 @@
 <?php
 
-class FCommento
-{
-    public static function exist($id) : bool {
+/**
+ * La classe FCommento fornisce query per gli oggetti ECommento
+ * @package Foundation
+ */
+
+class FCommento{
+
+    /**
+     * metodo che verifica l'esistenza di un commento nel db
+     * @package Foundation
+     */
+    public static function exist($id) : bool{
 
         $pdo = FConnectionDB::connect();
 
@@ -37,7 +46,11 @@ class FCommento
         ));
     }
 
-    public static function load($id) {
+    /**
+     * metodo che permette di caricare un oggetto ECommento prendendo i dati dal db
+     * @package Foundation
+     */
+    public static function load($id){
         $pdo=FConnectionDB::connect();
 
         try {
@@ -54,7 +67,6 @@ class FCommento
                 $data = $rows[0]['data'];
                 $disco = $rows[0]['disco'];
 
-
                 if (FCliente::exist_id($cliente)){
                     $cliente = FCliente::loadId($cliente);
                     $commento = new ECommento($cliente,$descrizione, $data,  $disco);
@@ -64,8 +76,6 @@ class FCommento
                 }else{
                     return null;
                 }
-
-
             }
             else {
                 return null;
@@ -74,6 +84,10 @@ class FCommento
         catch (PDOException $exception) { print ("Errore".$exception->getMessage());}
     }
 
+    /**
+     * metodo che permette di caricare tutti gli oggetti ECommento relativi allo stesso disco(id_disco) prendendo i dati dal db
+     * @package Foundation
+     */
     public static function loadCommenti($disco) : array {
         try {
             $pdo = FConnectionDB::connect();
@@ -106,9 +120,14 @@ class FCommento
         catch (PDOException $exception) {
             print ("Errore".$exception->getMessage());
             $pdo->rollBack();
-            return array();}
+            return array();
+        }
     }
 
+    /**
+     * metodo che permette di caricare tutti gli oggetti ECommento relativi allo stesso cliente(id_cliente) prendendo i dati dal db
+     * @package Foundation
+     */
     public static function loadCommentibyCliente($cliente) : array {
         try {
             $pdo = FConnectionDB::connect();
@@ -142,25 +161,14 @@ class FCommento
         catch (PDOException $exception) {
             print ("Errore".$exception->getMessage());
             $pdo->rollBack();
-            return array();}
+            return array();
+        }
     }
 
-    public static function update(ECommento $commento) : bool
-    {
-        $pdo = FConnectionDB::connect();
-        $query = "UPDATE commenti SET id = :id,descrizione = :descrizione,data = :data,segnalato = :segnalato,cliente = :cliente,disco = :disco WHERE id = :id";
-        $stmt = $pdo->prepare($query);
-        $ris = $stmt->execute(array(
-            ':id' => $commento->getId(),
-            ':descrizione' => $commento->getDescrizione(),
-            ':data' => $commento->getData(),
-            ':segnalato' => $commento->isSegnalato(),
-            ':cliente' => $commento->getCliente()->getIdClient(),
-            ':disco' => $commento->getIdDisco()
-        ));
-        return $ris;
-    }
-
+    /**
+     * metodo che permette di eliminare un oggetto ECommento dal db
+     * @package Foundation
+     */
     public static function delete(string $id) {
         $pdo=FConnectionDB::connect();
         try {
@@ -176,6 +184,10 @@ class FCommento
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
     }
 
+    /**
+     * metodo che permette di eliminare un oggetto ECommento tramite id_cliente dal db non usato????????
+     * @package Foundation
+     */
     public static function deletebyUtente(string $id) {
         $pdo=FConnectionDB::connect();
         try {
@@ -186,6 +198,11 @@ class FCommento
         catch(PDOException $exception) {print("Errore".$exception->getMessage());}
     }
 
+    /**
+     * metodo che verifica i caratteri scritti nel commento con quelle presenti nel file crosswords e se trova una corrispondenza la sostituisce con **
+     * il commento bannato verrà direttamente inviato all'admin
+     * @package Foundation
+     */
     private static function Sicurezza(string $t, string $idap,string $idcomm)
     {   $f = "inc/crosswords.txt";
         $pers = FPersistentManager::getInstance();
@@ -202,7 +219,4 @@ class FCommento
         }
         return $t1;
     }
-
-
-
 }

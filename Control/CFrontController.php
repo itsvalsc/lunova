@@ -33,6 +33,9 @@ class CFrontController
                         else if ($num == 1) $controller::$function($param[0]);
                         else if ($num == 2) $controller::$function($param[0], $param[1]);
                     }
+                    else{
+                        return header("Location: /lunova");
+                    }
                 }
             }
         }else{

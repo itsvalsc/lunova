@@ -29,9 +29,27 @@ class CFrontController
                             array_push($param,$resource[$i]);
                         }
                         $num = count($param);
-                        if ($num == 0) $controller::$function();
-                        else if ($num == 1) $controller::$function($param[0]);
-                        else if ($num == 2) $controller::$function($param[0], $param[1]);
+                        if ($num == 0){
+                            try{
+                            $controller::$function();
+                            }catch (ArgumentCountError){
+                                return header("Location: /lunova/Errore/redirect");
+                            }
+                        }
+                        else if ($num == 1){
+                            try{
+                            $controller::$function($param[0]);
+                            }catch (ArgumentCountError){
+                                return header("Location: /lunova/Errore/redirect");
+                            }
+                        }
+                        else if ($num == 2){
+                            try{
+                            $controller::$function($param[0], $param[1]);
+                            }catch (ArgumentCountError){
+                                return header("Location: /lunova/Errore/redirect");
+                            }
+                        }
                     }
                     else{
                         return header("Location: /lunova");

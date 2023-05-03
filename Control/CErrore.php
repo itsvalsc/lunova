@@ -40,10 +40,31 @@ class CErrore
 
     public static function unathorized(){
         $v = new VErrore();
-        $session = FSessione::getInstance();
-        $logged = $session->isLogged();
         $num = null;
         $cli = false;
-        $v->message($logged,"Impossibile accedere in questa sezione",'alla homepage','/',$num,$cli);
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        $logged = $session->isLogged();
+        if ($logged && $session->isCliente()){
+            $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+            $num = count($elenco);
+            $cli = true;
+        }
+        $v->message($logged,"Impossibile accedere in questa sezione",'alla homepage','',$num,$cli);
+    }
+
+    public static function redirect(){
+        $v = new VErrore();
+        $num = null;
+        $cli = false;
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        $logged = $session->isLogged();
+        if ($logged && $session->isCliente()){
+            $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+            $num = count($elenco);
+            $cli = true;
+        }
+        $v->message($logged,"Url non valida o malformata",'alla homepage','',$num,$cli);
     }
 }

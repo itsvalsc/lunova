@@ -70,8 +70,8 @@
                     <a class="nav-link" href="#scrollspyHeading2">Clienti</a>
                 </li>
                 <li class="nav-item" >
-                    <input type="text" id="username" style="margin-top: 7px"/>
-                    <a class="nav-link" style="float:right" href="" onclick="this.href='#'+document.getElementById('username').value.toUpperCase()">Trova utente tramite ID</a>
+                    <input type="text" id="id" style="margin-top: 7px"/>
+                    <a class="nav-link" style="float:right" href="" onclick="this.href='#'+document.getElementById('id').value.toUpperCase()">Trova utente tramite ID</a>
                 </li>
             </ul>
         </nav>

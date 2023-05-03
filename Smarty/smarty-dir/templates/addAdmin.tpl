@@ -26,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/lunova/Admin/usersadmin">Users</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lunova/Admin/ordini_admin">Ordini</a>
+                </li>
             </ul>
 
             <ul class="navbar-nav ml-4">

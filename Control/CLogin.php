@@ -95,15 +95,12 @@ class CLogin{
             if ( hash('sha256',$password) == $utente->getPassword() ) { //todo:ho cambiato la funzione per criptare le password, verificare che su db le password abbiano almeno una lunghezza di 64, io avevo messo a 100
                 $gs->setUtente($utente);
                 header('Location: /lunova');
-                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaHome");
             } else {
                 $v->message(false,'password errata','Login','Login/login');
-                //header("Location: ".$GLOBALS['path'] ."GestioneSchermate/recuperaLogin");
             }
         }
         else {
             $v->message(false,'utente non trovato','Login','Login/login');
-            //header("Location: ".$GLOBALS['path']."GestioneSchermate/recuperaLogin");
         }
     }
 

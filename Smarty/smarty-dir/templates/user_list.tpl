@@ -93,7 +93,10 @@
 <div id="main" class="container" style="margin-top:40px; height: fit-content">
     
     <div class ='row'>
-        {section name = nr loop= $product}
+        {if count($product)==0}
+            <h3 style="text-align: center;margin-top: 100px;color: #ff00ea"><label >Spiacente, nessun Utente trovato</label></h3>
+        {else}
+            {section name = nr loop= $product}
 
 
             <div class="card border-dark mb-3 bg-dark" style="width: 18rem;">
@@ -117,6 +120,8 @@
                 </div>
             </div>
     {/section}
+
+        {/if}
 
     </div>
 </div>

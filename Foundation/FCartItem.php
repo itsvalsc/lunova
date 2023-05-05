@@ -33,13 +33,14 @@ class FCartItem{
     public static function store(ECartItem $citem, $cartid): void{
 
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO cart_item VALUES(:id,:cart_id,:product_id,:quantity)";
+        $query = "INSERT INTO cart_item VALUES(:id,:cart_id,:product_id,:quantity,:data)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':id' => $citem->getIdCartItem(),
             ':cart_id' => $cartid,
             ':product_id' => $citem->getIdItem(),
-            ':quantity' => $citem->getQuantity()
+            ':quantity' => $citem->getQuantity(),
+            ':data' => $citem->getData()
         ));
     }
 
@@ -118,6 +119,7 @@ class FCartItem{
                 $idd = $row['id'];
                 $quantity = $row['quantity'];
                 $product_id = $row['product_id'];
+                $data = $row['data'];
                 //$immagine = FImmagine::load($id);
                 $disco = FDisco::load($product_id);
                 if ($disco != null) {
@@ -125,6 +127,7 @@ class FCartItem{
                     $Disc->setQuantity($quantity);
                     $Disc->setIdCartItem($idd);
                     $Disc->setIdCart($id);
+                    $Disc->setData($data);
                     array_push($dischi, $Disc);
                 }
             }

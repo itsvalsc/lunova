@@ -15,13 +15,16 @@ class ECartItem {
     private int $quantity;
     private string $id_disco;
     private float $totprice;
+    private string $data;
 
     public function __construct(EDisco $disco){
         $this->IdCartItem = random_int(0,99999);
         $this->IdCart = random_int(0,99999);
         $this->id_disco = $disco->getID();
         $this->quantity = 1;
-        $this->totprice = 0.0; 
+        $this->totprice = 0.0;
+        $rif = (string)date("Y") ."-". (string)date("m")."-". (string)date("d");
+        $this->data=$rif;
     }
 
     /** metodi get */
@@ -41,6 +44,9 @@ class ECartItem {
     public function getTotPrice(): float 
     { return $this->totprice; }
 
+    public function getData(): string
+    { return $this->data; }
+
     /** metodi set */
     
     public function setIdCartItem( $IdOrdineItem ) :void
@@ -57,5 +63,8 @@ class ECartItem {
 
     public function setTotPrice( float $totprice ) :void 
     { $this->totprice = $totprice; }
+
+    public function setData( string $data ) :void
+    { $this->data = $data; }
 }
 ?>

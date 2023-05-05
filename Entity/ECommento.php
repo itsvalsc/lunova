@@ -17,7 +17,7 @@ class ECommento {
     private string $idDisco;
     private string $descrizione;
     private string $data;
-    private bool $segnalata;
+    private int $segnalata;
 
     /**
      * Costruttore della classe
@@ -32,7 +32,7 @@ class ECommento {
         $this->descrizione = $descrizione;
         $this->data = $data;
         $this->idDisco=$idDisco;
-        $this->segnalata=false;
+        $this->segnalata=0;
     }
 
     /** METODI GET */
@@ -51,7 +51,7 @@ class ECommento {
     public function getData(): string
     { return $this->data; }
 
-    public function isSegnalato(): bool
+    public function isSegnalato(): int
     { return $this->segnalata; }
     /** METODI SET */
 
@@ -70,7 +70,7 @@ class ECommento {
     public function setData(string $data): void
     { $this->data = $data; }
 
-    public function setSegnala(bool $segnalata): void
+    public function setSegnala(int $segnalata): void
     { $this->segnalata = $segnalata; }
 }
 ?>

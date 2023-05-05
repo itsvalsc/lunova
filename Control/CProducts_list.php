@@ -96,7 +96,7 @@ class CProducts_list{
         $cli = false;
         $votazione=false;
         $mpComm = []; //gli passo l array dei commenti relativi ad un disco a cui ha messo mi piace
-
+        $server=$_SERVER['SERVER_NAME'];
         if ($session->isLogged()){
             if ($session->isCliente()){
                 $utente = $session->getUtente()->getIdClient();
@@ -115,7 +115,7 @@ class CProducts_list{
             $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
             $starRate= self::star_Rate($mediaVoti);
             $starRating = [$starRate,$mediaVoti,$votazione];
-            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli);
+            return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli,$server);
         }else{
             return $err->message($session->isLogged(),"Non è stato possibile trovare il disco selezionato",'alla ricerca dischi','Products_list/elenco_dischi',$num,$cli);
         }

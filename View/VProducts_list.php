@@ -34,7 +34,7 @@ class VProducts_list{
         $this->setTemplate('products_list.tpl');
     }
 
-    public function prodotto_singolo($product, $l, $num, $artista,$commenti,$utente,$starRating,$a,$nmp,$cli){
+    public function prodotto_singolo($product, $l, $num, $artista,$commenti,$utente,$starRating,$a,$nmp,$cli,$server){
         $this->setData('logged', $l);
         $this->setData('product', $product);
         $this->setData('num', $num);
@@ -47,6 +47,7 @@ class VProducts_list{
         $this->setData('arr',$a);
         $this->setData('nmp',$nmp);
         $this->setData('isCliente', $cli);
+        $this->setData('server', $server);
 
         $this->setTemplate('viewproduct.tpl');
     }

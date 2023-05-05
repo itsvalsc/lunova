@@ -1,7 +1,8 @@
 <?php
 
 /**
- *
+ * Classe utilizzata per il controllo dell'esecuzione delle richieste effettuate al server.
+ * @package Controller
  */
 
 require_once 'StartSmarty.php';

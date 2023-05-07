@@ -96,9 +96,16 @@
                         <td>{$user[ps]->getNome()}</td>
                         <td>{$user[ps]->getCognome()}</td>
                         <td>
-                            <a href="/lunova/Admin/EliminaA/{$user[ps]->getEmail()}">
-                                <button type="button" class="btn btn-outline-danger">Blocca</button>
-                            </a>
+                            {if $user[ps]->getBannato()==1}
+                                <a href="/lunova/Admin/riattivaArtista/{$user[ps]->getEmail()}">
+                                    <button type="button" class="btn btn-outline-success">Sblocca</button>
+                                </a>
+                            {/if}
+                            {if $user[ps]->getBannato()==0}
+                                <a href="/lunova/Admin/sospendiArtista/{$user[ps]->getEmail()}">
+                                    <button type="button" class="btn btn-outline-danger">Blocca</button>
+                                </a>
+                            {/if}
                         </td>
                     </tr>
                     </tbody>
@@ -124,12 +131,12 @@
                         <td>{$cli[pc]->getNome()}</td>
                         <td>{$cli[pc]->getCognome()}</td>
                         <td>
-                            {if $cli[pc]->getBannato()==true}
+                            {if $cli[pc]->getBannato()==1}
                             <a href="/lunova/Admin/riattivaUtente/{$cli[pc]->getEmail()}">
                                 <button type="button" class="btn btn-outline-success">Sblocca</button>
                             </a>
                             {/if}
-                            {if $cli[pc]->getBannato() == false}
+                            {if $cli[pc]->getBannato()==0}
                             <a href="/lunova/Admin/sospendiUtente/{$cli[pc]->getEmail()}">
                                 <button type="button" class="btn btn-outline-danger">Blocca</button>
                             </a>

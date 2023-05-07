@@ -93,7 +93,7 @@
 <div id="main" class="container" style="margin-top:80px; height: 700px">
     <div class="col-9">
         <h2>About us</h2>
-        <p>Siamo una compagnia...</p>
+        <p>Siamo una compagnia di tre studenti che hanno la passione comune per la musica</p>
         <script>
             var x;
             var y;

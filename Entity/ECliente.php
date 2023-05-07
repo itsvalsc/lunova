@@ -10,7 +10,7 @@
 class ECliente extends EUtente{
 
     private String $IdClient;
-    private bool $Bannato;
+    private int $Bannato;
 
 
     public function __construct(){
@@ -30,7 +30,7 @@ class ECliente extends EUtente{
             parent::__construct($username,$n, $c, $v, $nc,$citta,$prov,$cap,$telefono,$email,$pw);
             parent::setLivello("C");
             $this->IdClient = "C"  . random_int(0,99999);
-            $this->Bannato = false;
+            $this->Bannato = 0;
         }
         elseif (13 === func_num_args()){
             $email = func_get_arg(0);
@@ -57,7 +57,7 @@ class ECliente extends EUtente{
     public function getIdClient(): string 
     { return $this->IdClient; }
 
-    public function getBannato(): bool
+    public function getBannato(): int
     { return $this->Bannato; }
 
     /** METODI SET */
@@ -65,8 +65,8 @@ class ECliente extends EUtente{
     public function setIdClient(string $id)
     { return $this->IdClient = $id; }
 
-    public function setBannato(bool $ban)
-    { return $this->Bannato; }
+    public function setBannato(int $ban): void
+    { $this->Bannato = $ban; }
 }
 
 ?>

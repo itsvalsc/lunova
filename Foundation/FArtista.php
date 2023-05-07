@@ -51,7 +51,7 @@ class FArtista{
      */
     public static function store(EArtista $artista): void {
         $pdo = FConnectionDB::connect();
-        $query = "INSERT INTO artista VALUES(:IdArtista,:Email,:Username,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello)";
+        $query = "INSERT INTO artista VALUES(:IdArtista,:Email,:Username,:Nome,:Cognome,:Via,:NCivico,:Provincia,:Citta,:CAP,:NTelefono,:Password,:Livello,:Bannato)";
         $stmt = $pdo->prepare($query);
         $stmt->execute(array(
             ':IdArtista' => $artista->getIdArtista(),
@@ -66,7 +66,8 @@ class FArtista{
             ':CAP' =>$artista->getCAP(),
             ':NTelefono' =>$artista->getTelefono(),
             ':Password' =>$artista->criptaPassword($artista->getPassword()),
-            ':Livello' =>$artista->getLivello()
+            ':Livello' =>$artista->getLivello(),
+            ':Bannato' =>$artista->getBannato()
         ));
     }
 
@@ -118,8 +119,9 @@ class FArtista{
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
+                $Bannato = $rows[0]['Bannato'];
                 $immagine = FImmagine::load($IdArtista);
-                $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                $artista = new EArtista($Username,$Email,$Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista, $Bannato);
                 $artista->setImmProfilo($immagine);
                 return $artista;
             }
@@ -134,7 +136,7 @@ class FArtista{
      */
     public static function update(EArtista $art) : bool{
         $pdo = FConnectionDB::connect();
-        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello WHERE Email = :email";
+        $query = "UPDATE cliente SET IdCliente = :id, Email = :email, Username = :username, Nome = :nome, Cognome = :cognome,Via = :via, NCivico = :ncivico, Provincia = :provincia, Citta = :citta, CAP = :cap,NTelefono = :ntelefono, Password = :password, Livello = :livello, Bannato = :bannato WHERE Email = :email";
         $stmt=$pdo->prepare($query);
         $ris = $stmt->execute(array(
             ":id" => $art->getIdClient(),
@@ -150,8 +152,22 @@ class FArtista{
             ":ntelefono" => $art->getTelefono(),
             ":password" => $art->getPassword(),
             ":livello" => $art->getLivello(),
-            )
-        );
+            ":bannato" => $art->getBannato()));
+        return $ris;
+    }
+
+    /**
+     * metodo che permette di aggiornare lo stato di bannato di EArtista nel db
+     * @package Foundation
+     */
+    public static function updateBannato($email,$value){
+        $pdo = FConnectionDB::connect();
+        $query = "UPDATE artista SET Bannato = :value  WHERE Email = :email";
+        $stmt= $pdo->prepare($query);
+        $ris = $stmt->execute([
+            ":value" => $value,
+            ":email" => $email
+        ]);
         return $ris;
     }
 
@@ -196,8 +212,9 @@ class FArtista{
                 $CAP = $row['CAP'];
                 $Telefono = $row['NTelefono'];
                 $Password = $row['Password'];
+                $Bannato = $row['Bannato'];
 
-                $artista = new EArtista($Username, $Email, $Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista );
+                $artista = new EArtista($Username, $Email, $Nome, $Cognome, $Via, $NumeroCivico,$Citta,$Provincia, $CAP, $Telefono, $Password, $IdArtista, $Bannato );
                 $artisti[$i] = $artista;
                 ++$i;
             }
@@ -238,7 +255,8 @@ class FArtista{
                         $row['CAP'],
                         $row['NTelefono'],
                         $row['Password'],
-                        $row['IdArtista']
+                        $row['IdArtista'],
+                        $row['Bannato']
                     );
                     $art->setImmProfilo($immagine);
                     $artisti[$i]=$art;
@@ -318,8 +336,9 @@ class FArtista{
                 $CAP = $rows[0]['CAP'];
                 $Telefono = $rows[0]['NTelefono'];
                 $Password = $rows[0]['Password'];
+                $Bannato = $rows[0]['Bannato'];
                 $immagine = FImmagine::load($IdArtista);
-                $artista = new EArtista($Username, $Email, $Nome, $Cognome, $Via, $NumeroCivico, $Citta, $Provincia, $CAP, $Telefono, $Password, $IdArtista);
+                $artista = new EArtista($Username, $Email, $Nome, $Cognome, $Via, $NumeroCivico, $Citta, $Provincia, $CAP, $Telefono, $Password, $IdArtista, $Bannato);
                 $artista->setImmProfilo($immagine);
                 return $artista;
             }else{

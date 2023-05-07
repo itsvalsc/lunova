@@ -202,6 +202,15 @@ class FPersistentManager{
         return FArtista::delete($mail);
     }
 
+    /**
+     *  Metodo che permette di aggiornare lo stato di un artista
+     * @param string $mail
+     * @param $value
+     */
+    public function update_bannato_artista(string $email, $value) {
+        return FArtista::updateBannato($email, $value);
+    }
+
 
     /** METODI DI FCLIENTE  */
 

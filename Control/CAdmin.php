@@ -14,7 +14,7 @@ require_once "Foundation/FSessione.php";
 class CAdmin{
 
     /**
-     * Metodo che permetta all'admin di sospendere un utente settando l'attributo bannato relativo a quell'utente a 'true'
+     * Metodo che permetta all'admin di sospendere un cliente settando l'attributo bannato relativo a quel cliente a 'true'
      * @param $email
      * @return null
      */
@@ -38,7 +38,31 @@ class CAdmin{
     }
 
     /**
-     * Funzione utile per riattivae l'account di un utente che era stato precedentemente bannato.
+     * Metodo che permetta all'admin di sospendere un'artista settando l'attributo bannato relativo a quell'artista a 'true'
+     * @param $email
+     * @return null
+     */
+    public static function sospendiArtista(string $email)
+    {
+        $v = new VErrore();
+        $sessione = FSessione::getInstance();
+        $pm = FPersistentManager::getInstance();
+
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            $ex = $pm->exist('FArtista',$email);
+            if (!$ex){
+                return $v->message_admin('errore: artista non trovato','alla home','Admin/usersadmin');
+            }
+            $ris = $pm->update_bannato_artista($email,1);
+            return header("Location: /lunova/Admin/usersadmin");
+
+        } else {
+            return header ("Location: /lunova");
+        }
+    }
+
+    /**
+     * Funzione utile per riattivare l'account di un cliente che era stato precedentemente bannato.
      * @param $username string username identificativo univoco dell'utente
      **/
     public static function riattivaUtente(string $email)
@@ -53,6 +77,28 @@ class CAdmin{
                 return $v->message_admin('errore: utente non trovato','alla home','Admin/usersadmin');
             }
             $ris = $pm->update_bannato($email,0);
+            return header("Location: /lunova/Admin/usersadmin");
+        } else {
+            return header ("Location: /lunova/Admin/usersadmin");
+        }
+    }
+
+    /**
+     * Funzione utile per riattivare l'account di un artista che era stato precedentemente bannato.
+     * @param $username string username identificativo univoco dell'utente
+     **/
+    public static function riattivaArtista(string $email)
+    {
+        $v = new VErrore();
+        $sessione = FSessione::getInstance();
+        $pm = FPersistentManager::getInstance();
+
+        if ($sessione->isLogged() && $sessione->isAdmin()) {
+            $ex = $pm->exist('FArtista',$email);
+            if (!$ex){
+                return $v->message_admin('errore: artista non trovato','alla home','Admin/usersadmin');
+            }
+            $ris = $pm->update_bannato_artista($email,0);
             return header("Location: /lunova/Admin/usersadmin");
         } else {
             return header ("Location: /lunova/Admin/usersadmin");
@@ -288,8 +334,4 @@ class CAdmin{
             return header('Location: /lunova');
         }
     }
-
-
-
-
 }

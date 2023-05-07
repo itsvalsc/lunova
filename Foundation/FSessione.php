@@ -104,6 +104,19 @@ class FSessione{
         return $bool;
     }
 
+    public function setCarrello($carrello) {
+        $_SESSION["carrello"] = serialize($carrello);
+    }
+
+    public function getCarrello() {
+        if(isset($_SESSION['carrello'])){
+            $carrello = $_SESSION['carrello'];
+            return unserialize($carrello);
+        }else{
+            return null;
+        }
+    }
+
     /**
      * Va ad eliminare la sessione, rimuovendone ogni traccia.
      * @return void

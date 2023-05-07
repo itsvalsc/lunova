@@ -419,7 +419,8 @@ class FPersistentManager{
     /** METODI DI FCARTITEM */
 
     public function prelevaCartItems($car){
-        return FCartItem::load($car);
+        $s = FSessione::getInstance();
+        return $s->getCarrello()->getDischi();
     }
 
     public function prelevaCartDischiItems($car){

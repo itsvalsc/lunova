@@ -60,6 +60,10 @@ class ECartItem {
 
     public function setQuantity( int $quantity) :void 
     { $this->quantity = $quantity; }
+    public function addQuantity() :void
+    { $this->quantity = $this->quantity+1; }
+    public function minusQuantity() :void
+    { $this->quantity = $this->quantity-1; }
 
     public function setTotPrice( float $totprice ) :void 
     { $this->totprice = $totprice; }

@@ -468,5 +468,9 @@ class FPersistentManager{
         return FAdmin::RecuperoOrdini_totale_ADMIN();
     }
 
+    public function checkQta($id){
+        return FCartItem::CheckQta($id);
+    }
+
 
 }

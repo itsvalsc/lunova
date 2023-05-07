@@ -108,7 +108,7 @@ class FSessione{
         $_SESSION["carrello"] = serialize($carrello);
     }
 
-    public function getCarrello() {
+    public function getCarrello():?ECarrello {
         if(isset($_SESSION['carrello'])){
             $carrello = $_SESSION['carrello'];
             return unserialize($carrello);

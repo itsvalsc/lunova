@@ -8,9 +8,17 @@ class CCarrello{
         $session = FSessione::getInstance();
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
-            $elenco = $pers->prelevaCartItems($utente);
+            //$elenco = $pers->prelevaCartItems($utente);
+            $elenco = $session->getCarrello()->getDischi();
             $num = count($elenco);
-            $Disc = $pers->prelevaCartDischiItems($utente);
+            $Disc=array();
+            foreach ($elenco as $dc){
+                $id = $dc->getIdItem();
+                $disco = $pers->load('FDisco',$id);
+                array_push($Disc,$disco);
+            }
+
+            //$Disc = $pers->prelevaCartDischiItems($utente);
             return $view->cart(true, $elenco,$Disc,$num);
         }else{
             return header ("Location: /lunova/");
@@ -24,12 +32,27 @@ class CCarrello{
         $session = FSessione::getInstance();
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
-            $cart = $pers->prelevaCarrelloCorrente($utente);
-            if ($cart == null){
-                $cart = new ECarrello($utente);
-                $pers->store($cart);
+            //$cart = $pers->prelevaCarrelloCorrente($utente);
+            $cart = $session->getCarrello();
+            $dischi = $cart->getDischi();
+            $disco = $pers->load('FDisco',$id);
+            $checkQta = $pers->checkQta($id);
+            if ($disco!=null && $checkQta){
+                $bool = false;
+                foreach ($dischi as $dc){
+                    if ($dc->getIdItem() == $id){
+                        $dc->addQuantity();
+                        $bool=true;
+                    }
+                }
+                if (!$bool){
+                    array_push($dischi,new ECartItem($disco));
+                }
             }
-            $aggiungo = $pers->AddItem($id,$cart->getId(),$utente);
+            $cart->setDischi($dischi);
+            $session->setCarrello($cart);
+
+            //$aggiungo = $pers->AddItem($id,$cart->getId(),$utente);
 
             return header ("Location: /lunova/Carrello/mio_carrello");
         }else {
@@ -44,15 +67,28 @@ class CCarrello{
         $session = FSessione::getInstance();
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
-            $cart = $pers->prelevaCarrelloCorrente($utente);
-            if ($cart == null){
-                $elenco = $pers->prelevaCartItems($utente);
-                $num = count($elenco);
-                return $e->message(true,'Si è verificato un errore nel trovare il carrello in uso','alla home','',$num,true);
-            }else{
-                $aggiungo = $pers->MinusItem($id,$cart->getId(),$utente);
-                return header ("Location: /lunova/Carrello/mio_carrello");
+            $cart = $session->getCarrello();
+            $dischi = $cart->getDischi();
+            $disco = $pers->load('FDisco',$id);
+            //$cart = $pers->prelevaCarrelloCorrente($utente);
+            if ($disco!=null){
+                foreach ($dischi as $key => $dc){
+                    if ($dc->getIdItem() == $id){
+                        if ($dc->getQuantity()==1){
+                            return $e->message(true,json_encode($key),'','',0,true);
+                            unset($dischi[$key]);
+
+                        }else{
+                            $dc->minusQuantity();
+                        }
+                    }
+                }
             }
+            $cart->setDischi($dischi);
+            $session->setCarrello($cart);
+            //$aggiungo = $pers->MinusItem($id,$cart->getId(),$utente);
+            return header ("Location: /lunova/Carrello/mio_carrello");
+
         }else{
             return header ("Location: /lunova");
         }

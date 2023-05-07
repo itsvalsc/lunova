@@ -16,13 +16,13 @@ class ECarrello{
     private string $id_ordine;
     private float $totale;
 
-    public function __construct($ut)
+    public function __construct()
     {
         if (1 === func_num_args()){
             $this->id = "F"  . random_int(0,99999);
             $this->dischi = array();
             $this->totale = 0.0;
-            $this->id_utente=$ut;
+            $this->id_utente=null;
         }
         elseif (5 === func_num_args()){
             $idcar=func_get_arg(0);

@@ -70,13 +70,15 @@ class CCarrello{
             $cart = $session->getCarrello();
             $dischi = $cart->getDischi();
             $disco = $pers->load('FDisco',$id);
-            //$cart = $pers->prelevaCarrelloCorrente($utente);
+
             if ($disco!=null){
-                foreach ($dischi as $key => $dc){
+                foreach ($dischi as $dc){
                     if ($dc->getIdItem() == $id){
                         if ($dc->getQuantity()==1){
-                            return $e->message(true,json_encode($key),'','',0,true);
-                            unset($dischi[$key]);
+                            $posizione = array_search($dc, $dischi);
+                            unset($dischi[$posizione]);
+                            $dischi = array_merge($dischi);
+
 
                         }else{
                             $dc->minusQuantity();
@@ -86,7 +88,6 @@ class CCarrello{
             }
             $cart->setDischi($dischi);
             $session->setCarrello($cart);
-            //$aggiungo = $pers->MinusItem($id,$cart->getId(),$utente);
             return header ("Location: /lunova/Carrello/mio_carrello");
 
         }else{

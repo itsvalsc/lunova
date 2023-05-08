@@ -65,6 +65,21 @@ class CErrore
             $num = count($elenco);
             $cli = true;
         }
-        $v->message($logged,"Url non valida o malformata",'alla homepage','',$num,$cli);
+        $v->message($logged,"Qualcosa è andato storto :(",'alla homepage','',$num,$cli);
+    }
+
+    public static function BadRequest(){
+        $v = new VErrore();
+        $num = null;
+        $cli = false;
+        $session = FSessione::getInstance();
+        $pers = FPersistentManager::getInstance();
+        $logged = $session->isLogged();
+        if ($logged && $session->isCliente()){
+            $elenco = $pers->prelevaCartItems($session->getUtente()->getIdClient());
+            $num = count($elenco);
+            $cli = true;
+        }
+        $v->message($logged,"ERROR 400: Url non valida o malformata",'alla homepage','',$num,$cli);
     }
 }

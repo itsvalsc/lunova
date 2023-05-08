@@ -14,6 +14,8 @@ class CFrontController
 
         array_shift($resource);
         array_shift($resource);
+        error_reporting(E_ERROR | E_PARSE);
+
 
 
         if($resource[0] != ''){
@@ -31,17 +33,32 @@ class CFrontController
                         }
                         $num = count($param);
                         if ($num == 0){
-                            //try{
+                            try{
                             $controller::$function();
-                            //}catch (ArgumentCountError){
-                            //    return header("Location: /lunova/Errore/redirect");
-                            //}
+                            }catch (ArgumentCountError){
+                                return header("Location: /lunova/Errore/BadRequest");
+                            }catch (TypeError ){
+                                return header("Location: /lunova/Errore/redirect");
+                            }
                         }
                         else if ($num == 1){
+                            try{
                             $controller::$function($param[0]);
+                            }catch (ArgumentCountError){
+                                return header("Location: /lunova/Errore/BadRequest");
+                            }
+                            catch (TypeError ){
+                                return header("Location: /lunova/Errore/redirect");
+                            }
                         }
                         else if ($num == 2){
-                            $controller::$function($param[0], $param[1]);
+                            try {
+                                $controller::$function($param[0], $param[1]);
+                            }catch (ArgumentCountError){
+                                return header("Location: /lunova/Errore/BadRequest");
+                            }catch (TypeError ){
+                                return header("Location: /lunova/Errore/redirect");
+                            }
                         }
                     }
                     else{

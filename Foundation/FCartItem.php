@@ -332,4 +332,6 @@ class FCartItem{
         $quantity = $rows[0]["Qta"];
         return $quantity;
     }
+
+
 }

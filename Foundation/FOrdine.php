@@ -140,44 +140,183 @@ class FOrdine{
      * metodo che permette di aggiungere  l'istanza di un oggetto EOrdine al db associato all'id del cliente in sessione
      * @package Foundation
      */
-    public static function AddToOrdine(array $productarray, $cartid, $cli_id) {
-        //$pdo = FConnectionDB::connect();
+    public static function AddToOrdine(array $productarray, $cli_id) {
+        $pdo = FConnectionDB::connect();
+        $pdo->beginTransaction();
+        try{
 
-        $lista = [];
-        $tot= 0;
-        $stringa="";
+            $lista = [];
+            $tot= 0;
+            $stringa="";
 
-        foreach ($productarray as $row){
-            //var_dump($row->getQuantity());
-            //var_dump($row->getIdItem()); //mi serve
-            $recupero = FDisco::load($row->getIdItem());
-            $autore = $recupero->getAutore();
-            $artista = FArtista::loadName($autore);
-            $id_nel_carrello = $row->getIdCartItem();
-            //var_dump($recupero->getTitolo());
-            //var_dump($recupero->getAutore());
-            //var_dump($recupero->getPrezzo());
-            $qta=$row->getQuantity();
-            $titolo =$recupero->getTitolo();
-            $prezzo = $recupero->getPrezzo();
-            $stringa = $stringa . "$qta x $titolo by $artista $ $prezzo;";
-            //print_r($stringa);
-            //print_r("\n");
-            array_push($lista, $stringa);
+            foreach ($productarray as $row){
+                $recupero = FDisco::load($row->getIdItem());
+                $productId = $recupero->getID();
+                $qta=$row->getQuantity();
 
-            $tot = $tot + ($qta * $prezzo);
-            FCartItem::delete_cart($cartid);
+                $verify = self::CheckQta($productId);
+                $numero = self::GETQta($productId);
+
+                if($verify && $numero>=$qta){
+                    $autore = $recupero->getAutore();
+                    $artista = FArtista::loadName($autore);
+
+                    $titolo =$recupero->getTitolo();
+                    $prezzo = $recupero->getPrezzo();
+                    $stringa = $stringa . "$qta x $titolo by $artista $ $prezzo;";
+                    array_push($lista, $stringa);
+
+
+                    $quantity = $numero - $qta;
+                    $query2 = "UPDATE dischi SET Qta= :q WHERE ID= :id";
+                    $stmt2 = $pdo->prepare($query2);
+                    $stmt2->execute(array(
+                        ":q" => $quantity,
+                        ':id' => $productId
+                    ));
+
+                    $tot = $tot + ($qta * $prezzo);
+                }
+                else{
+                    $pdo->rollBack();
+                    return null;
+                }
+
+                //cancellare la sessione
+            }
+
+            $cli = FCliente::loadId($cli_id);
+            $ordine = new EOrdine( $cli);
+            //$ordine->setCarrello($lista);
+            $ordine->setCarrello($stringa);
+            $ordine->setTotOrdine($tot);
+            FOrdine::store($ordine);
+            $pdo->commit();
+            return true;
+
+        }catch (PDOException $e) {
+            if ($pdo->isTransactionActive())  // this function does NOT exist
+                $pdo->rollBack();
         }
-
-        $cli = FCliente::loadId($cli_id);
-        $ordine = new EOrdine( $cli);
-        //$ordine->setCarrello($lista);
-        $ordine->setCarrello($stringa);
-        $ordine->setTotOrdine($tot);
-        FOrdine::store($ordine);
-        return $ordine;
     }
 
 
+
+
+
+    public static function AddToCart($productId, $cartid, $cli_id){
+        $pdo = FConnectionDB::connect();
+
+        $query = "SELECT quantity, product_id FROM cart_item WHERE cart_id= :idcart AND product_id= :idprod";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(array(
+            ":idcart" => $cartid,
+            ':idprod' => $productId
+        ));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $verify = self::CheckQta($productId);
+        $quantity = 0;
+
+        if ($verify) {
+            if (count($rows) > 0) {
+                $quantity = $rows[0]["quantity"];
+
+            }
+            ++$quantity;
+
+            if (count($rows) > 0) {
+                $query1 = "UPDATE cart_item SET quantity= :q WHERE cart_id= :idcart AND product_id= :idprod";
+                $stmt1 = $pdo->prepare($query1);
+                $stmt1->execute(array(
+                    ":q" => $quantity,
+                    ":idcart" => $cartid,
+                    ':idprod' => $productId
+                ));
+
+                $numero = self::GETQta($productId);
+
+                $quantity = $numero - 1;
+                $query2 = "UPDATE dischi SET Qta= :q WHERE ID= :id";
+                $stmt2 = $pdo->prepare($query2);
+                $stmt2->execute(array(
+                    ":q" => $quantity,
+                    ':id' => $productId
+                ));
+
+            } else {
+                $G = FDisco::load($productId);
+                $cart = new ECartItem(($G));
+                self::store($cart, $cartid);
+
+                $numero = self::GETQta($productId);
+                $quantity = $numero - 1;
+                $query2 = "UPDATE dischi SET Qta= :q WHERE ID= :id";
+                $stmt2 = $pdo->prepare($query2);
+                $stmt2->execute(array(
+                    ":q" => $quantity,
+                    ':id' => $productId
+                ));
+
+            }
+            return $quantity;
+        } else {
+            if (count($rows) > 0) {
+                $quantity = $rows[0]["quantity"];
+                return $quantity;
+            } else {
+                $quantity = 0;
+                return $quantity;
+            }
+        }
+    }
+
+
+
+    /**
+     * metodo che permette di controllare la quantità di dischi presenti nel db per verificare se è possibile aggiungerne un numero >0 al carrello
+     * @package Foundation
+     */
+    public static function CheckQta($id) : ?bool{
+        $pdo=FConnectionDB::connect();
+        //try {
+            //$pdo->beginTransaction();
+            //controllo quantità
+
+            $query = "SELECT Qta FROM dischi WHERE ID= :id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute( [":id" => $id] );
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $quantity = $rows[0]["Qta"];
+            $verify=false;
+
+            if($quantity>0){
+                $verify=true;
+            }
+            $pdo->commit();
+            return $verify;
+        //}catch (PDOException $exception) {
+          //  print ("Errore".$exception->getMessage());
+            //$pdo->rollBack();
+            //return null;
+        //}
+
+    }
+
+    /**
+     * metodo che preleva la quantità disponibile di un EDisco
+     * @package Foundation
+     */
+    public static function GETQta($id) {
+        $pdo=FConnectionDB::connect();
+
+        //controllo quantità
+        $query = "SELECT Qta FROM dischi WHERE ID= :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute( [":id" => $id] );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $quantity = $rows[0]["Qta"];
+        return $quantity;
+    }
 
 }

@@ -126,4 +126,8 @@ class FSessione{
         session_destroy(); //Distrugge il file sul file system del server, cioè distrugge tutti i dati associati alla sessione corrente
         setcookie('PHPSESSID','',time()-3600); //Svuota il cookie su client dopo un'ora di inattività
     }
+
+
+
+
 }

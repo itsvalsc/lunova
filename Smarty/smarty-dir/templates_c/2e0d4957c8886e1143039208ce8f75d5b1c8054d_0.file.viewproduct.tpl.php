@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-29 19:04:04
+/* Smarty version 4.2.1, created on 2023-05-08 00:23:49
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\viewproduct.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_644d4e04455716_52033048',
+  'unifunc' => 'content_645824f55b1577_12553128',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2e0d4957c8886e1143039208ce8f75d5b1c8054d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\viewproduct.tpl',
-      1 => 1682787610,
+      1 => 1683494548,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644d4e04455716_52033048 (Smarty_Internal_Template $_smarty_tpl) {
+function content_645824f55b1577_12553128 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -30,9 +30,11 @@ function content_644d4e04455716_52033048 (Smarty_Internal_Template $_smarty_tpl)
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/vapor/bootstrap.css">
 
-    <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
+    <link rel="stylesheet" type="text/css" href="http://<?php echo $_smarty_tpl->tpl_vars['server']->value;?>
+/lunova/inc/css/style.css ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/Star.css">
+    <link rel="stylesheet" type="text/css" href="http://<?php echo $_smarty_tpl->tpl_vars['server']->value;?>
+/lunova/inc/css/Star.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -258,19 +260,19 @@ for ($__section_n_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_n']-
     <!-- Add comment -->
     <div class="d-flex mb-3">
         <?php if ($_smarty_tpl->tpl_vars['logged']->value) {?>
-        <!-- Comment box  -->
-        <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
-            <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Add a comment..."></textarea>
-            <input hidden name="disco" value="<?php echo $_smarty_tpl->tpl_vars['product']->value->getID();?>
+            <!-- Comment box  -->
+            <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
+                <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Add a comment..."></textarea>
+                <input hidden name="disco" value="<?php echo $_smarty_tpl->tpl_vars['product']->value->getID();?>
 ">
-            <button type="submit" class="btn btn-primary">Invia</button>
-        </form>
-            <?php } else { ?>
+                <button type="submit" class="btn btn-primary">Invia</button>
+            </form>
+        <?php } else { ?>
             <form class="w-100" method="post" action="/lunova/Commento/scriviCommento">
                 <textarea id="commento" data-autoresize class="form-control pe-4 bg-light bg-opacity-50" name="commento" rows="1" placeholder="Effettua il login per poter pubblicare commenti"></textarea>
                 <input hidden name="disco" value="<?php echo $_smarty_tpl->tpl_vars['product']->value->getID();?>
 ">
-                <button type="submit" class="btn btn-primary" disabled>Invia</button>
+                <button type="submit" class="btn btn-primary disabled">Invia</button>
             </form>
         <?php }?>
     </div>

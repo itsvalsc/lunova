@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.2.1, created on 2023-04-26 19:42:21
+/* Smarty version 4.2.1, created on 2023-05-08 19:44:29
   from 'C:\xampp\htdocs\lunova\Smarty\smarty-dir\templates\cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.2.1',
-  'unifunc' => 'content_6449627dad3738_49728259',
+  'unifunc' => 'content_645934fd73d831_91165266',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bc918b062fc5f506c7ae1da3512d5668763b09a1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\lunova\\Smarty\\smarty-dir\\templates\\cart.tpl',
-      1 => 1682529174,
+      1 => 1683498223,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6449627dad3738_49728259 (Smarty_Internal_Template $_smarty_tpl) {
+function content_645934fd73d831_91165266 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- header -->
 <!DOCTYPE html>
 <html>
@@ -30,7 +30,7 @@ function content_6449627dad3738_49728259 (Smarty_Internal_Template $_smarty_tpl)
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/vapor/bootstrap.css">
 
-	<link rel="stylesheet" type="text/css" href="http://localhost/lunova/inc/css/style.css ">
+	<link rel="stylesheet" type="text/css" href="/lunova/inc/css/style.css ">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<?php echo '<script'; ?>
  defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"><?php echo '</script'; ?>
@@ -199,6 +199,7 @@ for ($__section_nr_0_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_nr'
 
 							</div>
 						  </li>
+
 						<?php }?>
 					<?php
 }

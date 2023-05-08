@@ -24,9 +24,12 @@ class COrdini{
         $session = FSessione::getInstance();
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
-            $cart = $pers->prelevaCarrelloCorrente($utente);
-            $elenco = $pers->prelevaCartItems($utente);
-            $pers->AddOrdine($elenco, $cart->getId(),$utente);
+            $cart = $session->getCarrello();
+            $elenco = $cart->getDischi();
+             //da fare con le sessioni
+            //$elenco = $pers->prelevaCartItems($utente);
+            $pers->AddOrdine($elenco,$utente);
+            unset($_SESSION['carrello']);
             return $view->getFeedback(true);
         }else{
             return header("Location: /lunova");

@@ -466,8 +466,8 @@ class FPersistentManager{
 
     /** METODI DI FORDINE */
 
-    public function AddOrdine($productarray, $cartid, $cli_id){
-        return FOrdine::AddToOrdine($productarray, $cartid, $cli_id);
+    public function AddOrdine($productarray,$cli_id){
+        return FOrdine::AddToOrdine($productarray, $cli_id);
     }
 
     public function LoadOrdini($id_cli){

@@ -266,7 +266,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div style="float:left; width:20%">
-                                                                    <a class="nav-link" style="align-items: center " href="/lunova">
+                                                                    <a class="nav-link" style="align-items: center " href="">
                                                                         <i class="fa-solid fa-circle-exclamation" style="color: #ff8300;"></i>
                                                                     </a>
                                                                 </div>

@@ -142,6 +142,7 @@ class FOrdine{
      */
     public static function AddToOrdine(array $productarray, $cli_id) {
         $pdo = FConnectionDB::connect();
+        $pdo->exec('LOCK TABLES dischi WRITE, artista WRITE');
         $pdo->beginTransaction();
         try{
 
@@ -179,7 +180,8 @@ class FOrdine{
                 }
                 else{
                     $pdo->rollBack();
-                    return null;
+                    $pdo->exec('UNLOCK TABLES');
+                    return [false,$recupero->getTitolo()];
                 }
 
                 //cancellare la sessione
@@ -192,11 +194,14 @@ class FOrdine{
             $ordine->setTotOrdine($tot);
             FOrdine::store($ordine);
             $pdo->commit();
-            return true;
+            $pdo->exec('UNLOCK TABLES');
+            return [true,null];
 
         }catch (PDOException $e) {
-            if ($pdo->isTransactionActive())  // this function does NOT exist
-                $pdo->rollBack();
+           // if ($pdo->isTransactionActive()){}  // this function does NOT exist
+            $pdo->rollBack();
+            $pdo->exec('UNLOCK TABLES');
+            return [false,null];
         }
     }
 
@@ -279,7 +284,7 @@ class FOrdine{
      */
     public static function CheckQta($id) : ?bool{
         $pdo=FConnectionDB::connect();
-        //try {
+
             //$pdo->beginTransaction();
             //controllo quantità
 
@@ -293,15 +298,9 @@ class FOrdine{
             if($quantity>0){
                 $verify=true;
             }
-            $pdo->commit();
+            //$pdo->commit();
             return $verify;
-        //}catch (PDOException $exception) {
-          //  print ("Errore".$exception->getMessage());
-            //$pdo->rollBack();
-            //return null;
-        //}
-
-    }
+        }
 
     /**
      * metodo che preleva la quantità disponibile di un EDisco

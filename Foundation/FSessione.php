@@ -12,6 +12,7 @@ class FSessione{
     /** Costruttore della classe FSession. */
     public function __construct() {
         if(!isset($_SESSION)) {
+            session_set_cookie_params(3600);
             session_start();
         }
     }

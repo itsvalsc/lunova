@@ -62,11 +62,13 @@ class CFrontController
                         }
                     }
                     else{
-                        return header("Location: /lunova");
+                        return header("Location: /lunova/Errore/BadRequest");
                     }
+                }else{
+                    return header("Location: /lunova/Errore/BadRequest");
                 }
             }else{
-                return header("Location: /lunova");
+                return header("Location: /lunova/Errore/BadRequest");
             }
 
         }else{

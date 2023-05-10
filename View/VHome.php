@@ -31,13 +31,4 @@ class VHome{
 
         $this->setTemplate('homepage.tpl');  //TODO: controllare
     }
-
-    /*public function message($logged,$messaggio,$var_titolo,$var_url,$cli){
-        $this->setData('message', $messaggio);
-        $this->setData('var_titolo', $var_titolo);
-        $this->setData('var_url', $var_url);
-        $this->setData('logged', $logged);
-        $this->setData('isCliente',$cli);
-        $this->setTemplate("message.tpl");
-    }*/
 }

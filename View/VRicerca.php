@@ -166,9 +166,4 @@ class VRicerca
         $this->setData('isCliente', $cli);
         $this->setTemplate('user_list.tpl');
     }
-
-
-
-
-
 }

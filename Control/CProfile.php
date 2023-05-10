@@ -234,7 +234,7 @@ class CProfile
                     foreach ($votazioni as $disco=>$voto){
                         $d = $pers->load('FDisco',$disco);
                         if ($d!=null){
-                            $new_vot[$d->getTitolo()]=CProducts_list::star_Rate($voto);
+                            $new_vot[$d->getTitolo()]=$pers->star_Rate($voto);
                         }
                     }
                     $commenti = $pers->loadCommentibyCliente($id);

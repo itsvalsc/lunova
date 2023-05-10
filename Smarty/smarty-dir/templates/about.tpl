@@ -92,23 +92,14 @@
 
 <div id="main" class="container" style="margin-top:80px; height: 700px">
     <div class="col-9">
-        <h2>About us</h2>
-        <p>Siamo una compagnia di tre studenti che hanno la passione comune per la musica</p>
-        <script>
-            var x;
-            var y;
-            var z;
-            x= 2;
-            y = 5;
-            z = x + y;
-            //window.alert("Somma = " + z);
-            //window.prompt("digita:")
-        </script>
-
-
+        <h2>About Us</h2>
+        <p>Siamo un gruppo di tre studenti che hanno la passione comune per la musica</p>
+        <p>La realizzazione di questo sito, nasce come progetto d'esame di Programmazione per il Web, del corso di studi in Ingegneria dell'Informazione dell'Università degli Studi dell'Aquila.</p>
+        <p>Questo sito è sviluppato secondo le caratteristiche di un e-commerce di dischi, cercando di garantire un'esperienza personalizzata e attiva dal punto di vista di interazione tra gli utenti nel sito.</p>
+        <p style="margin-top: 200px;color: aliceblue;" onmouseover="this.style.fontWeight='bold'" onmouseleave="this.style.fontWeight=''" >Il Team : Luigi Bartolomeo, Valentina Scimia, Noemi Barbaro</p>
     </div>
 </div>
-
+<
 
 <!-- footer -->
 <footer class="bg-dark" style ="margin-bottom: 0px;">

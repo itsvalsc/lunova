@@ -1,6 +1,17 @@
 <?php
+
+/**
+ * La classe CProducts_list implementa funzionalità per la visualizzazione e la gestione dei dischi sulla piattaforma. è possibile:
+ * Visualizzare la lista dei prodotti e del prodotto singolo;
+ * Aggiungere ed eliminare dischi ( da parte di un artista loggato )
+ * @package Controller
+ */
 class CProducts_list{
 
+    /**
+     * Mostra la schermata relativa all'elenco dei dischi
+     * @return null
+     */
     public static function elenco_dischi(){
         $view = new VProducts_list();
         $pers = FPersistentManager::getInstance();
@@ -21,21 +32,11 @@ class CProducts_list{
         $generi = $pers->prelevaGeneri();
         return $view->lista_prodotti($elenco,$session->isLogged(), $num,$generi,$cli);
     }
-    /*
-    public static function salva_foto(){
-        $view = new VAbout();
-        $id = $_POST['idAppartenenza'];
-        $nome = $_FILES['file1']['name'];
-        $type = $_FILES['file1']['type'];
-        $immagine = @file_get_contents($_FILES['file1']['tmp_name']);
-        $image = new EImmagine($nome,$type,$immagine,$id);
-        $pers = FPersistentManager::getInstance();
-        $a = $pers->store($image);
-        $prova = 'immagine caricata';
 
-        $view->about_us($prova);
-    }
-    */
+    /**
+     * Permette ad un artista di creare e inserire nel sito un nuovo disco
+     * @return null
+     */
     public static function aggiungi_disco(){
         $session = FSessione::getInstance();
         $view = new VNewDisc() ;
@@ -63,15 +64,23 @@ class CProducts_list{
         }
     }
 
+
+    /**
+     * Permette all'artista di eliminare un disco precedentemente creato
+     * @param $id
+     * @return null
+     */
     public static function delete_disco($id){
         $session = FSessione::getInstance();
         $mess = new VErrore();
         if ($session->isLogged() && $session->isArtista()){
             $artista_id = $session->getUtente()->getIdArtista();
             $pers = FPersistentManager::getInstance();
-
+            $dc = $pers->load('FDisco',$id);
+            if ($dc ==null || $dc->getAutore()!=$artista_id){
+                return header('Location: /lunova/Errore/unathorized');
+            }
             $pers->delete('FDisco',$id);
-            //todo:gestione
             $messaggio='Disco Eliminato Correttamente';
             return $mess->message(true,$messaggio,'alla home','',null,false);
         }else{
@@ -80,13 +89,11 @@ class CProducts_list{
     }
 
 
-    public static function recuperaAggiungiProdotto(){
-        //$artista = sessione->recupera artista(); da implementare con le sessioni
-        $v = new VGestioneProdotto();
-        $v->mostraAggiuntaProdotto(/*$artista*/);
-
-    }
-
+    /**
+     * Metodo che mostra la schermata del prodotto singolo
+     * @param string $id
+     * @return null
+     */
     public static function mostra_prodotto(string $id){
         $view = new VProducts_list();
         $err = new VErrore();
@@ -111,8 +118,8 @@ class CProducts_list{
             $commenti = $pers->loadCommenti($id);
             $art = $pers->FindArtistName($prodotto->getAutore());
             $nmp = $pers->loadNumeroMP($id);
-            $mediaVoti = self::media($pers->load('FVotazioneDisco',$id));
-            $starRate= self::star_Rate($mediaVoti);
+            $mediaVoti = $pers->media($pers->load('FVotazioneDisco',$id));
+            $starRate= $pers->star_Rate($mediaVoti);
             $starRating = [$starRate,$mediaVoti,$votazione];
             return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli);
         }else{
@@ -120,45 +127,9 @@ class CProducts_list{
         }
     }
 
-    public static function star_Rate($media){
-        if ($media <= 0.75){//0.5
-            $starRate = ['fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
-        } elseif ($media > 0.75 & $media <= 1.25){//1
-            $starRate = ['fa fa-star','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
-        }elseif ($media > 1.25 & $media <= 1.75 ) {//1.5
-            $starRate = ['fa fa-star','fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
-        }elseif ($media > 1.75 & $media < 2.25){//2
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
-        }elseif ($media > 2.25 & $media <= 2.75){//2.5
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star-half-o','fa fa-star-o','fa fa-star-o'];
-        }elseif ($media > 2.75 & $media <= 3.25){//3
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star-o','fa fa-star-o'];
-        }elseif ($media > 3.25 & $media <= 3.75){//3.5
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star-half-o','fa fa-star-o'];
-        }elseif ($media > 3.75 & $media <= 4.25){//4
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star-o'];
-        }elseif ($media > 4.25 & $media <= 4.75){//4.5
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star-half-o'];
-        }elseif ($media > 4.75 ){//5
-            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star'];
-        }
-        return $starRate;
-    }
 
-    private static function media($array){
-        $sum = 0;
-        if (count($array)==0){
-            $result = 0;
-        }
-        else{
-            foreach ($array as $voti){
-                $sum += $voti;
-            }
-            $result = $sum/count($array);
-        }
 
-        return $result;
-    }
+
 
 
 }

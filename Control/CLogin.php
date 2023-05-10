@@ -20,6 +20,10 @@ class CLogin{
         return $login;
     }
 
+    /**
+     * Metodo che mostra la pagina per effettuare il login per il cliente o per l'artista
+     * @return void
+     */
     public static function login(){
         $view = new VLogin();
         $session = FSessione::getInstance();
@@ -30,6 +34,10 @@ class CLogin{
         }
     }
 
+    /**
+     * Metodo che mostra la pagina per effettuare il login per gli amministratori
+     * @return void
+     */
     public static function Admin(){
         $view = new VLogin();
         $session = FSessione::getInstance();
@@ -53,15 +61,10 @@ class CLogin{
 
     }
 
-     //TODO : funzione verifica login da fare dopo aver scritto il persistent manager
-
-    public static function prova(){
-        $viewex = new VLogin();
-        FSessione::start();
-        //$l = 'login';
-        $viewex->Login();
-    }
-
+    /**
+     * Metodo che mostra la schermata di registrazione dei clienti o degli artisti
+     * @return void
+     */
     public static function Signin(){
 
         $session = FSessione::getInstance();
@@ -105,6 +108,10 @@ class CLogin{
         }
     }
 
+    /**
+     * Metodo che gestisce il login dell'admin (controllo credenziali)
+     * @return void|null
+     */
     public static function verificaLoginAdmin(){
         $v = new VLogin();
         $err = new VErrore();

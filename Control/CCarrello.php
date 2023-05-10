@@ -1,14 +1,24 @@
 <?php
 
+/**
+ * La classe CCarrello implementa funzionalità per il carrello della piattaforma. Ai clienti è consentito:
+ * * visualizzare il proprio carrello con i relativi prodotti;
+ * * Aggiungere o eliminare i prodotti;
+ * * Confermare l'ordine checkout).
+ * @package Controller
+ */
 class CCarrello{
 
+    /**
+     * Metodo che restituisce il carrello con i prodotti contenuti al suo interno.
+     * @return null
+     */
     public static function mio_carrello(){
         $view = new VCarrello();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
-            //$elenco = $pers->prelevaCartItems($utente);
             $elenco = $session->getCarrello()->getDischi();
             $num = count($elenco);
             $Disc=array();
@@ -18,13 +28,17 @@ class CCarrello{
                 array_push($Disc,$disco);
             }
 
-            //$Disc = $pers->prelevaCartDischiItems($utente);
             return $view->cart(true, $elenco,$Disc,$num);
         }else{
             return header ("Location: /lunova/");
         }
     }
 
+    /**
+     * Metodo utilizzato per aggiungere un prodotto al carrello( se gia presente la quantità è aumentata di 1).
+     * @param string $id
+     * @return null
+     */
     public static function Add(string $id){
         $view = new VCarrello();
         $e = new VErrore();
@@ -32,7 +46,6 @@ class CCarrello{
         $session = FSessione::getInstance();
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
-            //$cart = $pers->prelevaCarrelloCorrente($utente);
             $cart = $session->getCarrello();
             $dischi = $cart->getDischi();
             $disco = $pers->load('FDisco',$id);
@@ -52,7 +65,6 @@ class CCarrello{
             $cart->setDischi($dischi);
             $session->setCarrello($cart);
 
-            //$aggiungo = $pers->AddItem($id,$cart->getId(),$utente);
 
             return header ("Location: /lunova/Carrello/mio_carrello");
         }else {
@@ -60,6 +72,11 @@ class CCarrello{
         }
     }
 
+    /**
+     * Metodo utilizzato per eliminare un prodotto al carrello( se gia presente la quantità è diminuita di 1).
+     * @param string $id
+     * @return null
+     */
     public static function Minus(string $id){
         $view = new VCarrello();
         $e = new VErrore();

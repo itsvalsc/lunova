@@ -1,6 +1,10 @@
 <?php
 class CAboutUs{
 
+    /**
+     * Metodo che restituisce la pagina di About Us: pagina descrittiva del sito
+     * @return null
+     */
     public static function us(){
         $view = new VAbout();
         $error = new VErrore();
@@ -13,15 +17,11 @@ class CAboutUs{
         if ($session->isLogged() && $session->isCliente()){
             $utente = $session->getUtente()->getIdClient();
             $cli = true;
-            /* todo:reinserire variabili per carrello
-            $cartid = $session->getCarrello()->getId();
-            $elenco = $pers->prelevaCartItems($cartid);
-            $num = count($elenco);*/
             $elenco = $pers->prelevaCartItems($utente);
             $num = count($elenco);
-            $view->about_us(true, $num,$cli);
+            return $view->about_us(true, $num,$cli);
         }else{
-            $view->about_us($session->isLogged(), $num, $cli);
+            return $view->about_us($session->isLogged(), $num, $cli);
         }
 
 

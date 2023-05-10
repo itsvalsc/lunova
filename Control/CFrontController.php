@@ -5,7 +5,6 @@
  * @package Controller
  */
 
-require_once 'StartSmarty.php';
 
 class CFrontController
 {

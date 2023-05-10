@@ -1,5 +1,18 @@
 <?php
+
+/**
+ * La classe COrdini implementa funzionalità per gli ordini effettuati sulla piattaforma. Ai clienti è consentito:
+ * Visualizzare i propri ordini;
+ * Confermare il checkout nel carrello ed inviare l'ordine, che questo momento apparirà sulla schermata personale
+ * degli ordini.
+ * @package Controller
+ */
 class COrdini{
+
+    /**
+     * Metodo che restituisce la schermata personale dei clienti dove è presente la lista degli ordini effettuati
+     * @return null
+     */
     public static function tutti(){
         $view = new VOrdini();
         $pers = FPersistentManager::getInstance();
@@ -17,7 +30,10 @@ class COrdini{
     }
 
 
-
+    /**
+     * Metodo che permette agli utenti di confermare il checkout nel carrello e inviare l'ordine
+     * @return null
+     */
     public static function AddToOrdini(){
         $view = new VCarrello();
         $e = new VErrore();

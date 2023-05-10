@@ -483,4 +483,44 @@ class FPersistentManager{
     }
 
 
+    public static function star_Rate($media){
+        if ($media <= 0.75){//0.5
+            $starRate = ['fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        } elseif ($media > 0.75 & $media <= 1.25){//1
+            $starRate = ['fa fa-star','fa fa-star-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 1.25 & $media <= 1.75 ) {//1.5
+            $starRate = ['fa fa-star','fa fa-star-half-o','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 1.75 & $media < 2.25){//2
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 2.25 & $media <= 2.75){//2.5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star-half-o','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 2.75 & $media <= 3.25){//3
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star-o','fa fa-star-o'];
+        }elseif ($media > 3.25 & $media <= 3.75){//3.5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star-half-o','fa fa-star-o'];
+        }elseif ($media > 3.75 & $media <= 4.25){//4
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star-o'];
+        }elseif ($media > 4.25 & $media <= 4.75){//4.5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star-half-o'];
+        }elseif ($media > 4.75 ){//5
+            $starRate = ['fa fa-star','fa fa-star','fa fa-star','fa fa-star','fa fa-star'];
+        }
+        return $starRate;
+    }
+
+    public static function media($array){
+        $sum = 0;
+        if (count($array)==0){
+            $result = 0;
+        }
+        else{
+            foreach ($array as $voti){
+                $sum += $voti;
+            }
+            $result = $sum/count($array);
+        }
+
+        return $result;
+    }
+
 }

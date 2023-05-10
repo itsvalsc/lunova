@@ -1,7 +1,6 @@
 <?php
 
-require_once "Utility/autoload.php";
-require_once "Foundation/FSessione.php";
+
 
 /**
  * La classe CErrore è utilizzata per lanciare la schermata di errore a seguito di richieste errate.
@@ -10,22 +9,6 @@ require_once "Foundation/FSessione.php";
 
 class CErrore
 {
-    public static ?CErrore $instance = null;
-
-    /** Costruttore della classe */
-    private function __construct() {}
-
-    /**
-     * Restituisce l'istanza della classe
-     * @return CErrore|null
-     */
-    public static function getInstance(): ?CErrore
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new CErrore();
-        }
-        return self::$instance;
-    }
 
     /**
      * Mostra la pagina di errore
@@ -37,7 +20,10 @@ class CErrore
         $view->error();
     }
 
-
+    /**
+     * Mostra la pagina di errore a seguito di accesso ad una pagina non autorizzata
+     * @return void
+     */
     public static function unathorized(){
         $v = new VErrore();
         $num = null;
@@ -50,9 +36,14 @@ class CErrore
             $num = count($elenco);
             $cli = true;
         }
-        $v->message($logged,"Impossibile accedere in questa sezione",'alla homepage','',$num,$cli);
+        $v->message($logged,"Impossibile completare l'azione o accedere in questa sezione",'alla homepage','',$num,$cli);
     }
 
+
+    /**
+     * Mostra la pagina di errore a seguito di una richiesta errata o di un errore interno all'applicazione
+     * @return void
+     */
     public static function redirect(){
         $v = new VErrore();
         $num = null;
@@ -68,6 +59,10 @@ class CErrore
         $v->message($logged,"Qualcosa è andato storto :(",'alla homepage','',$num,$cli);
     }
 
+    /**
+     * Mostra la pagina di errore a seguito alla composizione di un URL sbagliat o non valida
+     * @return void
+     */
     public static function BadRequest(){
         $v = new VErrore();
         $num = null;

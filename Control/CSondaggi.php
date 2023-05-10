@@ -1,6 +1,18 @@
 <?php
+/**
+ * La classe CSondaggi implementa funzionalità per i sondaggi presenti sulla piattaforma. è possibile:
+ * Visualizzare i sondaggi.
+ * Votare un disco presente nel sondaggio(solo clienti)
+ * Creare un nuovo sondaggio(solo admin).
+ * Richiedere di partecipare ad un sonaggio tramite un disco(solo artista)
+ * @package Controller
+ */
 class CSondaggi{
 
+    /**
+     * Metodo che mostra l'attuale sondaggio in corso, composto da 3 dischi e i voti complessivi che hanno ottenuto
+     * @return null
+     */
     public static function show(){
         $view = new VSondaggi();
         $error = new VErrore();
@@ -28,18 +40,23 @@ class CSondaggi{
             if ($sondaggio==null){
                 return $error->message($session->isLogged(),'Ci dispiace, non è in corso nessun sondaggio','alla homepage','',$num,$cli);
             }else{
-                $view->show($sondaggio,true,$session->isLogged(), $num, $cli );
+                return $view->show($sondaggio,true,$session->isLogged(), $num, $cli );
             }
 
         }
     }
 
+    /**
+     * Metodo che permette all'utente di votare un disco del sondaggio attuale
+     * @param string $id
+     * @return null
+     */
     public static function vota(string $id){
         $view = new VSondaggi();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
-        if ($id==null || !$pers->exist('FDisco',$id)){
+        if ($id==null && !$pers->exist('FDisco',$id)){
             return header("Location: /lunova/Sondaggi/show");
         }
         if ($session->isLogged() && $session->isCliente()){
@@ -53,11 +70,15 @@ class CSondaggi{
 
     }
 
-
+    /**
+     * Metodo che permette all'admin di sostituire il sondaggio in corso con uno nuovo, scegliendo tra 3 dischi
+     * che hanno fatto richiesta di partecipazione
+     * @return null
+     */
     public static function nuovoSondaggio(){
         $v = new VErrore();
         $session = FSessione::getInstance();
-        if ($session->isLogged() || $session->isAdmin()){
+        if ($session->isLogged() && $session->isAdmin()){
             $pers = FPersistentManager::getInstance();
             $dischi=$_POST;
             $a=array();
@@ -83,16 +104,14 @@ class CSondaggi{
         else{
             return header("Location: /lunova");
         }
-
-
-
-
-        //nuova view o modifica in locale dopo aver premuto il pulsante?
     }
 
 
-
-
+    /**
+     * Metodo che permette all'artista di richiedere di partecipare ad uno dei prossimi sondaggi
+     * @param $id
+     * @return null
+     */
     public static function richiestaSondaggio($id) {
         $sessione = FSessione::getInstance();
         $view = new VErrore();

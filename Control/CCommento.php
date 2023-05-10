@@ -1,11 +1,8 @@
 <?php
 
-require_once 'Utility/autoload.php';
-require_once("Foundation/FSessione.php");
-
 /**
  * La classe CCommento viene utilizzata per la scrittura(e cancellazione) di commenti,
- * include la possibilità per l'artista di segnalare commenti (volgari o non consoni) all'admin.
+ * e le interazioni tra gli utenti con altri utenti e/o prodotti (es. votazione dei dischi).
  * @package Controller
  */
 
@@ -17,7 +14,7 @@ class CCommento
      * @throws SmartyException
      */
     public static function scriviCommento()
-    { //todo:la data deve essere cambiata in datetime sul db e togliere la colonna voto nei commenti
+    {
         $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
@@ -51,7 +48,7 @@ class CCommento
      * @throws SmartyException
      */
     static function cancellaCommento($id,$disco)
-    {//todo:caso:commento gia cancellato
+    {
         $err = new VErrore();
         $sessione = FSessione::getInstance();
         $pm = FPersistentManager::getInstance();
@@ -75,7 +72,7 @@ class CCommento
     }
 
     /**
-     * Funzione richiamata dall'artista (autore del disco) per segnalare all'admin un commento
+     * Funzione richiamata dagli utenti per segnalare all'admin un commento
      * (che potrà essere poi eliminato dal sito dall'admin)
      * @param $id string id del commento da segnalare
      */
@@ -114,6 +111,10 @@ class CCommento
         }
     }
 
+    /**
+     * Metodo che permette di effettuare recensire il Disco tramite una votazione numerica ( star rate)
+     * @return null
+     */
     public static function votazioneDisco(){
         $disco = $_POST['disco'];
         $rating = $_POST['rate'];
@@ -136,6 +137,12 @@ class CCommento
         return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
     }
 
+    /**
+     * Metodo che permette ad un cliente di mettere mi piace ad un commento
+     * @param $comm
+     * @param $disco
+     * @return null
+     */
     public static function votazioneCommento($comm,$disco){
         $err = new VErrore();
         $session = FSessione::getInstance();
@@ -156,6 +163,12 @@ class CCommento
         return header('Location: /lunova/Products_list/mostra_prodotto/' .$disco);
     }
 
+    /**
+     * Metodo che permette ad un cliente di eliminare il 'mi piace' ad un commento a cui lo aveva precedentemente messo
+     * @param $comm
+     * @param $disco
+     * @return null
+     */
     public static function eliminaMP($comm,$disco){
         $err = new VErrore();
         $session = FSessione::getInstance();

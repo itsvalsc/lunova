@@ -1,7 +1,6 @@
 <?php
 
-require_once "Utility/autoload.php";
-require_once "Foundation/FSessione.php";
+
 
 /**
  * La classe CAdmin implementa funzionalità per l'admin della piattaforma, al quale è consentito:
@@ -276,6 +275,10 @@ class CAdmin{
         }
     }
 
+    /**
+     * Metodo che ritorna la pagina per aggiungere un nuovo amministratore
+     * @return null
+     */
     public static function aggiungi(){
         $session = FSessione::getInstance();
         $view = new VProfile();
@@ -286,6 +289,12 @@ class CAdmin{
             return header('Location: /lunova');
         }
     }
+
+    /**
+     * Metodo che crea ed aggiunge un nuovo amministratore al sistema, solo un altro amministratore
+     * può effettuare questa azione.
+     * @return null
+     */
     public static function aggiungi_admin(){
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
@@ -309,6 +318,11 @@ class CAdmin{
         }
     }
 
+    /**
+     * Metodo che permette all'admin di visualizzare gli ordini affettuati dai clienti e confermarli.
+     *  Gli ordini che sono stati confermati non verranno più visualizzati in questa pagina
+     * @return null
+     */
     public static function ordini_admin(){
         $session = FSessione::getInstance();
         $pers = FPersistentManager::getInstance();
@@ -321,6 +335,12 @@ class CAdmin{
         }
     }
 
+    /**
+     * Metodo utilizzato per confermare gli ordini effettuati dai clienti.
+     * Con "confermarli" si intende il processamento e spedizione degli ordini.
+     * @param $idOrd
+     * @return null
+     */
     public static function conferma($idOrd){
         $view = new VAdmin();
         $session = FSessione::getInstance();

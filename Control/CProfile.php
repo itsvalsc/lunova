@@ -1,23 +1,20 @@
 <?php
 
-require_once "Utility/autoload.php";
-require_once "Foundation/FSessione.php";
-
+/**
+ * La classe CProfile implementa funzionalità per i profili dei clienti e degli artisti sulla piatatforma. è possibile:
+ * Registrarsi.
+ * Apportare modifiche al proprio profilo
+ * Visualizzare ed utilizzare le impostazioni
+ * Ricercare e Visualizzare il proprio profilo e quello altru
+ * @package Controller
+ */
 class CProfile
 {
 
-
     /**
-     * Funzione che richiama il metodo errore della class VProfile per mostrare l'errore generato dall'utente
-     * @param $tipo string tipo di errore generato
-     * @param $message string messaggio da stampare
-     * @param $user utente collegato
+     * Metodo che permette la registrazione di un utente sul sito
+     * @return void
      */
-    public function erroreModifica($tipo, $message, $user): void {
-        $view = new VProfile();
-        $view->errore($tipo, $message, $user);
-    }
-
     public static function registrati(){
         try {
             $view = new VLogin();
@@ -52,15 +49,11 @@ class CProfile
 
     }
 
-    public static function prelevadati(){
-        $post =$_POST;
-        $r = json_encode($post['type']);
-        $v = new VLogin();
-        $v->message(false,$r,'al preleva dati','Login/Signin');
-    }
 
-
-
+    /**
+     * Metodo che mostra le impostazioni del profilo
+     * @return null
+     */
     public static function Impostazioni(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
@@ -83,6 +76,10 @@ class CProfile
 
     }
 
+    /**
+     * Metodo che ritorna la schermata per l'aggiunta del disco
+     * @return null
+     */
     public static function AddDisco(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
@@ -95,7 +92,10 @@ class CProfile
         }
     }
 
-
+    /**
+     * Metodo che ritorna la scherma per contattare l'assistenza
+     * @return void|null
+     */
     public static function Assistence(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
@@ -115,6 +115,10 @@ class CProfile
         }
     }
 
+    /**
+     * Metodo che ritorna la scherma delle modifiche di alcuni attributi e caratteristiche del profilo personale
+     * @return null
+     */
     public static function ModificheProfile(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
@@ -137,22 +141,36 @@ class CProfile
         }
     }
 
+    /**
+     * Metodo che si occupa di inviare il messaggio per l'assistenza
+     * @return null
+     */
     public static function AssistenceSend(){
         $view = new VProfile();
         $pers = FPersistentManager::getInstance();
-
-
-        $testo = $view->getNotification();
-        $utente = 'C151';
-        $l = true;
+        $session = FSessione::getInstance();
+        if ($session->isLogged() ){
+            $testo = $view->getNotification();
+            if ($session->isCliente()){
+                $utente=$session->getUtente()->getIdClient();
+            }elseif ($session->isArtista()){
+                $utente=$session->getUtente()->getIdArtista();
+            }else{
+                return header('Location: /lunova');
+            }
+        }
         $pers->AssistenzaMex($testo,$utente);
         return header('Location: /lunova/Profile/Impostazioni');
     }
 
-
+    /**
+     * Metodo che si occupa di mostrare le pagine dei profili personali degli artisti o dei clienti,sia proprie che altrui
+     * @param string|null $id
+     * @return void|null
+     */
     public static function users(string $id=null){
         $err= new VErrore();
-        $view = new VUsers(); //todo:controllo per id artista
+        $view = new VUsers();
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $self_page = false;
@@ -248,7 +266,11 @@ class CProfile
         }
     }
 
-
+    /**
+     * Metodo che modifica la pagina personale dell'artista loggato per permettergli di modificare il prezzo dei dischi
+     * @param string $id
+     * @return void|null
+     */
     public static function userset(string $id){
         $view = new VUsers();
         $err = new VErrore();
@@ -285,6 +307,11 @@ class CProfile
         }
     }
 
+    /**
+     * Metodo che modifica la pagina personale dell'artista loggato per permettergli di modificare la quantità dei dischi
+     * @param string $id
+     * @return void|null
+     */
     public static function usersetPrice(string $id){
         $view = new VUsers();
         $err = new VErrore();
@@ -321,6 +348,10 @@ class CProfile
         }
     }
 
+    /**
+     * metodo che permette di eliminare il proprio account
+     * @return null
+     */
     public static function Delete(){
         $err = new VErrore();
         $pers = FPersistentManager::getInstance();
@@ -351,7 +382,12 @@ class CProfile
         }
     }
 
-
+    /**
+     * metodo che permette ad un artista di modificare la quantità di un disco
+     * @param $id_disco
+     * @param $id_artista
+     * @return null
+     */
     public static function SetQta($id_disco, $id_artista){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();
@@ -368,6 +404,10 @@ class CProfile
         }
     }
 
+    /**
+     * Metodo che mostra la lista degli utenti trovati a partire dalla ricerca degli stessi per username
+     * @return void|null
+     */
     public static function ricercaUtente(){
         $view = new VRicerca();
         $v = new VErrore();
@@ -393,7 +433,10 @@ class CProfile
     }
 
 
-
+    /**
+     * Permette la modifica della propria password
+     * @return null
+     */
     public static function NewPassword(){
         $err = new VErrore();
         $pers = FPersistentManager::getInstance();
@@ -431,6 +474,10 @@ class CProfile
         }
     }
 
+    /**
+     * Permette la modifica del proprio username
+     * @return null
+     */
     public static function NewUsername(){
         $err = new VErrore();
         $pers = FPersistentManager::getInstance();
@@ -476,6 +523,10 @@ class CProfile
         }
     }
 
+    /**
+     * Permette la modifica della propria immagine profilo
+     * @return null
+     */
     public static function NewImage(){
         $view = new VHome();
         $err = new VErrore();
@@ -535,7 +586,12 @@ class CProfile
         }
     }
 
-
+    /**
+     * Permette all'artista di modificare il prezzo dei suoi dischi
+     * @param $id_disco
+     * @param $id_artista
+     * @return null
+     */
     public static function SetPrice($id_disco, $id_artista){
         $view = new VUsers();
         $pers = FPersistentManager::getInstance();

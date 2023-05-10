@@ -227,7 +227,7 @@
                                                                 {if $controllo == true}
                                                                 <form action="/lunova/Profile/SetQta/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
                                                                     <div class="input-group mb-3">
-                                                                        <input type="text" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                        <input type="number" min="0" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
                                                                         <button type="submit" class="btn btn-info">Imposta</button>
                                                                     </div>
                                                                 </form>
@@ -235,7 +235,7 @@
                                                                 {if $controllo_pre == true}
                                                                     <form action="/lunova/Profile/SetPrice/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
                                                                         <div class="input-group mb-3">
-                                                                            <input type="text" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ {$product[nr]->getPrezzo()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <input type="number" min="1" step="0.1" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ {$product[nr]->getPrezzo()}" aria-label="quantitaa" aria-describedby="button-addon2">
                                                                             <button type="submit" class="btn btn-info">Imposta</button>
                                                                         </div>
                                                                     </form>
@@ -273,7 +273,7 @@
                                                                 {if $controllo == true}
                                                                     <form action="/lunova/Profile/SetQta/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
                                                                         <div class="input-group mb-3">
-                                                                            <input type="text" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <input type="number" min="0" name="quantitaa" id="quantitaa" class="form-control" placeholder="{$product[nr]->getQta()}" aria-label="quantitaa" aria-describedby="button-addon2">
                                                                             <button type="submit" class="btn btn-info">Imposta</button>
                                                                         </div>
                                                                     </form>
@@ -281,7 +281,7 @@
                                                                 {if $controllo_pre == true}
                                                                     <form action="/lunova/Profile/SetPrice/{$product[nr]->getID()}/{$artista->getIdArtista()}" method="post">
                                                                         <div class="input-group mb-3">
-                                                                            <input type="text" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ {$product[nr]->getPrezzo()}" aria-label="quantitaa" aria-describedby="button-addon2">
+                                                                            <input type="number" min="1" step="0.1" name="prezzoo" id="prezzoo" class="form-control" placeholder="€ {$product[nr]->getPrezzo()}" aria-label="quantitaa" aria-describedby="button-addon2">
                                                                             <button type="submit" class="btn btn-info">Imposta</button>
                                                                         </div>
                                                                     </form>

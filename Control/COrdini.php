@@ -28,6 +28,9 @@ class COrdini{
             $cart = $session->getCarrello();
             $elenco = $cart->getDischi();
             $num = count($elenco);
+            if ($num==0){
+                return $e->message(true,'Si prega di selezionare almeno un prodotto','al carrello','Carrello/mio_carrello',$num,true);
+            }
             $ordine = $pers->AddOrdine($elenco,$utente);
 
             if (!$ordine[0]){

@@ -190,12 +190,19 @@
 
 				</div>
 				-->
+			{if $num !=0}
 			<a href="/lunova/Ordini/AddToOrdini">
 				<div class="row w-10" >
-					<button  class="btn btn-lg btn-secondary" type="button">Checkout</button>
-
+					<button  class="btn btn-lg btn-secondary " type="button" >Checkout</button>
 				</div>
 			</a>
+				{else}
+				<a>
+					<div class="row w-10" >
+						<button  class="btn btn-lg btn-secondary" type="button" disabled>Checkout</button>
+					</div>
+				</a>
+			{/if}
 
 
 

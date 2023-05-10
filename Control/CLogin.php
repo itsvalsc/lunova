@@ -127,6 +127,8 @@ class CLogin{
             } else {
                 return $err->message_admin('password errata','Login','Login/Admin');
             }
+        }else {
+            return $err->message_admin('Utente non trovato','Login','Login/Admin');
         }
     }
 

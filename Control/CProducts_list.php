@@ -41,9 +41,14 @@ class CProducts_list{
         $session = FSessione::getInstance();
         $view = new VNewDisc() ;
         $mess = new VErrore();
+
         if ($session->isLogged() && $session->isArtista()){
             $artista_id = $session->getUtente()->getIdArtista();
             $pers = FPersistentManager::getInstance();
+            $bannato = ($pers->load('FArtista',$session->getUtente()->getEmail()))->getBannato();
+            if ($bannato ==1){
+                return $mess->message(true,'Impossibile creare un nuovo disco, il tuo profilo è stato temporaneamente sospeso','alla home','',null,false);
+            }
             $nome = $view->getNome();
             $descrizione = $view->getDescrizione();
             $genere = $view->getGenere();

@@ -22,7 +22,7 @@ class ECarrello{
             $this->id = "F"  . random_int(0,99999);
             $this->dischi = array();
             $this->totale = 0.0;
-            $this->id_utente=null;
+            $this->id_utente="";
         }
         elseif (5 === func_num_args()){
             $idcar=func_get_arg(0);
@@ -43,7 +43,7 @@ class ECarrello{
     public function getId(): string
     { return $this->id; }
 
-    public function getDischi(): array
+    public function getDischi(): ?array
     { return $this->dischi; }
 
     public function getIdUtente(): string

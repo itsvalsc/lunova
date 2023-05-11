@@ -95,7 +95,7 @@ class CLogin{
         $class = self::$bindClass[$v->IsArtista()];
         if ($pm->exist($class, $email)) {
             $utente = $pm->load($class, $email);
-            if ( hash('sha256',$password) == $utente->getPassword() ) { //todo:ho cambiato la funzione per criptare le password, verificare che su db le password abbiano almeno una lunghezza di 64, io avevo messo a 100
+            if ( hash('sha256',$password) == $utente->getPassword() ) {
                 $session->setUtente($utente);
                 $session->setCarrello(new ECarrello());
                 return header('Location: /lunova');

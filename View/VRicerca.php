@@ -102,9 +102,6 @@ class VRicerca
         return $value;
     }
 
-    //TODO: tipoRicerca ???
-
-    //TODO: fare una ricerca anche per artisti e/o sondaggi??
     /**
      * Mostra i risultati del filtraggio della ricerca.
      * @param $result contiene i risultati ottenuti dal database

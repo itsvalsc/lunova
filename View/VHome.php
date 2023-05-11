@@ -29,6 +29,6 @@ class VHome{
         $this->setData('idUtente',$ut);
         $this->setData('isCliente',$cli);
 
-        $this->setTemplate('homepage.tpl');  //TODO: controllare
+        $this->setTemplate('homepage.tpl');
     }
 }

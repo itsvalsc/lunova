@@ -100,7 +100,7 @@
             <div class="form-group"style="width: 50rem;">
                 <fieldset>
                     <label class="form-label mt-4" >Cognome</label>
-                    <input class="form-control" id="cutente" name='cognome' type="text" placeholder="Nome" required>
+                    <input class="form-control" id="cutente" name='cognome' type="text" placeholder="Cognome" required>
                 </fieldset>
             </div>
 

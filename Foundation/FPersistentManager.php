@@ -383,10 +383,14 @@ class FPersistentManager{
         try {
             $sondaggio = FSondaggio::load_incorso();
             $id = $sondaggio->getId();
-            $sondaggio->aggiungi_voto($disco);
-            FSondaggio::update($sondaggio);
-            FSondaggio::store_votazione($utente,$id,$disco);
-            return true;
+            $bool = $sondaggio->aggiungi_voto($disco);
+            if ($bool){
+                FSondaggio::update($sondaggio);
+                FSondaggio::store_votazione($utente,$id,$disco);
+                return true;
+            }else{
+                return false;
+            }
         } catch (Exception $ex){
             return false;
         }

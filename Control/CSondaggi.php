@@ -56,13 +56,15 @@ class CSondaggi{
         $pers = FPersistentManager::getInstance();
         $session = FSessione::getInstance();
         $sondaggio = $pers->prelevaSondaggioInCorso();
+        $id_dischi=[$sondaggio->getDisco1()->getID(),$sondaggio->getDisco2()->getID(),$sondaggio->getDisco3()->getID()];
+
         if ($id==null && !$pers->exist('FDisco',$id)){
             return header("Location: /lunova/Sondaggi/show");
         }
         if ($session->isLogged() && $session->isCliente()){
             $ut = $session->getUtente();
             $votazione= $pers->exist('FVotazione',$ut->getIdClient(),$sondaggio->getId());
-            if (!$votazione){
+            if (!$votazione && in_array($id,$id_dischi)){
                 $votazione = $pers->vota($id,$ut->getIdClient());
             }
         }

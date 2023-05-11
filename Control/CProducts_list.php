@@ -123,7 +123,7 @@ class CProducts_list{
             $commenti = $pers->loadCommenti($id);
             $art = $pers->FindArtistName($prodotto->getAutore());
             $nmp = $pers->loadNumeroMP($id);
-            $mediaVoti = round($pers->media($pers->load('FVotazioneDisco',$id)),2);
+            $mediaVoti = round($pers->media($pers->load('FVotazioneDisco',$id)),1);
             $starRate= $pers->star_Rate($mediaVoti);
             $starRating = [$starRate,$mediaVoti,$votazione];
             return $view->prodotto_singolo($prodotto,$session->isLogged(), $num,$art,$commenti,$utente??null,$starRating,$mpComm,$nmp,$cli);

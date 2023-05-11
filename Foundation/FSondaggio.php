@@ -74,15 +74,23 @@ class FSondaggio{
      * metodo che permette l'aggiornamento di ESondaggio nel db
      * @package Foundation
      */
-    public static function update (ESondaggio $sondaggio): void {
+    public static function update (ESondaggio $sondaggio){
         $pdo = FConnectionDB::connect();
-        $stmt = $pdo->prepare("UPDATE sondaggi SET voti_disco1= :votidisco1, voti_disco2= :votidisco2,voti_disco3 = :votidisco3 , in_corso = :incorso WHERE id = :id");
-        $ris = $stmt->execute(array(
-            ':votidisco1' => $sondaggio->getVotiDisco1(),
-            ':votidisco2' =>$sondaggio->getVotiDisco2(),
-            ':votidisco3' =>$sondaggio->getVotiDisco3(),
-            ':incorso' =>$sondaggio->getInCorso(),
-            ':id'=>$sondaggio->getId()));
+        $pdo->beginTransaction();
+        try {
+            $stmt = $pdo->prepare("UPDATE sondaggi SET voti_disco1= :votidisco1, voti_disco2= :votidisco2,voti_disco3 = :votidisco3 , in_corso = :incorso WHERE id = :id");
+            $ris = $stmt->execute(array(
+                ':votidisco1' => $sondaggio->getVotiDisco1(),
+                ':votidisco2' =>$sondaggio->getVotiDisco2(),
+                ':votidisco3' =>$sondaggio->getVotiDisco3(),
+                ':incorso' =>$sondaggio->getInCorso(),
+                ':id'=>$sondaggio->getId()));
+            $pdo->commit();
+            return true;
+        }catch (PDOException $e){
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     /**

@@ -129,27 +129,18 @@
                 <button class="btn btn-primary btn-sm btn-block rounded-0" type="submit" disabled>Aggiungi al carrello</button>
             {/if}
 
+            {if $product->getQta() > 10}
+                <h5 class="text-secondary" style="margin-top: 20px">disponibile</h5>
 
-            <h5 class="text-secondary" style="margin-top: 20px">
-                <script>
-                    var x ;
-                    var y;
-                    var result;
 
-                    x = {$product->getQta()};
-                    if (x > 10) {
-                        result = 'disponibile';
-                    }
-                    else if (( x != 0 ) && ( x <10 )) {
-                        result = 'pochi pezzi';
-                    }
-                    else {
-                        result = 'non disponibile';
-                    }
-                    document.write(result);
+            {elseif $product->getQta()!=0 && $product->getQta() < 10}
+                <h5 class="text-secondary" style="margin-top: 20px">pochi pezzi</h5>
 
-                </script>
-            </h5>
+
+            {else}
+                <h5 class="text-secondary" style="margin-top: 20px">non disponibile</h5>
+            {/if}
+
             <hr>
             <h3>€ {$product->getPrezzo()} </h3>
 

@@ -28,7 +28,9 @@ class CCarrello{
                 array_push($Disc,$disco);
             }
 
-            return $view->cart(true, $elenco,$Disc,$num);
+            $prices = $pers->rescue_prices($elenco);
+
+            return $view->cart(true, $elenco,$Disc,$num,$prices);
         }else{
             return header ("Location: /lunova/");
         }

@@ -527,4 +527,13 @@ class FPersistentManager{
         return $result;
     }
 
+    public function rescue_prices($array_cart_items){
+        return FCartItem::Rescue_totale($array_cart_items);
+    }
+
+
+    public function getQta(){
+        return FCartItem::GETQta();
+    }
+
 }

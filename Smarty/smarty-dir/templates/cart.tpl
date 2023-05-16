@@ -134,22 +134,8 @@
 								</div>
 
 								<div class="col-lg-2 col-6">
-									<strong class ="text-primary">€
-										<script>
-											var x;
-											var y;
-											var somma;
-											var provaa;
-
-											x = {$product[nr]->getQuantity()};
-											y ={$disc[nr]->getPrezzo()};
-											somma= x*y;
-											document.write(somma.toFixed(2));
-											prova = prova + somma;
-											provaa = prova.toFixed(2);
-
-
-										</script></strong>
+									<strong class ="text-primary">€{$prices[0][nr]}
+									</strong>
 								</div>
 
 
@@ -176,7 +162,7 @@
 						</div>
 						<div class="col-lg-6 lg-screen"></div>
 						<div class="col-lg-2 col-6">
-							<strong>€ <script>document.write(provaa);</script></strong>
+							<strong>€ {$prices[1]}</strong>
 						</div>
 					</div>
 				  </li>

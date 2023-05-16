@@ -333,5 +333,20 @@ class FCartItem{
         return $quantity;
     }
 
+    public static function Rescue_totale($array_cart_item){
+        $subtotal= [];
+        foreach ($array_cart_item as $dc){
+            $id = $dc->getIdItem();
+            $disco = FDisco::load($id);
+            $price = $disco->getPrezzo();
+            $qta = $dc->getQuantity();
+            $totale_parziale = $price * $qta;
+            array_push($subtotal, $totale_parziale);
+        }
+        $totale = array_sum($subtotal);
+        return [$subtotal,$totale];
+
+    }
+
 
 }

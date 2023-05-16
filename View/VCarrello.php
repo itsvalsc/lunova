@@ -26,12 +26,13 @@ class VCarrello
         $this->smarty->display($template);
     }
 
-    public function cart($l,$product,$disc, $num)
+    public function cart($l,$product,$disc, $num, $prices)
     {
         $this->setData("logged", $l);
         $this->setData('product', $product);
         $this->setData('disc', $disc);
         $this->setData('num', $num);
+        $this->setData('prices', $prices);
         $this->setTemplate('cart.tpl');
     }
 

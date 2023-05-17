@@ -71,7 +71,7 @@
                 </li>
                 <li class="nav-item" >
                     <input type="text" id="id" style="margin-top: 7px"/>
-                    <a class="nav-link" style="float:right" href="" onclick="this.href='#'+document.getElementById('id').value.toUpperCase()">Trova utente tramite ID</a>
+                    <a class="nav-link" style="float:right" href="" onclick="this.href = ricerca()">Trova utente tramite ID</a>
                 </li>
             </ul>
         </nav>
@@ -148,6 +148,7 @@
             </table>
         </div>
     </div>
+<script src="/lunova/inc/js/ricerca.js"></script>
 
 
 

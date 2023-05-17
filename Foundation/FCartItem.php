@@ -341,9 +341,11 @@ class FCartItem{
             $price = $disco->getPrezzo();
             $qta = $dc->getQuantity();
             $totale_parziale = $price * $qta;
+            $totale_parziale = round($totale_parziale, 2);
             array_push($subtotal, $totale_parziale);
         }
         $totale = array_sum($subtotal);
+        $totale = round($totale, 2);
         return [$subtotal,$totale];
 
     }
